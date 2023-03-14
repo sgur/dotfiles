@@ -1,0 +1,10 @@
+README.md
+{{ if eq .chezmoi.os "windows" }}
+{{ else }}
+{{   if eq .chezmoi.os "darwin" }}
+{{   else if eq .chezmoi.os "linux" }}
+{{     if (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+# WSL-specific code
+{{     end }}
+{{   end }}
+{{ end }}
