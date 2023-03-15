@@ -1,0 +1,1 @@
+{{_expr_:printf(&commentstring =~# '%s' ? &commentstring : "%s", printf("vim:set filetype=%s:", &filetype))}}

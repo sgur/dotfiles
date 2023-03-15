@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<configuration>
+	<system.net>
+		<defaultProxy useDefaultCredentials="true">
+			<proxy autoDetect="true" />
+		</defaultProxy>
+	</system.net>
+</configuration>

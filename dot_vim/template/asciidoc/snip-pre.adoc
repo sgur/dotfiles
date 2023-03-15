@@ -1,0 +1,3 @@
+[source, {{_expr_:input('filetype?: ', '', 'filetype')}}]
+----
+----

@@ -1,0 +1,63 @@
+\([[:keyword:]()]\+\)\.keys$
+	keys({{$1}}) {{_cursor_}}
+
+\%([bglstw]:\)\?\(\i\+\)\.\([bglstw]\)$
+	{{$2}}:{{$1}} {{_cursor_}}
+
+\(\S\+\)\.arg$
+	{{_cursor_}} ({{$1}})
+
+\(\S\+\)\.augroup$
+	augroup {{$1}}
+		autocmd!
+		{{_cursor_}}
+	augroup END
+
+^\s*\zs\(\S.*\)\.else$
+	if !{{$1}}
+		{{_cursor_}}
+	endif
+
+\(\S\+\)\.empty$
+	empty({{$1}}) {{_cursor_}}
+
+\(\S\+\)\.for$
+	for {{_cursor_}} in {{$1}}
+	endfor
+
+^\s*\zs\(\S.*\)\.if$
+	if {{$1}}
+		{{_cursor_}}
+	endif
+
+\(\S\+\)\.lock$
+	lockvar {{$1}} {{_cursor_}}
+
+\(\S\+\)\.not$
+	!{{$1}} {{_cursor_}}
+
+\(\S\+\)\.par$
+	({{$1}}) {{_cursor_}}
+
+\(\S\+\)\.parse$
+	str2nr({{$1}}) {{_cursor_}}
+
+\(\S\+\)\.return$
+	return {{$1}} {{_cursor_}}
+
+\(\S\+\)\.throw$
+	throw {{$1}} {{_cursor_}}
+
+\(\S\+\)\.to$
+	let {{_cursor_}} = {{$1}}
+
+\(\S\+\)\.unlock$
+	unlockvar {{$1}} {{_cursor_}}
+
+\(\S\+\)\.var$
+	let {{$1}} = {{_cursor_}}
+
+\(\S\+\)\.while$
+	while {{$1}}
+		{{_cursor_}}
+	endwhile

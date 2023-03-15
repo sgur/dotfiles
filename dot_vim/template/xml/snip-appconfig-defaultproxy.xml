@@ -1,0 +1,5 @@
+    <system.net>
+        <defaultProxy useDefaultCredentials="true">
+            <proxy autoDetect="true" />
+        </defaultProxy>
+    </system.net>

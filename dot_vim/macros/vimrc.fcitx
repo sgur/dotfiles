@@ -1,0 +1,12 @@
+" fcitx 利用時に IME 切り替えを連動する
+scriptencoding utf-8
+
+setglobal iminsert=2
+set imactivatefunc=<SID>fcitx_activate imstatusfunc=<SID>fcitx_status
+function! s:fcitx_activate(active)
+  " call system(printf('fcitx-remote %s', a:active ? '-o' : '-c'))
+  silent execute printf('!fcitx-remote %s &', a:active ? '-o' : '-c')
+endfunction
+function! s:fcitx_status()
+  return system('fcitx-remote')[0] is# '2'
+endfunction

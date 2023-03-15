@@ -1,0 +1,78 @@
+if !has('vim9script')
+  source <sfile>/gvimrc.legacy
+  finish
+endif
+vim9script
+
+#      ___                              ___         ___         ___
+#     /  /\        ___      ___        /__/\       /  /\       /  /\
+#    /  /:/_      /__/\    /  /\      |  |::\     /  /::\     /  /:/
+#   /  /:/ /\     \  \:\  /  /:/      |  |:|:\   /  /:/\:\   /  /:/
+#  /  /:/_/::\     \  \:\/__/::\    __|__|:|\:\ /  /:/~/:/  /  /:/  ___
+# /__/:/__\/\:\___  \__\:\__\/\:\__/__/::::| \:/__/:/ /:/__/__/:/  /  /\
+# \  \:\ /~~/:/__/\ |  |:|  \  \:\/\  \:\~~\__\\  \:\/:::::\  \:\ /  /:/
+#  \  \:\  /:/\  \:\|  |:|   \__\::/\  \:\      \  \::/~~~~ \  \:\  /:/
+#   \  \:\/:/  \  \:\__|:|   /__/:/  \  \:\      \  \:\      \  \:\/:/
+#    \  \::/    \__\::::/    \__\/    \  \:\      \  \:\      \  \::/
+#     \__\/         ~~~~               \__\/       \__\/       \__\/
+#
+# http://patorjk.com/software/taag/ - Isometric 3 Smush (U)
+#
+
+# Change startup directory {{{1
+if has('vim_starting') && has('win32') && getcwd()->tolower() == expand('$VIMRUNTIME')->tolower()
+  augroup gvimrc_startup
+    autocmd!
+    autocmd VimEnter *  cd ~
+  augroup END
+endif
+
+# using the mouse {{{1
+set mousehide
+
+# メニュー {{{1
+augroup gvimrc_menu
+  autocmd!
+augroup END
+
+def OnSetting(value: string, option_old: string, option_new: string): bool  # {{{
+  return option_old !=# value && option_new =~# value
+enddef # }}}
+
+def LoadMenu() # {{{
+  source $VIMRUNTIME/menu.vim
+  set guioptions-=M
+enddef # }}}
+
+# ツールバーまたはメニューの読み込み # {{{2
+autocmd gvimrc_menu OptionSet guioptions
+      \ if OnSetting('T', v:option_old, v:option_new) || OnSetting('m', v:option_old, v:option_new)
+      |   LoadMenu()
+      | endif
+
+# ポップアップメニュー {{{2
+autocmd gvimrc_menu MenuPopup *  LoadMenu()
+
+# 透明化 {{{1
+command! TransparencyEnable  transparency#set_state(1)
+command! TransparencyDisable  transparency#set_state(0)
+
+# DirectDraw {{{1
+if has('directx') && empty(&renderoptions)
+  augroup gvimrc_renderoptions
+    autocmd!
+    autocmd GUIEnter,ColorScheme *
+          \ &renderoptions = printf('type:directx,gamma:%1.1f,contrast:3,level:0.8,geom:1,renmode:4,taamode:2', &background is 'light' ? 1.6 : 1.9)
+  augroup END
+endif
+
+# GUI Options {{{1
+set guioptions-=a guioptions+=A guioptions+=c guioptions-=m
+set guioptions-=t guioptions-=T guioptions-=r guioptions-=L
+set guioptions-=e
+if has('patch-8.0.1609')
+  set guioptions+=!
+endif
+
+
+# vim:set filetype=vim:

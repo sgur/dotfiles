@@ -1,0 +1,29 @@
+= README
+
+== Add sonictemplate-templates as `template_origin`
+
+[source, sh]
+----
+git remote add -f template_origin https://gitlab.com/sgur/sonictemplate-templates.git
+----
+
+== Invoke `subtree add`
+
+[source, sh]
+----
+git subtree add --prefix=template/ --squash template_origin master
+----
+
+== Invoke `subtree push`
+
+[source, sh]
+----
+git subtree push --prefix=template/ --squash template_origin master
+----
+
+== Invoke `subtree pull`
+
+[source, sh]
+----
+git subtree pull  --prefix=template/ --squash template_origin master
+----

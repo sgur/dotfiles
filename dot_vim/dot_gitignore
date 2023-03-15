@@ -1,0 +1,9 @@
+/pack/**
+/doc
+tags
+*.so
+*.dll
+*.dylib
+*.pyd
+.netrw*
+.DS_Store

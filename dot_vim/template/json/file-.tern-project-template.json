@@ -1,0 +1,29 @@
+// **DELETE THIS**  http://ternjs.net/doc/manual.html#configuration
+{
+    "ecmaVersion": 5,
+    "libs": [
+        "browser",
+        "jquery"
+    ],
+    "loadEagerly": [
+    ],
+    "plugins": {
+        "commonjs": {},
+        "es_modules": {},
+
+        "node_resolve": {},
+        "node": {},
+
+        "browserify": {},
+        "webpack": {
+            "configPath": "./webpack.config.js",
+            "paths": {}
+        },
+        "requirejs": {
+            "baseURL": "./",
+            "paths": {},
+            "override": {}
+        },
+        "angular": {}
+    }
+}

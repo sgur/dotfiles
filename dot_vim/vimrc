@@ -1,0 +1,993 @@
+vim9script
+#                           ___         ___         ___
+#      ___      ___        /__/\       /  /\       /  /\
+#     /__/\    /  /\      |  |::\     /  /::\     /  /:/
+#     \  \:\  /  /:/      |  |:|:\   /  /:/\:\   /  /:/
+#      \  \:\/__/::\    __|__|:|\:\ /  /:/~/:/  /  /:/  ___
+#  ___  \__\:\__\/\:\__/__/::::| \:/__/:/ /:/__/__/:/  /  /\
+# /__/\ |  |:|  \  \:\/\  \:\~~\__\\  \:\/:::::\  \:\ /  /:/
+# \  \:\|  |:|   \__\::/\  \:\      \  \::/~~~~ \  \:\  /:/
+#  \  \:\__|:|   /__/:/  \  \:\      \  \:\      \  \:\/:/
+#   \__\::::/    \__\/    \  \:\      \  \:\      \  \::/
+#       ~~~~               \__\/       \__\/       \__\/
+#
+# http://patorjk.com/software/taag/ - Isometric 3 Smush (U)
+#
+
+import autoload 'pack.vim'
+import autoload 'vimrc/util.vim'
+
+g:skip_defaults_vim = 1
+
+if has('gui_macvim')
+  # Disable MacVim specific options
+  g:macvim_skip_colorscheme = 1
+  g:macvim_skip_cmd_opt_movement = 1
+endif
+
+const rc_dir = expand('<sfile>:p:h:gs?\?/?')
+
+# UTF-8 記号が使えるか
+g:has_utf8_symbol = get(g:, 'has_utf8_symbol', &encoding == 'utf-8' && (has('gui_running') || has('unix')))
+
+&termencoding = &encoding
+set encoding=utf-8
+try
+  language ja_JP
+catch /^Vim\%((\a\+)\)\=:E197:/
+  language C
+endtry
+scriptencoding utf-8
+
+# options {{{1
+
+set ambiwidth=single
+set backspace=indent,eol,start
+set backupdir^=$HOME/.cache/vim/backup
+set breakindent breakindentopt=min:20,shift:4,sbr
+# if has('patch-9.0.0114')
+#   set cmdheight=0
+# endif
+&dictionary = expand(rc_dir .. '/etc/look/words')
+# diffopt で internal をサポート
+set diffopt& diffopt+=indent-heuristic diffopt+=algorithm:histogram
+if has('win32')
+  set completeslash=slash
+endif
+set directory^=$HOME/.cache/vim/swap//
+set display=truncate
+set noequalalways
+set fileformats=unix,dos
+set foldcolumn=2
+set foldlevelstart=2
+set formatoptions& formatoptions+=B formatoptions+=m formatoptions+=j
+if &encoding is 'utf-8'
+  set formatoptions+=]
+endif
+&grepprg = util.Executable('rg') ? 'rg --color never --vimgrep'
+      \ : util.Executable('grep') ? 'grep -InH' : 'internal'
+set guioptions+=M
+set history=200
+set hlsearch
+set ignorecase infercase smartcase
+set iminsert=2 imsearch=0
+set incsearch
+# Windowsだとなぜか &isk の値が異なる
+if has('win32')
+  set iskeyword=@,48-57,_,192-255
+endif
+set nolangremap
+set laststatus=2
+if has('iconv')
+  &makeencoding = (has('win32') && &encoding is 'utf-8') ? &encoding : 'char'
+endif
+set matchpairs+=（:）,｛:｝,「:」,［:］,『:』,【:】
+set nrformats-=octal
+&shelltemp = !(has('win32') || has('win64')) || !has('filterpipe')
+set shiftwidth=0 shiftround softtabstop=-1
+&showbreak = g:has_utf8_symbol ? '￫ ' : '> '
+set noshowmode
+set signcolumn=yes
+set nrformats& nrformats+=unsigned
+set smartindent autoindent
+set smarttab
+set spelllang& spelllang+=cjk # Prevent duplication
+&spellfile = expand(rc_dir .. '/spell/' .. &encoding .. '.add')
+set spelloptions& spelloptions+=camel
+set tags+=tags;,.git/tags
+set ttimeout ttimeoutlen=100
+set undodir^=$HOME/.cache/vim/undo undofile
+set visualbell
+set virtualedit+=block
+set viewdir=$HOME/.cache/vim/view
+set viminfo& viminfo+=!
+if has('win32')
+  set viminfo+=r\\\\ viminfo+=rJ: viminfo+=rK:
+endif
+# wildignore には中間生成物だけ書いておくのが混乱が少ない
+set wildignore+=*.o,*.obj,*.so,*.out,*.jar,*.war,*.ser,*.py?,*.luac,*.sw?,*.tmp,*.db,cscope*.out,*.pak
+if has('win32') || has('win64')
+  set wildignore+=desktop.ini,NTUSER*,ntuser*,*.sys,*.pdb,*.pch,*.dcu
+elseif has('mac') || has('osx')
+  set wildignore+=.DS_Store
+endif
+set wildignorecase
+set wildmenu wildmode=longest:full,full
+set wildoptions&
+# set wildoptions+=pum
+set wildoptions+=fuzzy
+
+
+# system specific {{{1
+
+if !has('win32') && !has('win64')
+  if !has('gui_running') && has('vertsplit') && $TERM != 'vt100'
+    source <sfile>:h/macros/vimrc.vertsplit
+  endif
+  source <sfile>:h/macros/vimrc.bracket_paste
+  # fish shell 利用時も Vim では (ba)sh を利用 {{{
+  if $SHELL =~ '\<fish\>'
+    if has('osx')
+      $SHELL = exepath('zsh')
+    else
+      $SHELL = exepath('bash')
+    endif
+    &shell = $SHELL
+  endif #}}}
+  # fcitx の設定 {{{
+  if $XMODIFIERS is '@im=fcitx'
+    source <sfile>:h/macros/vimrc.fcitx
+  endif #}}}
+endif
+
+
+# terminal {{{1
+
+if has('vim_starting') && !has('gui_running')
+  try
+    set termguicolors
+  catch /^Vim\%((\a\+)\)\=:E954/
+    echomsg v:exception
+  endtry
+  # set cursor shapes
+  set t_ti+=[1\ q
+  set t_SI+=[5\ q
+  set t_EI+=[1\ q
+  set t_te+=[0\ q
+  if exists('$SSH_CONNECTION') # {{{
+    # 挿入モードを出る時にIMEをオフ
+    # https://qiita.com/U25CE/items/0b40662a22162907efae
+    # 挿入モードに入る時、前回の挿入モードにおける IME の状態を復元する
+    set t_SI+=[<r
+    # 挿入モードを出る時、現在の IME の状態を保存し，IME をオフにする
+    set t_EI+=[<s[<0t
+    # Vim 終了時、IME を無効にし、無効にした状態を保存する
+    set t_te+=[<0t[<s
+  endif #}}}
+  if exists('$TMUX') && $TERM == 'screen-256color' && has('termguicolors') # {{{
+    # vim on tmux を true color で利用する
+    # https://qiita.com/yami_beta/items/ef535d3458addd2e8fbb
+    set t_8f=[38;2;%lu;%lu;%lum
+    set t_8b=[48;2;%lu;%lu;%lum
+  endif #}}}
+endif
+
+
+# key-mappings {{{1
+
+# From defualt.vim {{{2
+
+# Don't use Q for Ex mode, use it for formatting.  Except for Select mode.
+# Revert with ":unmap Q".
+map Q gq
+sunmap Q
+
+# CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+# so that you can undo CTRL-U after inserting a line break.
+# Revert with ":iunmap <C-U>".
+inoremap <C-U> <C-G>u<C-U>
+
+# Leader/LocalLeader の設定 {{{2
+
+# <Leader> を <Space> に割当て
+g:mapleader = "\<Space>"
+noremap <Leader>  <Nop>
+
+# <LocalLeader> を <C-l> に割当て
+g:maplocalleader = "\<C-l>"
+noremap <LocalLeader>  <Nop>
+nnoremap <C-l><C-l>  <C-l>
+
+# screen / tmux {{{2
+nnoremap <C-z>  <Nop>
+nnoremap <C-z><C-z>  <C-z>
+
+# - でディレクトリを表示 {{{2
+nnoremap -  <Cmd>edit %:p:h<CR>
+
+# w!! で readonly なファイルを保存する
+# https://stackoverflow.com/a/7078429
+if executable('tee')
+  cnoremap w!!  w !sudo tee > /dev/null %
+endif
+
+# c_CTRL-o で現在の画面を示すパターンを埋め込む {{{2
+def SearchNarrowToWindow(): string
+  if getcmdtype() !~ '[/?]'
+    return "\<CR>"
+  endif
+  return "\<C-b>" .. printf('\%%>%dl\%%<%dl', line('w0'), line('w$')) .. "\<CR>"
+enddef
+cnoremap <expr> <C-o>  SearchNarrowToWindow()
+
+# count 分だけディレクトリを上に辿ってlcdする {{{2
+nnoremap <silent> <C-h>
+      \ <Cmd>execute "lcd" fnameescape(expand('%:p' .. repeat(':h', v:count + 1)))<CR>
+
+# * -> i_CTRL-R_/ 時に、\V,\<,\> を除去 {{{2
+noremap! <expr> <C-r>/
+      \ getcmdtype() =~ '[/?]' ? getreg('/') : substitute(getreg('/'), '\\[V<>]', '', 'g')
+
+# c_CTRL-R<Space> 時に、カーソル下の単語を挿入 {{{2
+cnoremap <expr> <C-r><Space>  expand('<cword>')
+
+# コマンドラインの履歴から入力にマッチしたものを呼び出す {{{2
+def CmdIsGroup(): bool
+  return stridx(getcmdline()[ : getcmdpos() - 1], ' ') > -1
+enddef
+cnoremap <expr> <C-p> CmdIsGroup() ? "<Up>" : "<C-p>"
+cnoremap <expr> <C-n> CmdIsGroup() ? "<Down>" : "<C-n>"
+
+# Square bracket mapping {{{2
+nnoremap ]q  <Cmd>cnext<CR>
+nnoremap ]Q  <Cmd>clast<CR>
+nnoremap [q  <Cmd>cprevious<CR>
+nnoremap [Q  <Cmd>crewind<CR>
+nnoremap ]f  <Cmd>cnfile<CR>
+nnoremap [f  <Cmd>cpfile<CR>
+nnoremap ]n  <Cmd>next<CR>
+nnoremap ]N  <Cmd>last<CR>
+nnoremap [n  <Cmd>previous<CR>
+nnoremap [N  <Cmd>rewind<CR>
+
+nnoremap ]l  <Cmd>lnext<CR>
+nnoremap ]L  <Cmd>llast<CR>
+nnoremap [l  <Cmd>lprevious<CR>
+nnoremap [L  <Cmd>lrewind<CR>
+nnoremap ]F  <Cmd>lnfile<CR>
+nnoremap [F  <Cmd>lpfile<CR>
+
+
+# user-commands {{{1
+
+# doc/tags の更新 {{{2
+def HelpTags(...dirs: list<string>)
+  packloadall
+  echo "processing..."
+  final doc_dirs = len(dirs) > 0 ? dirs : globpath(&runtimepath, 'doc', 1, 1)
+  final vimruntime = expand(resolve($VIMRUNTIME) .. '/doc')
+  for dir in doc_dirs
+    if dir == vimruntime
+      continue
+    endif
+    if dir =~ 'vimdoc'
+      continue
+    endif
+    if isdirectory(dir)
+      echon ' ' .. substitute(dir, '[\/]doc$', '', '')->substitute('^.\+[\/]', '', '')
+      execute 'helptags' dir
+    endif
+  endfor
+  echo "Done"
+enddef
+command! -nargs=? -complete=dir HelpTags  HelpTags(<f-args>)
+
+# append current line to buffer {{{2
+
+# https://twitter.com/gorilla0513/status/1504306926154567683
+# Usage:
+# :global/{pattern}/AppendBufLine {buffer}
+command! -nargs=1 -complete=buffer AppendBufLine  appendbufline(<f-args>, "$", trim(getline(".")))
+
+# tig {{{2
+command! -nargs=* Tig  term_start(['tig', <f-args>], {
+      \   cwd: expand('%:p:h'),
+      \   term_name: printf('tig: %s', expand('%:p:h')),
+      \   norestore: v:true,
+      \   term_finish: 'close'
+      \ })
+command! TigBlame  execute printf('terminal ++close tig blame +%d %s', line('.'), expand('%'))
+
+# Launch process {{{2
+command! -nargs=+ -count=8 -complete=shellcmd TermLaunch
+      \ execute 'topleft terminal ++close ++rows=<count>'
+      \   (has('patch-8.1.2251') ? '++shell' : join([&shell, &shellcmdflag]))
+      \   '<q-args>'
+command! -nargs=+ -complete=shellcmd TermLaunchPopup
+      \ popup_dialog(
+      \   term_start([&shell, &shellcmdflag] + [<f-args>], {hidden: 1, term_finish: 'close'}),
+      \   {minwidth: winwidth(0) / 2, minheight: &lines / 2, borderhighlight: ['NonText'], padding: [0, 0, 0, 0]})
+
+# scratch-like command {{{2
+command! -nargs=? -complete=filetype Scratch
+      \ silent execute <q-mods> 'new +set\ buftype=nowrite\ filetype=<args>| file scratch@' .. strftime('%T')
+
+# synstack {{{2
+command! -nargs=0 SynNameStack
+      \ echo '<' .. matchstr(getline('.'), '.', col('.') - 1) .. '>'
+      \ '[' .. join(map(synstack(line('.'), col('.')), (key, val) => synIDattr(val, 'name')), ' > ') .. ']'
+      \ '[' .. join(map(synstack(line('.'), col('.')), (key, val) => synIDattr(synIDtrans(val), 'name')), ' > ') .. ']'
+nnoremap gS  <Cmd>SynNameStack<CR>
+
+# ファイル削除 {{{2
+command! -nargs=* -complete=file Delete
+      \ map(empty(<q-args>) ? [expand('%')] : [<f-args>],
+      \   (k, v) => confirm('Delete "' .. v .. '"?', "&Yes\n&No", 2) == 1
+      \   && !delete(fnamemodify(v, ':p'))
+      \   && execute('bwipeout ' .. bufnr(v), 'silent!') == ""
+      \ )
+
+# ディレクトリ作成 {{{2
+command! -nargs=1 -complete=dir Mkdir  mkdir(<q-args>, <bang>0 ? 'p' : '')
+
+# Unicode エスケープされた文字列をデコードして表示
+command! -nargs=0 -range Utf8DecodeEscapedStr
+      \ echo getline(<line1>, <line2>)
+      \   ->map((_, v) => substitute(v, '\\u\(\x\x\x\x\)', (m) => nr2char(str2nr("0x" .. m[1]), 1), 'g'))
+      \   ->join("\n")
+
+# Unicode の間接参照をデコードする {{{2
+command! -nargs=0 -range Utf8DecodeNumericalRef
+      \ echo getline(<line1>, <line2>)
+      \   ->map((_, v) => substitute(v, '&#\%(\(\d\{4}\)\|x\(\x\{4}\)\);', (m) -> nr2char(str2nr(!empty(m[1]) ? m[1] : '0x' .. m[2]), 1), 'g'))
+      \   ->join("\n")
+
+# & や $ 変数をダンプ {{{2
+command! -complete=customlist,dump#complete -nargs=+ Dump  dump#var(<f-args>)
+
+
+# autocmds {{{1
+
+import autoload 'vimrc/autocmds.vim'
+import autoload 'mimic.vim'
+import autoload 'http.vim'
+augroup vimrc_autocmds
+  autocmd!
+  autocmd BufReadPost *  autocmds.OnBufReadPostJumpLastpos()
+  autocmd BufNewFile,BufReadPost *  autocmds.OnBufreadLcdRepoDir(expand('%:p:h'))
+  autocmd BufWriteCmd *[,*]  autocmds.OnBufWriteCmdAvoidEnterAccident(expand('<afile>'))
+  autocmd BufWritePost * ++nested  autocmds.OnBufWritePostDeleteEmpty(expand('<afile>'))
+  autocmd BufWritePre *  autocmds.OnBufWriteMkdirAsNecessary(expand('<afile>:p:h'), v:cmdbang)
+  autocmd BufReadCmd http://*,file://*,https://*  http.OnBufReadCmd(expand('<amatch>'))
+  autocmd FileReadCmd   http://*,file://*,https://*  http.OnFileReadCmd(expand('<amatch>'))
+  # 紛らわしい文字をハイライト
+  if exists('##OptionSet')
+    autocmd OptionSet diff  autocmds.OnOptionSetDiffUpdate()
+    autocmd OptionSet buftype,diff,filetype,modifiable,previewwindow,readonly
+          \ if !has('vim_starting') | mimic.Highlight() | endif
+  endif
+  autocmd BufEnter,WinEnter *
+        \ if line('$') > 1 || len(getline(1)) > 0
+        |   mimic.Highlight()
+        | endif
+  # foldexpr
+  autocmd InsertEnter *
+        \ if &l:foldmethod is 'expr'
+        |   b:fold_info = [&l:foldmethod, &l:foldexpr]
+        |   setlocal foldmethod=manual foldexpr&
+        | endif
+  autocmd InsertLeave *
+        \ if exists('b:fold_info')
+        |   [&l:foldmethod, &l:foldexpr] = b:fold_info
+        | endif
+augroup END
+
+
+# builtin scripts {{{1
+
+# Disable defaults
+if !has('gui_running')
+  g:did_install_default_menus = 1
+endif
+g:did_install_syntax_menu = 1
+g:loaded_2html_plugin = 1
+g:loaded_getscript = 1
+g:loaded_getscriptPlugin = 1
+g:loaded_gzip = 1
+g:loaded_logiPat = 1
+g:loaded_matchparen = 1
+g:loaded_netrw = 1
+g:loaded_netrwFileHandlers = 1
+g:loaded_netrwPlugin = 1
+g:loaded_netrwSettings = 1
+g:loaded_tar = 1
+g:loaded_tarPlugin = 1
+g:loaded_vimball = 1
+g:loaded_vimballPlugin = 1
+g:loaded_zip = 1
+g:loaded_zipPlugin = 1
+g:skip_loading_mswin = 1
+
+# ft-syntax-omni {{{2
+g:omni_syntax_group_include_dockerfile = 'dockerfileKeyword'
+
+# ft-vim-syntax {{{2
+g:vimsyn_embed = 'lP' # l: Lua, P: Python
+
+
+# local plugins {{{1
+
+# Handover {{{2
+
+if argc() > 0 && handover#detect(expand('%:p')) is 'q'
+  quit
+endif
+
+augroup vimrc_plugin_handover
+  autocmd!
+  autocmd SwapExists *  v:swapchoice = handover#detect(expand('%:p'))
+augroup END
+
+# Openable {{{2
+command! -complete=file -nargs=1 Open  openable#start(<q-args>)
+nnoremap <silent> gx  <Cmd>call openable#parse('n')<CR>
+vnoremap <silent> gx  <Cmd>call openable#parse('v')<CR>
+
+# FoldMiss (http://vim.wikia.com/wiki/Folding_for_Quickfix) {{{2
+import autoload 'foldmiss.vim'
+nnoremap <silent> z/  <ScriptCmd>foldmiss.Filter(v:count, foldmiss.Hlsearch())<CR>
+nnoremap <silent> zq  <ScriptCmd>foldmiss.Filter(v:count, foldmiss.Quickfix())<CR>
+
+# mimic {{{2
+g:mimic_filetype_blacklists = ['text']
+
+
+# bundled plugins {{{1
+
+try
+  packadd minpac
+  if !exists('g:loaded_minpac')
+    throw 'Minpac: Plugin not loaded'
+  endif
+catch /\%(^Vim\%((\a\+)\)\=:E919\|^Minpac:\)/
+  filetype plugin indent on
+  syntax enable
+  finish
+endtry
+
+
+# plugin config {{{1
+
+# altr (opt) {{{2
+def AltrInit()
+  nnoremap ]a  <Cmd>call altr#forward()<CR>
+  nnoremap [a  <Cmd>call altr#back()<CR>
+  map([
+        \ ['%', '%.rej', '%.orig'],
+        \ ['%.py', '%_test.py'],
+        \ ['%.xaml', '%.xaml.cs'],
+        \ ['.aws/config', '.aws/credentials'],
+        \ ['.ssh/id_%', '.ssh/id_%.pub'],
+        \ ['vimrc', 'gvimrc'],
+        \], 'altr#define(v:val)')
+enddef
+pack.Add('vim-altr', AltrInit)
+
+
+# asterisk (opt) {{{2
+def AsteriskInit()
+  noremap *   <Plug>(asterisk-*)
+  noremap #   <Plug>(asterisk-#)
+  noremap g*  <Plug>(asterisk-g*)
+  noremap g#  <Plug>(asterisk-g#)
+  noremap z*  <Plug>(asterisk-z*)
+  noremap gz* <Plug>(asterisk-gz*)
+  noremap z#  <Plug>(asterisk-z#)
+  noremap gz# <Plug>(asterisk-gz#)
+enddef
+pack.Add('vim-asterisk', AsteriskInit)
+
+# asyncomplete (opt) {{{2
+def OnBufwinenterAsyncomplete()
+  b:asyncomplete_enable = !&readonly
+enddef
+def AsyncompleteInit()
+  packadd! asyncomplete-buffer.vim
+  packadd! asyncomplete-file.vim
+  inoremap <C-Space> <Plug>(asyncomplete_force_refresh)
+  augroup vimrc_plugin_asyncomplete
+    autocmd!
+    autocmd BufWinEnter *  OnBufwinenterAsyncomplete()
+    autocmd OptionSet readonly  OnBufwinenterAsyncomplete()
+  augroup END
+  OnBufwinenterAsyncomplete()
+  # buffer source
+  autocmd vimrc_plugin_asyncomplete User asyncomplete_setup # {{{
+        \ asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+        \   name: 'buffer',
+        \   allowlist: ['*'],
+        \   priority: 10,
+        \   completor: asyncomplete#sources#buffer#completor
+        \})) # }}}
+  # file source
+  autocmd vimrc_plugin_asyncomplete User asyncomplete_setup # {{{
+        \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+        \   name: 'file',
+        \   allowlist: ['vim', 'javascript', 'css'],
+        \   priority: 10,
+        \   completor: asyncomplete#sources#file#completor
+        \})) # }}}
+enddef
+call pack.Add('asyncomplete.vim', AsyncompleteInit)
+
+# autofmt (opt) {{{2
+augroup vimrc_plugin_autofmt
+  autocmd!
+  autocmd FuncUndefined autofmt#*  packadd autofmt
+  autocmd FileType txt,help,markdown,rst  setlocal formatexpr=autofmt#japanese#formatexpr()
+augroup END
+g:autofmt_allow_over_tw = 1 # 全角文字ぶら下がりで1カラムはみ出すのを許可
+
+# caw (opt) {{{2
+g:caw_operator_keymappings = 1
+pack.Add('caw.vim')
+
+# ctrlp.vim (opt) {{{2
+g:ctrlp_root_markers = ['.git']
+g:ctrlp_use_caching = 1
+g:ctrlp_working_path_mode = 'w'
+def InitCtrlp() # {{{
+  nmap <silent> <C-n>  <C-u>:CtrlPMRUFiles <C-r>=getcwd()<CR><CR>
+
+  packadd ctrlp-ghq
+  g:ctrlp_ghq_cache_enabled = 1
+  packadd ctrlp-sonictemplate
+  g:ctrlp_extensions = ['sonictemplate', 'ghq']
+
+  g:ctrlp_user_command = ['.git', 'git ls-files --cached --exclude-standard']
+  if util.Executable('fd')
+    g:ctrlp_user_command += [
+          \ 'fd --no-ignore-vcs --hidden --follow --type file --color never --max-results 30000'
+          \ ]
+  elseif util.Executable('rg')
+    g:ctrlp_user_command += [
+          \ 'rg --files --no-ignore --no-messages --hidden --follow'
+          \ .. ' --glob="!{.git,.hg,node_modules,.mypy_cache,.pytest_cache,.settings}/"'
+          \ .. ' --glob="!{*.exe,*.dll,*.bmp,*.gif,*.png,*.jpg,*.jpeg,*.tif,*.ico,*.woff,*.ttf,*.pdf,package-lock.json,yarn.lock}"'
+          \ .. ' --glob="!{' .. escape(&wildignore, '''"') .. '}"']
+  endif
+  if !has('patch-8.2.1665')
+    return
+  endif
+  packadd! ctrlp-matchfuzzy
+  g:ctrlp_match_func = {match: 'ctrlp_matchfuzzy#matcher'}
+enddef # }}}
+pack.Add('ctrlp.vim', InitCtrlp)
+
+# doge (opt) {{{2
+# Parsers: bash, java, php, ruby are removed
+g:doge_parsers = ['c', 'cpp', 'lua', 'python', 'typescript']
+pack.Add('vim-doge')
+g:doge_doc_standard_python = 'google'
+
+# editorconfig (opt) {{{2
+pack.Add('vim-editorconfig')
+g:editorconfig_root_chdir = 1
+
+# emmet (opt) {{{2
+augroup vimrc_plugin_emmet
+  autocmd!
+  autocmd FileType css,haml,html,less,sass,scss,slim  packadd emmet-vim | EmmetInstall
+augroup END
+g:user_emmet_leader_key = '<C-b>'
+g:user_emmet_install_global = 0
+
+# empty-prompt (opt) {{{2
+def EmptyPromptMappings()
+  # : で Cmdline mode
+  call empty_prompt#map({'lhs': ':', 'rhs': '<C-w>:'})
+  # <Esc> で Normal mode へ
+  call empty_prompt#map({'lhs': '<Esc>', 'rhs': '<C-w>N'})
+  # ZZ で終了
+  call empty_prompt#map({'lhs': 'ZZ', 'rhs': '<C-w><C-c>'})
+enddef
+pack.Add('empty-prompt.vim', EmptyPromptMappings)
+
+# everforest (opt) {{{2
+augroup vimrc_plugin_everforest
+  autocmd!
+  autocmd FuncUndefined everforest#*  packadd! everforest
+augroup END
+
+# fakeclip (opt) {{{2
+if !has('clipboard')
+  if system('cat /proc/sys/kernel/osrelease') =~ 'Microsoft'
+    for bin in ['clip.exe', 'powershell.exe']
+      if !util.Executable(bin)
+        echohl WarningMsg | echo bin "is not in $PATH" | echohl
+      endif
+    endfor
+  endif
+  call pack.Add('vim-fakeclip')
+endif
+
+# fern (opt) {{{2
+def InitFern() # {{{
+  packadd! fern-git-status.vim
+  g:fern_git_status_disable_startup = 1
+  fern_git_status#init()
+  nnoremap <F9>  <Cmd>Fern . -drawer -toggle<CR>
+enddef # }}}
+pack.Add('fern.vim', InitFern)
+
+# ft-asciidoc {{{2
+g:asciidoc_use_defaults = [
+  'folding',
+  'editing',
+  'navigating',
+  'compiling'
+  ]
+
+# gfm-syntax {{{2
+if has('win32') || has('mac') # 8.0.1343 : Windows でカラー絵文字をサポート
+  g:gfm_syntax_emoji_conceal = 1
+endif
+
+# healthcheck {{{2
+pack.Add('vim-healthcheck')
+
+# helpful (opt) {{{2
+augroup vimrc_plugin_helpful
+  autocmd!
+  autocmd FuncUndefined helpful#*  packadd! helpful.vim
+augroup END
+command! -nargs=+ -complete=help HelpfulVersion  helpful#lookup('<args>')
+
+# inkstained (opt) {{{2
+augroup vimrc_plugin_inkstained
+  autocmd!
+  autocmd ColorScheme inkstained  packadd! inkstained-vim
+augroup END
+
+# lightline {{{2
+pack.Add('lightline.vim')
+g:lightline = extend({
+  active:  {
+    left: [
+      ['mode', 'paste'], ['vcs_branch', 'vcs_stat', 'readonly', 'modified'], ['filename', 'cwd']
+      ],
+    right: [
+      ['percent', 'lineinfo', 'vim_lsp'], ['fileencoding', 'fileformat'], ['filetype']
+      ]
+    },
+  component_function: {
+    filename: 'vimrc#lightline#filename',
+    modified: 'vimrc#lightline#modified',
+    readonly: 'vimrc#lightline#readonly',
+    cwd: 'vimrc#lightline#getcwd',
+    vim_lsp: 'vimrc#lightline#lsp',
+    vcs_stat: 'vimrc#lightline#vcs_stat',
+    vcs_branch: 'vimrc#lightline#branchname',
+    },
+  tab: {
+    active: ['title'],
+    inactive: ['title']
+    },
+  tab_component_function: {
+    title: 'vimrc#lightline#tab_title',
+    }
+  }, get(g:, 'lightline', {}), 'keep')
+if get(g:lightline, 'powerline', v:true)
+  final using_wt = !has('gui_running') && exists('$WT_SESSION') && has('win32')
+  final using_ssh = !has('gui_running') && exists('$SSH_CONNECTION')
+  final lightline_separator_powerline = {
+    separator: {
+      left: "\ue0b0", # 
+      right: "\ue0b2" # 
+    },
+    subseparator: {
+      left: "\ue0b1", # 
+      right: "\ue0b3" # 
+    }
+  }
+  if has('gui_running')
+    def InitLightlineSeparatorInGui()
+      final using_non_nerdfont = &guifont =~ '^Sarasa_Term_J'
+      extend(g:lightline, lightline_separator_powerline, 'force')
+    enddef
+    augroup vimrc_plugin_lightline_separator
+      autocmd!
+      autocmd GUIEnter *  InitLightlineSeparatorInGui()
+    augroup END
+  elseif using_wt || using_ssh
+    extend(g:lightline, lightline_separator_powerline, 'force')
+  else
+    if has('win32') && !&shellslash
+      extend(g:lightline, {
+        separator: {
+          left: "\ue0bc", # 
+          right: "\ue0ba" # 
+          },
+        subseparator: {
+          left: "\ue0bb", # 
+          right: "\ue0bd" # 
+          }
+        }, 'force')
+    else
+      extend(g:lightline, {
+        separator: {
+          left: "\ue0b8", # 
+          right: "\ue0be" # 
+          },
+        subseparator: {
+          left: "\ue0b9", # 
+          right: "\ue0bf" # 
+          }
+        }, 'force')
+    endif
+    if exists('$WT_SESSION')
+      g:lightline.separator.left ..= " "
+      g:lightline.separator.right ..= " "
+      g:lightline.subseparator.left ..= " "
+      g:lightline.subseparator.right ..= " "
+    endif
+  endif
+endif
+
+command! -nargs=? -complete=custom,lightline_colorscheme#complete LightlineColorscheme
+      \ if <q-args> is ''
+      |   echo get(g:lightline, 'colorscheme', 'default')
+      | else
+      |   call lightline_colorscheme#select(<q-args>)
+      | endif
+
+# linediff (opt) {{{2
+pack.Add('linediff.vim')
+
+# matchup (opt) {{{2
+pack.Add('vim-matchup')
+g:matchup_matchparen_offscreen = {'method': 'popup'}
+if has('vim_starting')
+  hi MatchParen cterm=reverse gui=underline,bold
+endif
+augroup vimrc_plugin_matchup
+  autocmd!
+  autocmd ColorScheme *  hi MatchParen cterm=reverse gui=underline,bold
+augroup END
+
+# molder (opt) {{{2
+def InitMolder() # {{{
+  augroup vimrc_plugin_molder
+    autocmd!
+    autocmd FileType molder
+          \ nnoremap <silent><buffer> s
+          \   :<C-u>rightbelow<Space>split<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
+    autocmd FileType molder
+          \ nnoremap <silent><buffer> v
+          \   :<C-u>rightbelow<Space>vsplit<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
+    autocmd FileType molder
+          \ nnoremap <silent><buffer> l
+          \   :<C-u>rightbelow<Space>vsplit<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
+  augroup END
+enddef # }}}
+pack.Add('vim-molder', InitMolder)
+
+# operator-user {{{2
+
+# operator-replace {{{3
+def OperatorReplaceInit() # {{{
+  nnoremap gr  <Plug>(operator-replace)
+  xnoremap gr  <Plug>(operator-replace)
+enddef # }}}
+pack.Add('vim-operator-replace', OperatorReplaceInit)
+
+# operator-siege (opt) {{{3
+def InitOperatorSiege() # {{{
+  noremap s  <Plug>(operator-siege-add)
+  vnoremap S  <Plug>(operator-siege-add-with-indent)
+  nnoremap cs  <Plug>(operator-siege-change)
+  nnoremap ds  <Plug>(operator-siege-delete)
+enddef # }}}
+pack.Add('vim-operator-siege', InitOperatorSiege)
+
+# {{{3 misc
+# put markers with one whitespace prefix
+nmap <expr> zf  vimrc#operator#define('n', 'better-zf', 'vimrc#operator#zf')
+xmap <expr> zf  vimrc#operator#define('x', 'better-zf', 'vimrc#operator#zf')
+
+# eval vim variables
+nmap <expr> gy  vimrc#operator#define('n', 'eval', 'vimrc#operator#eval')
+xmap <expr> gy  vimrc#operator#define('x', 'eval', 'vimrc#operator#eval')
+
+nmap <expr> g:  vimrc#operator#define('n', 'excmd', 'vimrc#operator#excmd')
+xmap <expr> g:  vimrc#operator#define('x', 'excmd', 'vimrc#operator#exmcd')
+
+nmap <expr> g<Space>  vimrc#operator#define_excmd('n', 'trailing-space', 'substitute/\s\+$//ge')
+xmap <expr> g<Space>  vimrc#operator#define_excmd('x', 'trailing-space', 'substitute/\s\+$//ge')
+
+# pack {{{2
+command! -nargs=0 PackUpdate  packages#update()
+command! -nargs=0 PackClean  packages#clean()
+command! -nargs=0 PackInstall  packages#install()
+
+# pear-tree (opt) {{{2
+# <BS> にしか機能がマップされないので <C-h> でも有効になるようにマップする
+def InitPearTree() # {{{
+  imap <C-h> <BS>
+  augroup vimrc_plugin_pear-tree
+    autocmd!
+    autocmd FileType vim
+          \ b:pear_tree_pairs = extend({'{': {closer: '}', not_in: ['Comment', 'String']}}, g:pear_tree_pairs, 'keep')
+    autocmd FileType html,flow,javascrectreact
+          \ b:pear_tree_pairs = extend({'<*>': {'closer': '</*>'}}, g:pear_tree_pairs)
+  augroup END
+enddef # }}}
+pack.Add('pear-tree', InitPearTree)
+g:pear_tree_smart_openers = 1
+g:pear_tree_smart_closers = 1
+g:pear_tree_smart_backspace = 1
+
+# polyglot {{{2
+g:polyglot_disabled = ['sensible', 'svelte', 'vue']
+g:loaded_sensible = 1
+
+# markdown {{{3
+g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'csharp=cs', 'sh', 'python', 'javascript', 'xml']
+if has('win32')
+  g:vim_markdown_fenced_languages += ['dosbatch', 'ini=dosini']
+endif
+
+# python-syntax {{{3
+g:python_highlight_all = 1
+g:python_slow_sync = 0
+
+# prettyprint (opt) {{{2
+augroup vimrc_plugin_prettyprint
+  autocmd!
+  autocmd FuncUndefined prettyprint#*  packadd vim-prettyprint
+augroup END
+command! -nargs=+ -bang -complete=expression PrettyPrint
+      \ prettyprint#echo(prettyprint#prettyprint(<args>), <bang>0, <q-args>)
+command! -nargs=+ -bang -complete=expression PP
+      \ prettyprint#echo(prettyprint#prettyprint(<args>), <bang>0, <q-args>)
+
+# quickrun (opt) {{{2
+def InitQuickrun() # {{{
+  g:quickrun_config = get(g:, 'quickrun_config', {})
+  g:quickrun_config._ = {
+        \ 'outputter/buffer/close_on_empty': 1,
+        \ 'hook/repeat_last/enable': 1
+        \}
+  if &shelltemp && has('win32')
+    g:quickrun_config._['hook/output_encode/encoding'] = &termencoding .. ':' .. &encoding
+  endif
+  if has('terminal')
+    g:quickrun_config._.runner = 'terminal'
+  endif
+  g:quickrun_config['typescript'] = {
+        \ 'cmdopt': printf('--compiler-options "%s"', escape('{"target": "es2015"}', '"')),
+        \ 'command': 'ts-node',
+        \ 'exec': '%c %o %s'
+        \}
+
+  command! -nargs=+ -complete=command Capture
+        \ QuickRun -outputter buffer -type vim -src <q-args>
+  nnoremap <Leader>r  <Plug>(quickrun)
+  vnoremap <Leader>r  <Plug>(quickrun)
+enddef # }}}
+pack.Add('vim-quickrun', InitQuickrun)
+
+# signify (opt) {{{2
+def InitSignify() # {{{
+  omap ih <plug>(signify-motion-inner-pending)
+  xmap ih <plug>(signify-motion-inner-visual)
+  omap ah <plug>(signify-motion-outer-pending)
+  xmap ah <plug>(signify-motion-outer-visual)
+enddef # }}}
+pack.Add('vim-signify', InitSignify)
+g:signify_priority = 9
+g:signify_skip = {'vcs': {'allow': ['git']}}
+g:signify_skip_filename_pattern = ['package-lock.json', 'yarn.lock']
+
+# sonictemplate (opt) {{{2
+pack.Add('vim-sonictemplate')
+g:sonictemplate_vim_template_dir = expand(rc_dir .. '/template')
+g:sonictemplate_key = '<LocalLeader>t'
+g:sonictemplate_intelligent_key = '<LocalLeader>T'
+g:sonictemplate_postfix_key = '<LocalLeader>]'
+
+# SimpylFold (opt) {{{2
+pack.Add('simpylfold')
+
+# tagalong (opt) {{{2
+pack.Add('tagalong.vim')
+
+# textobj-user (opt) {{{2
+pack.Add('vim-textobj-parameter')
+pack.Add('vim-textobj-url')
+
+# tokyonight (opt) {{{2
+if exists('$TMUX') && !has('gui_running')
+  set t_ZH=
+  g:tokyonight_enable_italic = 0
+  g:tokyonight_disable_italic_comment = 1
+endif
+
+# undotree (opt) {{{2
+augroup vimrc_plugin_undotree
+  autocmd!
+  autocmd FuncUndefined undotree#* packadd undotree
+augroup END
+command! -n=0 -bar UndotreeToggle  undotree#UndotreeToggle()
+
+# vsnip (opt) {{{2
+def InitVsnip() # {{{
+  g:vsnip_snippet_dir = expand(fnamemodify(rc_dir, ':h') .. '/vsnip')
+  g:vsnip_snippet_dirs = [has('win32')
+        \   ? expand('$AppData/Code/User/snippets')
+        \   : has('osx')
+        \     ? expand('~/Library/Application Support/Code/User')
+        \     : expand('~/.config/Code/User')
+        \ ]
+        \ + globpath(expand('~/.vscode/extensions'), '*/snippets', 1, 1)
+
+  # Expand
+  inoremap <expr> <C-]>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-]>'
+  snoremap <expr> <C-]>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-]>'
+
+  # Expand or jump
+  inoremap <expr> <C-b>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-b>'
+  snoremap <expr> <C-b>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-b>'
+
+  # Jump forward or backward
+  inoremap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+  snoremap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
+  inoremap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+  snoremap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+
+  # If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
+  g:vsnip_filetypes = {}
+  g:vsnip_filetypes.javascriptreact = ['javascript']
+  g:vsnip_filetypes.typescriptreact = ['typescript']
+  g:vsnip_filetypes.jsonc = ['json']
+enddef # }}}
+pack.Add('vim-vsnip', InitVsnip)
+
+# vue {{{2
+g:vim_vue_plugin_use_typescript = 1
+g:vim_vue_plugin_use_sass = 1
+g:vim_vue_plugin_use_scss = 1
+
+# webapi {{{2
+g:webapi#system_function = 'using_job#system'
+
+# {{{1 colorscheme
+def SetupEverforest()
+  if exists('g:colors_name')
+    return
+  endif
+  packadd! lightline.vim
+  packadd! everforest
+  g:lightline = get(g:, 'lightline', {})
+  g:lightline.colorscheme = 'everforest'
+  if has('gui_running')
+    noautocmd set background=light
+  else
+    noautocmd set background=dark
+    g:everforest_background = 'hard'
+  endif
+  colorscheme everforest
+  lightline#enable()
+enddef
+
+augroup vimrc_colorscheme
+  autocmd!
+  autocmd VimEnter *  SetupEverforest()
+augroup END
+
+# {{{1
+
+filetype plugin indent on
+syntax enable
+
+# 1}}}

@@ -1,0 +1,14 @@
+* text=auto
+.git* text eol=lf
+
+*.vim text eol=lf
+*vimrc text eol=lf
+*.toml text eol=lf
+*.txt text
+*.jax text
+
+*.dll binary
+*.so binary
+*.dylib binary
+*.pyd binary
+*.ico binary

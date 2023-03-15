@@ -1,0 +1,353 @@
+"                           ___         ___         ___
+"      ___      ___        /__/\       /  /\       /  /\
+"     /__/\    /  /\      |  |::\     /  /::\     /  /:/
+"     \  \:\  /  /:/      |  |:|:\   /  /:/\:\   /  /:/
+"      \  \:\/__/::\    __|__|:|\:\ /  /:/~/:/  /  /:/  ___
+"  ___  \__\:\__\/\:\__/__/::::| \:/__/:/ /:/__/__/:/  /  /\
+" /__/\ |  |:|  \  \:\/\  \:\~~\__\\  \:\/:::::\  \:\ /  /:/
+" \  \:\|  |:|   \__\::/\  \:\      \  \::/~~~~ \  \:\  /:/
+"  \  \:\__|:|   /__/:/  \  \:\      \  \:\      \  \:\/:/
+"   \__\::::/    \__\/    \  \:\      \  \:\      \  \::/
+"       ~~~~               \__\/       \__\/       \__\/
+"
+" http://patorjk.com/software/taag/ - Isometric 3 Smush (U)
+"
+
+" common {{{1
+
+let g:skip_defaults_vim = 1
+
+let s:rc_dir = expand('<sfile>:p:h:gs?\?/?')
+
+let &termencoding=&encoding
+set encoding=utf-8
+try
+  language ja_JP
+catch /^Vim\%((\a\+)\)\=:E197:/
+  language C
+endtry
+scriptencoding utf-8
+
+" options {{{1
+set ambiwidth=single
+set backspace=indent,eol,start
+set backupdir^=$HOME/.cache/vim/backup
+set breakindent breakindentopt=min:20,shift:4,sbr
+let &dictionary=expand(s:rc_dir . '/etc/look/words')
+if has('patch-8.1.0360') " diffopt で internal をサポート
+  set diffopt& diffopt+=indent-heuristic diffopt+=algorithm:histogram
+endif
+if has('win32') && has('patch-8.1.1769')
+  set completeslash=slash
+endif
+set directory^=$HOME/.cache/vim/swap//
+set display=truncate
+set noequalalways
+set fileformats=unix,dos
+set foldcolumn=2
+set foldlevelstart=2
+set formatoptions& formatoptions+=B formatoptions+=m formatoptions+=j
+if has('patch-8.2.0901') && &encoding is# 'utf-8'
+  set formatoptions+=]
+endif
+if executable('rg')
+  set grepprg=rg\ --color\ never\ --vimgrep
+endif
+set guioptions+=M
+set history=200
+set hlsearch
+set ignorecase infercase smartcase
+set iminsert=2 imsearch=0
+set incsearch
+if filereadable('/etc/debian_version')
+  set modeline&
+endif
+set nolangremap
+set laststatus=2
+if exists('&makeencoding') && has('iconv') " 8.0.0420
+  let &makeencoding = (has('win32') && &encoding is# 'utf-8') ? &encoding : 'char'
+endif
+set matchpairs+=（:）,｛:｝,「:」,［:］,『:』,【:】
+set nrformats-=octal
+let &shelltemp = !(has('win32') || has('win64')) || !has('filterpipe')
+set shiftwidth=0 shiftround softtabstop=-1
+let &showbreak = '> '
+set noshowmode
+set signcolumn=yes
+if has('patch-8.2.0860')
+  set nrformats& nrformats+=unsigned
+endif
+set smartindent autoindent
+set smarttab
+set spelllang& spelllang+=cjk " Prevent duplication
+let &spellfile=expand(s:rc_dir . '/spell/' . &encoding . '.add')
+if exists('+spelloptions')
+  set spelloptions& spelloptions+=camel
+endif
+set tags+=tags;,.git/tags
+set ttimeout ttimeoutlen=100
+set undodir^=$HOME/.cache/vim/undo undofile
+set visualbell
+set virtualedit+=block
+set viewdir=$HOME/.cache/vim/view
+set viminfo& viminfo+=!
+if has('win32')
+  set viminfo+=r\\\\ viminfo+=rJ: viminfo+=rK:
+endif
+" wildignore には中間生成物だけ書いておくのが混乱が少ない
+set wildignore+=*.o,*.obj,*.so,*.out,*.jar,*.war,*.ser,*.py?,*.luac,*.sw?,*.tmp,*.db,cscope*.out,*.pak
+if has('win32') || has('win64')
+  set wildignore+=desktop.ini,NTUSER*,ntuser*,*.sys,*.pdb,*.pch,*.dcu
+elseif has('mac') || has('osx')
+  set wildignore+=.DS_Store
+endif
+set wildignorecase
+set wildmenu wildmode=longest:full,full
+set wildoptions&
+" if has('patch-8.2.4325')
+"   set wildoptions+=pum
+" endif
+if has('patch-8.2.4463')
+  set wildoptions+=fuzzy
+endif
+
+" system specific {{{1
+
+if !has('win32')
+  if has('vertsplit') && $TERM !=# 'vt100' " {{{@ vertsplit
+    " old vim does not ignore CPR
+    map <special> <Esc>[3;9R <Nop>
+    " new vim can't handle CPR with direct mapping
+    set t_F9=[3;3R
+    map <expr> <t_F9> <SID>enable_vsplit()
+    let &t_RV .= "\e[?6;69h\e[1;3s\e[3;9H\e[6n\e[0;0s\e[?6;69l"
+    function! s:enable_vsplit()
+      " enable origin mode and left/right margins
+      let &t_CS = "y"
+      let &t_ti = &t_ti . "\e[?6;69h"
+      let &t_te = "\e[?6;69l\e[999H" . &t_te
+      let &t_CV = "\e[%i%p1%d;%p2%ds"
+      call writefile([ "\e[?6;69h" ], "/dev/tty", "a")
+    endfunction
+  endif " 2}}}
+  if has("patch-8.0.0238") " {{{2 Bracketed Paste Mode
+    " Bracketed Paste Mode対応バージョン(8.0.0238以降)では、特に設定しない場合
+    " はTERMがxtermの時のみBracketed Paste Modeが使われる。
+    " tmux利用時はTERMがscreenなので、Bracketed Paste Modeを利用するには以下
+    " の設定が必要となる。
+    if &term =~# "screen"
+      let &t_BE = "\e[?2004h"
+      let &t_BD = "\e[?2004l"
+      exec "set t_PS=\e[200~"
+      exec "set t_PE=\e[201~"
+    endif
+  else
+    " 8.0.0210 ～ 8.0.0237 ではVim本体でのBracketed Paste Mode対応の挙動が望ま
+    " しくない(自動インデントが無効にならない)ので、Vim本体側での対応を無効に
+    " する。
+    if has("patch-8.0.0210")
+      set t_BE=
+    endif
+
+    " Vim本体がBracketed Paste Modeに対応していない時の為の設定。
+    if &term =~ "xterm" || &term =~ "screen"
+      let &t_ti .= "\e[?2004h"
+      let &t_te .= "\e[?2004l"
+
+      function XTermPasteBegin(ret)
+        set pastetoggle=<Esc>[201~
+        set paste
+        return a:ret
+      endfunction
+
+      noremap <special> <expr> <Esc>[200~ XTermPasteBegin("0i")
+      inoremap <special> <expr> <Esc>[200~ XTermPasteBegin("")
+      vnoremap <special> <expr> <Esc>[200~ XTermPasteBegin("c")
+      cnoremap <special> <Esc>[200~ <nop>
+      cnoremap <special> <Esc>[201~ <nop>
+    endif
+  endif " 2}}}
+  if $SHELL =~# '\<fish\>' " {{{2 fish shell 利用時も Vim では (ba)sh を利用
+    if has('osx')
+      let $SHELL = exepath('zsh')
+    else
+      let $SHELL = exepath('bash')
+    endif
+    let &shell = $SHELL
+  endif " 2}}}
+  if $XMODIFIERS is# '@im=fcitx' " {{{2 fcitx 利用時に ime 切り替えを連動する
+    setglobal iminsert=2
+    set imactivatefunc=<sid>fcitx_activate imstatusfunc=<sid>fcitx_status
+    function! s:fcitx_activate(active)
+      " call system(printf('fcitx-remote %s', a:active ? '-o' : '-c'))
+      silent execute printf('!fcitx-remote %s &', a:active ? '-o' : '-c')
+    endfunction
+    function! s:fcitx_status()
+      return system('fcitx-remote')[0] is# '2'
+    endfunction
+  endif " 2}}}
+endif
+
+" Disable MacVim specific options
+if has('gui_macvim')
+  let g:macvim_skip_colorscheme = 1
+  let g:macvim_skip_cmd_opt_movement = 1
+endif
+
+" terminal {{{1
+
+if has('vim_starting') && !has('gui_running')
+  try
+    set termguicolors
+  catch /^Vim\%((\a\+)\)\=:E954/
+    echomsg v:exception
+  endtry
+  " set cursor shapes
+  let &t_ti .= "\e[1 q"
+  let &t_SI .= "\e[5 q"
+  let &t_EI .= "\e[1 q"
+  let &t_te .= "\e[0 q"
+  if exists('$SSH_CONNECTION')
+    let &t_SI .= "\e[<r"  " 挿入モードに入る時、前回の挿入モードにおけるIME の状態を復元
+    let &t_EI .= "\e[<s\e[<0t"  " 挿入モードを出る時、現在の IME の状態を保存し、IME をオフ
+    let &t_te .= "\e[<0t\e[<s"  " Vim 終了時、IME を無効にし、無効にした状態を保存
+    set ttimeoutlen=100  " ESC キーを押してから挿入モードを出るまでの時間を短縮
+    if exists('$TMUX')
+      if &term =~# 'tmux'
+        let &t_EI .= "\ePtmux;\e\e[<0t\e\\"
+      elseif &term =~# 'xterm'
+        let &t_EI .= "\e[<0t"
+      endif
+    endif
+  endif
+  if exists('$TMUX') && $TERM is# 'screen-256color' && has('termguicolors')
+    let &t_8f = "\<Esc>[38;2;%lu;%lu;%lum"
+    let &t_8b = "\<Esc>[48;2;%lu;%lu;%lum"
+  endif
+endif
+
+" key-mappings {{{1
+
+" From defualt.vim {{{2
+
+# Don't use Q for Ex mode, use it for formatting.  Except for Select mode.
+# Revert with ":unmap Q".
+map Q gq
+sunmap Q
+
+" CTRL-U in insert mode deletes a lot.  Use CTRL-G u to first break undo,
+" so that you can undo CTRL-U after inserting a line break.
+" Revert with ":iunmap <C-U>".
+inoremap <C-U> <C-G>u<C-U>
+
+" Leader/LocalLeader の設定 {{{2
+let g:mapleader = "\<Space>" " <Leader> を <Space> に割当て
+noremap <Leader>  <Nop>
+
+let g:maplocalleader = "\<C-l>" " <LocalLeader> を <C-l> に割当て
+noremap <LocalLeader>  <Nop>
+nnoremap <C-l><C-l>  <C-l>
+
+" screen / tmux {{{2
+nnoremap <C-z>  <Nop>
+nnoremap <C-z><C-z>  <C-z>
+
+" - でディレクトリを表示 {{{2
+nnoremap -  <Cmd>edit %:p:h<CR>
+
+" c_CTRL-o で現在の画面を示すパターンを埋め込む {{{2
+function! s:search_narrow_to_window() abort "{{{
+  if getcmdtype() !~# '[/?]'
+    return "\<CR>"
+  endif
+  return "\<C-b>" . printf('\%%>%dl\%%<%dl', line('w0'), line('w$')) . "\<CR>"
+endfunction "}}}
+cnoremap <expr> <C-o>  <SID>search_narrow_to_window()
+
+" count 分だけディレクトリを上に辿ってlcdする {{{2
+nnoremap <silent> <C-h>
+      \ :<C-u>lcd <C-r>=fnameescape(expand('%:p' . repeat(':h', v:count + 1)))<CR><CR>
+
+" * -> i_CTRL-R_/ 時に、\V,\<,\> を除去 {{{2
+noremap! <expr> <C-r>/
+      \ getcmdtype() =~# '[/?]' ? getreg('/') : substitute(getreg('/'), '\v\\[V<>]', '', 'g')
+
+" i_CTRL-R<Space> 時に、カーソル下の単語を挿入 {{{2
+noremap! <expr> <C-r><Space>  expand('<cword>')
+
+" コマンドラインの履歴から入力にマッチしたものを呼び出す {{{2
+function! s:cmd_is_group() abort "{{{
+  return stridx(getcmdline()[:getcmdpos()-1], ' ') > -1
+endfunction "}}}
+cnoremap <expr> <C-p> <SID>cmd_is_group() ? "<Up>" : "<C-p>"
+cnoremap <expr> <C-n> <SID>cmd_is_group() ? "<Down>" : "<C-n>"
+
+" Square bracket mapping {{{2
+nnoremap ]q  <Cmd>cnext<CR>
+nnoremap ]Q  <Cmd>clast<CR>
+nnoremap [q  <Cmd>cprevious<CR>
+nnoremap [Q  <Cmd>crewind<CR>
+nnoremap ]f  <Cmd>cnfile<CR>
+nnoremap [f  <Cmd>cpfile<CR>
+nnoremap ]n  <Cmd>next<CR>
+nnoremap ]N  <Cmd>last<CR>
+nnoremap [n  <Cmd>previous<CR>
+nnoremap [N  <Cmd>rewind<CR>
+
+nnoremap ]l  <Cmd>lnext<CR>
+nnoremap ]L  <Cmd>llast<CR>
+nnoremap [l  <Cmd>lprevious<CR>
+nnoremap [L  <Cmd>lrewind<CR>
+nnoremap ]F  <Cmd>lnfile<CR>
+nnoremap [F  <Cmd>lpfile<CR>
+
+
+" user-commands {{{1
+
+" ファイル削除 {{{2
+command! -nargs=* -complete=file Delete
+      \ call map(empty(<q-args>) ? [expand('%')] : [<f-args>], {k,v -> confirm('Delete "' . v . '"?', "&Yes\n&No", 2) == 1 && !delete(fnamemodify(v, ':p')) && execute('bwipeout ' . bufnr(v), 'silent!')})
+
+" ディレクトリ作成 {{{2
+command! -nargs=1 -complete=dir Mkdir  call mkdir(<q-args>, <bang>0 ? 'p' : '')
+
+
+" builtin scripts {{{1
+
+" Disable defaults
+if !has('gui_running')
+  let g:did_install_default_menus = 1
+endif
+let g:did_install_syntax_menu = 1
+let g:loaded_2html_plugin = 1
+let g:loaded_getscript = 1
+let g:loaded_getscriptPlugin = 1
+let g:loaded_gzip = 1
+let g:loaded_logiPat = 1
+let g:loaded_matchparen = 1
+let g:loaded_netrw = 1
+let g:loaded_netrwFileHandlers = 1
+let g:loaded_netrwPlugin = 1
+let g:loaded_netrwSettings = 1
+let g:loaded_tar = 1
+let g:loaded_tarPlugin = 1
+let g:loaded_vimball = 1
+let g:loaded_vimballPlugin = 1
+let g:loaded_zip = 1
+let g:loaded_zipPlugin = 1
+let g:skip_loading_mswin = 1
+
+" ft-syntax-omni {{{2
+let g:omni_syntax_group_include_dockerfile = 'dockerfileKeyword'
+
+" ft-vim-syntax {{{2
+let g:vimsyn_embed = 'lP' " l: Lua, P: Python
+
+
+" {{{1
+
+filetype plugin indent on
+syntax enable
+
+
+" 1}}}

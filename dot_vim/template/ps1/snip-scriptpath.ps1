@@ -1,0 +1,1 @@
+$script:MyInvocation.MyCommand.Path
