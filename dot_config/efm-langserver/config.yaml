@@ -1,0 +1,263 @@
+version: 2
+root-markers:
+  - .git/
+lint-debounce: 1s
+
+# https://github.com/tsuyoshicho/vim-efm-langserver-settings/blob/master/config/efm-langserver/config.yaml
+
+commands:
+  - title: reload
+    command: :reload-config
+
+  - title: open (system default)
+    os: windows
+    command: rundll32
+    arguments:
+      - 'url.dll,FileProtocolHandler'
+      - '${FILENAME}'
+  - title: open (system default)
+    os: linux
+    command: xdg-open
+    arguments:
+      - '${FILENAME}'
+  - title: open (system default)
+    os: darwin
+    command: open
+    arguments:
+      - '${FILENAME}'
+
+tools:
+  # npm install -g stylelint stylelint-config-standard
+  css-stylelint: &css-stylelint
+    prefix: stylelint
+    lint-command: "stylelint --stdin --formatter unix --config ~/.config/efm-langserver/stylelint.config.js"
+    lint-stdin: true
+    lint-formats:
+      - "%f:%l:%c: %m"
+    commands:
+      - title: 'stylelint fix'
+        command: npx
+        arguments:
+          - '--yes'
+          - 'stylelint'
+          - '~/.config/efm-langserver/stylelint.config.js'
+          - '--config'
+          - '--fix'
+          - '${INPUT}'
+
+  # npm install -g eslint
+  javascript-eslint: &javascript-eslint
+    prefix: eslint
+    lint-command: "npx --no-install eslint -f unix --stdin --stdin-filename ${INPUT}"
+    lint-ignore-exit-code: true
+    lint-stdin: true
+    root-markers:
+      - package.json
+      - .eslintrc.js
+      - .eslintrc.yaml
+      - .eslintrc.yml
+      - .eslintrc.json
+    commands:
+      - title: 'eslint fix'
+        command: npx
+        arguments:
+          - '--no-install'
+          - 'eslint'
+          - '--fix'
+          - '${INPUT}'
+
+  # npm install -g prettier
+  any-prettier: &any-prettier
+    prefix: prettier
+    format-command: "npx --yes prettier"
+    commands:
+      - title: 'prettier fix'
+        command: npx
+        arguments:
+          - '--yes'
+          - 'prettier'
+          - '--fix'
+          - '--write'
+          - '${INPUT}'
+
+  # npm install -g markdownlint-cli
+  markdown-markdownlint: &markdown-markdownlint
+    prefix: markdownlint
+    lint-command: "npx --yes --package markdownlint-cli --package glob -- markdownlint --stdin --disable MD033 MD041 MD053"
+    lint-stdin: true
+    lint-formats:
+      - "%f:%l %m"
+      - "%f:%l:%c %m"
+      - "%f: %l: %m"
+    commands:
+      - title: 'markdownlint fix'
+        command: npx
+        arguments:
+          - '--yes'
+          - '--package'
+          - 'markdownlint-cli'
+          - '--package'
+          - 'glob'
+          - '--'
+          - 'markdownlint'
+          - '--disable'
+          - 'MD033'
+          - 'MD041'
+          - 'MD053'
+          - '--fix'
+          - '${INPUT}'
+
+  # pip3 install --user flake8
+  python-flake8: &python-flake8
+    prefix: flake8
+    lint-command: "flake8 --stdin-display-name ${INPUT} -"
+    lint-stdin: true
+    lint-formats:
+      - "%f:%l:%c: %m"
+
+  # pip3 install --user mypy
+  python-mypy: &python-mypy
+    prefix: mypy
+    lint-command: "mypy --show-column-numbers"
+    lint-formats:
+      - "%f:%l:%c: %trror: %m"
+      - "%f:%l:%c: %tarning: %m"
+      - "%f:%l:%c: %tote: %m"
+
+  # pip3 install --user black
+  python-black: &python-black
+    prefix: black
+    format-command: "black --quiet -"
+    format-stdin: true
+
+  # {scoop,brew} install hadolint
+  dockerfile-hadolint: &dockerfile-hadolint
+    prefix: hadolint
+    lint-command: hadolint
+    lint-formats:
+      - "%f:%l %m"
+
+  # pip3 install --user yamllint
+  yaml-yamllint: &yaml-yamllint
+    prefix: yamllint
+    lint-command: "yamllint --strict -f parsable -"
+    lint-stdin: true
+    env:
+      - 'PYTHONIOENCODING=UTF-8'
+
+  yaml-actionlint: &yaml-actionlint
+    prefix: actionlint
+    lint-command: "bash -c \"[[ '${INPUT}' =~ \\\\.github/workflows/ ]]\" && actionlint -oneline -no-color -"
+    lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c: %m'
+    root-markers:
+      - .github
+
+  # yarn global add cspell
+  any-cspell: &any-cspell
+    prefix: cspell
+    lint-command: "npx --yes -- cspell --no-color --yes-summary --config ~/.config/efm-langserver/cspell.json"
+    lint-stdin: false
+    lint-formats:
+      - "%I%f:%l:%c - %m"
+      - "%Z"
+
+  # yarn global add @commitlint/cli
+  any-commitlint: &any-commitlint
+    prefix: commitlint
+    lint-command: "npx --yes --package=@commitlint/cli -- commitlint --config ~/.config/efm-langserver/commitlint.config.yaml"
+    lint-stdin: true
+    lint-formats:
+      - "%-G✖   found%.%#"
+      - "%E✖   %m"
+      - "%Z%W⚠   %m"
+      - "%I     %m"
+      - "%Z%-G%.%#"
+
+  any-textlint: &any-textlint
+    prefix: textlint
+    lint-command: "npx --yes --package textlint --package textlint-rule-preset-ja-technical-writing textlint --rule preset-ja-technical-writing -f unix --no-color --stdin --stdin-filename ${INPUT}"
+    lint-stdin: true
+    lint-formats:
+      - "%f:%l:%c: %m [%trror/%r]"
+      - "%f:%l:%c: 【%r】 %m"
+      - "%E%f:%l:%c: %m"
+      - "%Z%m [%trror/%r]"
+      - "%C%m"
+    commands:
+      - title: 'textlint fix'
+        command: npx
+        arguments:
+          - '--yes'
+          - '--package'
+          - 'textlint'
+          - '--package'
+          - 'textlint-rule-preset-ja-technical-writing'
+          - 'textlint'
+          - '--rule'
+          - 'preset-ja-technical-writing'
+          - '--fix'
+          - '${INPUT}'
+
+languages:
+  css:
+    # - <<: *css-stylelint
+    - <<: *any-prettier
+
+  dockerfile:
+    - <<: *dockerfile-hadolint
+
+  html:
+    - <<: *any-prettier
+
+  javascript:
+    - <<: *javascript-eslint
+    - <<: *any-prettier
+
+  javascriptreact:
+    - <<: *javascript-eslint
+    - <<: *any-prettier
+
+  json:
+    - <<: *any-prettier
+
+  text:
+    - <<: *any-textlint
+
+  markdown:
+    - <<: *markdown-markdownlint
+    - <<: *any-textlint
+    - <<: *any-prettier
+
+  python:
+    - <<: *python-flake8
+    - <<: *python-mypy
+    - <<: *python-black
+
+  scss:
+    - <<: *css-stylelint
+    - <<: *any-prettier
+
+  typescript:
+    - <<: *javascript-eslint
+    - <<: *any-prettier
+
+  typescriptreact:
+    - <<: *javascript-eslint
+    - <<: *any-prettier
+
+  vue:
+    - <<: *javascript-eslint
+    - <<: *any-prettier
+
+  yaml:
+    - <<: *yaml-yamllint
+    - <<: *yaml-actionlint
+    - <<: *any-prettier
+
+  gitcommit:
+    - <<: *any-commitlint
+
+  =:
+    - <<: *any-cspell
