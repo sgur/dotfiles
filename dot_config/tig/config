@@ -1,0 +1,11 @@
+# for tig in terminal in Vim
+# set vertical-split = no
+
+# color date cyan default
+# color graph-commit magenta default
+
+set line-graphics = utf-8
+# set line-graphics = ascii
+set wrap-lines = yes
+
+bind status + !git commit --amend
