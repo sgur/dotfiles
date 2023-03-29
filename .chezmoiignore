@@ -1,0 +1,20 @@
+README.md
+
+{{ if ne .chezmoi.os "darwin" }}
+#
+{{ end }}
+
+{{ if ne .chezmoi.os "linux" }}
+#
+{{ end }}
+
+{{ if ne .chezmoi.os "windows" }}
+#.bashrc_windows
+vimfiles
+AppData/Local/clink
+AppData/Local/Microsoft/Windows Terminal
+AppData/Roaming/alacritty
+AppData/Roaming/CorvusSKK
+Documents/PowerShell
+Documents/WindowsPowerShell
+{{ end }}
