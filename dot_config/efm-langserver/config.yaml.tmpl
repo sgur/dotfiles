@@ -30,7 +30,11 @@ tools:
   # npm install -g stylelint stylelint-config-standard
   css-stylelint: &css-stylelint
     prefix: stylelint
+{{- if eq .chezmoi.os "windows" }}
+    lint-command: "stylelint --stdin --formatter unix --config %USERPROFILE%/.config/efm-langserver/stylelint.config.js --stdin-filename ${INPUT}"
+{{- else }}
     lint-command: "stylelint --stdin --formatter unix --config ~/.config/efm-langserver/stylelint.config.js"
+{{- end }}
     lint-stdin: true
     lint-formats:
       - "%f:%l:%c: %m"
@@ -40,7 +44,11 @@ tools:
         arguments:
           - '--yes'
           - 'stylelint'
+{{- if eq .chezmoi.os "windows" }}
+          - '%USERPROFILE%/.config/efm-langserver/stylelint.config.js'
+{{- else }}
           - '~/.config/efm-langserver/stylelint.config.js'
+{{- end }}
           - '--config'
           - '--fix'
           - '${INPUT}'
@@ -157,7 +165,11 @@ tools:
   # yarn global add cspell
   any-cspell: &any-cspell
     prefix: cspell
+{{- if eq .chezmoi.os "windows" }}
+    lint-command: "npx --yes -- cspell --no-color --yes-summary --config %USERPROFILE%/.config/efm-langserver/cspell.json"
+{{- else }}
     lint-command: "npx --yes -- cspell --no-color --yes-summary --config ~/.config/efm-langserver/cspell.json"
+{{- end }}
     lint-stdin: false
     lint-formats:
       - "%I%f:%l:%c - %m"
@@ -166,7 +178,11 @@ tools:
   # yarn global add @commitlint/cli
   any-commitlint: &any-commitlint
     prefix: commitlint
+{{- if eq .chezmoi.os "windows" }}
+    lint-command: "npx --yes --package=@commitlint/cli -- commitlint --config %USERPROFILE%/.config/efm-langserver/commitlint.config.yaml"
+{{- else }}
     lint-command: "npx --yes --package=@commitlint/cli -- commitlint --config ~/.config/efm-langserver/commitlint.config.yaml"
+{{- end }}
     lint-stdin: true
     lint-formats:
       - "%-G✖   found%.%#"
