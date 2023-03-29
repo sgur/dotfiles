@@ -97,7 +97,6 @@ $Env:DOCKER_HOST = "tcp://localhost:2375"
 ## Starship
 try{
 	Invoke-Expression -ErrorAction Stop (& starship init powershell --print-full-init | Out-String)
-	$Env:STARSHIP_CONFIG = (Join-Path $Env:USERPROFILE ".config\starship_windows.toml")
 }
 catch {
 	Write-Warning "starship not found: scoop install starship"
