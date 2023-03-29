@@ -1,6 +1,8 @@
+{{- if eq .chezmoi.os "windows" }}
 scan_timeout = 100
 command_timeout = 3000
 
+{{- end }}
 [aws]
 force_display = true
 
@@ -40,11 +42,13 @@ disabled = true
 [elm]
 disabled = true
 
+{{- if eq .chezmoi.os "windows" }}
 [env_var.VisualStudioVersion]
 format = "$symbol[VS$env_value]($style) "
 symbol = "﬏ " #  ﬏
 style = "purple dimmed"
 
+{{- end }}
 [erlang]
 disabled = true
 
@@ -58,7 +62,11 @@ disabled = true
 tag_disabled = false
 
 [git_metrics]
+{{- if eq .chezmoi.os "windows" }}
 disabled = true
+{{- else }}
+disabled = false
+{{- end }}
 
 [git_status]
 disabled = false
@@ -85,7 +93,11 @@ disabled = true
 disabled = true
 
 [nodejs]
+{{- if eq .chezmoi.os "windows" }}
 disabled = true
+{{- else }}
+disabled = false
+{{- end }}
 
 [ocaml]
 disabled = true
@@ -102,10 +114,14 @@ disabled = true
 [pulumi]
 disabled = true
 
-[purescript]
-disabled = true
-
 [python]
+{{- if eq .chezmoi.os "windows" }}
+disabled = true
+{{- else }}
+disabled = false
+{{- end }}
+
+[purescript]
 disabled = true
 
 [rlang]
@@ -156,4 +172,3 @@ disabled = true
 
 [zig]
 disabled = true
-
