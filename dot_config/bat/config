@@ -1,0 +1,4 @@
+--theme="TwoDark"
+
+--map-syntax "*.wslconfig:INI"
+--map-syntax "*.conf:INI"
