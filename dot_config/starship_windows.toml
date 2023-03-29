@@ -1,0 +1,159 @@
+scan_timeout = 100
+command_timeout = 3000
+
+[aws]
+force_display = true
+
+[aws.region_aliases]
+us-east-1 = 'N.Virginia'
+us-west-2 = 'Oregon'
+ap-northeast-1 = "Tokyo"
+eu-central-1 = "Frankfur"
+
+[azure]
+disabled = true
+
+[battery]
+disabled = true
+
+[cmake]
+disabled = true
+
+[cmd_duration]
+format = '🕙 [$duration]($style) '
+
+[cobol]
+disabled = true
+
+[conda]
+disabled = true
+
+[crystal]
+disabled = true
+
+[deno]
+disabled = true
+
+[elixir]
+disabled = true
+
+[elm]
+disabled = true
+
+[env_var.VisualStudioVersion]
+format = "$symbol[VS$env_value]($style) "
+symbol = "﬏ " #  ﬏
+style = "purple dimmed"
+
+[erlang]
+disabled = true
+
+[fill]
+disabled = true
+
+[gcloud]
+disabled = true
+
+[git_commit]
+tag_disabled = false
+
+[git_metrics]
+disabled = true
+
+[git_status]
+disabled = false
+
+[helm]
+disabled = true
+
+[java]
+disabled = true
+
+[julia]
+disabled = true
+
+[kotlin]
+disabled = true
+
+[lua]
+disabled = true
+
+[nim]
+disabled = true
+
+[nix_shell]
+disabled = true
+
+[nodejs]
+disabled = true
+
+[ocaml]
+disabled = true
+
+[openstack]
+disabled = true
+
+[perl]
+disabled = true
+
+[php]
+disabled = true
+
+[pulumi]
+disabled = true
+
+[purescript]
+disabled = true
+
+[python]
+disabled = true
+
+[rlang]
+disabled = true
+
+[red]
+disabled = true
+
+[ruby]
+disabled = true
+
+[scala]
+disabled = true
+
+[shell]
+disabled = false
+powershell_indicator = "pwsh"
+fish_indicator = "fish"
+
+[singularity]
+disabled = true
+
+[status]
+disabled = false
+symbol = "🔴"
+map_symbol = true
+
+[sudo]
+disabled = false
+
+[swift]
+disabled = true
+
+[terraform]
+disabled = true
+
+[time]
+disabled = false
+
+[vagrant]
+disabled = true
+
+[vlang]
+disabled = true
+
+[vcsh]
+disabled = true
+
+[zig]
+disabled = true
+
