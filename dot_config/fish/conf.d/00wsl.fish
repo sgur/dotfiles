@@ -54,3 +54,15 @@ if test -n "$WSL2_GUI_APPS_ENABLED"
    set -e WAYLAND_DISPLAY
    set -e PULSE_SERVER
 end
+
+function wsl-compact-memory --description 'compact'
+   # https://www.ncaq.net/2022/01/29/15/04/12/#%E3%83%A1%E3%83%A2%E3%83%AA%E9%A3%9F%E3%81%84%E9%81%8E%E3%81%8E
+
+   # WSLなどで際限なくメモリをキャッシュなどに確保して、
+   # ホスト側メモリを食い尽くした時に、
+   # 再起動無しでメモリを開放するためのコマンドです。
+
+   sync
+   echo 3 > /proc/sys/vm/drop_caches
+   echo 1 > /proc/sys/vm/compact_memory
+end
