@@ -1,0 +1,4 @@
+[diff]
+    external = difft
+
+# vim: ts=4 et ft=gitconfig

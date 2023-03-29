@@ -1,0 +1,77 @@
+[user]
+	useConfigOnly = true
+
+[log]
+	date = iso8601
+
+[pull]
+	ff = only
+
+[push]
+	default = simple
+	useForceIfIncludes = true
+
+[diff]
+	algorithm = histogram
+	tool = vimdiff
+
+[difftool]
+	prompt = false
+
+[difftool "code"]
+	cmd = code --wait --diff $LOCAL $REMOTE
+
+[mergetool "code"]
+	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
+
+[merge]
+	conflictstyle = diff3
+
+[gui]
+	encoding = UTF-8
+
+# http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html
+[alias]
+	ctags = !.git/hooks/ctags
+
+# https://gist.github.com/gnarf/5406589
+# Usage
+# git pr 4
+# - Creates local branch pr/4 from the github upstream(if it exists) or origin remote and checks it out
+# git pr 4 someremote
+# - Creates local branch pr/4 from someremote remote and checks it out
+# git pr-clean
+# - Removes all pr/* branches from your local repo
+[alias]
+    pr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+    pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+    # for bitbucket/stash remotes
+    spr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
+
+# https://e-penguiner.com/remove-local-branches-not-on-remote/
+[alias]
+	prune-merged = "!git fetch --prune && git branch --merged | grep --invert-match '*' | xargs git branch --delete"
+	prune-all = "!git fetch --prune && git branch --verbose --verbose | grep ': gone]' | awk '{print $1}' | xargs git branch --delete --force"
+
+# https://blog.scottnonnenberg.com/better-git-configuration/
+[alias]
+	chmod = "!f(){ mode=$1; shift; git update-index --add --chmod=${mode} \"$*\"; }; f"
+
+# git-gui tools
+[guitool "rebase/continue"]
+	cmd = git rebase --continue
+[guitool "rebase/skip"]
+	cmd = git rebase --skip
+[guitool "rebase/abort"]
+	cmd = git rebase --abort
+[guitool "clean/00listup"]
+	cmd = git clean -n
+[guitool "clean/99do"]
+	cmd = git clean -f
+[guitool "vim"]
+	cmd = gvim --servername GIT_GUI --remote-tab-silent $FILENAME
+	noconsole = yes
+	needsfile = yes
+
+[commit]
+	verbose = true

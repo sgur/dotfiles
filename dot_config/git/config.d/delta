@@ -1,0 +1,32 @@
+[core]
+    pager = delta --diff-so-fancy
+
+[interactive]
+    diffFilter = delta --color-only --features=interactive
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+
+[pager]
+    diff = delta
+    log = delta
+    reflog = delta
+    show = delta
+    blame = delta
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    light = false
+    features = decorations
+
+[delta "interactive"]
+    keep-plus-minus-markers = false
+
+[delta "decorations"]
+    line-numbers = true
+    side-by-side = true
+
+# vim: ts=4 et ft=gitconfig

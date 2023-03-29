@@ -1,0 +1,3 @@
+#!/bin/sh
+# http://mattn.kaoriya.net/software/git/20140708105946.htm
+git config --add remote.origin.fetch +refs/pull/*/head:refs/remotes/origin/pr/*

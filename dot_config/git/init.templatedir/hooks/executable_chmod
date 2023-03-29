@@ -1,0 +1,4 @@
+#!/bin/sh
+# https://twitter.com/kaoriya/status/1161951177879068672
+
+chmod = "!f(){mode=$1; shift; git update-index --add --chmod=${mode} \"$*\";}; f"

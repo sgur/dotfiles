@@ -1,0 +1,23 @@
+[core]
+	quotepath = false
+	fscache = true
+	preloadindex = true
+	autocrlf = false
+
+[difftool "p4merge"]
+	cmd = p4merge.exe \"$LOCAL\" \"$REMOTE\"
+
+[mergetool "sourcetree"]
+	cmd = p4merge.exe \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	trustExitCode = true
+
+[difftool "vs2019"]
+	cmd = \"C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/vsdiffmerge.exe\" \"$LOCAL\" \"$REMOTE\" //t
+	keepBackup = false
+
+[mergetool "vs2019"]
+	cmd = \"C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/vsdiffmerge.exe\" \"$REMOTE\" \"$LOCAL\" \"$BASE\" \"$MERGED\" //m
+	keepBackup = false
+	trustExitCode = true
+
+# vim: filetype=gitconfig
