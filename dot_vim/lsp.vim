@@ -74,6 +74,7 @@ augroup vimrc_plugin_lsp
   autocmd User lsp_buffer_enabled  call lsp_popup_menu#enable()
   autocmd BufWinEnter *  call s:on_bufwinenter_lsp()
   autocmd OptionSet readonly  call s:on_bufwinenter_lsp()
+  autocmd FileType lsp-quickpick-filter  setlocal iminsert=0
 augroup END
 
 command! -nargs=0 LspListCapabilities
@@ -155,7 +156,7 @@ let g:lsp_settings['efm-langserver'] = #{
       \ cmd: {server_info -> empty(lsp_settings#exec_path('efm-langserver'))
       \   ? []
       \   : [lsp_settings#exec_path('efm-langserver')] + lsp_settings#get('efm-langserver', 'args', [])
-      \     + ['-c', expand("~/.config/efm-langserver/config.yaml")]
+      \     + ['-c', has('win32') ? expand("~/.config/efm-langserver/config.windows.yaml") : expand("~/.config/efm-langserver/config.yaml")]
       \     + (!empty(get(g:, 'efm_langserver_log_file', '')) ? ['-logfile', g:efm_langserver_log_file] : [])}
       \}
 

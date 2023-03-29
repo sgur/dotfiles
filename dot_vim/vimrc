@@ -813,6 +813,8 @@ command! -nargs=0 PackInstall  packages#install()
 # pear-tree (opt) {{{2
 # <BS> にしか機能がマップされないので <C-h> でも有効になるようにマップする
 def InitPearTree() # {{{
+  g:pear_tree_ft_disabled = get(g:, 'pear_tree_ft_disabled', [])
+  g:pear_tree_ft_disabled += ['lsp-quickpick-filter']
   imap <C-h> <BS>
   augroup vimrc_plugin_pear-tree
     autocmd!

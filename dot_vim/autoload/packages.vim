@@ -263,9 +263,7 @@ function! s:init() abort "{{{
         \ type: 'opt',
         \ })
 
-  call minpac#add('hail2u/vim-css3-syntax', #{
-        \ branch: 'vim90'
-        \ })
+  call minpac#add('hail2u/vim-css3-syntax')
 
   call minpac#add('kana/vim-vspec')
 

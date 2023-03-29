@@ -12,4 +12,3 @@ autocmd BufNewFile,BufRead .babelrc  setfiletype jsonc
 " autocmd BufNewFile,BufRead *.js{,x}  if join(getline(1, 3)) =~# '@flow'
 "      \ |   setfiletype flow
 "      \ | endif
-autocmd BufNewFile,BufRead *.gyp  setfiletype gyp | set syntax=python
