@@ -1,0 +1,208 @@
+{
+  "AppConfigs": {
+    "TypeConfigs": {
+      "WindowsExplorer": {},
+      "FileDialog": {},
+      "FolderDialog": {},
+      "Desktop": {},
+      "TotalCommander": {
+        "Enabled": false
+      },
+      "DirectoryOpus": {
+        "Enabled": false
+      },
+      "FreeCommander": {
+        "Enabled": false
+      },
+      "XYplorer": {
+        "Enabled": false
+      },
+      "xplorer2": {
+        "Enabled": false
+      },
+      "Bandizip": {
+        "Enabled": false
+      },
+      "AutoCAD": {
+        "Enabled": false
+      },
+      "WinRAR.ExtractDialog": {}
+    },
+    "PathConfigs": {}
+  },
+  "Menus": {
+    "Favorites": {
+      "Deletions": [],
+      "Moves": [],
+      "Insertions": [
+        {
+          "Index": 2,
+          "Info": null,
+          "Item": {
+            "Name": "Desktop",
+            "Path": "::{B4BFCC3A-DB2C-424C-B029-7FE99A87C641}",
+            "$customType": "FavoriteFolder"
+          }
+        },
+        {
+          "Index": -1,
+          "Info": null,
+          "Item": {
+            "Name": "Downloads",
+            "Path": "::{374DE290-123F-4565-9164-39C4925E467B}",
+            "$customType": "FavoriteFolder"
+          }
+        },
+        {
+          "Index": -1,
+          "Info": null,
+          "Item": {
+            "$customType": "Separator"
+          }
+        },
+        {
+          "Index": -1,
+          "Info": null,
+          "Item": {
+            "Name": "Control Panel",
+            "Path": "::{26EE0668-A00A-44D7-9371-BEB064C98683}",
+            "$customType": "FavoriteFolder"
+          }
+        },
+        {
+          "Index": -1,
+          "Info": null,
+          "Item": {
+            "Name": "Control Panel Items",
+            "Path": "::{21ec2020-3aea-1069-a2dd-08002b30309d}",
+            "$customType": "FavoriteFolder"
+          }
+        },
+        {
+          "Index": -1,
+          "Info": null,
+          "Item": {
+            "Name": "All Tasks",
+            "Path": "::{ED7BA470-8E54-465E-825C-99712043E01C}",
+            "$customType": "FavoriteFolder"
+          }
+        },
+        {
+          "Index": -1,
+          "Info": null,
+          "Item": {
+            "$customType": "Separator"
+          }
+        },
+        {
+          "Index": -1,
+          "Info": null,
+          "Item": {
+            "CommandType": "UpOneLevel",
+            "$customType": "BuiltinCommand"
+          }
+        }
+      ],
+      "Updates": []
+    }
+  },
+  "DiskSearch": {
+    "FolderPriority": {
+      "Deletions": [],
+      "Moves": [],
+      "Insertions": [],
+      "Updates": []
+    },
+    "FileNamePriority": {
+      "Deletions": [],
+      "Moves": [],
+      "Insertions": [],
+      "Updates": []
+    },
+    "SearchFilter": {
+      "Deletions": [],
+      "Moves": [],
+      "Insertions": [],
+      "Updates": []
+    },
+    "DisabledNtfsVolumes": [],
+    "CustomFolders": []
+  },
+  "Commands": {
+    "Items": {
+      "Deletions": [],
+      "Moves": [],
+      "Insertions": [
+        {
+          "Index": -1,
+          "Info": null,
+          "Item": {
+            "Title": "電卓",
+            "Path": "C:\\Windows\\system32\\calc.exe",
+            "Parameter": "",
+            "Id": "5a836f1f-437a-447a-bd81-046e12e9ab51",
+            "Keyword": "calc",
+            "$customType": "CustomCommand"
+          }
+        }
+      ],
+      "Updates": []
+    }
+  },
+  "WebSearch": {
+    "Items": {
+      "Deletions": [],
+      "Moves": [],
+      "Insertions": [],
+      "Updates": [
+        {
+          "Id": "c78295a6-2cf8-4569-bf42-33f1e5c030d7",
+          "UpdatedProperties": {
+            "Url": "https://ja.wikipedia.org/wiki/Special:Search/{query}",
+            "SuggestionUrl": "http://ja.wikipedia.org/w/api.php?action=opensearch&search={query}&namespace=0&format=json"
+          }
+        },
+        {
+          "Id": "dd896809-2af4-405b-834f-45816615e3e3",
+          "UpdatedProperties": {
+            "Enabled": false
+          }
+        },
+        {
+          "Id": "b36cf1bb-5527-42d8-bf91-d034bcbf057b",
+          "UpdatedProperties": {
+            "Enabled": false
+          }
+        },
+        {
+          "Id": "610a486d-0028-4739-8eb6-50f5247c918f",
+          "UpdatedProperties": {
+            "Url": "http://www.amazon.co.jp/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords={query}",
+            "SuggestionUrl": "http://completion.amazon.co.jp/search/complete?search-alias=aps&mkt=6&q={query}"
+          }
+        },
+        {
+          "Id": "2db0261a-1114-4c8d-8cc8-62a89aeb1a35",
+          "UpdatedProperties": {
+            "Enabled": false
+          }
+        },
+        {
+          "Id": "455e1dc4-5e38-4b00-85da-d0bf46c68f4f",
+          "UpdatedProperties": {
+            "Enabled": false
+          }
+        },
+        {
+          "Id": "1744aa0c-751a-495f-aac5-6910e7406229",
+          "UpdatedProperties": {
+            "Enabled": false
+          }
+        }
+      ]
+    }
+  },
+  "AutoUpdate": {
+    "BetaUpdates": true
+  }
+}
