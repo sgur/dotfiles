@@ -449,3 +449,8 @@ if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath
 } else {
 	Write-Output "broot not installed: scoop install broot"
 }
+
+## gsudo
+try {
+	Import-Module -ErrorAction SilentlyContinue "gsudoModule.psd1"
+} catch {}
