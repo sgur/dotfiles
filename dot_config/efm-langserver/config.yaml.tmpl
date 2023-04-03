@@ -155,7 +155,11 @@ tools:
 
   yaml-actionlint: &yaml-actionlint
     prefix: actionlint
-    lint-command: "bash -c \"[[ '${INPUT}' =~ \\\\.github/workflows/ ]]\" && actionlint -oneline -no-color -"
+{{- if eq .chezmoi.os "windows" }}
+    lint-command: "actionlint -oneline -no-color -stdin-filename \"${INPUT}\" -"
+{{- else }}
+    lint-command: "bash -c \"[[ '${INPUT}' =~ \\\\.github/workflows/ ]]\" && actionlint -oneline -no-color -stdin-filename \"${INPUT}\" -"
+{{- end }}
     lint-stdin: true
     lint-formats:
       - '%f:%l:%c: %m'
