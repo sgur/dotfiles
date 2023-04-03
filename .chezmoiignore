@@ -22,4 +22,5 @@ AppData/Roaming/CorvusSKK/*
 Documents/
 Documents/PowerShell/*
 Documents/WindowsPowerShell/*
+misc/AppData/
 {{ end }}
