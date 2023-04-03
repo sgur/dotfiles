@@ -156,8 +156,8 @@ let g:lsp_settings['efm-langserver'] = #{
       \ cmd: {server_info -> empty(lsp_settings#exec_path('efm-langserver'))
       \   ? []
       \   : [lsp_settings#exec_path('efm-langserver')] + lsp_settings#get('efm-langserver', 'args', [])
-      \     + ['-c', has('win32') ? expand("~/.config/efm-langserver/config.windows.yaml") : expand("~/.config/efm-langserver/config.yaml")]
-      \     + (!empty(get(g:, 'efm_langserver_log_file', '')) ? ['-logfile', g:efm_langserver_log_file] : [])}
+      \     + ['-c', expand("~/.config/efm-langserver/config.yaml")]
+      \ }
       \}
 
 " Html {{{2
