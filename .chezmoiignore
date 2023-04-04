@@ -26,4 +26,6 @@ misc/AppData/
 {{ else }}
 .bashrc
 .profile
+.config/fish/
+.config/zellij/
 {{ end }}
