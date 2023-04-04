@@ -5,7 +5,7 @@ README.md
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
-#
+
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
@@ -23,4 +23,7 @@ Documents/
 Documents/PowerShell/*
 Documents/WindowsPowerShell/*
 misc/AppData/
+{{ else }}
+.bashrc
+.profile
 {{ end }}
