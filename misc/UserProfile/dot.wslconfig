@@ -2,6 +2,9 @@
 
 [wsl2]
 # kernel=C:\\temp\\myCustomKernel
-memory=4GB # Limits VM memory in WSL 2 to 8 GB
-processors=4 # Makes the WSL 2 VM use two virtual processors
+# memory=8GB
+processors=4
 localhostForwarding=true
+# swapFile=%USERPROFILE%\AppData\Local\Temp\swap.vhdx
+guiApplications=false # Windows11
+
