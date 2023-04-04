@@ -22,3 +22,9 @@ misc/AppData/
 .config/fish/
 .config/zellij/
 {{ end }}
+
+{{ if (not (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft"))) }}
+# WSL-specific code
+bin/wsl-compact-memory
+bin/wslview
+{{ end }}

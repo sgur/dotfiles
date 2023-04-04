@@ -1,0 +1,12 @@
+#!/usr/bin/sudo bash
+set -eu
+
+# https://github.com/microsoft/WSL/issues/4166#issuecomment-570913524
+# https://www.ncaq.net/2022/01/29/15/04/12/
+# WSLなどで際限なくメモリをキャッシュなどに確保して、ホスト側メモリを食い尽くした時に、再起動無しでメモリを開放するためのコマンドです。
+
+sync
+echo 3 > /proc/sys/vm/drop_caches
+echo 1 > /proc/sys/vm/compact_memory
+
+# vim: filetype=bash
