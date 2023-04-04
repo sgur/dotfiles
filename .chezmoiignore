@@ -11,17 +11,10 @@ README.md
 {{ if ne .chezmoi.os "windows" }}
 #.bashrc_windows
 vimfiles/
-vimfiles/*
 AppData/
 AppData/Local/
-AppData/Local/clink/*
-AppData/Local/Microsoft/Windows Terminal/*
 AppData/Roaming/
-AppData/Roaming/alacritty/*
-AppData/Roaming/CorvusSKK/*
 Documents/
-Documents/PowerShell/*
-Documents/WindowsPowerShell/*
 misc/AppData/
 {{ else }}
 .bashrc
