@@ -16,6 +16,7 @@ AppData/Local/
 AppData/Roaming/
 Documents/
 misc/AppData/
+misc/UserProfile/
 {{ else }}
 .bashrc
 .profile
