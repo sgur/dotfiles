@@ -14,7 +14,7 @@ PasswordAuthentication no
 #
 # ホストキーを必ずチェックする
 # - ssh-keyscan -H github.com >> ~/.ssh/known_hosts で事前に登録
-# - ssh -o StrictHostKeyChecking=no で一時的に無効化して接続
+# - ssh -o StrictHostKeyChecking=ask で一時的にデフォルト設定で接続
 StrictHostKeyChecking yes
 
 #
