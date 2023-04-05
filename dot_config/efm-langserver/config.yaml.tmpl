@@ -1,7 +1,6 @@
 version: 2
 root-markers:
   - .git/
-lint-debounce: 1s
 
 # https://github.com/tsuyoshicho/vim-efm-langserver-settings/blob/master/config/efm-langserver/config.yaml
 
@@ -197,7 +196,11 @@ tools:
 
   any-textlint: &any-textlint
     prefix: textlint
-    lint-command: "npx --yes --package textlint --package textlint-rule-preset-ja-technical-writing textlint --rule preset-ja-technical-writing -f unix --no-color --stdin --stdin-filename ${INPUT}"
+{{- if eq .chezmoi.os "windows" }}
+    lint-command: "npx --yes --package textlint --package textlint-rule-preset-japanese --package textlint-rule-preset-jtf-style textlint --config %USERPROFILE%/.config/efm-langserver/textlintrc.json -f unix --no-color --stdin --stdin-filename ${INPUT}"
+{{- else }}
+    lint-command: "npx --yes --package textlint --package textlint-rule-preset-japanese --package textlint-rule-preset-jtf-style textlint --config ~/.config/efm-langserver/textlintrc.json -f unix --no-color --stdin --stdin-filename ${INPUT}"
+{{- end }}
     lint-stdin: true
     lint-formats:
       - "%f:%l:%c: %m [%trror/%r]"
@@ -213,10 +216,16 @@ tools:
           - '--package'
           - 'textlint'
           - '--package'
-          - 'textlint-rule-preset-ja-technical-writing'
+          - 'textlint-rule-preset-japanese'
+          - '--package'
+          - 'textlint-rule-preset-jtf-style'
           - 'textlint'
-          - '--rule'
-          - 'preset-ja-technical-writing'
+          - '--config'
+{{- if eq .chezmoi.os "windows" }}
+          - '%USERPROFILE%/.config/efm-langserver/textlintrc.json'
+{{- else }}
+          - '~/.config/efm-langserver/textlintrc.json'
+{{- end }}
           - '--fix'
           - '${INPUT}'
 
