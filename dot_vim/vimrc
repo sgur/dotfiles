@@ -15,7 +15,6 @@ vim9script
 #
 
 import autoload 'pack.vim'
-import autoload 'vimrc/util.vim'
 
 g:skip_defaults_vim = 1
 
@@ -45,9 +44,6 @@ set ambiwidth=single
 set backspace=indent,eol,start
 set backupdir^=$HOME/.cache/vim/backup
 set breakindent breakindentopt=min:20,shift:4,sbr
-# if has('patch-9.0.0114')
-#   set cmdheight=0
-# endif
 &dictionary = expand(rc_dir .. '/etc/look/words')
 # diffopt で internal をサポート
 set diffopt& diffopt+=indent-heuristic diffopt+=algorithm:histogram
@@ -57,38 +53,33 @@ endif
 set directory^=$HOME/.cache/vim/swap//
 set display=truncate
 set noequalalways
-set fileformats=unix,dos
 set foldcolumn=2
-set foldlevelstart=2
+set foldlevelstart=3
 set formatoptions& formatoptions+=B formatoptions+=m formatoptions+=j
 if &encoding is 'utf-8'
   set formatoptions+=]
 endif
-&grepprg = util.Executable('rg') ? 'rg --color never --vimgrep'
-      \ : util.Executable('grep') ? 'grep -InH' : 'internal'
+&grepprg = executable('rg') ? 'rg --color never --vimgrep'
+  : executable('grep') ? 'grep -InH'
+  : 'internal'
 set guioptions+=M
 set history=200
 set hlsearch
 set ignorecase infercase smartcase
 set iminsert=2 imsearch=0
 set incsearch
-# Windowsだとなぜか &isk の値が異なる
-if has('win32')
-  set iskeyword=@,48-57,_,192-255
-endif
 set nolangremap
 set laststatus=2
 if has('iconv')
   &makeencoding = (has('win32') && &encoding is 'utf-8') ? &encoding : 'char'
 endif
 set matchpairs+=（:）,｛:｝,「:」,［:］,『:』,【:】
-set nrformats-=octal
+set nrformats& nrformats-=octal
 &shelltemp = !(has('win32') || has('win64')) || !has('filterpipe')
 set shiftwidth=0 shiftround softtabstop=-1
 &showbreak = g:has_utf8_symbol ? '￫ ' : '> '
 set noshowmode
 set signcolumn=yes
-set nrformats& nrformats+=unsigned
 set smartindent autoindent
 set smarttab
 set spelllang& spelllang+=cjk # Prevent duplication
@@ -127,11 +118,7 @@ if !has('win32') && !has('win64')
   source <sfile>:h/macros/vimrc.bracket_paste
   # fish shell 利用時も Vim では (ba)sh を利用 {{{
   if $SHELL =~ '\<fish\>'
-    if has('osx')
-      $SHELL = exepath('zsh')
-    else
-      $SHELL = exepath('bash')
-    endif
+    $SHELL = has('osx') ? exepath('zsh') : exepath('bash')
     &shell = $SHELL
   endif #}}}
   # fcitx の設定 {{{
@@ -154,16 +141,6 @@ if has('vim_starting') && !has('gui_running')
   set t_SI+=[5\ q
   set t_EI+=[1\ q
   set t_te+=[0\ q
-  if exists('$SSH_CONNECTION') # {{{
-    # 挿入モードを出る時にIMEをオフ
-    # https://qiita.com/U25CE/items/0b40662a22162907efae
-    # 挿入モードに入る時、前回の挿入モードにおける IME の状態を復元する
-    set t_SI+=[<r
-    # 挿入モードを出る時、現在の IME の状態を保存し，IME をオフにする
-    set t_EI+=[<s[<0t
-    # Vim 終了時、IME を無効にし、無効にした状態を保存する
-    set t_te+=[<0t[<s
-  endif #}}}
   if exists('$TMUX') && $TERM == 'screen-256color' && has('termguicolors') # {{{
     # vim on tmux を true color で利用する
     # https://qiita.com/yami_beta/items/ef535d3458addd2e8fbb
@@ -288,29 +265,6 @@ command! -nargs=? -complete=dir HelpTags  HelpTags(<f-args>)
 # Usage:
 # :global/{pattern}/AppendBufLine {buffer}
 command! -nargs=1 -complete=buffer AppendBufLine  appendbufline(<f-args>, "$", trim(getline(".")))
-
-# tig {{{2
-command! -nargs=* Tig  term_start(['tig', <f-args>], {
-      \   cwd: expand('%:p:h'),
-      \   term_name: printf('tig: %s', expand('%:p:h')),
-      \   norestore: v:true,
-      \   term_finish: 'close'
-      \ })
-command! TigBlame  execute printf('terminal ++close tig blame +%d %s', line('.'), expand('%'))
-
-# Launch process {{{2
-command! -nargs=+ -count=8 -complete=shellcmd TermLaunch
-      \ execute 'topleft terminal ++close ++rows=<count>'
-      \   (has('patch-8.1.2251') ? '++shell' : join([&shell, &shellcmdflag]))
-      \   '<q-args>'
-command! -nargs=+ -complete=shellcmd TermLaunchPopup
-      \ popup_dialog(
-      \   term_start([&shell, &shellcmdflag] + [<f-args>], {hidden: 1, term_finish: 'close'}),
-      \   {minwidth: winwidth(0) / 2, minheight: &lines / 2, borderhighlight: ['NonText'], padding: [0, 0, 0, 0]})
-
-# scratch-like command {{{2
-command! -nargs=? -complete=filetype Scratch
-      \ silent execute <q-mods> 'new +set\ buftype=nowrite\ filetype=<args>| file scratch@' .. strftime('%T')
 
 # synstack {{{2
 command! -nargs=0 SynNameStack
@@ -537,7 +491,7 @@ g:ctrlp_root_markers = ['.git']
 g:ctrlp_use_caching = 1
 g:ctrlp_working_path_mode = 'w'
 def InitCtrlp() # {{{
-  nmap <silent> <C-n>  <C-u>:CtrlPMRUFiles <C-r>=getcwd()<CR><CR>
+  nnoremap <silent> <C-n>  <Cmd>CtrlPMRUFiles<CR>
 
   packadd ctrlp-ghq
   g:ctrlp_ghq_cache_enabled = 1
@@ -545,11 +499,11 @@ def InitCtrlp() # {{{
   g:ctrlp_extensions = ['sonictemplate', 'ghq']
 
   g:ctrlp_user_command = ['.git', 'git ls-files --cached --exclude-standard']
-  if util.Executable('fd')
+  if executable('fd')
     g:ctrlp_user_command += [
           \ 'fd --no-ignore-vcs --hidden --follow --type file --color never --max-results 30000'
           \ ]
-  elseif util.Executable('rg')
+  elseif executable('rg')
     g:ctrlp_user_command += [
           \ 'rg --files --no-ignore --no-messages --hidden --follow'
           \ .. ' --glob="!{.git,.hg,node_modules,.mypy_cache,.pytest_cache,.settings}/"'
@@ -603,7 +557,7 @@ augroup END
 if !has('clipboard')
   if system('cat /proc/sys/kernel/osrelease') =~ 'Microsoft'
     for bin in ['clip.exe', 'powershell.exe']
-      if !util.Executable(bin)
+      if !executable(bin)
         echohl WarningMsg | echo bin "is not in $PATH" | echohl
       endif
     endfor
