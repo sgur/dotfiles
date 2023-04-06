@@ -20,6 +20,7 @@ misc/AppData/
 misc/UserProfile/
 {{ else }}
 # Ignoring on Windows
+.actrc
 .bashrc
 .profile
 .config/fish/
