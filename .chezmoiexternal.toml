@@ -1,0 +1,5 @@
+[".vim/pack/chezmoi/opt/minpac"]
+type = "archive"
+url = "https://github.com/k-takata/minpac/archive/master.zip"
+stripComponents = 1
+exclude = ["*/appveyor.yml", "*/.github/**", "*/test/**", "*/tools/**"]

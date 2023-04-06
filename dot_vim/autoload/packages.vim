@@ -48,10 +48,6 @@ function! s:init() abort "{{{
         \ jobs: s:nproc()
         \ })
 
-  call minpac#add('k-takata/minpac', #{
-        \ type: 'opt'
-        \ })
-
   " Self-made {{{2
 
   call minpac#add('sgur/minpac-toml', #{
@@ -124,10 +120,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('itchyny/lightline.vim', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('k-takata/minpac', #{
         \ type: 'opt'
         \ })
 
