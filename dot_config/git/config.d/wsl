@@ -1,5 +1,0 @@
-[credential]
-	helper =
-	helper = /mnt/c/Users/$USER/scoop/apps/git/current/mingw64/bin/git-credential-manager.exe
-
-# vim: ts=4 et ft=gitconfig

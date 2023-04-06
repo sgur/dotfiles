@@ -1,5 +1,24 @@
+{{- if eq .chezmoi.os "windows" -}}
+[core]
+	quotepath = false
+	fscache = true
+	preloadindex = true
+	autocrlf = false
+{{- end -}}
+
 [user]
 	useConfigOnly = true
+
+[commit]
+	template = {{ joinPath .chezmoi.homeDir ".config/git/git_commit_msg.txt" }}
+
+{{ if (or (lookPath "git-credential-manager") (and (eq .chezmoi.os "windows") (lookPath "git"))) -}}
+[credential]
+	helper =
+	helper = manager
+[credential "https://dev.azure.com"]
+	useHttpPath = true
+{{- end }}
 
 [log]
 	date = iso8601
@@ -15,6 +34,33 @@
 	algorithm = histogram
 	tool = vimdiff
 
+[merge]
+	conflictstyle = diff3
+
+{{ if (lookPath "difft") -}}
+[diff]
+    external = difft
+
+{{- else if (lookPath "delta") -}}
+[core]
+    pager = delta --diff-so-fancy
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+# use n and N to move between diff sections
+    navigate = true
+# set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+    light = false
+
+[merge]
+    conflictstyle = diff3
+
+[diff]
+    colorMoved = default
+{{- end }}
+
 [difftool]
 	prompt = false
 
@@ -24,11 +70,23 @@
 [mergetool "code"]
 	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 
-[merge]
-	conflictstyle = diff3
+{{- if eq .chezmoi.os "windows" -}}
+[difftool "p4merge"]
+	cmd = p4merge.exe \"$LOCAL\" \"$REMOTE\"
 
-[gui]
-	encoding = UTF-8
+[mergetool "sourcetree"]
+	cmd = p4merge.exe \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+	trustExitCode = true
+
+[difftool "vs2019"]
+	cmd = \"C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/vsdiffmerge.exe\" \"$LOCAL\" \"$REMOTE\" //t
+	keepBackup = false
+
+[mergetool "vs2019"]
+	cmd = \"C:/Program Files (x86)/Microsoft Visual Studio/2019/Professional/Common7/IDE/CommonExtensions/Microsoft/TeamFoundation/Team Explorer/vsdiffmerge.exe\" \"$REMOTE\" \"$LOCAL\" \"$BASE\" \"$MERGED\" //m
+	keepBackup = false
+	trustExitCode = true
+{{- end }}
 
 # http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html
 [alias]
@@ -58,6 +116,8 @@
 	chmod = "!f(){ mode=$1; shift; git update-index --add --chmod=${mode} \"$*\"; }; f"
 
 # git-gui tools
+[gui]
+	encoding = UTF-8
 [guitool "rebase/continue"]
 	cmd = git rebase --continue
 [guitool "rebase/skip"]
