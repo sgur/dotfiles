@@ -114,6 +114,25 @@ tools:
           - '--fix'
           - '${INPUT}'
 
+  # npm install --global markuplint
+  html-markuplint: &html-markuplint
+    prefix: markuplint
+    lint-command: "npx --yes markuplint --no-color --format Default"
+    lint-stdin: false
+    lint-formats:
+      - "%E<markuplint> error: %m %f:%l:%c"
+      - "%C%.%#"
+      - "%-G%.%#"
+    commands:
+      - title: 'markuplint fix'
+        command: npx
+        arguments:
+          - '--yes'
+          - 'markuplint'
+          - '--no-color'
+          - '--fix'
+          - '${INPUT}'
+
   # pip3 install --user flake8
   python-flake8: &python-flake8
     prefix: flake8
@@ -239,6 +258,7 @@ languages:
 
   html:
     - <<: *any-prettier
+    - <<: *html-markuplint
 
   javascript:
     - <<: *javascript-eslint
