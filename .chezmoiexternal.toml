@@ -1,5 +1,8 @@
+# https://www.chezmoi.io/reference/special-files-and-directories/chezmoiexternal-format/
 [".vim/pack/chezmoi/opt/minpac"]
 type = "archive"
-url = "https://github.com/k-takata/minpac/archive/master.zip"
+exact = true
+include = ["*/autoload/**", "*/doc/**", "*/plugin/**"]
+refreshPeriod = "24h"
 stripComponents = 1
-exclude = ["*/appveyor.yml", "*/.github/**", "*/test/**", "*/tools/**"]
+url = "https://github.com/k-takata/minpac/archive/master.zip"
