@@ -1,16 +1,16 @@
-{{- if eq .chezmoi.os "windows" -}}
+[user]
+	useConfigOnly = true
+
+{{ if eq .chezmoi.os "windows" -}}
 [core]
 	quotepath = false
 	fscache = true
 	preloadindex = true
 	autocrlf = false
-{{- end -}}
-
-[user]
-	useConfigOnly = true
+{{- end }}
 
 [commit]
-	template = {{ joinPath .chezmoi.homeDir ".config/git/git_commit_msg.txt" }}
+	template = {{ joinPath .chezmoi.homeDir ".config/git/git_commit_msg.txt" | quote }}
 
 {{ if (or (lookPath "git-credential-manager") (and (eq .chezmoi.os "windows") (lookPath "git"))) -}}
 [credential]
@@ -70,7 +70,7 @@
 [mergetool "code"]
 	cmd = code --wait --merge $REMOTE $LOCAL $BASE $MERGED
 
-{{- if eq .chezmoi.os "windows" -}}
+{{ if eq .chezmoi.os "windows" -}}
 [difftool "p4merge"]
 	cmd = p4merge.exe \"$LOCAL\" \"$REMOTE\"
 
