@@ -38,9 +38,9 @@ tools:
       --formatter unix
       --config
 {{- if eq .chezmoi.os "windows" }}
-       %USERPROFILE%/.config/efm-langserver/stylelint.config.js
+       %USERPROFILE%/.config/stylelint.config.js
 {{- else }}
-       ~/.config/efm-langserver/stylelint.config.js
+       ~/.config/stylelint.config.js
 {{- end }}
       --stdin
       --stdin-filename ${INPUT}
@@ -58,9 +58,9 @@ tools:
           - 'stylelint'
           - '--config'
 {{- if eq .chezmoi.os "windows" }}
-          - '%USERPROFILE%/.config/efm-langserver/stylelint.config.js'
+          - '%USERPROFILE%/.config/stylelint.config.js'
 {{- else }}
-          - '~/.config/efm-langserver/stylelint.config.js'
+          - '~/.config/stylelint.config.js'
 {{- end }}
           - '--fix'
           - '${INPUT}'
@@ -213,9 +213,9 @@ tools:
       --no-color
       --yes-summary
 {{- if eq .chezmoi.os "windows" }}
-      --config %USERPROFILE%/.config/efm-langserver/cspell.json
+      --config %USERPROFILE%/.config/cspell.json
 {{- else }}
-      --config ~/.config/efm-langserver/cspell.json
+      --config ~/.config/cspell.json
 {{- end }}
     lint-stdin: false
     lint-formats:
@@ -231,9 +231,9 @@ tools:
       --
       commitlint
 {{- if eq .chezmoi.os "windows" }}
-      --config %USERPROFILE%/.config/efm-langserver/commitlint.config.yaml
+      --config %USERPROFILE%/.config/commitlint.config.yaml
 {{- else }}
-      --config ~/.config/efm-langserver/commitlint.config.yaml
+      --config ~/.config/commitlint.config.yaml
 {{- end }}
     lint-stdin: true
     lint-formats:
@@ -254,9 +254,9 @@ tools:
       --
       textlint
 {{- if eq .chezmoi.os "windows" }}
-      --config %USERPROFILE%/.config/efm-langserver/textlintrc.json
+      --config %USERPROFILE%/.config/textlintrc.json
 {{- else }}
-      --config ~/.config/efm-langserver/textlintrc.json
+      --config ~/.config/textlintrc.json
 {{- end }}
       -f unix --no-color --stdin --stdin-filename ${INPUT}
     lint-stdin: true
@@ -278,9 +278,9 @@ tools:
           - 'textlint'
           - '--config'
 {{- if eq .chezmoi.os "windows" }}
-          - '%USERPROFILE%/.config/efm-langserver/textlintrc.json'
+          - '%USERPROFILE%/.config/textlintrc.json'
 {{- else }}
-          - '~/.config/efm-langserver/textlintrc.json'
+          - '~/.config/textlintrc.json'
 {{- end }}
           - '--fix'
           - '${INPUT}'
