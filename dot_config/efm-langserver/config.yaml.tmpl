@@ -29,11 +29,21 @@ tools:
   # npm install -g stylelint stylelint-config-standard
   css-stylelint: &css-stylelint
     prefix: stylelint
+    lint-command: >-
+      npx
+      --package=stylelint
+      --package=stylelint-config-standard
+      --
+      stylelint
+      --formatter unix
+      --config
 {{- if eq .chezmoi.os "windows" }}
-    lint-command: "stylelint --stdin --formatter unix --config %USERPROFILE%/.config/efm-langserver/stylelint.config.js --stdin-filename ${INPUT}"
+       %USERPROFILE%/.config/efm-langserver/stylelint.config.js
 {{- else }}
-    lint-command: "stylelint --stdin --formatter unix --config ~/.config/efm-langserver/stylelint.config.js"
+       ~/.config/efm-langserver/stylelint.config.js
 {{- end }}
+      --stdin
+      --stdin-filename ${INPUT}
     lint-stdin: true
     lint-formats:
       - "%f:%l:%c: %m"
@@ -42,13 +52,16 @@ tools:
         command: npx
         arguments:
           - '--yes'
+          - '--package=stylelint'
+          - '--package=stylelint-config-standard'
+          - '--'
           - 'stylelint'
+          - '--config'
 {{- if eq .chezmoi.os "windows" }}
           - '%USERPROFILE%/.config/efm-langserver/stylelint.config.js'
 {{- else }}
           - '~/.config/efm-langserver/stylelint.config.js'
 {{- end }}
-          - '--config'
           - '--fix'
           - '${INPUT}'
 
@@ -171,13 +184,19 @@ tools:
     env:
       - 'PYTHONIOENCODING=UTF-8'
 
+  # scoop or brew install actionlint
   yaml-actionlint: &yaml-actionlint
     prefix: actionlint
-{{- if eq .chezmoi.os "windows" }}
-    lint-command: "actionlint -oneline -no-color -stdin-filename \"${INPUT}\" -"
-{{- else }}
-    lint-command: "bash -c \"[[ '${INPUT}' =~ \\\\.github/workflows/ ]]\" && actionlint -oneline -no-color -stdin-filename \"${INPUT}\" -"
+    lint-command: >-
+{{- if ne .chezmoi.os "windows" }}
+      bash -c \"[[ '${INPUT}' =~ \\\\.github/workflows/ ]]\" &&
 {{- end }}
+      actionlint
+      -oneline
+      -no-color
+      -stdin-filename
+      \"${INPUT}\"
+      -
     lint-stdin: true
     lint-formats:
       - '%f:%l:%c: %m'
@@ -187,10 +206,16 @@ tools:
   # yarn global add cspell
   any-cspell: &any-cspell
     prefix: cspell
+    lint-command: >-
+      npx --yes
+      --
+      cspell
+      --no-color
+      --yes-summary
 {{- if eq .chezmoi.os "windows" }}
-    lint-command: "npx --yes -- cspell --no-color --yes-summary --config %USERPROFILE%/.config/efm-langserver/cspell.json"
+      --config %USERPROFILE%/.config/efm-langserver/cspell.json
 {{- else }}
-    lint-command: "npx --yes -- cspell --no-color --yes-summary --config ~/.config/efm-langserver/cspell.json"
+      --config ~/.config/efm-langserver/cspell.json
 {{- end }}
     lint-stdin: false
     lint-formats:
@@ -200,10 +225,15 @@ tools:
   # yarn global add @commitlint/cli
   any-commitlint: &any-commitlint
     prefix: commitlint
+    lint-command: >-
+      npx --yes
+      --package @commitlint/cli
+      --
+      commitlint
 {{- if eq .chezmoi.os "windows" }}
-    lint-command: "npx --yes --package=@commitlint/cli -- commitlint --config %USERPROFILE%/.config/efm-langserver/commitlint.config.yaml"
+      --config %USERPROFILE%/.config/efm-langserver/commitlint.config.yaml
 {{- else }}
-    lint-command: "npx --yes --package=@commitlint/cli -- commitlint --config ~/.config/efm-langserver/commitlint.config.yaml"
+      --config ~/.config/efm-langserver/commitlint.config.yaml
 {{- end }}
     lint-stdin: true
     lint-formats:
@@ -215,11 +245,20 @@ tools:
 
   any-textlint: &any-textlint
     prefix: textlint
+    lint-command: >-
+      npx --yes
+      --package textlint
+      --package textlint-rule-preset-ja-technical-writing
+      --package textlint-rule-preset-ja-spacing
+      --package textlint-rule-preset-japanese
+      --
+      textlint
 {{- if eq .chezmoi.os "windows" }}
-    lint-command: "npx --yes --package textlint --package textlint-rule-preset-japanese --package textlint-rule-preset-jtf-style textlint --config %USERPROFILE%/.config/efm-langserver/textlintrc.json -f unix --no-color --stdin --stdin-filename ${INPUT}"
+      --config %USERPROFILE%/.config/efm-langserver/textlintrc.json
 {{- else }}
-    lint-command: "npx --yes --package textlint --package textlint-rule-preset-japanese --package textlint-rule-preset-jtf-style textlint --config ~/.config/efm-langserver/textlintrc.json -f unix --no-color --stdin --stdin-filename ${INPUT}"
+      --config ~/.config/efm-langserver/textlintrc.json
 {{- end }}
+      -f unix --no-color --stdin --stdin-filename ${INPUT}
     lint-stdin: true
     lint-formats:
       - "%f:%l:%c: %m [%trror/%r]"
@@ -232,12 +271,10 @@ tools:
         command: npx
         arguments:
           - '--yes'
-          - '--package'
-          - 'textlint'
-          - '--package'
-          - 'textlint-rule-preset-japanese'
-          - '--package'
-          - 'textlint-rule-preset-jtf-style'
+          - '--package textlint'
+          - '--package textlint-rule-preset-ja-technical-writing'
+          - '--package textlint-rule-preset-ja-spacing'
+          - '--package textlint-rule-preset-japanese'
           - 'textlint'
           - '--config'
 {{- if eq .chezmoi.os "windows" }}
