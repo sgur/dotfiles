@@ -45,13 +45,18 @@ disabled = true
 [elm]
 disabled = true
 
-{{- if eq .chezmoi.os "windows" }}
+{{ if eq .chezmoi.os "windows" -}}
 [env_var.VisualStudioVersion]
 format = "$symbol[VS$env_value]($style) "
 symbol = "﬏ " #  ﬏
 style = "purple dimmed"
-
 {{- end }}
+
+[env_var.CHEZMOI]
+format = "[$symbol]($style) "
+symbol = "chezmoi"
+style = "blue"
+
 [erlang]
 disabled = true
 
