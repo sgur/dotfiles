@@ -41,6 +41,10 @@ let g:vista_default_executive = 'vim_lsp'
 
 let g:lsp_popup_menu_server_blacklist = get(g:, 'lsp_popup_menu_server_blacklist', ['efm-langserver'])
 
+let g:lsp_diagnostics_virtual_text_align = 'after'
+let g:lsp_diagnostics_virtual_text_padding_left = 4
+let g:lsp_diagnostics_virtual_text_prefix = " ‣ "
+
 try
   packadd! vim-lsp
   packadd! asyncomplete-lsp.vim
