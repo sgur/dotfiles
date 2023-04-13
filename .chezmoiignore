@@ -23,6 +23,7 @@ misc/UserProfile/
 .actrc
 .bashrc
 .profile
+.local/bin/
 .config/fish/
 .config/zellij/
 {{ end }}
