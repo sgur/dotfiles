@@ -2,8 +2,6 @@ version: 2
 root-markers:
   - .git/
 
-# https://github.com/tsuyoshicho/vim-efm-langserver-settings/blob/master/config/efm-langserver/config.yaml
-
 commands:
   - title: reload
     command: :reload-config
@@ -24,9 +22,19 @@ commands:
     command: open
     arguments:
       - '${FILENAME}'
+{{ if eq .chezmoi.os "windows" }}
+  - title: install dependencies (scoop)
+    command: scoop
+    arguments:
+      - install
+      - hadolint
+      - actionlint
+{{- else }}
+  - title: install dependencies (brew)
+    command: brew install hadolint actionlint
+{{- end }}
 
 tools:
-  # npm install -g stylelint stylelint-config-standard
   css-stylelint: &css-stylelint
     prefix: stylelint
     lint-command: >-
@@ -37,11 +45,7 @@ tools:
       stylelint
       --formatter unix
       --config
-{{- if eq .chezmoi.os "windows" }}
-       %USERPROFILE%/.config/stylelint.config.js
-{{- else }}
-       ~/.config/stylelint.config.js
-{{- end }}
+      {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/stylelint.config.js
       --stdin
       --stdin-filename ${INPUT}
     lint-stdin: true
@@ -57,18 +61,13 @@ tools:
           - '--'
           - 'stylelint'
           - '--config'
-{{- if eq .chezmoi.os "windows" }}
-          - '%USERPROFILE%/.config/stylelint.config.js'
-{{- else }}
-          - '~/.config/stylelint.config.js'
-{{- end }}
+          - '{{- if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/stylelint.config.js'
           - '--fix'
           - '${INPUT}'
 
-  # npm install -g eslint
   javascript-eslint: &javascript-eslint
     prefix: eslint
-    lint-command: "npx --no-install eslint -f unix --stdin --stdin-filename ${INPUT}"
+    lint-command: npx --no-install eslint -f unix --stdin --stdin-filename ${INPUT}
     lint-ignore-exit-code: true
     lint-stdin: true
     root-markers:
@@ -86,10 +85,20 @@ tools:
           - '--fix'
           - '${INPUT}'
 
-  # npm install -g prettier
   any-prettier: &any-prettier
     prefix: prettier
-    format-command: "npx --yes prettier"
+    format-command: npx --yes prettier
+    root-markers:
+      - .prettierrc
+      - .prettierrc.json
+      - .prettierrc.yml
+      - .prettierrc.yaml
+      - .prettierrc.json5
+      - .prettierrc.js
+      - .prettierrc.cjs
+      - prettier.config.js
+      - prettier.config.cjs
+      - .prettierrc.toml
     commands:
       - title: 'prettier fix'
         command: npx
@@ -100,10 +109,9 @@ tools:
           - '--write'
           - '${INPUT}'
 
-  # npm install -g markdownlint-cli
   markdown-markdownlint: &markdown-markdownlint
     prefix: markdownlint
-    lint-command: "npx --yes --package markdownlint-cli --package glob -- markdownlint --stdin --disable MD033 MD041 MD053"
+    lint-command: npx --yes --package=markdownlint-cli --package=glob -- markdownlint --stdin --disable MD033 MD041 MD053
     lint-stdin: true
     lint-formats:
       - "%f:%l %m"
@@ -114,10 +122,8 @@ tools:
         command: npx
         arguments:
           - '--yes'
-          - '--package'
-          - 'markdownlint-cli'
-          - '--package'
-          - 'glob'
+          - '--package=markdownlint-cli'
+          - '--package=glob'
           - '--'
           - 'markdownlint'
           - '--disable'
@@ -127,10 +133,9 @@ tools:
           - '--fix'
           - '${INPUT}'
 
-  # npm install --global markuplint
   html-markuplint: &html-markuplint
     prefix: markuplint
-    lint-command: "npx --yes markuplint --no-color --format Default"
+    lint-command: npx --yes markuplint --no-color --format Default
     lint-stdin: false
     lint-formats:
       - "%E<markuplint> error: %m %f:%l:%c"
@@ -146,7 +151,7 @@ tools:
           - '--fix'
           - '${INPUT}'
 
-  # pip3 install --user flake8
+# pip3 install --user flake8
   python-flake8: &python-flake8
     prefix: flake8
     lint-command: "flake8 --stdin-display-name ${INPUT} -"
@@ -154,7 +159,7 @@ tools:
     lint-formats:
       - "%f:%l:%c: %m"
 
-  # pip3 install --user mypy
+# pip3 install --user mypy
   python-mypy: &python-mypy
     prefix: mypy
     lint-command: "mypy --show-column-numbers"
@@ -163,28 +168,31 @@ tools:
       - "%f:%l:%c: %tarning: %m"
       - "%f:%l:%c: %tote: %m"
 
-  # pip3 install --user black
+# pip3 install --user black
   python-black: &python-black
     prefix: black
     format-command: "black --quiet -"
     format-stdin: true
 
-  # {scoop,brew} install hadolint
+# {scoop,brew} install hadolint
   dockerfile-hadolint: &dockerfile-hadolint
     prefix: hadolint
     lint-command: hadolint
     lint-formats:
       - "%f:%l %m"
 
-  # pip3 install --user yamllint
+# pip3 install --user yamllint
   yaml-yamllint: &yaml-yamllint
     prefix: yamllint
-    lint-command: "yamllint --strict -f parsable -"
+    lint-command: "yamllint --strict --format parsable -"
     lint-stdin: true
+    lint-formats:
+      - '%f:%l:%c: [%t%*[a-z]] %m'
     env:
       - 'PYTHONIOENCODING=UTF-8'
+      - 'PYTHONUTF8=1'
 
-  # scoop or brew install actionlint
+# scoop or brew install actionlint
   yaml-actionlint: &yaml-actionlint
     prefix: actionlint
     lint-command: >-
@@ -203,38 +211,29 @@ tools:
     root-markers:
       - .github
 
-  # yarn global add cspell
   any-cspell: &any-cspell
     prefix: cspell
     lint-command: >-
       npx --yes
       --
       cspell
+      --no-progress
       --no-color
-      --yes-summary
-{{- if eq .chezmoi.os "windows" }}
-      --config %USERPROFILE%/.config/cspell.json
-{{- else }}
-      --config ~/.config/cspell.json
-{{- end }}
+      --no-summary
+      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/cspell.json
     lint-stdin: false
     lint-formats:
       - "%I%f:%l:%c - %m"
       - "%Z"
 
-  # yarn global add @commitlint/cli
   any-commitlint: &any-commitlint
     prefix: commitlint
     lint-command: >-
       npx --yes
-      --package @commitlint/cli
+      --package=@commitlint/cli
       --
       commitlint
-{{- if eq .chezmoi.os "windows" }}
-      --config %USERPROFILE%/.config/commitlint.config.yaml
-{{- else }}
-      --config ~/.config/commitlint.config.yaml
-{{- end }}
+      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/commitlint.config.yaml
     lint-stdin: true
     lint-formats:
       - "%-G✖   found%.%#"
@@ -247,17 +246,13 @@ tools:
     prefix: textlint
     lint-command: >-
       npx --yes
-      --package textlint
-      --package textlint-rule-preset-ja-technical-writing
-      --package textlint-rule-preset-ja-spacing
-      --package textlint-rule-preset-japanese
+      --package=textlint
+      --package=textlint-rule-preset-ja-technical-writing
+      --package=textlint-rule-preset-ja-spacing
+      --package=textlint-rule-preset-japanese
       --
       textlint
-{{- if eq .chezmoi.os "windows" }}
-      --config %USERPROFILE%/.config/textlintrc.json
-{{- else }}
-      --config ~/.config/textlintrc.json
-{{- end }}
+      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/textlintrc.json
       -f unix --no-color --stdin --stdin-filename ${INPUT}
     lint-stdin: true
     lint-formats:
@@ -271,17 +266,13 @@ tools:
         command: npx
         arguments:
           - '--yes'
-          - '--package textlint'
-          - '--package textlint-rule-preset-ja-technical-writing'
-          - '--package textlint-rule-preset-ja-spacing'
-          - '--package textlint-rule-preset-japanese'
+          - '--package=textlint'
+          - '--package=textlint-rule-preset-ja-technical-writing'
+          - '--package=textlint-rule-preset-ja-spacing'
+          - '--package=textlint-rule-preset-japanese'
           - 'textlint'
           - '--config'
-{{- if eq .chezmoi.os "windows" }}
-          - '%USERPROFILE%/.config/textlintrc.json'
-{{- else }}
-          - '~/.config/textlintrc.json'
-{{- end }}
+          - '{{- if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/textlintrc.json'
           - '--fix'
           - '${INPUT}'
 
