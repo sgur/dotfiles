@@ -17,6 +17,7 @@ AppData/Local/
 AppData/Roaming/
 Documents/
 misc/AppData/
+misc/LocalAppData/
 misc/UserProfile/
 {{ else }}
 # Ignoring on Windows
