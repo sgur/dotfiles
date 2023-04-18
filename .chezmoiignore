@@ -28,7 +28,7 @@ misc/UserProfile/
 .config/zellij/
 {{ end }}
 
-{{ if (not (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft"))) }}
+{{ if (or (ne .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft"))) }}
 # Ignoring on non-Windows-WSL
 bin/wsl-compact-memory
 bin/wslview
