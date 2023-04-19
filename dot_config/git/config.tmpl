@@ -35,7 +35,7 @@
 {{- end }}
 
 {{ if lookPath "aws" -}}
-[credential "https://git-codecommit.ap-northeast-1.amazonaws.com"]
+[credential "https://git-codecommit.*.amazonaws.com"]
 	useHttpPath = true
 	provider = generic
 	helper =
