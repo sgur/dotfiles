@@ -26,6 +26,14 @@
 	useHttpPath = true
 {{- end }}
 
+{{ if lookPath "aws" -}}
+[credential "https://git-codecommit.ap-northeast-1.amazonaws.com"]
+	useHttpPath = true
+	provider = generic
+	helper =
+	helper = !aws codecommit credential-helper $@
+{{- end }}
+
 [log]
 	date = iso8601
 
