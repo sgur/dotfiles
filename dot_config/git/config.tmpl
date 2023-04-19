@@ -15,6 +15,14 @@
 	sslBackend = schannel
 {{- end }}
 
+{{ if (or (lookPath "git-lfs") (and (eq .chezmoi.os "windows") (lookPath "git"))) -}}
+[filter "lfs"]
+	process = git-lfs filter-process
+	required = true
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+{{- end }}
+
 [commit]
 	template = {{ joinPath .chezmoi.homeDir ".config/git/git_commit_msg.txt" | quote }}
 
