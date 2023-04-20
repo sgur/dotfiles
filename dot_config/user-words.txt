@@ -48,6 +48,7 @@ polyfill
 psirt
 pwsh
 pylance
+qiita
 rdbms
 react
 reduxjs
