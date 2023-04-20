@@ -220,7 +220,7 @@ tools:
       --no-progress
       --no-color
       --no-summary
-      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/cspell.json
+      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/cspell.config.yaml
     lint-stdin: false
     lint-formats:
       - "%I%f:%l:%c - %m"
