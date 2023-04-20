@@ -29,16 +29,17 @@ commands:
       - install
       - hadolint
       - actionlint
+      - nodejs-lts
 {{- else }}
   - title: install dependencies (brew)
-    command: brew install hadolint actionlint
+    command: brew install hadolint actionlint node@16
 {{- end }}
 
 tools:
   css-stylelint: &css-stylelint
     prefix: stylelint
     lint-command: >-
-      npx
+      {{ lookPath "npx" }}
       --package=stylelint
       --package=stylelint-config-standard
       --
@@ -53,7 +54,7 @@ tools:
       - "%f:%l:%c: %m"
     commands:
       - title: 'stylelint fix'
-        command: npx
+        command: {{ lookPath "npx" }}
         arguments:
           - '--yes'
           - '--package=stylelint'
@@ -67,7 +68,7 @@ tools:
 
   javascript-eslint: &javascript-eslint
     prefix: eslint
-    lint-command: npx --no-install eslint -f unix --stdin --stdin-filename ${INPUT}
+    lint-command: {{ lookPath "npx" }} --no-install eslint -f unix --stdin --stdin-filename ${INPUT}
     lint-ignore-exit-code: true
     lint-stdin: true
     root-markers:
@@ -78,7 +79,7 @@ tools:
       - .eslintrc.json
     commands:
       - title: 'eslint fix'
-        command: npx
+        command: {{ lookPath "npx" }}
         arguments:
           - '--no-install'
           - 'eslint'
@@ -87,7 +88,7 @@ tools:
 
   any-prettier: &any-prettier
     prefix: prettier
-    format-command: npx --yes prettier
+    format-command: {{ lookPath "npx" }} --yes prettier
     root-markers:
       - .prettierrc
       - .prettierrc.json
@@ -101,7 +102,7 @@ tools:
       - .prettierrc.toml
     commands:
       - title: 'prettier fix'
-        command: npx
+        command: {{ lookPath "npx" }}
         arguments:
           - '--yes'
           - 'prettier'
@@ -111,7 +112,7 @@ tools:
 
   markdown-markdownlint: &markdown-markdownlint
     prefix: markdownlint
-    lint-command: npx --yes --package=markdownlint-cli --package=glob -- markdownlint --stdin --disable MD033 MD041 MD053
+    lint-command: {{ lookPath "npx" }} --yes --package=markdownlint-cli --package=glob -- markdownlint --stdin --disable MD033 MD041 MD053
     lint-stdin: true
     lint-formats:
       - "%f:%l %m"
@@ -119,7 +120,7 @@ tools:
       - "%f: %l: %m"
     commands:
       - title: 'markdownlint fix'
-        command: npx
+        command: {{ lookPath "npx" }}
         arguments:
           - '--yes'
           - '--package=markdownlint-cli'
@@ -135,7 +136,7 @@ tools:
 
   html-markuplint: &html-markuplint
     prefix: markuplint
-    lint-command: npx --yes markuplint --no-color --format Default
+    lint-command: {{ lookPath "npx" }} --yes markuplint --no-color --format Default
     lint-stdin: false
     lint-formats:
       - "%E<markuplint> error: %m %f:%l:%c"
@@ -143,7 +144,7 @@ tools:
       - "%-G%.%#"
     commands:
       - title: 'markuplint fix'
-        command: npx
+        command: {{ lookPath "npx" }}
         arguments:
           - '--yes'
           - 'markuplint'
@@ -214,7 +215,7 @@ tools:
   any-cspell: &any-cspell
     prefix: cspell
     lint-command: >-
-      npx --yes
+      {{ lookPath "npx" }} --yes
       --
       cspell
       --no-progress
@@ -229,7 +230,7 @@ tools:
   any-commitlint: &any-commitlint
     prefix: commitlint
     lint-command: >-
-      npx --yes
+      {{ lookPath "npx" }} --yes
       --package=@commitlint/cli
       --
       commitlint
@@ -245,7 +246,7 @@ tools:
   any-textlint: &any-textlint
     prefix: textlint
     lint-command: >-
-      npx --yes
+      {{ lookPath "npx" }} --yes
       --package=textlint
       --package=textlint-rule-preset-ja-technical-writing
       --package=textlint-rule-preset-ja-spacing
@@ -263,7 +264,7 @@ tools:
       - "%C%m"
     commands:
       - title: 'textlint fix'
-        command: npx
+        command: {{ lookPath "npx" }}
         arguments:
           - '--yes'
           - '--package=textlint'
