@@ -1,6 +1,10 @@
 progress = true
 format = "yaml"
 
+[git]
+autoCommit = true
+autoPush = false
+
 {{- if eq .chezmoi.os "windows" }}
 [cd]
 command='pwsh'
