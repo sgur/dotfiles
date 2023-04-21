@@ -1,3 +1,4 @@
+---
 version: 2
 root-markers:
   - .git/
@@ -46,7 +47,7 @@ tools:
       stylelint
       --formatter unix
       --config
-      {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/stylelint.config.js
+      {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/stylelintrc.yaml
       --stdin
       --stdin-filename ${INPUT}
     lint-stdin: true
@@ -234,7 +235,7 @@ tools:
       --package=@commitlint/cli
       --
       commitlint
-      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/commitlint.config.yaml
+      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/commitlintrc.yaml
     lint-stdin: true
     lint-formats:
       - "%-G✖   found%.%#"
@@ -253,7 +254,7 @@ tools:
       --package=textlint-rule-preset-japanese
       --
       textlint
-      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/textlintrc.json
+      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/textlintrc.yaml
       -f unix --no-color --stdin --stdin-filename ${INPUT}
     lint-stdin: true
     lint-formats:

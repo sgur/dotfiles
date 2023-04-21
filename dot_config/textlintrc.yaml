@@ -1,0 +1,11 @@
+---
+filters: {}
+rules:
+  preset-ja-technical-writing:
+    max-kanji-continuous-len:
+      max: 8
+      allow: []
+  preset-ja-spacing:
+    ja-space-between-half-and-full-width:
+      space: "always"
+  preset-japanese: true
