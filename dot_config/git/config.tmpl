@@ -123,10 +123,10 @@
 # git pr-clean
 # - Removes all pr/* branches from your local repo
 [alias]
-    pr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
-    pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
-    # for bitbucket/stash remotes
-    spr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
+	pr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull/$1/head:pr/$1 && git checkout pr/$1; }; f"
+	pr-clean = "!git for-each-ref refs/heads/pr/* --format='%(refname)' | while read ref ; do branch=${ref#refs/heads/} ; git branch -D $branch ; done"
+	# for bitbucket/stash remotes
+	spr = "!f() { git fetch -fu ${2:-$(git remote |grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
 
 # https://e-penguiner.com/remove-local-branches-not-on-remote/
 [alias]
@@ -135,7 +135,10 @@
 
 # https://blog.scottnonnenberg.com/better-git-configuration/
 [alias]
-	chmod = "!f(){ mode=$1; shift; git update-index --add --chmod=${mode} \"$*\"; }; f"
+	chmod = "!f() { mode=$1; shift; git update-index --add --chmod=${mode} \"$*\"; }; f"
+
+[alias]
+	browse = "!{{- lookPath "npx" | quote | replace "\"" "\\\"" }} --yes git-open"
 
 # git-gui tools
 [gui]
