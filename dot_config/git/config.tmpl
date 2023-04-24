@@ -138,7 +138,7 @@
 	chmod = "!f() { mode=$1; shift; git update-index --add --chmod=${mode} \"$*\"; }; f"
 
 [alias]
-	browse = "!f() { {{ if (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}} /mnt/c/Windows/System32/rundll32.exe url.dll,FileProtocolHandler {{- else if (eq .chezmoi.os "windows") -}} c:/Windows/System32/rundll32.exe url.dll,FileProtocolHandler  {{- else if (eq .chezmoi.os "darwin") -}} open {{- else -}} xdg-open {{- end }} `git config --get remote.origin.url | sed -Ee 's#(git@|git://)#https://#' -e 's@(com|net):@\\1/@'` | head -n1; }; f"
+	browse = "!f() { {{ if (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) -}} /mnt/c/Windows/System32/rundll32.exe url.dll,FileProtocolHandler {{- else if (eq .chezmoi.os "windows") -}} c:/Windows/System32/rundll32.exe url.dll,FileProtocolHandler  {{- else if (eq .chezmoi.os "darwin") -}} open {{- else -}} xdg-open {{- end }} `git config --get remote.origin.url | sed -Ee 's#(git@|git://)#https://#' -e 's@(com|net):@\\1/@' -e's/\\.git$//'` | head -n1; }; f"
 
 # git-gui tools
 [gui]
