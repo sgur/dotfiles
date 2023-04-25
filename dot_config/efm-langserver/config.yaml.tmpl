@@ -111,27 +111,44 @@ tools:
           - '--write'
           - '${INPUT}'
 
+  markdown-markdownlint-cli2: &markdown-markdownlint-cli2
+    prefix: markdownlint-cli2
+    lint-command: >-
+      {{ lookPath "npx" }}
+      --yes
+      --package=markdownlint-cli2
+      --
+      markdownlint-cli2-config
+      {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/config.markdownlint-cli2.yaml
+    lint-stdin: false
+    lint-formats:
+      - "%f:%l:%c %m"
+      - "%f:%l %m"
+      - "%-G%.%#"
+
   markdown-markdownlint: &markdown-markdownlint
     prefix: markdownlint
-    lint-command: {{ lookPath "npx" }} --yes --package=markdownlint-cli --package=glob -- markdownlint --stdin --disable MD033 MD041 MD053
+    lint-command: >-
+      {{ lookPath "npx" }}
+      --yes
+      --package=markdownlint-cli
+      --
+      markdownlint
+      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/markdownlint.yaml
+      --stdin
     lint-stdin: true
     lint-formats:
-      - "%f:%l %m"
       - "%f:%l:%c %m"
-      - "%f: %l: %m"
+      - "%f:%l %m"
     commands:
       - title: 'markdownlint fix'
         command: {{ lookPath "npx" }}
         arguments:
           - '--yes'
           - '--package=markdownlint-cli'
-          - '--package=glob'
           - '--'
           - 'markdownlint'
-          - '--disable'
-          - 'MD033'
-          - 'MD041'
-          - 'MD053'
+          - '--config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/markdownlint.yaml'
           - '--fix'
           - '${INPUT}'
 
@@ -305,7 +322,7 @@ languages:
     - <<: *any-textlint
 
   markdown:
-    - <<: *markdown-markdownlint
+    - <<: *markdown-markdownlint-cli2
     - <<: *any-textlint
     - <<: *any-prettier
 
