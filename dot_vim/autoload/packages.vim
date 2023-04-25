@@ -201,6 +201,8 @@ function! s:init() abort "{{{
 
   " Filetype {{{2
 
+  call minpac#add('alker0/chezmoi.vim')
+
   call minpac#add('ap/vim-css-color')
 
   call minpac#add('AndrewRadev/tagalong.vim', #{
