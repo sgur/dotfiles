@@ -917,30 +917,6 @@ g:vim_vue_plugin_use_scss = 1
 # webapi {{{2
 g:webapi#system_function = 'using_job#system'
 
-# {{{1 colorscheme
-def SetupEverforest()
-  if exists('g:colors_name')
-    return
-  endif
-  packadd! lightline.vim
-  packadd! everforest
-  g:lightline = get(g:, 'lightline', {})
-  g:lightline.colorscheme = 'everforest'
-  if has('gui_running')
-    noautocmd set background=light
-  else
-    noautocmd set background=dark
-    g:everforest_background = 'hard'
-  endif
-  colorscheme everforest
-  lightline#enable()
-enddef
-
-augroup vimrc_colorscheme
-  autocmd!
-  autocmd VimEnter *  SetupEverforest()
-augroup END
-
 # {{{1
 
 filetype plugin indent on
