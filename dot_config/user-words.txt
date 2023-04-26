@@ -69,3 +69,11 @@ version
 visualstudio
 vsmarketplacebadge
 wslconfig
+fscache
+autocrlf
+schannel
+difft
+vsdiffmerge
+ctags
+osrelease
+noconsole
