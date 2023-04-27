@@ -17,8 +17,7 @@ AppData/Local/
 AppData/Roaming/
 Documents/
 misc/AppData/
-misc/LocalAppData/
-misc/UserProfile/
+misc/Keyboards/
 {{ else }}
 # Ignoring on Windows
 .actrc
