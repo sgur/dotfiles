@@ -58,6 +58,7 @@
 
 [merge]
 	conflictstyle = diff3
+	ff = only
 
 {{ if (lookPath "difft") -}}
 [diff]
@@ -75,9 +76,6 @@
     navigate = true
 # set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
     light = false
-
-[merge]
-    conflictstyle = diff3
 
 [diff]
     colorMoved = default
