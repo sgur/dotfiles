@@ -8,7 +8,6 @@
 
 ```sh
 git config --global include.path '~/.config/git/config'
-git config --global init.templatedir '~/.config/git/init.templatedir'
 git config --global commit.template '~/.config/git/git_commit_msg.txt'
 ```
 
