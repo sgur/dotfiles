@@ -68,32 +68,18 @@
       {"code": 55, "label": {"base": ".", "shifted": ">"}},
       {"code": 56, "label": {"base": "/", "shifted": "?"}},
       {
-        "code": 51783,
-        "baseCode": 53,
-        "label": {"hint": "Layer #2/", "base": "`"},
-        "target": 2,
-        "rangeStart": 51218,
-        "categories": ["layer", "dualuse"]
-      },
-      {
-        "code": 49756,
-        "baseCode": 75,
-        "label": {"hint": "Alt/", "base": {"full": "Page Up", "1u": "PgUp"}},
-        "modifier": "Alt",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "alt"]
-      },
-      {
-        "code": 50015,
+        "code": 50783,
         "baseCode": 78,
         "label": {
-          "hint": "Windows/",
+          "hint": "AltGr/",
           "base": {"full": "Page Down", "1u": "PgDn"}
         },
-        "modifier": "Windows",
+        "modifier": "AltGr",
         "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "gui"]
+        "categories": ["modifier", "dualuse", "altgr"]
       },
+      {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
+      {"code": 53, "label": {"base": "`", "shifted": "~"}},
       {
         "code": 224,
         "label": {"base": {"full": "Control", "1u": "Ctrl"}},
@@ -139,29 +125,15 @@
         "location": "right",
         "categories": ["modifier"]
       },
+      {"code": 45, "label": {"base": "-", "shifted": "_"}},
+      {"code": 52, "label": {"base": "'", "shifted": "\""}},
       {
-        "code": 51006,
-        "baseCode": 45,
-        "label": {"hint": "Right Windows/", "base": "-"},
+        "code": 51007,
+        "baseCode": 46,
+        "label": {"hint": "Right Windows/", "base": "="},
         "modifier": "Right Windows",
         "rangeStart": 49169,
         "categories": ["modifier", "dualuse", "rgui"]
-      },
-      {
-        "code": 50757,
-        "baseCode": 52,
-        "label": {"hint": "AltGr/", "base": "'"},
-        "modifier": "AltGr",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "altgr"]
-      },
-      {
-        "code": 51520,
-        "baseCode": 46,
-        "label": {"hint": "Layer #1/", "base": "="},
-        "target": 1,
-        "rangeStart": 51218,
-        "categories": ["layer", "dualuse"]
       }
     ],
     [
@@ -301,11 +273,9 @@
         "categories": ["blanks"]
       },
       {
-        "code": 17453,
-        "label": {"hint": "ShiftTo", "base": "#3"},
-        "target": 3,
-        "rangeStart": 17450,
-        "categories": ["layer", "shifttolayer"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
         "code": 17453,
@@ -476,11 +446,9 @@
         "categories": ["layer", "shifttolayer"]
       },
       {
-        "code": 17453,
-        "label": {"hint": "ShiftTo", "base": "#3"},
-        "target": 3,
-        "rangeStart": 17450,
-        "categories": ["layer", "shifttolayer"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
         "code": 65535,
@@ -555,18 +523,30 @@
         "categories": ["blanks"]
       },
       {
-        "code": 18665,
-        "legacyCode": 23785,
-        "label": {
-          "hint": {"full": "Volume", "1u": "Vol."},
-          "base": {"full": "Up", "1u": "🔊"}
-        },
-        "categories": ["consumer"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
-      {"code": 64, "label": {"base": "F7"}},
-      {"code": 65, "label": {"base": "F8"}},
-      {"code": 66, "label": {"base": "F9"}},
-      {"code": 67, "label": {"base": "F10"}},
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
       {
         "code": 20484,
         "label": {"hint": "Mouse", "base": "Left"},
@@ -609,18 +589,30 @@
         "categories": ["blanks"]
       },
       {
-        "code": 18666,
-        "legacyCode": 23786,
-        "label": {
-          "hint": {"full": "Volume", "1u": "Vol."},
-          "base": {"full": "Down", "1u": "🔉"}
-        },
-        "categories": ["consumer"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
-      {"code": 61, "label": {"base": "F4"}},
-      {"code": 62, "label": {"base": "F5"}},
-      {"code": 63, "label": {"base": "F6"}},
-      {"code": 68, "label": {"base": "F11"}},
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
       {
         "code": 0,
         "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
@@ -660,15 +652,30 @@
         "categories": ["blanks"]
       },
       {
-        "code": 18658,
-        "legacyCode": 19682,
-        "label": {"base": "Mute"},
-        "categories": ["consumer"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
-      {"code": 58, "label": {"base": "F1"}},
-      {"code": 59, "label": {"base": "F2"}},
-      {"code": 60, "label": {"base": "F3"}},
-      {"code": 69, "label": {"base": "F12"}},
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
       {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
