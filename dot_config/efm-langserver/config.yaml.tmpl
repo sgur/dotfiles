@@ -1,40 +1,22 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/mattn/efm-langserver/master/schema.json
 ---
 version: 2
 root-markers:
   - .git/
 
-commands:
-  - title: reload
-    command: :reload-config
-
-  - title: open (system default)
-    os: windows
-    command: rundll32
-    arguments:
-      - 'url.dll,FileProtocolHandler'
-      - '${FILENAME}'
-  - title: open (system default)
-    os: linux
-    command: xdg-open
-    arguments:
-      - '${FILENAME}'
-  - title: open (system default)
-    os: darwin
-    command: open
-    arguments:
-      - '${FILENAME}'
-{{ if eq .chezmoi.os "windows" }}
-  - title: install dependencies (scoop)
-    command: scoop
-    arguments:
-      - install
-      - hadolint
-      - actionlint
-      - nodejs-lts
-{{- else }}
-  - title: install dependencies (brew)
-    command: brew install hadolint actionlint node@16
-{{- end }}
+# commands:
+# {{- if eq .chezmoi.os "windows" }}
+#   - title: install dependencies (scoop)
+#     command: scoop
+#     arguments:
+#       - install
+#       - hadolint
+#       - actionlint
+#       - nodejs-lts
+# {{- else }}
+#   - title: install dependencies (brew)
+#     command: brew install hadolint actionlint node@16
+# {{- end }}
 
 tools:
   css-stylelint: &css-stylelint
@@ -245,6 +227,15 @@ tools:
       - "%I%f:%l:%c - %m"
       - "%Z"
 
+  any-efm-langserver: &any-efm-langserver
+    prefix: efm-langserver
+    root-markers:
+      - .config/efm-langserver/config.yaml
+      - .config/efm-langserver/config.yaml.tmpl
+    commands:
+      - title: reload
+        command: :reload-config
+
   any-commitlint: &any-commitlint
     prefix: commitlint
     lint-command: >-
@@ -348,9 +339,16 @@ languages:
     - <<: *any-prettier
 
   yaml:
+    - <<: *any-efm-langserver
     - <<: *yaml-yamllint
     - <<: *yaml-actionlint
     - <<: *any-prettier
+{{ if eq .chezmoi.os "windows" }}
+  template:
+{{- else }}
+  yaml.chezmoitmpl:
+{{- end }}
+    - <<: *any-efm-langserver
 
   gitcommit:
     - <<: *any-commitlint
