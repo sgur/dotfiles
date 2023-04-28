@@ -10,10 +10,12 @@ boto
 cache
 cascadia
 cfnresponse
+chezmoitmpl
 chromedriver
 cica
 clsx
 cmyk
+commitlintrc
 cppflags
 cpptools
 csrf
@@ -34,6 +36,7 @@ flowtype
 fscache
 githubusercontent
 gvim
+hadolint
 hediet
 hiberfil
 icns
@@ -45,6 +48,7 @@ lpwstr
 markdownlint
 mkdirp
 msvs
+mypy
 napi
 newermt
 nflg
@@ -66,6 +70,8 @@ psirt
 pwsh
 pyenv
 pylance
+pythonioencoding
+pythonutf8
 qiita
 rdbms
 react
@@ -81,7 +87,10 @@ signin
 signup
 statefull
 streetsidesoftware
+stylelintrc
 tailwindcss
+textlintrc
+tmpl
 udev
 ulid
 unmarshall
