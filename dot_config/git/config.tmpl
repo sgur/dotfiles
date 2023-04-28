@@ -15,7 +15,7 @@
 	sslBackend = schannel
 {{- end }}
 
-{{ if (or (lookPath "git-lfs") (and (eq .chezmoi.os "windows") (lookPath "git"))) -}}
+{{ if or (lookPath "git-lfs") (and (eq .chezmoi.os "windows") (lookPath "git")) -}}
 [filter "lfs"]
 	process = git-lfs filter-process
 	required = true
@@ -26,10 +26,13 @@
 [commit]
 	template = {{ joinPath .chezmoi.homeDir ".config/git/git_commit_msg.txt" | quote }}
 
-{{ if (or (lookPath "git-credential-manager") (and (eq .chezmoi.os "windows") (lookPath "git"))) -}}
+{{ if or (lookPath "git-credential-manager") (and (eq .chezmoi.os "windows") (lookPath "git")) -}}
 [credential]
 	helper =
 	helper = manager
+{{-   if and (eq .chezmoi.os "linux") (lookPath "gpg") (lookPath "pass") }}
+	credentialStore = gpg
+{{-  end }}
 [credential "https://dev.azure.com"]
 	useHttpPath = true
 {{- end }}
