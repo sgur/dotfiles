@@ -8,4 +8,11 @@ rules:
   preset-ja-spacing:
     ja-space-between-half-and-full-width:
       space: "always"
+    ja-no-mixed-period:
+      # 句点文字として許可する文字列の配列
+      allowPeriodMarks:
+        - ":"
+        - "："
+      # 末尾に絵文字を置くことを許可するか
+      allowEmojiAtEnd: true
   preset-japanese: true
