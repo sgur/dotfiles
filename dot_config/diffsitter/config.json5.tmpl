@@ -1,4 +1,30 @@
 // https://github.com/afnanenayet/diffsitter/blob/main/assets/sample_config.json5
 {
+  "file-associations": null,
+  "formatting": {
+    "addition": {
+      "highlight": null,
+      "regular-foreground": "green",
+      "emphasized-foreground": "green",
+      "bold": true,
+      "underline": false,
+      "prefix": "+ "
+    },
+    "deletion": {
+      "highlight": null,
+      "regular-foreground": "red",
+      "emphasized-foreground": "red",
+      "bold": true,
+      "underline": false,
+      "prefix": "- "
+    }
+  },
+  "grammar": {
+    "dylib-overrides": null,
+    "file-associations": null
+  },
+  "input-processing": {
+    "split-graphemes": true
+  },
   "fallback-cmd": {{- if lookPath "difft" }} "difft" {{ else }} "diff" {{ end }}
 }

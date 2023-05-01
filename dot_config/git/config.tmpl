@@ -63,6 +63,15 @@
 	conflictstyle = diff3
 	ff = only
 
+{{ if lookPath "diffsitter" -}}
+[diff]
+    tool = diffsitter
+[difftool]
+    prompt = false
+[difftool "diffsitter"]
+    cmd = diffsitter "$LOCAL" "$REMOTE"
+{{- end }}
+
 {{ if (lookPath "difft") -}}
 [diff]
     external = difft
