@@ -4,42 +4,18 @@
 
 ### 手動で設定する
 
-以下の設定を有効にする
+以下の設定を有効にする。
 
 ```sh
 git config --global include.path '~/.config/git/config'
 git config --global commit.template '~/.config/git/git_commit_msg.txt'
 ```
 
-difftastic(difft) を利用する場合、以下も追加:
-
-```sh
-git config --global --add include.path '~/.config/git/config.d/difftastic'
-```
-
-delta を利用する場合、以下も追加:
-
-```sh
-git config --global --add include.path '~/.config/git/config.d/delta'
-```
-
-Windows の場合、以下も追加:
-
-```shell
-git config --global --add include.path '~/.config/git/config.d/windows'
-```
-
-WSL の場合、以下も追加:
-
-```shell
-git config --global --add include.path '~/.config/git/config.d/wsl'
-```
-
 ### difftool/merge tool の設定
 
-Windows 環境の場合、vimdiff と p4merge のパスを設定しておく:
+Windows 環境の場合、vimdiff と p4merge のパスを設定しておく。
 
-※ vimdiff は デフォルトだと msysgit 側の vim が起動してしまうため
+※ vimdiff のパスを指定するのはデフォルトだと msysgit 側の vim が起動してしまうため。
 
 ```powershell
 $VimPath = (Get-Command -Type Application -Name vim.exe | Select-Object -First 1).Source
@@ -56,7 +32,7 @@ git config --global mergetool.p4merge.path "path/to/p4merge.exe"
 
 ### ディレクトリにより Author を切り替える
 
-`~/.gitconfig` によく使う方のユーザー情報を書く
+`~/.gitconfig` によく使う方のユーザー情報を書く。
 
 ```ini
 [user]
@@ -64,7 +40,7 @@ git config --global mergetool.p4merge.path "path/to/p4merge.exe"
     email = <メールアドレス1>
 ```
 
-`~/.gitconfig-(work|public)` に特定フォルダ以下でのみ有効にしたいユーザー情報を書く
+`~/.gitconfig-(work|public)` に特定フォルダ以下でのみ有効にしたいユーザー情報を書く。
 
 ```ini
 [user]
@@ -72,18 +48,18 @@ git config --global mergetool.p4merge.path "path/to/p4merge.exe"
     email = <メールアドレス2>
 ```
 
-`~/.gitconfig` に以下のような `includeIf` を追加する
+`~/.gitconfig` に以下のような `includeIf` を追加する。
 
 ```ini
 [includeIf "gitdir/i:C:/Users/user/Repos/github-enterprise/"]
     path = ~/.gitconfig-work
 ```
 
-※ Windows の場合、`gitdir/i` で大文字小文字を無視した方が楽
+※ Windows の場合、`gitdir/i` で大文字小文字を無視した方が楽。
 
 #### `includeIf` の条件部について
 
-`gitdir` では、以下のように指定する
+`gitdir` では、以下のように指定する。
 
 - 子階層を含みたい場合、 `*` または `**` を使った glob を指定する
 - パス末尾を `/` で終えた場合、`/**` を指定したと見なされる
@@ -92,7 +68,7 @@ git config --global mergetool.p4merge.path "path/to/p4merge.exe"
 
 ### diff / merge に p4merge を使う
 
-Windows で使う場合、`config-windows` を include した後以下を追記
+Windows で使う場合、`config-windows` を include した後以下を追記する。
 
 ```ini
 [merge]
@@ -101,4 +77,4 @@ Windows で使う場合、`config-windows` を include した後以下を追記
   guitool = p4merge
 ```
 
-Visual Studio 2019 の diff ツールを使う場合、 `vs2019` を指定
+Visual Studio 2019 の diff ツールを使う場合、 `vs2019` を指定する。
