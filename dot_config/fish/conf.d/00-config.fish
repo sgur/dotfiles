@@ -1,4 +1,4 @@
-fish_add_path -P ~/bin ~/.local/bin ~/go/bin
+fish_add_path -P ~/bin ~/.local/bin ~/.cargo/bin ~/go/bin
 
 set -gx EDITOR vim
 if test "$TERM_PROGRAM" = 'vscode'
