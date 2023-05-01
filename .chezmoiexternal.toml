@@ -6,3 +6,10 @@ include = ["*/autoload/**", "*/doc/**", "*/plugin/**"]
 refreshPeriod = "24h"
 stripComponents = 1
 url = "https://github.com/k-takata/minpac/archive/master.zip"
+
+[".local/bin"]
+type = "archive"
+exact = false
+refreshPeriod = "168h"
+stripComponent = 1
+url = "https://github.com/afnanenayet/diffsitter/releases/latest/download/diffsitter-x86_64-unknown-linux-gnu.tar.gz"

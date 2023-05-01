@@ -213,3 +213,4 @@ wslpath
 xmap
 xmodifiers
 xnoremap
+msysgit
