@@ -68,18 +68,15 @@
       {"code": 55, "label": {"base": ".", "shifted": ">"}},
       {"code": 56, "label": {"base": "/", "shifted": "?"}},
       {
-        "code": 50783,
-        "baseCode": 78,
-        "label": {
-          "hint": "AltGr/",
-          "base": {"full": "Page Down", "1u": "PgDn"}
-        },
+        "code": 50758,
+        "baseCode": 53,
+        "label": {"hint": "AltGr/", "base": "`"},
         "modifier": "AltGr",
         "rangeStart": 49169,
         "categories": ["modifier", "dualuse", "altgr"]
       },
       {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
-      {"code": 53, "label": {"base": "`", "shifted": "~"}},
+      {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
       {
         "code": 224,
         "label": {"base": {"full": "Control", "1u": "Ctrl"}},
