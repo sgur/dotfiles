@@ -214,3 +214,8 @@ xmap
 xmodifiers
 xnoremap
 msysgit
+winbufnr
+bufname
+winnr
+tabpagewinnr
+setbufvar
