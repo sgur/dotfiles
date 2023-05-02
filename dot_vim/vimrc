@@ -482,9 +482,8 @@ augroup vimrc_plugin_autofmt
 augroup END
 g:autofmt_allow_over_tw = 1 # 全角文字ぶら下がりで1カラムはみ出すのを許可
 
-# caw (opt) {{{2
-g:caw_operator_keymappings = 1
-pack.Add('caw.vim')
+# commentary (opt) {{{2
+pack.Add('vim-commentary')
 
 # ctrlp.vim (opt) {{{2
 g:ctrlp_root_markers = ['.git']
@@ -519,8 +518,6 @@ enddef # }}}
 pack.Add('ctrlp.vim', InitCtrlp)
 
 # doge (opt) {{{2
-# Parsers: bash, java, php, ruby are removed
-g:doge_parsers = ['c', 'cpp', 'lua', 'python', 'typescript']
 pack.Add('vim-doge')
 g:doge_doc_standard_python = 'google'
 
@@ -547,12 +544,6 @@ def EmptyPromptMappings()
 enddef
 pack.Add('empty-prompt.vim', EmptyPromptMappings)
 
-# everforest (opt) {{{2
-augroup vimrc_plugin_everforest
-  autocmd!
-  autocmd FuncUndefined everforest#*  packadd! everforest
-augroup END
-
 # fakeclip (opt) {{{2
 if !has('clipboard')
   if system('cat /proc/sys/kernel/osrelease') =~ 'Microsoft'
@@ -574,34 +565,23 @@ def InitFern() # {{{
 enddef # }}}
 pack.Add('fern.vim', InitFern)
 
-# ft-asciidoc {{{2
-g:asciidoc_use_defaults = [
-  'folding',
-  'editing',
-  'navigating',
-  'compiling'
-  ]
+# flutter (opt) {{{2
+pack.Add('vim-flutter')
 
 # gfm-syntax {{{2
 if has('win32') || has('mac') # 8.0.1343 : Windows でカラー絵文字をサポート
   g:gfm_syntax_emoji_conceal = 1
 endif
 
-# healthcheck {{{2
-pack.Add('vim-healthcheck')
+# gitgutter (opt) {{{2
+pack.Add('vim-gitgutter')
 
-# helpful (opt) {{{2
-augroup vimrc_plugin_helpful
+# healthcheck (opt)]2
+augroup vimrc_plugin_healthcheck
   autocmd!
-  autocmd FuncUndefined helpful#*  packadd! helpful.vim
+  autocmd FuncUndefined health#*  packadd! vim-healthcheck
 augroup END
-command! -nargs=+ -complete=help HelpfulVersion  helpful#lookup('<args>')
-
-# inkstained (opt) {{{2
-augroup vimrc_plugin_inkstained
-  autocmd!
-  autocmd ColorScheme inkstained  packadd! inkstained-vim
-augroup END
+command -nargs=* -bar CheckHealth call health#check([<f-args>])
 
 # lightline {{{2
 pack.Add('lightline.vim')
@@ -694,9 +674,6 @@ command! -nargs=? -complete=custom,lightline_colorscheme#complete LightlineColor
       | else
       |   call lightline_colorscheme#select(<q-args>)
       | endif
-
-# linediff (opt) {{{2
-pack.Add('linediff.vim')
 
 # matchup (opt) {{{2
 pack.Add('vim-matchup')
@@ -835,18 +812,6 @@ def InitQuickrun() # {{{
 enddef # }}}
 pack.Add('vim-quickrun', InitQuickrun)
 
-# signify (opt) {{{2
-def InitSignify() # {{{
-  omap ih <plug>(signify-motion-inner-pending)
-  xmap ih <plug>(signify-motion-inner-visual)
-  omap ah <plug>(signify-motion-outer-pending)
-  xmap ah <plug>(signify-motion-outer-visual)
-enddef # }}}
-pack.Add('vim-signify', InitSignify)
-g:signify_priority = 9
-g:signify_skip = {'vcs': {'allow': ['git']}}
-g:signify_skip_filename_pattern = ['package-lock.json', 'yarn.lock']
-
 # sonictemplate (opt) {{{2
 pack.Add('vim-sonictemplate')
 g:sonictemplate_vim_template_dir = expand(rc_dir .. '/template')
@@ -863,13 +828,6 @@ pack.Add('tagalong.vim')
 # textobj-user (opt) {{{2
 pack.Add('vim-textobj-parameter')
 pack.Add('vim-textobj-url')
-
-# tokyonight (opt) {{{2
-if exists('$TMUX') && !has('gui_running')
-  set t_ZH=
-  g:tokyonight_enable_italic = 0
-  g:tokyonight_disable_italic_comment = 1
-endif
 
 # undotree (opt) {{{2
 augroup vimrc_plugin_undotree

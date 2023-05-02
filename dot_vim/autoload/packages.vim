@@ -79,14 +79,6 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
-  call minpac#add('AndrewRadev/linediff.vim', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('wellle/context.vim', #{
-        \ type: 'opt'
-        \ })
-
   call minpac#add('kana/vim-fakeclip', #{
         \ type: 'opt'
         \ })
@@ -151,7 +143,7 @@ function! s:init() abort "{{{
 
   call minpac#add('kana/vim-operator-user')
 
-  call minpac#add('tyru/caw.vim', #{
+  call minpac#add('tpope/vim-commentary', #{
         \ type: 'opt'
         \ })
 
@@ -162,6 +154,10 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('mhinz/vim-signify', #{
+        \ type: 'opt'
+        \ })
+
+  call minpac#add('airblade/vim-gitgutter', #{
         \ type: 'opt'
         \ })
 
@@ -244,10 +240,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('leafOfTree/vim-vue-plugin')
-
-  call minpac#add('tweekmonster/helpful.vim', #{
-        \ type: 'opt',
-        \ })
 
   call minpac#add('kevinoid/vim-jsonc')
 

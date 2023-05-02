@@ -1,13 +1,5 @@
 scriptencoding utf-8
 
-" let g:airline_symbols = extend(get(g:, 'airline_symbols', {}), {
-"       \ 'branch': '',
-"       \ 'readonly': '',
-"       \ 'linenr': '☰',
-"       \ 'maxlinenr': '',
-"       \ 'dirty': '⚡'
-"       \ },
-"       \ 'keep')
 
 " Interface {{{1
 
@@ -31,10 +23,16 @@ function! vimrc#lightline#branchname() abort
 endfunction
 
 function! vimrc#lightline#vcs_stat() abort
-  if !get(g:, 'loaded_signify', 0) || !exists('b:sy') || !has_key(b:sy, 'vcs') || &readonly
-    return ''
+  if get(g:, 'loaded_signify', 0) && exists('b:sy') && has_key(b:sy, 'vcs') && !readonly
+    return printf('+%d,!%d,-%d', b:sy.stats[0], b:sy.stats[1], b:sy.stats[2])
   endif
-  return printf('+%d,!%d,-%d', b:sy.stats[0], b:sy.stats[1], b:sy.stats[2])
+
+  if get(g:, 'loaded_gitgutter', 0)
+    const [added, modified, removed] = gitgutter#hunk#summary(winbufnr(0))
+    return printf('+%d,~%d,-%d', added, modified, removed)
+  endif
+
+  return ''
 endfunction
 
 function! vimrc#lightline#getcwd() abort
@@ -114,7 +112,6 @@ augroup vimrc_plugin_lightline
   autocmd!
   autocmd BufNewFile,BufReadPost * call s:detect(expand('<amatch>:p:h'))
   autocmd BufEnter * call s:detect(expand('%:p:h'))
-  " autocmd User Signify  call lightline#update()
 augroup END
 
 
