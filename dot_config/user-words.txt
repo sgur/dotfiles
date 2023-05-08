@@ -219,3 +219,4 @@ bufname
 winnr
 tabpagewinnr
 setbufvar
+appendbufline
