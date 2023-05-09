@@ -10,3 +10,5 @@ config:
   MD050: false
   # MD053/link-image-reference-definitions
   MD053: false
+
+noProgress: true

@@ -7,7 +7,7 @@ refreshPeriod = "24h"
 stripComponents = 1
 url = "https://github.com/k-takata/minpac/archive/master.zip"
 
-{{ if eq .chezmoi.os "linux" }}
+{{ if and (eq .chezmoi.os "linux") false }}
 [".local/bin"]
 type = "archive"
 exact = false
