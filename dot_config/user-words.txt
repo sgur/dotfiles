@@ -220,3 +220,8 @@ winnr
 tabpagewinnr
 setbufvar
 appendbufline
+awscli
+broot
+difftastic
+typioca
+zellij
