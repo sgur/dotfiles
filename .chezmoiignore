@@ -27,6 +27,7 @@ misc/Keyboards/
 .local/bin/
 .config/fish/
 .config/zellij/
+.Brewfile*
 {{ end }}
 
 {{ if (or (ne .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft"))) }}
