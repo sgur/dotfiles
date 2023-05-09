@@ -21,4 +21,4 @@ set -gx GPG_TTY (tty)
 # meaningful-ooo/sponge
 set sponge_purge_only_on_exit true
 
-set -gx LESS --incsearch --quit-if-one-screen
+set -gx LESS --incsearch --quit-if-one-screen --raw-control-chars
