@@ -249,14 +249,14 @@ function __VsDevShell {
 function Enter-VsDevShell2019 {
 	__VsDevShell -PoshGit -Version "[16.0,17.0)"
 
-	$Host.UI.RawUI.WindowTitle = "Deverlopr PowerShell for VS2019"
+	$Host.UI.RawUI.WindowTitle = "Developer PowerShell for VS2019"
 }
 
 ## Enable VS2022
 function Enter-VsDevShell2022 {
 	__VsDevShell -PoshGit -Version "[17.0,18.0)"
 
-	$Host.UI.RawUI.WindowTitle = "Deverlopr PowerShell for VS2022"
+	$Host.UI.RawUI.WindowTitle = "Developer PowerShell for VS2022"
 }
 
 
