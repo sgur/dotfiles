@@ -6,6 +6,9 @@
 #   . ~/.config/powershell/Microsoft.PowerShell_profile.ps1
 #   ```
 
+$CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
+# $CurrentUserScripts = $PSGetPath.CurrentUserScripts
+
 # Scoop Dir
 $ScoopDir = (Join-Path -Path $Env:USERPROFILE -ChildPath "scoop")
 if ($Env:SCOOP) {
@@ -147,16 +150,8 @@ function Get-Weather() {
 Set-Alias -Name wttr.in -Value Get-Weather
 
 ## Test-Colors
-# https://stackoverflow.com/a/20588680
-function Test-Colors( ) {
-	$Colors = [Enum]::GetValues( [ConsoleColor] )
-	$Max = ($Colors | ForEach-Object { "$_ ".Length } | Measure-Object -Maximum).Maximum
-	foreach( $Color in $Colors ) {
-		Write-Host (" {0,2} {1,$Max} " -f [int]$color,$color) -NoNewline
-		Write-Host "  " -Background $color -NoNewline
-		Write-Host " " -NoNewline
-		Write-Host "$Color" -Foreground $color
-	}
+function Test-Colors {
+	& (Join-Path -Path $CurrentUserScripts -ChildPath 'Test-Colors.ps1')
 }
 
 ## ghq + jzf
@@ -208,143 +203,6 @@ Set-Alias -Name fzf-history -Value Select-History
 
 Set-PSReadLineKeyHandler -Chord Ctrl+r -ScriptBlock {
 	Select-History
-}
-
-## Sleep Computer
-function Suspend-Computer {
-	$signature = @"
-[DllImport("powrprof.dll")]
-public static extern bool SetSuspendState(bool Hibernate, bool ForceCritical, bool DisableWakeEvent;
-"@
-	$func = Add-Type -MemberDefinition $signature -Namespace "Win32Functions" -Name "SetSuspendStateFunction" -PassThru
-	$func::SetSuspendState($false, $false, $true)
-}
-
-function __VsDevShell {
-	param (
-		[Parameter(Mandatory=$true)][string]$Version,
-		[Switch]$PoshGit
-	)
-
-	try {
-		$VsWhereCmd =(Join-Path ${Env:ProgramFiles(x86)} '\\Microsoft Visual Studio\\Installer\\vswhere.exe')
-		$Param = ConvertFrom-Json ([string] (&$VsWhereCmd -version $Version -format json))
-		Import-Module -ErrorAction Stop (Join-Path $Param.installationPath 'Common7\\Tools\\Microsoft.VisualStudio.DevShell.dll')
-		Enter-VsDevShell $Param.instanceId -SkipAutomaticLocation -DevCmdArguments "-arch=x64 -host_arch=x64"
-	} catch {
-		Write-Warning "Visual Studio: not installed"
-		return
-	}
-
-	if ($PoshGit) {
-		try {
-			Import-Module -ErrorAction Stop posh-git
-		} catch {
-			Write-Warning "posh-git not found: Install-Module posh-git"
-		}
-	}
-}
-
-## Enable VS2019 Buildchain
-function Enter-VsDevShell2019 {
-	__VsDevShell -PoshGit -Version "[16.0,17.0)"
-
-	$Host.UI.RawUI.WindowTitle = "Developer PowerShell for VS2019"
-}
-
-## Enable VS2022
-function Enter-VsDevShell2022 {
-	__VsDevShell -PoshGit -Version "[17.0,18.0)"
-
-	$Host.UI.RawUI.WindowTitle = "Developer PowerShell for VS2022"
-}
-
-
-## Set wallpaper
-function Set-RandomWallpaper {
-	$Src = {
-		if (-not ('Wallpaper' -as [type])) {
-			$WallpaperTypeSource =
-@"
-using System.Runtime.InteropServices;
-public class Wallpaper
-{
-	public const int SPI_SETDESKWALLPAPER = 0x0014;
-	public const int SPIF_UPDATEINIFILE = 0x01;
-	public const int SPIF_SENDWININICHANGE = 0x02;
-
-	[DllImport("user32.dll", SetLastError = true, CharSet = CharSet.Auto)]
-	private static extern int SystemParametersInfo (int uAction, int uParam, string pvParam, int fWinIni);
-
-	public static void SetWallpaper ( string path )
-	{
-		SystemParametersInfo( SPI_SETDESKWALLPAPER, 0, path, SPIF_UPDATEINIFILE | SPIF_SENDWININICHANGE );
-	}
-}
-"@
-			Add-Type -TypeDefinition $WallpaperTypeSource
-		}
-		if (-not ('System.Windows.Forms.Screen' -as [type])) {
-			Add-Type -AssemblyName System.Windows.Forms
-		}
-		$WorkingArea = [System.Windows.Forms.Screen]::PrimaryScreen.WorkingArea
-		$Uri = "https://source.unsplash.com/random/$($WorkingArea.Width)x$($WorkingArea.Height)/?wallpaper,landscape"
-
-		$OutputFormat = "${Env:TEMP}\Wallpaper_{0}.jpeg"
-		$OldFiles = $OutputFormat -f "*" | Get-ChildItem
-		try {
-			$HttpClient = New-Object System.Net.Http.HttpClient
-			$Task = $HttpClient.GetAsync($Uri)
-			$Response = $Task.GetAwaiter().GetResult()
-			if (!$Response.IsSuccessStatusCode){
-				return
-			}
-			$ImgUri = $Response.RequestMessage.RequestUri
-
-			$OutputFile = $OutputFormat -f (Get-Random)
-			Set-Content -AsByteStream -Value $Response.Content.ReadAsByteArrayAsync().Result -Path $OutputFile
-
-			$Queries = @{}
-			foreach ($q in $Response.RequestMessage.RequestUri.Query.Substring(1).Split('&')) {
-				$kv = $q.split('=')
-				$Queries[$kv[0]] = $kv[1]
-			}
-
-			[Wallpaper]::SetWallpaper($OutputFile)
-			# Set-ItemProperty -Path 'HKCU:\Control Panel\Desktop' -Name Wallpaper -Value $OutputFile
-			# REG.exe ADD "HKCU\Control Panel\Desktop" /v "Wallpaper" /t REG_SZ /d $OutputFile /f
-
-			$WallpaperJson = "~/.wallpaper.json"
-			@{ scheme=$ImgUri.Scheme; id=$ImgUri.Segments[1]; host=$ImgUri.Authority; query=$Queries } | ConvertTo-Json | Out-File -FilePath $WallpaperJson
-		} finally {
-			$Response.Dispose()
-			Remove-Item -ErrorAction Ignore $OldFiles
-		}
-	}
-	Start-Job -ScriptBlock $Src | Out-Null
-}
-
-## MS Teams のキャッシュを削除する
-function Clear-MsTeamsCache {
-	Stop-Process -ErrorAction Ignore -Name Teams
-	Get-ChildItem -Path $Env:LocalAppData/Microsoft/Teams -Directory `
-		| Where-Object Name -in ( 'blob_storage', 'Cache', 'databases', 'GPUCache', 'IndexedDB', 'Local Storage', 'tmp') `
-		| ForEach-Object { Remove-Item -Force -Recurse $_ }
-	Start-Process -FilePath $Env:LocalAppData/Microsoft/Teams/Update.exe -ArgumentList ('--processStart', 'Teams.exe')
-}
-
-## WSL2 向けに Large Send Offload を無効にする
-# docker pull が高速化される(かも)
-function Disable-WslNetAdapterLso {
-	if (!([Security.Principal.WindowsPrincipal] [Security.Principal.WindowsIdentity]::GetCurrent()).IsInRole(`
-		        [Security.Principal.WindowsBuiltInRole] "Administrator")) {
-		Write-Warning "Administrator rights not found"
-		return
-	}
-	Get-NetAdapterLso | Where-Object { $_.Name -like "vEthernet (WSL)" } | Disable-NetAdapterLso -IPv4 -IPv6 -PassThru
-}
-function Disable-WslNetAdapterLsoWithAdmin {
-	Start-Process -Verb RunAs -FilePath "pwsh.exe" -ArgumentList "-c", "Disable-WslNetAdapterLso"
 }
 
 ## AWS CLI のコマンド補完
@@ -424,6 +282,11 @@ elseif (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -Child
 	}
 }
 
+## gsudo
+try {
+	Import-Module -ErrorAction SilentlyContinue "gsudoModule.psd1"
+} catch {}
+
 ## broot
 if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath 'broot.exe')) {
 	# https://github.com/Canop/broot/issues/78#issuecomment-572631419
@@ -450,7 +313,42 @@ if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath
 	Write-Output "broot not installed: scoop install broot"
 }
 
-## gsudo
-try {
-	Import-Module -ErrorAction SilentlyContinue "gsudoModule.psd1"
-} catch {}
+## Sleep Computer
+function Suspend-Computer {
+	& (Join-Path -Path $CurrentUserScripts -ChildPath 'Suspend-Computer.ps1')
+}
+
+## Enable VS2019 Buildchain
+function Enter-VsDevShell2019 {
+	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Start-VsDevShell.ps1'
+	& $Path -PoshGit -Version "[16.0,17.0)"
+
+	$Host.UI.RawUI.WindowTitle = "Developer PowerShell for VS2019"
+}
+
+## Enable VS2022
+function Enter-VsDevShell2022 {
+	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Start-VsDevShell.ps1'
+	& $Path -PoshGit -Version "[17.0,18.0)"
+
+	$Host.UI.RawUI.WindowTitle = "Developer PowerShell for VS2022"
+}
+
+## Set wallpaper
+function Set-RandomWallpaper {
+	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Set-RandomWallpaper.ps1'
+	Start-Job -FilePath $Path | Out-Null
+}
+
+## MS Teams のキャッシュを削除する
+function Clear-MsTeamsCache {
+	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Clear-MsTeamsCache.ps1'
+	Start-Job -FilePath $Path | Out-Null
+}
+
+## WSL2 向けに Large Send Offload を無効にする
+# docker pull が高速化される(かも)
+function Disable-WslNetAdapterLso {
+	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Disable-WslNetAdapterLso.ps1'
+	Start-Process -Verb RunAs -FilePath "pwsh.exe" -ArgumentList "-c", $Path
+}
