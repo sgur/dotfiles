@@ -238,3 +238,9 @@ xmodifiers
 xnoremap
 zellij
 zoxide
+deno
+gcloud
+pulumi
+rlang
+vlang
+vcsh
