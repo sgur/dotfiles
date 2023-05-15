@@ -467,6 +467,16 @@ autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
       \   allowlist: ['vim', 'javascript', 'css'],
       \   completor: function('asyncomplete#sources#file#completor')
       \}))
+# words source
+autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+      \ asyncomplete#register_source(asyncomplete#sources#words#get_source_options({
+      \   name: 'words',
+      \   allowlist: ['*'],
+      \   completor: function('asyncomplete#sources#words#completor'),
+      \   config: {
+      \     words_file: expand('~/.local/share/dict/words')
+      \   }
+      \}))
 
 if argc(-1) > 0
   autocmd vimrc_plugin_asyncomplete VimEnter *  asyncomplete#enable_for_buffer()
