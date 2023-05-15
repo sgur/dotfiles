@@ -313,6 +313,21 @@ if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath
 	Write-Output "broot not installed: scoop install broot"
 }
 
+## WinGet completion
+# https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md#powershell
+try {
+	Get-Command -ErrorAction Stop winget.exe | Out-Null
+	Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
+    param($wordToComplete, $commandAst, $cursorPosition)
+        [Console]::InputEncoding = [Console]::OutputEncoding = $OutputEncoding = [System.Text.Utf8Encoding]::new()
+        $Local:word = $wordToComplete.Replace('"', '""')
+        $Local:ast = $commandAst.ToString().Replace('"', '""')
+        winget complete --word="$Local:word" --commandline "$Local:ast" --position $cursorPosition | ForEach-Object {
+            [System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
+        }
+	}
+} catch {}
+
 ## Sleep Computer
 function Suspend-Computer {
 	& (Join-Path -Path $CurrentUserScripts -ChildPath 'Suspend-Computer.ps1')
