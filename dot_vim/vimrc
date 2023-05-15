@@ -44,7 +44,7 @@ set ambiwidth=single
 set backspace=indent,eol,start
 set backupdir^=$HOME/.cache/vim/backup
 set breakindent breakindentopt=min:20,shift:4,sbr
-&dictionary = expand(rc_dir .. '/etc/look/words')
+&dictionary = expand('~/.local/share/dict/words')
 # diffopt で internal をサポート
 set diffopt& diffopt+=indent-heuristic diffopt+=algorithm:histogram
 if has('win32')
@@ -441,38 +441,36 @@ def AsteriskInit()
 enddef
 pack.Add('vim-asterisk', AsteriskInit)
 
-# asyncomplete (opt) {{{2
+# asyncomplete  {{{2
 def OnBufwinenterAsyncomplete()
   b:asyncomplete_enable = !&readonly
 enddef
-def AsyncompleteInit()
-  packadd! asyncomplete-buffer.vim
-  packadd! asyncomplete-file.vim
-  inoremap <C-Space> <Plug>(asyncomplete_force_refresh)
-  augroup vimrc_plugin_asyncomplete
-    autocmd!
-    autocmd BufWinEnter *  OnBufwinenterAsyncomplete()
-    autocmd OptionSet readonly  OnBufwinenterAsyncomplete()
-  augroup END
-  OnBufwinenterAsyncomplete()
-  # buffer source
-  autocmd vimrc_plugin_asyncomplete User asyncomplete_setup # {{{
-        \ asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        \   name: 'buffer',
-        \   allowlist: ['*'],
-        \   priority: 10,
-        \   completor: asyncomplete#sources#buffer#completor
-        \})) # }}}
-  # file source
-  autocmd vimrc_plugin_asyncomplete User asyncomplete_setup # {{{
-        \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-        \   name: 'file',
-        \   allowlist: ['vim', 'javascript', 'css'],
-        \   priority: 10,
-        \   completor: asyncomplete#sources#file#completor
-        \})) # }}}
-enddef
-call pack.Add('asyncomplete.vim', AsyncompleteInit)
+inoremap <C-Space> <Plug>(asyncomplete_force_refresh)
+augroup vimrc_plugin_asyncomplete
+  autocmd!
+  autocmd FuncUndefined asyncomplete#sources#buffer#*  packadd! asyncomplete-buffer.vim
+  autocmd FuncUndefined asyncomplete#sources#file#*  packadd! asyncomplete-file.vim
+  autocmd BufWinEnter *  OnBufwinenterAsyncomplete()
+  autocmd OptionSet readonly  OnBufwinenterAsyncomplete()
+augroup END
+# buffer source
+autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+      \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+      \   name: 'buffer',
+      \   allowlist: ['*'],
+      \   completor: function('asyncomplete#sources#buffer#completor')
+      \}))
+# file source
+autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+      \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+      \   name: 'file',
+      \   allowlist: ['vim', 'javascript', 'css'],
+      \   completor: function('asyncomplete#sources#file#completor')
+      \}))
+
+if argc(-1) > 0
+  autocmd vimrc_plugin_asyncomplete VimEnter *  asyncomplete#enable_for_buffer()
+endif
 
 # autofmt (opt) {{{2
 augroup vimrc_plugin_autofmt

@@ -283,9 +283,7 @@ function! s:init() abort "{{{
         \ type: 'opt',
         \ })
 
-  call minpac#add('prabirshrestha/asyncomplete.vim', #{
-        \ type: 'opt',
-        \ })
+  call minpac#add('prabirshrestha/asyncomplete.vim')
 
   call minpac#add('prabirshrestha/asyncomplete-lsp.vim', #{
         \ type: 'opt',
