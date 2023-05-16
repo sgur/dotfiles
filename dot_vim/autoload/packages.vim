@@ -155,10 +155,6 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
-  call minpac#add('mhinz/vim-signify', #{
-        \ type: 'opt'
-        \ })
-
   call minpac#add('airblade/vim-gitgutter', #{
         \ type: 'opt'
         \ })
