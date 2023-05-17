@@ -131,7 +131,9 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
-  call minpac#add('vim-jp/vimdoc-ja')
+  call minpac#add('vim-jp/vimdoc-ja', #{
+        \ pullmethod: 'autostash'
+        \ })
 
   call minpac#add('kana/vim-operator-replace', #{
         \ type: 'opt'
