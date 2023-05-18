@@ -26,9 +26,6 @@ endif
 
 const rc_dir = expand('<sfile>:p:h:gs?\?/?')
 
-# UTF-8 記号が使えるか
-g:has_utf8_symbol = get(g:, 'has_utf8_symbol', &encoding == 'utf-8' && (has('gui_running') || has('unix')))
-
 &termencoding = &encoding
 set encoding=utf-8
 try
@@ -77,7 +74,7 @@ set matchpairs+=（:）,｛:｝,「:」,［:］,『:』,【:】
 set nrformats& nrformats-=octal
 &shelltemp = !(has('win32') || has('win64')) || !has('filterpipe')
 set shiftwidth=0 shiftround softtabstop=-1
-&showbreak = g:has_utf8_symbol ? '￫ ' : '> '
+&showbreak = '￫ '
 set noshowmode
 set signcolumn=yes
 set smartindent autoindent
