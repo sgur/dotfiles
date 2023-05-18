@@ -41,12 +41,13 @@ let g:vista_default_executive = 'vim_lsp'
 
 let g:lsp_popup_menu_server_blacklist = get(g:, 'lsp_popup_menu_server_blacklist', ['efm-langserver'])
 
-let g:lsp_diagnostics_float_cursor = 1
-let g:lsp_diagnostics_virtual_text_enabled = has('patch-9.0.0178')
+let g:lsp_diagnostics_float_cursor = exists('*popup_create')
+let g:lsp_diagnostics_virtual_text_enabled = has('textprop') && has('patch-9.0.0178')
+let g:lsp_diagnostics_virtual_text_insert_mode_enabled = get(g:, 'lsp_diagnostics_virtual_text_enabled', 0) && has('textprop') && has('patch-9.0.0178')
 let g:lsp_diagnostics_virtual_text_align = 'above'
 let g:lsp_diagnostics_virtual_text_padding_left = 1
 let g:lsp_diagnostics_virtual_text_prefix = "---"
-let g:lsp_inlay_hints_enabled = has('patch-9.0.0167')
+let g:lsp_inlay_hints_enabled = has('textprop') && has('patch-9.0.0167')
 
 try
   packadd! vim-lsp
