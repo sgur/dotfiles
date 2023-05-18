@@ -36,17 +36,9 @@ if test -z "$XDG_RUNTIME_DIR"
    end
 end
 
-# pseudo open command for WSL
-# https://zenn.dev/ys/books/6e3f3bc6e3cf741484df/viewer/af1079468fc71320314f#windows%E3%81%AE%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E9%96%8B%E3%81%8F
-function open --description 'alias open=/mnt/c/Windows/System32/rundll32.exe url.dll,FileProtocolHandler (wslpath -w $argv)'
-   if test -f $argv
-      $EDITOR $argv
-   else
-      /mnt/c/Windows/System32/rundll32.exe url.dll,FileProtocolHandler (wslpath -w $argv) 2> /dev/null
-   end
+if test -x ~/bin/wslview
+    set -gx BROWSER ~/bin/wslview
 end
-
-set -gx BROWSER '/mnt/c/Windows/System32/rundll32.exe url.dll,FileProtocolHandler'
 
 # Disable DISPLAY
 if test -n "$WSL2_GUI_APPS_ENABLED"
