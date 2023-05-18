@@ -23,11 +23,11 @@ function! vimrc#lightline#branchname() abort
 endfunction
 
 function! vimrc#lightline#vcs_stat() abort
-  if get(g:, 'loaded_signify', 0) && exists('b:sy') && has_key(b:sy, 'vcs') && !readonly
+  if get(g:, 'loaded_signify', 0) && exists('b:sy') && has_key(b:sy, 'vcs') && !&readonly
     return printf('+%d,!%d,-%d', b:sy.stats[0], b:sy.stats[1], b:sy.stats[2])
   endif
 
-  if get(g:, 'loaded_gitgutter', 0)
+  if get(g:, 'loaded_gitgutter', 0) && exists('b:gitgutter') && !empty(get(b:gitgutter, 'summary', [])) && !&readonly
     const [added, modified, removed] = gitgutter#hunk#summary(winbufnr(0))
     return printf('+%d,~%d,-%d', added, modified, removed)
   endif
