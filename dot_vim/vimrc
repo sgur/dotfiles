@@ -491,6 +491,9 @@ g:autofmt_allow_over_tw = 1 # 全角文字ぶら下がりで1カラムはみ出�
 # commentary (opt) {{{2
 pack.Add('vim-commentary')
 
+# copilot (opt) {{{2
+pack.Add('copilot.vim')
+
 # ctrlp.vim (opt) {{{2
 g:ctrlp_root_markers = ['.git']
 g:ctrlp_use_caching = 1

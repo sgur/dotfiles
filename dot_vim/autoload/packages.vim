@@ -67,6 +67,10 @@ function! s:init() abort "{{{
 
   " Generic {{{2
 
+  call minpac#add('github/copilot.vim', #{
+        \ type: 'opt'
+        \ })
+
   call minpac#add('lambdalisue/fern.vim', #{
         \ type: 'opt'
         \ })
