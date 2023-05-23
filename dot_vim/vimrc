@@ -851,18 +851,18 @@ def InitVsnip() # {{{
         \ + globpath(expand('~/.vscode/extensions'), '*/snippets', 1, 1)
 
   # Expand
-  inoremap <expr> <C-]>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-]>'
-  snoremap <expr> <C-]>   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-]>'
+  inoremap <expr> <C-x>j   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-x>j'
+  snoremap <expr> <C-x>j   vsnip#expandable()  ? '<Plug>(vsnip-expand)'         : '<C-x>j'
 
   # Expand or jump
-  inoremap <expr> <C-b>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-b>'
-  snoremap <expr> <C-b>   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-b>'
+  inoremap <expr> <C-x>l   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-x>l'
+  snoremap <expr> <C-x>l   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C->l'
 
   # Jump forward or backward
-  inoremap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-  snoremap <expr> <Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<Tab>'
-  inoremap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
-  snoremap <expr> <S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<S-Tab>'
+  inoremap <expr> <C-x><Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-x><Tab>'
+  snoremap <expr> <C-x><Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-x><Tab>'
+  inoremap <expr> <C-x><S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-x><S-Tab>'
+  snoremap <expr> <C-x><S-Tab> vsnip#jumpable(-1)  ? '<Plug>(vsnip-jump-prev)'      : '<C-x><S-Tab>'
 
   # If you want to use snippet for multiple filetypes, you can `g:vsnip_filetypes` for it.
   g:vsnip_filetypes = {}
