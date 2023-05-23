@@ -1,3 +1,5 @@
+status is-interactive || exit
+
 # string match -q "$TERM_PROGRAM" "vscode"
 # and . (code --locate-shell-integration-path fish)
 if test "$TERM_PROGRAM" != "vscode"

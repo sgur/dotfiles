@@ -1,3 +1,5 @@
+status is-interactive || exit
+
 if not type -q bat
     exit 0
 end

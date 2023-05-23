@@ -1,6 +1,4 @@
-if not status --is-interactive
-    exit
-end
+status is-interactive || exit
 
 if type -q starship
     starship init fish | source

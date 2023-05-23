@@ -471,7 +471,8 @@ autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
       \   allowlist: ['*'],
       \   completor: function('asyncomplete#sources#words#completor'),
       \   config: {
-      \     words_file: expand('~/.local/share/dict/words')
+      \     words_file: expand('~/.local/share/dict/words'),
+      \     complete_min_chars: 6,
       \   }
       \}))
 

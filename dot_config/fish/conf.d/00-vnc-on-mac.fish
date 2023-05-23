@@ -1,3 +1,5 @@
+status is-interactive || exit
+
 if test -z "$SSH_CONNECTION"
    exit 0
 end
