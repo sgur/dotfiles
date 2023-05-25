@@ -90,3 +90,6 @@ winbufnr
 winnr
 xmap
 xnoremap
+hlgroup
+nvim
+cmdheight
