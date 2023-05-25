@@ -163,14 +163,18 @@ def CalcWidthByFonts(fontName: string): number
 enddef
 final powerline_width = CalcWidthByFonts(&guifont)
 final nerd_fonts = [
-  [0x23fb, 0x23fe, 1], # IEC Power Symbols
+  [0xe5fa, 0xe6ac, 2], # Seti-UI + Custom
+  [0xe700, 0xe7c5, 2], # Devicons
+  [0xf000, 0xf2e0, 2], # Font Awesome
+  [0xe200, 0xe2a9, 2], # Font Awesome Extension
+  [0xf0001, 0xf1af0, 2], # Material Design
+  [0xe300, 0xe3e3, 2], # Weather Icons
+  [0xf400, 0xf532, 2], # Octicons
 #  [0x2665, 0x2665, 2], # Octoicons ♥
 #  [0x26a1, 0x26a1, 2], # Octoicons ⚡
-   [0x2b58, 0x2b58, 1], # IEC Power Symbols
-  [0xe000, 0xe00a, 2], # Pomicons
   [0xe0a0, 0xe0a2, 1], # Powerline
-  [0xe0a3, 0xe0a3, 1], # Powerline Extra
   [0xe0b0, 0xe0b3, 1], # Powerline
+  [0xe0a3, 0xe0a3, 1], # Powerline Extra
   [0xe0b4, 0xe0b7, 1], # Powerline Extra
   [0xe0b8, 0xe0bf, powerline_width], # Powerline Extra
   [0xe0c0, 0xe0c8, 2], # Powerline Extra
@@ -178,16 +182,11 @@ final nerd_fonts = [
   [0xe0cc, 0xe0d1, 2], # Powerline Extra
   [0xe0d2, 0xe0d2, powerline_width], # Powerline Extra
   [0xe0d4, 0xe0d4, powerline_width], # Powerline Extra
-  [0xe200, 0xe2d4, 2], # Font Awesome Extension
-  [0xe300, 0xe3eb, 2], # Weather Icons
-  [0xe5fa, 0xe631, 2], # Seti-UI + Custom
-  [0xe700, 0xe7c5, 2], # Devicons
+  [0x23fb, 0x23fe, 1], # IEC Power Symbols
+  [0x2b58, 0x2b58, 1], # IEC Power Symbols
+  [0xf300, 0xf32f, 2], # Font Logos
+  [0xe000, 0xe00a, 2], # Pomicons
   [0xea60, 0xebeb, 2], # Codeicons
-  [0xf000, 0xf2e0, 2], # Font Awesome
-  [0xf300, 0xf32d, 2], # Font Logos
-  [0xf400, 0xf4a8, 2], # Octicons
-  [0xf4a9, 0xf4a9, 2], # Octicons
-  [0xf500, 0xfd46, 2], # Material Design
   ]
 
 if &encoding == 'utf-8' && exists('*setcellwidths') && has('vim_starting')
