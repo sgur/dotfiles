@@ -93,3 +93,4 @@ xnoremap
 hlgroup
 nvim
 cmdheight
+ftplugin
