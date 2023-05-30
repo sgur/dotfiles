@@ -81,7 +81,8 @@
             "opacity": 100,
             "padding": "16,8",
             "startingDirectory": "%USERPROFILE%",
-            "useAcrylic": false
+            "useAcrylic": false,
+            "useAtlasEngine": false
         },
         "list": 
         [
@@ -142,18 +143,6 @@
                 "guid": "{2ddf4618-64ee-4c75-a5e0-252f2b6ad7f7}",
                 "name": "nu shell",
                 "useAtlasEngine": false
-            },
-            {
-                "guid": "{20896670-bf33-5986-ab12-86d10253b9b5}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 2019",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{b6f8275e-c97f-5b56-ba1b-97edebe03eef}",
-                "hidden": false,
-                "name": "Developer PowerShell for VS 2019",
-                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
