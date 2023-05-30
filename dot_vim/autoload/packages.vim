@@ -1,5 +1,7 @@
 scriptencoding utf-8
 
+" spell-checker: disable
+
 packadd minpac
 
 " Interface {{{1
@@ -35,10 +37,6 @@ function! s:nproc() abort
 
   " macOS : sysctl -n machdep.cpu.cores_per_pacakge でもよさそう
 endfunction
-
-function! s:doge(hooktype, name) abort "{{{
-  call doge#dependencies#install()
-endfunction "}}}
 
 
 " Initialization {{{1
@@ -207,11 +205,6 @@ function! s:init() abort "{{{
         \ type: 'opt',
         \ })
 
-  call minpac#add('kkoomen/vim-doge', #{
-        \ type: 'opt',
-        \ do: function('s:doge')
-        \ })
-
   call minpac#add('tyru/empty-prompt.vim', #{
         \ type: 'opt',
         \ })
@@ -236,11 +229,6 @@ function! s:init() abort "{{{
 
   call minpac#add('evanleck/vim-svelte')
 
-  call minpac#add('tmhedberg/SimpylFold', #{
-        \ type: 'opt',
-        \ name: 'simpylfold'
-        \ })
-
   call minpac#add('leafOfTree/vim-vue-plugin')
 
   call minpac#add('kevinoid/vim-jsonc')
@@ -264,12 +252,6 @@ function! s:init() abort "{{{
   call minpac#add('rhysd/vim-gfm-syntax')
 
   " Omnifunc, etc. {{{2
-
-  call minpac#add('mattn/vim-goaddtags')
-  call minpac#add('mattn/vim-gorename')
-  call minpac#add('mattn/vim-goimports')
-  call minpac#add('mattn/vim-goimpl')
-  call minpac#add('mattn/vim-gorun')
 
   call minpac#add('vim-jp/vital.vim', #{
         \ type: 'opt',

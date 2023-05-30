@@ -526,10 +526,6 @@ def InitCtrlp() # {{{
 enddef # }}}
 pack.Add('ctrlp.vim', InitCtrlp)
 
-# doge (opt) {{{2
-pack.Add('vim-doge')
-g:doge_doc_standard_python = 'google'
-
 # editorconfig (opt) {{{2
 pack.Add('vim-editorconfig')
 g:editorconfig_root_chdir = 1
@@ -821,9 +817,6 @@ g:sonictemplate_vim_template_dir = expand(rc_dir .. '/template')
 g:sonictemplate_key = '<LocalLeader>t'
 g:sonictemplate_intelligent_key = '<LocalLeader>T'
 g:sonictemplate_postfix_key = '<LocalLeader>]'
-
-# SimpylFold (opt) {{{2
-pack.Add('simpylfold')
 
 # tagalong (opt) {{{2
 pack.Add('tagalong.vim')
