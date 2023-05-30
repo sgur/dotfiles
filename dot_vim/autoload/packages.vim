@@ -93,6 +93,10 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
+  call minpac#add('mattn/vim-molder-operations', #{
+        \ type: 'opt'
+        \ })
+
   call minpac#add('ctrlpvim/ctrlp.vim', #{
         \ type: 'opt'
         \ })
