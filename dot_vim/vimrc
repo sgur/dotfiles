@@ -464,14 +464,14 @@ autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
       \   allowlist: ['vim', 'javascript', 'css'],
       \   completor: function('asyncomplete#sources#file#completor')
       \}))
-# words source
+# dictionary source
 autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-      \ asyncomplete#register_source(asyncomplete#sources#words#get_source_options({
-      \   name: 'words',
+      \ asyncomplete#register_source(asyncomplete#sources#dictionary#get_source_options({
+      \   name: 'dictionary',
       \   allowlist: ['*'],
-      \   completor: function('asyncomplete#sources#words#completor'),
+      \   completor: function('asyncomplete#sources#dictionary#completor'),
       \   config: {
-      \     words_file: expand('~/.local/share/dict/words'),
+      \     dictionary_file: expand('~/.local/share/dict/words'),
       \     complete_min_chars: 6,
       \   }
       \}))
