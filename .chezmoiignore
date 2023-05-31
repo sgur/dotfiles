@@ -19,6 +19,7 @@ AppData/Roaming/
 Documents/
 misc/AppData/
 misc/Keyboards/
+scoop/
 {{ else }}
 # Ignoring on Windows
 .actrc
