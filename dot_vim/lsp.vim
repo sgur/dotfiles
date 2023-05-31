@@ -22,38 +22,34 @@ endif
 let s:rc_dir = expand('<sfile>:p:h:gs?\?/?')
 let s:temp_dir = fnamemodify(tempname(), ':p:h')
 
-" log {{{2
-let g:lsp_log_file = expand(s:temp_dir . '/vim-lsp.log')
-let g:efm_langserver_log_file = expand(s:temp_dir . '/efm-langserver.log')
-let g:lsp_log_file = ''
 " 2}}}
 
 let g:lsp_async_completion = 1
+
 if has('win32')
   let g:lsp_settings_servers_dir = expand('~/.local/share/vim-lsp-settings/servers')
   let g:lsp_settings_global_settings_dir = expand('~/.local/share/vim-lsp-settings')
 endif
 
-let g:lsp_diagnostics_float_cursor = has('patch-8.1.1364')
-let g:lsp_diagnostics_echo_cursor = !g:lsp_diagnostics_float_cursor
-
-let g:vista_default_executive = 'vim_lsp'
-
 let g:lsp_popup_menu_server_blacklist = get(g:, 'lsp_popup_menu_server_blacklist', ['efm-langserver'])
 
+let g:lsp_diagnostics_float_cursor = has('patch-8.1.1364')
+let g:lsp_diagnostics_echo_cursor = !g:lsp_diagnostics_float_cursor
 let g:lsp_diagnostics_float_cursor = exists('*popup_create')
 let g:lsp_diagnostics_virtual_text_enabled = has('textprop') && has('patch-9.0.0178')
 let g:lsp_diagnostics_virtual_text_insert_mode_enabled = get(g:, 'lsp_diagnostics_virtual_text_enabled', 0) && has('textprop') && has('patch-9.0.0178')
-let g:lsp_diagnostics_virtual_text_align = 'above'
-let g:lsp_diagnostics_virtual_text_padding_left = 1
-let g:lsp_diagnostics_virtual_text_prefix = "---"
+let g:lsp_diagnostics_virtual_text_align = 'after'
+let g:lsp_diagnostics_virtual_text_padding_left = 4
+let g:lsp_diagnostics_virtual_text_prefix = "--- "
+
 let g:lsp_inlay_hints_enabled = has('textprop') && has('patch-9.0.0167')
 
 try
-  packadd! vim-lsp
+  " 後に packadd! したものの方が先に読まれるため、ロードと逆順なる
+  packadd! vim-vsnip-integ
   packadd! asyncomplete-lsp.vim
   packadd! vim-lsp-settings
-  packadd! vim-vsnip-integ
+  packadd! vim-lsp
 catch /^Vim\%((\a\+)\)\=:E919/
   echomsg v:errmsg
   finish
@@ -85,26 +81,7 @@ augroup vimrc_plugin_lsp
   autocmd FileType lsp-quickpick-filter  setlocal iminsert=0
 augroup END
 
-command! -nargs=0 LspListCapabilities
-      \ call s:get_capabilities()->map("execute('echo v:val', 0)")
-
-function! s:get_capabilities() abort "{{{
-  let capabilities = []
-  for s in lsp#get_allowed_servers()
-    let capability = lsp#get_server_capabilities(s)
-    let available = filter(keys(capability), {k,v -> !(type(capability[v]) == type(v:t_bool) && capability[v] == v:false)})
-    let capabilities += available
-  endfor
-  call uniq(sort(capabilities))
-  return capabilities
-endfunction "}}}
-
 function! s:buffer_setup() abort "{{{
-  if exists('b:lsp_capabilities')
-    return
-  endif
-  let b:lsp_capabilities = s:get_capabilities()
-
   nmap <silent> <expr> [g max(values(lsp#get_buffer_diagnostics_counts())) > 0 ? "\<Plug>(lsp-previous-diagnostic)" : ":\<C-u>cprevious\<CR>"
   nmap <silent> <expr> ]g max(values(lsp#get_buffer_diagnostics_counts())) > 0 ? "\<Plug>(lsp-next-diagnostic)" : ":\<C-u>cnext\<CR>"
   setlocal tagfunc=lsp#tagfunc
@@ -286,8 +263,8 @@ let g:lsp_settings['bash-language-server'] = #{
 
 if !has('vim_starting')
   runtime! plugin/lsp.vim
-  runtime! plugin/lsp_settings.vim
   runtime! plugin/asyncomplete-lsp.vim
+  runtime! plugin/lsp_settings.vim
   runtime! plugin/vsnip_integ.vim
   call lsp#enable()
   execute 'doautocmd' 'BufReadPost' expand('%')
