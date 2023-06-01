@@ -35,7 +35,7 @@ scoop/
 .Brewfile*
 {{ end }}
 
-{{ if (or (ne .chezmoi.os "linux") (not (.chezmoi.kernel.osrelease | lower | contains "microsoft"))) }}
+{{ if not .wsl }}
 # Ignoring on non-Windows-WSL
 bin/wsl-compact-memory
 bin/wslview

@@ -17,3 +17,5 @@ args=['-NoLogo']
 
 [data]
 docker = {{ $docker }}
+wsl = {{ (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+distribution = {{ get .chezmoi.osRelease "id" | quote }}
