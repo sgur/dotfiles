@@ -1,6 +1,7 @@
 README.md
 .config/fish/fish_variables
 .vim/pack/minpac
+.vim/pack/chezmoi/*/*/doc/tags
 
 {{ if ne .chezmoi.os "darwin" }}
 # Ignoring on non-macOS
