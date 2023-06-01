@@ -23,4 +23,20 @@ sudo apt-get update
 sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 
 sudo usermod $USER --append --group docker
+
+{{   if .wsl -}}
+mkdir -p /etc/docker/
+echo '{ "hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2375"] }' | sudo tee /etc/docker/daemon.json > /dev/null
+echo {{ dict | setValueAtPath "boot.systemd" false | setValueAtPath "boot.command" "/usr/sbin/service docker start" | toIni | quote }} | sudo tee -a /etc/wsl.conf
+{{   else -}}
+cat - << EOS | sudo tee /etc/systemd/system/docker.service.d/override.conf > /dev/null
+# % systemd daemon-reload
+# % systemd restart docker.service
+[Service]
+ExecStart=
+ExecStart=/usr/bin/dockerd -H fd:// -H tcp://0.0.0.0:2375 --containerd=/run/containerd/containerd.sock
+EOS
+echo '% systemd daemon-reload'
+echo '% systemd restart docker.service'
+{{   end -}}
 {{ end -}}

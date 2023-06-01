@@ -1,0 +1,6 @@
+{{ if and (eq .chezmoi.os "linux") (and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "ubuntu")) .wsl -}}
+#!/bin/sh
+
+echo {{ dict | setValueAtPath "interop.appendWindowsPath" false | setValueAtPath "network.generateResolvConf" false | toToml | quote}} | sudo tee /etc/wsl.conf
+
+{{ end -}}
