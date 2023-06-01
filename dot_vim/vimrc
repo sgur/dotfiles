@@ -234,28 +234,6 @@ nnoremap [F  <Cmd>lpfile<CR>
 
 # user-commands {{{1
 
-# doc/tags の更新 {{{2
-def HelpTags(...dirs: list<string>)
-  packloadall
-  echo "processing..."
-  final doc_dirs = len(dirs) > 0 ? dirs : globpath(&runtimepath, 'doc', 1, 1)
-  final vimruntime = expand(resolve($VIMRUNTIME) .. '/doc')
-  for dir in doc_dirs
-    if dir == vimruntime
-      continue
-    endif
-    if dir =~ 'vimdoc'
-      continue
-    endif
-    if isdirectory(dir)
-      echon ' ' .. substitute(dir, '[\/]doc$', '', '')->substitute('^.\+[\/]', '', '')
-      execute 'helptags' dir
-    endif
-  endfor
-  echo "Done"
-enddef
-command! -nargs=? -complete=dir HelpTags  HelpTags(<f-args>)
-
 # append current line to buffer {{{2
 
 # https://twitter.com/gorilla0513/status/1504306926154567683
