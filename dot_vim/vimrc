@@ -700,7 +700,11 @@ def InitMolder() # {{{
           \   :<C-u>rightbelow<Space>vsplit<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
   augroup END
 enddef # }}}
-packadd! vim-molder-operations
+try
+  packadd! vim-molder-operations
+catch /^Vim\%((\a\+)\)\=:E919/
+  echomsg v:exception
+endtry
 pack.Add('vim-molder', InitMolder)
 
 # operator-user {{{2
