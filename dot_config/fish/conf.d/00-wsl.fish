@@ -13,11 +13,6 @@ if test (umask) = "0000"
    umask 022
 end
 
-# ls for WSL
-function ls --wraps=ls --description 'ls for WSL'
-   command ls --color=auto --classify --human-readable --ignore="hiberfil.sys" --ignore="pagefile.sys" --ignore="swapfile.sys" --hide="bootmgr" --hide="BOOTNXT" --ignore="\$Recycle.Bin" --ignore="NTUSER.DAT*" --ignore="ntuser.*" --hide="\$tf" $argv
-end
-
 if status is-login
    # https://specifications.freedesktop.org/basedir-spec/latest/ar01s03.html
    set -gx XDG_DATA_HOME $HOME/.local/share
