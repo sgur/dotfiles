@@ -5,6 +5,7 @@ README.md
 
 {{ if ne .chezmoi.os "darwin" }}
 # Ignoring on non-macOS
+.chezmoiscripts/darwin/
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
@@ -14,6 +15,7 @@ README.md
 
 {{ if ne .chezmoi.os "windows" }}
 # Ignoring on non-Windows
+.chezmoiscripts/windows/
 vimfiles/
 AppData/
 AppData/Local/
