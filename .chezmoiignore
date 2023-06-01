@@ -21,9 +21,9 @@ AppData/
 AppData/Local/
 AppData/Roaming/
 Documents/
-misc/AppData/
-misc/Keyboards/
+misc/
 scoop/
+.wslconfig
 {{ else }}
 # Ignoring on Windows
 .actrc

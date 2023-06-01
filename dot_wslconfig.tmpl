@@ -1,0 +1,8 @@
+# https://docs.microsoft.com/ja-jp/windows/wsl/wsl-config#configure-global-options-with-wslconfig
+
+[wsl2]
+# memory=8GB # Limits VM memory in WSL 2 to 8 GB
+processors=4 # Makes the WSL 2 VM use two virtual processors
+localhostForwarding=true
+guiApplications={{- eq .chezmoi.windowsVersion.currentMajorVersionNumber 11 }} # Windows11 only
+
