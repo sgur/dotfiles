@@ -10,3 +10,10 @@ autoPush = false
 command='pwsh'
 args=['-NoLogo']
 {{- end }}
+
+{{/* true if this machine should have Docker installed */}}
+{{- $docker := false -}}
+{{- $docker = promptBoolOnce . "docker" "Install docker" -}}
+
+[data]
+docker = {{ $docker }}

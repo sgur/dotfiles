@@ -9,6 +9,7 @@ README.md
 
 {{ if ne .chezmoi.os "linux" }}
 # Ignoring on non-Linux
+.chezmoiscripts/linux/
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
