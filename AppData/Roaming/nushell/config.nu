@@ -183,7 +183,7 @@ let light_theme = {
 # The default config record. This is where much of your global configuration is setup.
 let-env config = {
   # true or false to enable or disable the welcome banner at startup
-  show_banner: true
+  show_banner: false
   ls: {
     use_ls_colors: true # use the LS_COLORS environment variable to colorize output
     clickable_links: true # enable or disable clickable links. Your terminal has to support links.
@@ -195,7 +195,7 @@ let-env config = {
     abbreviations: false # allows `cd s/o/f` to expand to `cd some/other/folder`
   }
   table: {
-    mode: rounded # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
+    mode: light # basic, compact, compact_double, light, thin, with_love, rounded, reinforced, heavy, none, other
     index_mode: always # "always" show indexes, "never" show indexes, "auto" = show indexes when a table has "index" column
     show_empty: true # show 'empty list' and 'empty record' placeholders for command output
     trim: {
@@ -436,6 +436,26 @@ let-env config = {
             | each { |it| {value: $it.name description: $it.usage} }
         }
       }
+      {
+        name: ghq_repos_menu
+        only_buffer_difference: true
+        marker: "# "
+        type: {
+            layout: list
+            page_size: 10
+        }
+        style: {
+            text: green
+            selected_text: green_reverse
+            description_text: yellow
+        }
+        source: { |buffer, position|
+            ^ghq list --full-path | lines | parse "{path}"
+            | where path =~ $buffer
+            | sort-by path
+            | each { |it| {value: $it.path } }
+        }
+      }
   ]
   keybindings: [
     {
@@ -475,6 +495,13 @@ let-env config = {
       keycode: char_r
       mode: emacs
       event: { send: menu name: history_menu }
+    }
+    {
+      name: ghq_repos_menu
+      modifier: control
+      keycode: char_q
+      mode: emacs
+      event: { send: menu name: ghq_repos_menu }
     }
     {
       name: next_page
@@ -559,3 +586,6 @@ let-env config = {
     }
   ]
 }
+
+source ~/.cache/starship/init.nu
+source ~/.cache/zoxide/init.nu
