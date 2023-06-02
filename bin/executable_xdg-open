@@ -4,13 +4,8 @@
 
 
 if [ -f $1 ]; then
-	if [ "${1##*.}" = "html" ]; then
-		/mnt/c/Windows/System32/rundll32.exe url.dll,FileProtocolHandler $(wslpath -w $1)
-	else
-		$EDITOR $1
-	fi
+	/mnt/c/Windows/System32/rundll32.exe url.dll,FileProtocolHandler $(wslpath -a -w $0)
 else
-	# /mnt/c/Windows/System32/rundll32.exe url.dll,FileProtocolHandler $(wslpath -w $1)
 	/mnt/c/Windows/System32/rundll32.exe url.dll,FileProtocolHandler $1
 fi
 

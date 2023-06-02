@@ -32,10 +32,6 @@ if status is-login
       end
    end
 
-   if test -x ~/bin/wslview
-      set -gx BROWSER ~/bin/wslview
-   end
-
    # Disable DISPLAY
    if test -n "$WSL2_GUI_APPS_ENABLED"
       set -e DISPLAY
