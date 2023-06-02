@@ -451,6 +451,18 @@ let-env config = {
       }
     }
     {
+      name: completion_menu
+      modifier: control
+      keycode: char_i
+      mode: [emacs vi_normal vi_insert]
+      event: {
+        until: [
+          { send: menu name: completion_menu }
+          { send: menunext }
+        ]
+      }
+    }
+    {
       name: completion_previous
       modifier: shift
       keycode: backtab
@@ -537,6 +549,13 @@ let-env config = {
       keycode: char_s
       mode: [emacs, vi_normal, vi_insert]
       event: { send: menu name: commands_with_description }
+    }
+    {
+      name: new-line
+      modifier: control
+      keycode: char_m
+      mode: [emacs, vi_normal, vi_insert]
+      event: { send: Enter }
     }
   ]
 }
