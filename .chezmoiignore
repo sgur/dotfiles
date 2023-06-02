@@ -38,5 +38,5 @@ scoop/
 {{ if not .wsl }}
 # Ignoring on non-Windows-WSL
 bin/wsl-compact-memory
-bin/wslview
+bin/xdg-open
 {{ end }}
