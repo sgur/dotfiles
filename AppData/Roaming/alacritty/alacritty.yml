@@ -1,7 +1,7 @@
 # Windows:
 #
 shell:
-  program: cmd.exe
+  program: pwsh.exe
 
 font:
   normal:
@@ -21,6 +21,10 @@ font:
     style: Bold Italic
 
   size: 12.0
+
+bell:
+  animation: EaseOutExpo
+  duration: 100
 
 selection:
   save_to_clipboard: false
