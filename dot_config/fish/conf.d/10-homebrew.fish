@@ -31,19 +31,36 @@ if status is-login
 
     set -gx HOMEBREW_CURLRC 1
 
+    if test -d $HOMEBREW_PREFIX/opt/openssl@1.1
+        set -l prefix (brew --prefix openssl@1.1)
+        fish_add_path -g $prefix/bin
+        set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
+        set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
+    end
+
+    if test -d $HOMEBREW_PREFIX/opt/openssl@3
+        set -l prefix (brew --prefix openssl@3)
+        fish_add_path -g $prefix/bin
+        set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
+        set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
+    end
+
     if test -d $HOMEBREW_PREFIX/opt/node@16
-        fish_add_path -g $HOMEBREW_PREFIX/opt/node@16/bin
-        set -gx LDFLAGS "-L$HOMEBREW_PREFIX/opt/node@16/lib" $LDFLAGS
-        set -gx CPPFLAGS "-I$HOMEBREW_PREFIX/opt/node@16/include" $CPPFLAGS
+        set -l prefix (brew --prefix node@16)
+        fish_add_path -g $prefix/bin
+        set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
+        set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
     end
 
     if test -d $HOMEBREW_PREFIX/opt/openjdk@17
-        fish_add_path -g $HOMEBREW_PREFIX/opt/openjdk@17/bin
+        set -l prefix (brew --prefix openjdk@17)
+        fish_add_path -g $prefix/bin
     end
 
     if test -d $HOMEBREW_PREFIX/opt/dotnet@6
-        set -gx DOTNET_ROOT $HOMEBREW_PREFIX/opt/dotnet@6/libexec
-        fish_add_path -g $HOMEBREW_PREFIX/opt/dotnet@6/bin
+        set -l prefix (brew --prefix dotnet@6)
+        fish_add_path -g $prefix/bin
+        set -gx DOTNET_ROOT $prefix/libexec
     end
 end
 
