@@ -347,8 +347,10 @@ languages:
 {{- end }}
     - <<: *any-efm-langserver
 
+{{- if false }}
   gitcommit:
     - <<: *any-commitlint
+{{- end }}
 
   =:
     - <<: *any-cspell

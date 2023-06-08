@@ -24,7 +24,7 @@
 {{- end }}
 
 [commit]
-	template = {{ joinPath .chezmoi.homeDir ".config/git/git_commit_msg.txt" | quote }}
+	template = {{ joinPath .chezmoi.homeDir ".config/git/git_commit_msg_prompt.txt" | quote }}
 
 {{ if or (lookPath "git-credential-manager") (and (eq .chezmoi.os "windows") (lookPath "git")) -}}
 [credential]
