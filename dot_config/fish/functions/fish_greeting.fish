@@ -1,10 +1,10 @@
 function fish_greeting
-    echo -n '🐟, the friendly interactive shell'
+    echo -n '🐟, the friendly'
     if status is-login
-        echo -n ", --login"
+        echo -n ", login"
     end
     if status is-interactive
-        echo -n ", --interactive"
+        echo -n ", interactive"
     end
-    echo ""
+    echo " shell"
 end
