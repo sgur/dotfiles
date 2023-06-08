@@ -95,3 +95,4 @@ nvim
 cmdheight
 ftplugin
 nargs
+getfsize
