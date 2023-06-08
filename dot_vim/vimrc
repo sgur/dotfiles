@@ -470,7 +470,24 @@ g:autofmt_allow_over_tw = 1 # 全角文字ぶら下がりで1カラムはみ出�
 pack.Add('vim-commentary')
 
 # copilot (opt) {{{2
-pack.Add('copilot.vim')
+def DisableOnFilesize(filename: string)
+  var f = getfsize(filename)
+  if f > 100000 || f == -2
+    b:copilot_enabled = v:false
+  endif
+enddef
+def CopilotInit()
+  augroup vimrc_plugin_copilot
+    autocmd!
+    autocmd BufReadPre *  DisableOnFilesize(expand("<amatch>"))
+  augroup END
+  g:copilot_filetypes = get(g:, 'copilot_filetypes', {})
+  g:copilot_filetypes.gitcommit = v:true
+  inoremap <LocalLeader>cs  <Plug>(copilot-suggest)
+  inoremap <LocalLeader>cn  <Plug>(copilot-next)
+  inoremap <LocalLeader>cp  <Plug>(copilot-previous)
+enddef
+pack.Add('copilot.vim', CopilotInit)
 
 # ctrlp.vim (opt) {{{2
 g:ctrlp_root_markers = ['.git']
