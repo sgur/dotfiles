@@ -589,11 +589,11 @@ g:lightline = extend({
   active:  {
     left: [
       ['mode', 'paste'], ['vcs_branch', 'vcs_stat', 'readonly', 'modified'], ['filename', 'cwd']
-      ],
+    ],
     right: [
       ['percent', 'lineinfo', 'vim_lsp'], ['fileencoding', 'fileformat'], ['filetype']
-      ]
-    },
+    ]
+  },
   component_function: {
     filename: 'vimrc#lightline#filename',
     modified: 'vimrc#lightline#modified',
@@ -602,16 +602,20 @@ g:lightline = extend({
     vim_lsp: 'vimrc#lightline#lsp',
     vcs_stat: 'vimrc#lightline#vcs_stat',
     vcs_branch: 'vimrc#lightline#branchname',
-    },
+  },
   tab: {
     active: ['title'],
     inactive: ['title']
-    },
+  },
   tab_component_function: {
     title: 'vimrc#lightline#tab_title',
-    }
-  }, get(g:, 'lightline', {}), 'keep')
+  },
+  component: {
+    percent: '%02p%%',
+  }
+}, get(g:, 'lightline', {}), 'keep')
 if get(g:lightline, 'powerline', v:true)
+  g:lightline.component.lineinfo = '%03l%02c'
   final using_wt = !has('gui_running') && exists('$WT_SESSION') && has('win32')
   final using_ssh = !has('gui_running') && exists('$SSH_CONNECTION')
   final lightline_separator_powerline = {
