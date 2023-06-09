@@ -1,4 +1,9 @@
-fish_add_path -P ~/bin ~/.local/bin ~/.cargo/bin ~/go/bin
+for dir_path in ~/.yarn/bin ~/.cargo/bin ~/go/bin
+    if test -d $dir_path
+        fish_add_path -P $dir_path
+    end
+end
+fish_add_path -P ~/bin ~/.local/bin
 
 if status is-login
     set -gx EDITOR vim
