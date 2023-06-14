@@ -68,12 +68,12 @@
       {"code": 55, "label": {"base": ".", "shifted": ">"}},
       {"code": 56, "label": {"base": "/", "shifted": "?"}},
       {
-        "code": 50758,
+        "code": 49734,
         "baseCode": 53,
-        "label": {"hint": "AltGr/", "base": "`"},
-        "modifier": "AltGr",
+        "label": {"hint": "Alt/", "base": "`"},
+        "modifier": "Alt",
         "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "altgr"]
+        "categories": ["modifier", "dualuse", "alt"]
       },
       {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
       {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
@@ -270,9 +270,11 @@
         "categories": ["blanks"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 17453,
+        "label": {"hint": "ShiftTo", "base": "#3"},
+        "target": 3,
+        "rangeStart": 17450,
+        "categories": ["layer", "shifttolayer"]
       },
       {
         "code": 17453,
@@ -443,9 +445,11 @@
         "categories": ["layer", "shifttolayer"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 17453,
+        "label": {"hint": "ShiftTo", "base": "#3"},
+        "target": 3,
+        "rangeStart": 17450,
+        "categories": ["layer", "shifttolayer"]
       },
       {
         "code": 65535,
