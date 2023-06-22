@@ -232,12 +232,12 @@ Initialize-Curl
 
 Set-Alias -Name open -Value Start-Process
 
-$CoreutilsBin = ("arch", "base32", "base64", "basename", "cat", "cksum", "comm", "cp",
-		"cut", "date", "df", "dircolors", "dirname", "echo", "env", "expand",
+$CoreutilsBin = ("arch", "base32", "base64", "basename", "cat", "cksum", "comm", "cmp", "cp",
+		"cut", "date", "df", "diff3", "dircolors", "dirname", "echo", "env", "expand",
 		"expr", "factor", "false", "fmt", "fold", "hashsum", "head", "hostname",
 		"join", "link", "ln", "md5sum", "mkdir", "mktemp", "more", "mv",
 		"nl", "nproc", "od", "paste", "printenv", "printf", "ptx", "pwd",
-		"readlink", "realpath", "relpath", "rm", "rmdir", "seq", "sha1sum",
+		"readlink", "realpath", "relpath", "rm", "rmdir", "sdiff", "seq", "sha1sum",
 		"sha224sum", "sha256sum", "sha3-224sum", "sha3-256sum", "sha3-384sum",
 		"sha3-512sum", "sha384sum", "sha3sum", "sha512sum", "shake128sum",
 		"shake256sum", "shred", "shuf", "split", "sum", "sync",
@@ -269,6 +269,9 @@ elseif (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -Child
 			if (Test-Path Alias:$_) { Remove-Item -Path Alias:$_ }
 			$fn = '$input | ' + (Join-Path -Path $GitBinPath -ChildPath $_) + '.exe $args'
 			Invoke-Expression "function global:$_ { $fn }"
+		}
+		function global:diff.exe {
+			& (Join-Path -Path $GitBinPath -ChildPath 'diff.exe') $args
 		}
 		if (Test-Path Alias:ls) {
 			Remove-Item -Path Alias:ls
