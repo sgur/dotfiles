@@ -1,19 +1,5 @@
 scriptencoding utf-8
 
-func s:vim_or_vim9(filename)
-  if a:filename =~ g:ft_ignore_pat
-    return
-  endif
-  let lines = getline(1, &modelines)->filter({key, val -> !empty(val) && val !~ '^"' })
-  for line in lines
-    if line =~# '\<vim9s\%[cript]\>'
-      setfiletype vim9
-      return
-    endif
-  endfor
-  setfiletype vim
-endfunc
-
 autocmd BufNewFile,BufRead *.vssettings  setfiletype xml
 autocmd BufNewFile,BufRead *.exe.config  setfiletype xml
 autocmd BufNewFile,BufRead *.git/TAG_EDITMSG  setfiletype gitcommit
@@ -27,4 +13,3 @@ autocmd BufNewFile,BufRead ~/.ssh/conf.d/*.conf setfiletype sshconfig
 " autocmd BufNewFile,BufRead *.js{,x}  if join(getline(1, 3)) =~# '@flow'
 "      \ |   setfiletype flow
 "      \ | endif
-autocmd BufNewFile,BufRead *.vim,*vimrc*  call s:vim_or_vim9(expand("<amatch>"))
