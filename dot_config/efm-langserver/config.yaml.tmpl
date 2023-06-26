@@ -290,6 +290,7 @@ languages:
   css:
     # - <<: *css-stylelint
     - <<: *any-prettier
+    - <<: *any-cspell
 
   dockerfile:
     - <<: *dockerfile-hadolint
@@ -297,39 +298,54 @@ languages:
   html:
     - <<: *any-prettier
     - <<: *html-markuplint
+    - <<: *any-cspell
 
   javascript:
     - <<: *javascript-eslint
     - <<: *any-prettier
+    - <<: *any-cspell
 
   javascriptreact:
     - <<: *javascript-eslint
     - <<: *any-prettier
+    - <<: *any-cspell
 
   json:
     - <<: *any-prettier
+
+  go:
+    - <<: *any-cspell
 
   markdown:
     - <<: *markdown-markdownlint-cli2
     - <<: *any-textlint
     - <<: *any-prettier
 
+  ps1:
+    - <<: *any-cspell
+
   python:
     - <<: *python-flake8
     - <<: *python-mypy
     - <<: *python-black
+    - <<: *any-cspell
 
   scss:
     - <<: *css-stylelint
     - <<: *any-prettier
 
+  sh:
+    - <<: *any-cspell
+
   typescript:
     - <<: *javascript-eslint
     - <<: *any-prettier
+    - <<: *any-cspell
 
   typescriptreact:
     - <<: *javascript-eslint
     - <<: *any-prettier
+    - <<: *any-cspell
 
   vue:
     - <<: *javascript-eslint
