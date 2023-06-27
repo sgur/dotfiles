@@ -223,6 +223,8 @@ let g:lsp_settings['gopls'] = #{
       \}
 
 " JavaScript, Typescript {{{2
+let g:lsp_settings_filetype_javascript = ['typescript-language-server', 'eslint-language-server']
+let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server']
 let g:lsp_settings['typescript-language-server'] = #{
       \ whitelist: ['typescript', 'typescript.tsx', 'typescriptreact'] +
       \            ['javascript', 'javascript.jsx', 'javascriptreact']
@@ -236,6 +238,20 @@ let g:lsp_settings['remark-language-server'] = #{
       \}
 
 " Python {{{2
+let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver']
+let g:lsp_settings['pylsp-all']= #{
+      \ workspace_config: #{
+      \   pylsp: #{
+      \     configurationSources: ['flake8'],
+      \     plugins: #{
+      \       flake8: #{ enabled: v:true },
+      \       mccabe: #{ enabled: v:false },
+      \       pycodestyle: #{ enabled: v:false },
+      \       pyflakes: #{ enabled: v:false },
+      \     }
+      \   }
+      \ }
+      \}
 
 " C/C++ {{{2
 " let g:lsp_settings['clangd'] = {}
