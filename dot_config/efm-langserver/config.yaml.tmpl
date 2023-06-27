@@ -4,20 +4,6 @@ version: 2
 root-markers:
   - .git/
 
-# commands:
-# {{- if eq .chezmoi.os "windows" }}
-#   - title: install dependencies (scoop)
-#     command: scoop
-#     arguments:
-#       - install
-#       - hadolint
-#       - actionlint
-#       - nodejs-lts
-# {{- else }}
-#   - title: install dependencies (brew)
-#     command: brew install hadolint actionlint node@16
-# {{- end }}
-
 tools:
   css-stylelint: &css-stylelint
     prefix: stylelint
@@ -46,26 +32,6 @@ tools:
           - 'stylelint'
           - '--config'
           - '{{- if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/stylelint.config.js'
-          - '--fix'
-          - '${INPUT}'
-
-  javascript-eslint: &javascript-eslint
-    prefix: eslint
-    lint-command: {{ lookPath "npx" }} --no-install eslint -f unix --stdin --stdin-filename ${INPUT}
-    lint-ignore-exit-code: true
-    lint-stdin: true
-    root-markers:
-      - package.json
-      - .eslintrc.js
-      - .eslintrc.yaml
-      - .eslintrc.yml
-      - .eslintrc.json
-    commands:
-      - title: 'eslint fix'
-        command: {{ lookPath "npx" }}
-        arguments:
-          - '--no-install'
-          - 'eslint'
           - '--fix'
           - '${INPUT}'
 
@@ -301,12 +267,10 @@ languages:
     - <<: *any-cspell
 
   javascript:
-    - <<: *javascript-eslint
     - <<: *any-prettier
     - <<: *any-cspell
 
   javascriptreact:
-    - <<: *javascript-eslint
     - <<: *any-prettier
     - <<: *any-cspell
 
@@ -338,17 +302,14 @@ languages:
     - <<: *any-cspell
 
   typescript:
-    - <<: *javascript-eslint
     - <<: *any-prettier
     - <<: *any-cspell
 
   typescriptreact:
-    - <<: *javascript-eslint
     - <<: *any-prettier
     - <<: *any-cspell
 
   vue:
-    - <<: *javascript-eslint
     - <<: *any-prettier
 
   yaml:
