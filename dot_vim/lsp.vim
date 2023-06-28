@@ -125,6 +125,12 @@ endfunction "}}}
 
 " vim-lsp-settings {{{1
 
+let s:lsp_settings_javascript_langservers = ['typescript-language-server', 'eslint-language-server']
+let g:lsp_settings_filetype_javascript = s:lsp_settings_javascript_langservers
+let g:lsp_settings_filetype_typescript = s:lsp_settings_javascript_langservers
+
+let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver']
+
 let g:lsp_settings = get(g:, 'lsp_settings', {})
 
 " efm-langserver "{{{2
@@ -144,6 +150,33 @@ let g:lsp_settings['efm-langserver'] = #{
       \   : [lsp_settings#exec_path('efm-langserver')] + lsp_settings#get('efm-langserver', 'args', [])
       \     + ['-c', expand("~/.config/efm-langserver/config.yaml")]
       \ }
+      \}
+
+" eslint-language-server "{{{2
+let g:lsp_settings['efm-langserver'] = #{
+      \ workspace_config: #{
+      \   validate: 'probe',
+      \   packageManager: 'yarn',
+      \   codeActionOnSave: #{
+      \     enable: v:true,
+      \     mode: 'all',
+      \   },
+      \   codeAction: #{
+      \     disableRuleComment: #{
+      \       enable: v:true,
+      \       location: 'separateLine',
+      \     },
+      \     showDocumentation: #{
+      \       enable: v:true,
+      \     },
+      \   },
+      \   format: v:false,
+      \   quiet: v:false,
+      \   onIgnoredFiles: 'off',
+      \   options: {},
+      \   run: 'onType',
+      \   nodePath: v:null,
+      \ },
       \}
 
 " Html {{{2
@@ -223,8 +256,6 @@ let g:lsp_settings['gopls'] = #{
       \}
 
 " JavaScript, Typescript {{{2
-let g:lsp_settings_filetype_javascript = ['typescript-language-server', 'eslint-language-server']
-let g:lsp_settings_filetype_typescript = ['typescript-language-server', 'eslint-language-server']
 let g:lsp_settings['typescript-language-server'] = #{
       \ whitelist: ['typescript', 'typescript.tsx', 'typescriptreact'] +
       \            ['javascript', 'javascript.jsx', 'javascriptreact']
@@ -238,7 +269,6 @@ let g:lsp_settings['remark-language-server'] = #{
       \}
 
 " Python {{{2
-let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver']
 let g:lsp_settings['pylsp-all']= #{
       \ workspace_config: #{
       \   pylsp: #{
