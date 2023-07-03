@@ -33,6 +33,7 @@ scoop/
 .config/fish/
 .config/zellij/
 .Brewfile*
+.gnupg/
 {{ end }}
 
 {{ if not .wsl }}
