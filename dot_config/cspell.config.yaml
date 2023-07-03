@@ -23,5 +23,12 @@ languageSettings:
       - addWords: true
         name: viml
         path: ~/.config/viml-words.txt
+  - languageId: "python"
+    locale: "*"
+    dictionaries: ["python"]
+    dictionaryDefinitions:
+      - addWords: true
+        name: python
+        path: ~/.config/python-words.txt
 ignorePaths:
   - 'node_modules/**'
