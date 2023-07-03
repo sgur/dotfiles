@@ -34,6 +34,7 @@ ctags
 curlrc
 cword
 defualt
+deno
 devtool
 difft
 difftastic
@@ -52,6 +53,7 @@ fcitx
 fillstruct
 flowtype
 fscache
+gcloud
 githubusercontent
 gopls
 gsudo
@@ -93,6 +95,7 @@ plemoljp
 polyfill
 privs
 psirt
+pulumi
 pwsh
 pyenv
 pylance
@@ -103,6 +106,7 @@ qiita
 rdbms
 react
 reduxjs
+rlang
 sarasa
 schannel
 setvnclegacy
@@ -123,10 +127,12 @@ udev
 ulid
 unmarshall
 uutils
+vcsh
 venv
 vercel
 version
 visualstudio
+vlang
 vnclegacy
 vncpw
 vsdiffmerge
@@ -139,9 +145,3 @@ wttr
 xmodifiers
 zellij
 zoxide
-deno
-gcloud
-pulumi
-rlang
-vlang
-vcsh
