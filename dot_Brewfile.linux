@@ -1,9 +1,8 @@
 tap "bloznelis/tap"
 tap "homebrew/bundle"
-tap "microsoft/git"
 brew "act"
 brew "actionlint"
-brew "openssl@1.1", link: true
+brew "openssl@1.1"
 brew "aws-nuke"
 brew "aws-vault"
 brew "awscli"
