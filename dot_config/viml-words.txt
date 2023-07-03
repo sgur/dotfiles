@@ -15,6 +15,7 @@ bufwinenter
 bwipeout
 clast
 cmdbang
+cmdheight
 cmdline
 cmdopt
 cnext
@@ -33,11 +34,14 @@ fnameescape
 fnamemodify
 foldexpr
 formatexpr
+ftplugin
 getcmdline
 getcmdpos
 getcmdtype
 getcwd
+getfsize
 grepprg
+hlgroup
 imactivatefunc
 imap
 iminsert
@@ -56,12 +60,14 @@ lprevious
 lpwstr
 lrewind
 matchparen
+nargs
 netrw
 nmap
 nnoremap
 nolangremap
 noremap
 nrformats
+nvim
 nvmrc
 omap
 omni
@@ -90,9 +96,3 @@ winbufnr
 winnr
 xmap
 xnoremap
-hlgroup
-nvim
-cmdheight
-ftplugin
-nargs
-getfsize
