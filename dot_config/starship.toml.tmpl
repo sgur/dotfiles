@@ -17,19 +17,31 @@ disabled = true
 [battery]
 disabled = true
 
+[buf]
+disabled = true
+
+[bun]
+disabled = true
+
+[c]
+disabled = true
+
 [cmake]
+disabled = true
+
+[cobol]
 disabled = true
 
 [cmd_duration]
 format = '🕙 [$duration]($style) '
 
-[cobol]
-disabled = true
-
 [conda]
 disabled = true
 
 [crystal]
+disabled = true
+
+[daml]
 disabled = true
 
 [deno]
@@ -46,12 +58,14 @@ disabled = true
 
 [elm]
 disabled = true
-{{ if eq .chezmoi.os "windows" }}
+
+{{ if eq .chezmoi.os "windows" -}}
 [env_var.VisualStudioVersion]
 format = "$symbol[VS$env_value]($style) "
 symbol = "﬏ " #  ﬏
 style = "purple dimmed"
-{{ end }}
+
+{{ end -}}
 [env_var.CHEZMOI]
 format = "[$symbol]($style) "
 symbol = "chezmoi"
@@ -75,19 +89,28 @@ disabled = {{- if eq .chezmoi.os "windows" }} true {{- else }} false {{- end }}
 [git_status]
 disabled = false
 
-[helm]
+[guix_shell]
 disabled = true
 
-[java]
+[gradle]
+disabled = true
+
+[haskell]
+disabled = true
+
+[haxe]
+disabled = true
+
+[helm]
 disabled = true
 
 [julia]
 disabled = true
 
-[kotlin]
+[meson]
 disabled = true
 
-[lua]
+[hg_branch]
 disabled = true
 
 [nim]
@@ -114,13 +137,16 @@ disabled = true
 [pulumi]
 disabled = true
 
-[python]
-disabled = {{- if eq .chezmoi.os "windows" }} true {{- else }} false {{- end }}
-
 [purescript]
 disabled = true
 
+[python]
+disabled = {{- if eq .chezmoi.os "windows" }} true {{- else }} false {{- end }}
+
 [rlang]
+disabled = true
+
+[raku]
 disabled = true
 
 [red]
@@ -140,6 +166,12 @@ powershell_indicator = ""
 fish_indicator = "󰈺"
 
 [singularity]
+disabled = true
+
+[solidity]
+disabled = true
+
+[spack]
 disabled = true
 
 [status]
