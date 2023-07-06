@@ -19,9 +19,11 @@ if status is-login
 
     set -gx PIPENV_VENV_IN_PROJECT 1
 
-    set -gx GPG_TTY (tty)
-
     set -gx LESS --incsearch --quit-if-one-screen --raw-control-chars
+end
+
+if test -z "$SSH_TTY"
+    set -gx GPG_TTY (tty)
 end
 
 if status is-interactive
