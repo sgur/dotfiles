@@ -45,7 +45,12 @@ if status is-login
         set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
     end
 
-    if test -d $HOMEBREW_PREFIX/opt/node@16
+    if test -d $HOMEBREW_PREFIX/opt/node@18
+        set -l prefix (brew --prefix node@18)
+        fish_add_path -g $prefix/bin
+        set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
+        set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
+    else if test -d $HOMEBREW_PREFIX/opt/node@16
         set -l prefix (brew --prefix node@16)
         fish_add_path -g $prefix/bin
         set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
