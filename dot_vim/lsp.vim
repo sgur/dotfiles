@@ -145,15 +145,16 @@ let g:lsp_settings['efm-langserver'] = #{
       \   codeAction: v:true,
       \   completion: v:true
       \ },
-      \ cmd: {server_info -> empty(lsp_settings#exec_path('efm-langserver'))
-      \   ? []
-      \   : [lsp_settings#exec_path('efm-langserver')] + lsp_settings#get('efm-langserver', 'args', [])
-      \     + ['-c', expand("~/.config/efm-langserver/config.yaml")]
-      \ }
+      \ cmd:
+      \   {server_info -> [
+      \     lsp_settings#exec_path('efm-langserver')]
+      \     + lsp_settings#get('efm-langserver', 'args', [])
+      \     + ['-c', expand("~/.config/efm-langserver/config.yaml")
+      \   ]}
       \}
 
 " eslint-language-server "{{{2
-let g:lsp_settings['efm-langserver'] = #{
+let g:lsp_settings['eslint-language-server'] = #{
       \ workspace_config: #{
       \   validate: 'probe',
       \   packageManager: 'yarn',
