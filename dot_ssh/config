@@ -1,14 +1,17 @@
+# 最初に見つけた設定が優先される
+
 Include conf.d/*.conf
 
+# 全体で有効にしたいベースラインは最後に設定する
+
 # https://gitlab.com/clear-code/ssh.d/-/blob/main/global.conf
-# 推奨設定集
 
 #
 # known_hostsはハッシュ化する(既定のyesのままにする)
 HashKnownHosts yes
 
 #
-# パスワード認証を拒否する
+# パスワード認証クライアント側で無効にしておく
 PasswordAuthentication no
 
 #
