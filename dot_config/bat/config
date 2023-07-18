@@ -2,3 +2,6 @@
 
 --map-syntax "*.wslconfig:INI"
 --map-syntax "*.conf:INI"
+--map-syntax "*.toml.tmpl:TOML"
+--map-syntax "*.yaml.tmpl:YAML"
+--map-syntax "*.json*.tmpl:JSON"
