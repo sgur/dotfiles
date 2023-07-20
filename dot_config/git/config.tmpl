@@ -30,8 +30,10 @@
 [credential]
 	helper =
 	helper = manager
-{{-   if and (eq .chezmoi.os "linux") (lookPath "gpg") (lookPath "pass") }}
+{{-  if and (eq .chezmoi.os "linux") (lookPath "gpg") (lookPath "pass") (stat (joinPath .chezmoi.homeDir ".password-store")) }}
 	credentialStore = gpg
+{{-  else }}
+	credentialStore = cache
 {{-  end }}
 [credential "https://dev.azure.com"]
 	useHttpPath = true
