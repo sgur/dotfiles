@@ -62,6 +62,7 @@ gvimrc
 hadolint
 haml
 hiberfil
+hjson
 hkcu
 hlsearch
 icns
