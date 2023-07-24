@@ -291,27 +291,9 @@ try {
 } catch {}
 
 ## broot
-if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath 'broot.exe')) {
-	# https://github.com/Canop/broot/issues/78#issuecomment-572631419
-	function global:br {
-		$OutCmd = New-Temporaryfile
-		try {
-			broot.exe --outcmd $OutCmd $args
-			if (!$?) {
-				Remove-Item -Force $OutCmd
-				return $LastExitCode
-			}
-
-			$Command = Get-Content $OutCmd
-			if ($Command) {
-				# workaround - paths have some garbage at the start
-				$Command = $Command.Replace("\\?\", "", 1)
-				Invoke-Expression $Command
-			}
-		} finally {
-			Remove-Item -Force $OutCmd
-		}
-	}
+if (Get-Command -ErrorAction SilentlyContinue "br") {
+} elseif (Get-Command -ErrorAction SilentlyContinue "broot") {
+	Invoke-Expression -ErrorAction Stop (broot --print-shell-function powershell | Out-String)
 } else {
 	Write-Output "broot not installed: scoop install broot"
 }

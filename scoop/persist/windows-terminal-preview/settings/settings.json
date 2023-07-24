@@ -27,6 +27,10 @@
             "keys": "alt+shift+o"
         },
         {
+            "command": "unbound",
+            "keys": "alt+enter"
+        },
+        {
             "command": 
             {
                 "action": "splitPane",
