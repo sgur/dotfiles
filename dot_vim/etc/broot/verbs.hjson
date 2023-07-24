@@ -1,0 +1,11 @@
+verbs: [
+    {
+        name: open_inner_vim
+        invocation: edit
+        key: enter
+        external: "printf '\\033]51;[\"drop\",\"{file}\"]\\007'"
+        leave_broot: false
+        apply_to: file
+    }
+]
+
