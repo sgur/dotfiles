@@ -241,24 +241,8 @@
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
       },
-      {
-        "code": 592,
-        "label": {
-          "hint": {"full": "Alt+", "1u": "A+"},
-          "base": {"full": "Left Arrow", "1u": "←"}
-        },
-        "categories": ["with-modifiers", "alt"],
-        "baseCode": 80
-      },
-      {
-        "code": 591,
-        "label": {
-          "hint": {"full": "Alt+", "1u": "A+"},
-          "base": {"full": "Right Arrow", "1u": "→"}
-        },
-        "categories": ["with-modifiers", "alt"],
-        "baseCode": 79
-      },
+      {"code": 74, "label": {"base": "Home"}},
+      {"code": 77, "label": {"base": "End"}},
       {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
@@ -415,10 +399,35 @@
       {"code": 76, "label": {"base": {"full": "Delete", "1u": "Del"}}},
       {"code": 41, "label": {"base": "Esc"}},
       {"code": 101, "label": {"base": "Menu"}},
-      {"code": 74, "label": {"base": "Home"}},
-      {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
-      {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
-      {"code": 77, "label": {"base": "End"}},
+      {
+        "code": 18658,
+        "legacyCode": 19682,
+        "label": {"base": "Mute"},
+        "categories": ["consumer"]
+      },
+      {
+        "code": 18666,
+        "legacyCode": 23786,
+        "label": {
+          "hint": {"full": "Volume", "1u": "Vol."},
+          "base": {"full": "Down", "1u": "🔉"}
+        },
+        "categories": ["consumer"]
+      },
+      {
+        "code": 18665,
+        "legacyCode": 23785,
+        "label": {
+          "hint": {"full": "Volume", "1u": "Vol."},
+          "base": {"full": "Up", "1u": "🔊"}
+        },
+        "categories": ["consumer"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
       {"code": 49, "label": {"base": "\\", "shifted": "|"}},
       {
         "code": 65535,
