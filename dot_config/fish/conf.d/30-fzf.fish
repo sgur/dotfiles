@@ -9,12 +9,13 @@ if test -n "$TMUX"; and type -q fzf-tmux
         set -gx FZF_CMD fzf-tmux -d 40%
     end
 else
-    set -gx FZF_CMD fzf --height=40%
+    set -gx FZF_CMD fzf --height=50%
 end
 
-# fisher plugin
 # https://github.com/decors/fish-ghq
 bind \cq 'fzf_ghq_repository_select (commandline -b)'
+
+bind \cg 'fzf_git_branch_select (commandline -b)'
 
 # fisher plugin
 # https://github.com/jethrokuan/fzf
