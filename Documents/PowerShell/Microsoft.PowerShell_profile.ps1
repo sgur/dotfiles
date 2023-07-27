@@ -17,8 +17,9 @@ if ($Env:SCOOP) {
 $ScoopShimsDir = Join-Path -Path $ScoopDir -ChildPath "shims"
 
 # 文字化け対策
-$OutputEncoding = [Text.UTF8Encoding]::UTF8
-[System.Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
+# https://smdn.jp/programming/netfx/tips/unicode_encoding_bom/
+$OutputEncoding = [System.Text.Encoding]::Default
+[System.Console]::OutputEncoding = [System.Text.Encoding]::Default
 $Env:LC_ALL = "ja_JP.utf-8"
 
 # $EDITOR を gVim にする
@@ -158,12 +159,12 @@ function Test-Colors {
 # https://uvb-76.hatenablog.com/entry/2020/02/14/032712
 function Select-Repository {
 	try {
-		$repo = $(ghq list | fzf --prompt="repository> " --reverse)
+		$selected = $(ghq list | fzf --prompt="repository> " --reverse)
 		if ($LastExitCode -ne 0) {
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
 			return
 		}
-		$path = ghq list --full-path --exact $repo
+		$path = ghq list --full-path $selected
 		Set-Location $path
 		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
 	}
@@ -205,6 +206,27 @@ Set-PSReadLineKeyHandler -Chord Ctrl+r -ScriptBlock {
 	Select-History
 }
 
+function Select-Branch {
+	try {
+		$targetBranch = $(git branch --all --format="%(refname:short)" | fzf --prompt="branch> " --reverse --preview-window="right,65%" --preview="git log --max-count=10 --graph --decorate --color=always --abbrev-commit --pretty {}")
+		if ($LastExitCode -ne 0) {
+			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+			return
+		}
+		& git switch ($targetBranch -replace "origin/", "")
+		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+	}
+	catch {
+		Write-Warning "fzf, git: executables not installed"
+	}
+}
+
+Set-Alias -Name fzf-git-branch -Value Select-Branch
+
+Set-PSReadLineKeyHandler -Chord Ctrl+g -ScriptBlock {
+	Select-Branch
+}
+
 ## AWS CLI のコマンド補完
 if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath 'aws_completer.exe')) {
 	Register-ArgumentCompleter -Native -CommandName aws -ScriptBlock {
@@ -232,12 +254,12 @@ Initialize-Curl
 
 Set-Alias -Name open -Value Start-Process
 
-$CoreutilsBin = ("arch", "base32", "base64", "basename", "cat", "cksum", "comm", "cmp", "cp",
+$CoreutilsBin = ("arch", "awk", "base32", "base64", "basename", "cat", "cksum", "comm", "cmp", "cp",
 		"cut", "date", "df", "diff3", "dircolors", "dirname", "echo", "env", "expand",
-		"expr", "factor", "false", "fmt", "fold", "hashsum", "head", "hostname",
+		"expr", "factor", "false", "fmt", "fold", "gawk", "hashsum", "head", "hostname",
 		"join", "link", "ln", "md5sum", "mkdir", "mktemp", "more", "mv",
 		"nl", "nproc", "od", "paste", "printenv", "printf", "ptx", "pwd",
-		"readlink", "realpath", "relpath", "rm", "rmdir", "sdiff", "seq", "sha1sum",
+		"readlink", "realpath", "relpath", "rm", "rmdir", "sdiff", "sed", "seq", "sha1sum",
 		"sha224sum", "sha256sum", "sha3-224sum", "sha3-256sum", "sha3-384sum",
 		"sha3-512sum", "sha384sum", "sha3sum", "sha512sum", "shake128sum",
 		"shake256sum", "shred", "shuf", "split", "sum", "sync",
