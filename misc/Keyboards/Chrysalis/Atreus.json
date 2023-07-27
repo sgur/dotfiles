@@ -400,33 +400,30 @@
       {"code": 41, "label": {"base": "Esc"}},
       {"code": 101, "label": {"base": "Menu"}},
       {
-        "code": 18658,
-        "legacyCode": 19682,
-        "label": {"base": "Mute"},
-        "categories": ["consumer"]
-      },
-      {
-        "code": 18666,
-        "legacyCode": 23786,
+        "code": 20552,
         "label": {
-          "hint": {"full": "Volume", "1u": "Vol."},
-          "base": {"full": "Down", "1u": "🔉"}
+          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
+          "base": "Back"
         },
-        "categories": ["consumer"]
+        "categories": ["mousekeys"]
       },
       {
-        "code": 18665,
-        "legacyCode": 23785,
+        "code": 144,
+        "label": {"base": {"full": "Lang1"}},
+        "categories": ["lang_intl"]
+      },
+      {
+        "code": 145,
+        "label": {"base": {"full": "Lang2"}},
+        "categories": ["lang_intl"]
+      },
+      {
+        "code": 20560,
         "label": {
-          "hint": {"full": "Volume", "1u": "Vol."},
-          "base": {"full": "Up", "1u": "🔊"}
+          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
+          "base": "Forward"
         },
-        "categories": ["consumer"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "categories": ["mousekeys"]
       },
       {"code": 49, "label": {"base": "\\", "shifted": "|"}},
       {
