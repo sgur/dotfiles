@@ -296,9 +296,8 @@ elseif (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -Child
 			$fn = '$input | ' + (Join-Path -Path $GitBinPath -ChildPath $_) + '.exe $args'
 			Invoke-Expression "function global:$_ { $fn }"
 		}
-		function global:diff.exe {
-			& (Join-Path -Path $GitBinPath -ChildPath 'diff.exe') $args
-		}
+		Invoke-Expression "function global:diff.exe { $('$input | ' + (Join-Path -Path $GitBinPath -ChildPath diff.exe) + ' $args') }"
+		Invoke-Expression "function global:tee.exe { $('$input | ' + (Join-Path -Path $GitBinPath -ChildPath tee.exe) + ' $args') }"
 		if (Test-Path Alias:ls) {
 			Remove-Item -Path Alias:ls
 		}
