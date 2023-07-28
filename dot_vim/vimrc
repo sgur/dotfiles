@@ -236,7 +236,7 @@ nnoremap [F  <Cmd>lpfile<CR>
 
 # Use br(broot) in terminal
 const broot_confs = ['~/.vim/etc/broot/verbs.hjson', '~/.config/broot/conf.hjson']->map((k, v) => expand(v))->filter((k, v) => filereadable(v))->join(';')
-command! -nargs=* Br term_start(['broot', '--conf', broot_confs], {term_finish: 'close', curwin: v:true})
+command! -nargs=? -complete=dir Br botright call term_start(['broot', '--conf', broot_confs, <f-args>], {term_rows: 20, term_finish: 'close'})
 
 # append current line to buffer {{{2
 
