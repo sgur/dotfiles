@@ -119,6 +119,7 @@ catch {
 try{
 	Invoke-Expression -ErrorAction Stop (& fnm env | Out-String)
 	function __fnm_hook {
+		# spell-checker: disable-next-line
 		If ((Test-Path .nvmrc) -Or (Test-Path .node-version)) {
 			& fnm use --silent-if-unchanged
 		}
@@ -254,6 +255,7 @@ Initialize-Curl
 
 Set-Alias -Name open -Value Start-Process
 
+# spell-checker: disable
 $CoreutilsBin = ("arch", "awk", "base32", "base64", "basename", "cat", "cksum", "comm", "cmp", "cp",
 		"cut", "date", "df", "diff3", "dircolors", "dirname", "echo", "env", "expand",
 		"expr", "factor", "false", "fmt", "fold", "gawk", "hashsum", "head", "hostname",
@@ -265,6 +267,8 @@ $CoreutilsBin = ("arch", "awk", "base32", "base64", "basename", "cat", "cksum", 
 		"shake256sum", "shred", "shuf", "split", "sum", "sync",
 		"tac", "tail", "test", "touch", "tr", "true", "truncate",
 		"tsort", "unexpand", "uniq", "wc", "whoami", "yes")
+# spell-checker: enable
+
 ## uutils-coreutils
 if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath 'uutils.exe')) {
 	try {
