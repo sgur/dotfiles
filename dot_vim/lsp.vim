@@ -309,6 +309,25 @@ let g:lsp_settings['bash-language-server'] = #{
 
 " }}}
 
+if executable('npx')
+  augroup vimrc_plugin_lsp_obisidian-lsp
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server(#{
+          \ name: 'obsidian-lsp',
+          \ cmd: {server_info->[exepath('npx'), '--yes', 'obsidian-lsp', '--stdio']},
+          \ root_ui: {server_info->lsp#utils#path_to_uri(
+          \	  lsp#utils#find_nearest_parent_file_directory(
+          \	    lsp#utils#get_buffer_path(), ['.obsidian/']
+          \	  ))},
+          \ allowlist: ['markdown'],
+          \ blocklist: [],
+          \ config: {},
+          \ workspace_config: {},
+          \ languageId: {server_info->'markdown'},
+          \})
+  augroup END
+endif
+
 if !has('vim_starting')
   runtime! plugin/lsp.vim
   runtime! plugin/asyncomplete-lsp.vim
