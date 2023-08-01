@@ -212,7 +212,11 @@
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
       },
-      {"code": 43, "label": {"base": "Tab"}},
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
       {
         "code": 20552,
         "label": {
@@ -461,9 +465,12 @@
         "categories": ["blanks"]
       },
       {
-        "code": 18658,
-        "legacyCode": 19682,
-        "label": {"base": "Mute"},
+        "code": 18665,
+        "legacyCode": 23785,
+        "label": {
+          "hint": {"full": "Volume", "1u": "Vol."},
+          "base": {"full": "Up", "1u": "🔊"}
+        },
         "categories": ["consumer"]
       },
       {"code": 63, "label": {"base": "F6"}},
@@ -509,18 +516,19 @@
       {"code": 76, "label": {"base": {"full": "Delete", "1u": "Del"}}},
       {"code": 40, "label": {"base": "Enter"}},
       {
-        "code": 18665,
-        "legacyCode": 23785,
+        "code": 18666,
+        "legacyCode": 23786,
         "label": {
           "hint": {"full": "Volume", "1u": "Vol."},
-          "base": {"full": "Up", "1u": "🔊"}
+          "base": {"full": "Down", "1u": "🔉"}
         },
         "categories": ["consumer"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 18658,
+        "legacyCode": 19682,
+        "label": {"base": "Mute"},
+        "categories": ["consumer"]
       },
       {
         "code": 2095,
@@ -565,15 +573,7 @@
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
       },
-      {
-        "code": 18666,
-        "legacyCode": 23786,
-        "label": {
-          "hint": {"full": "Volume", "1u": "Vol."},
-          "base": {"full": "Down", "1u": "🔉"}
-        },
-        "categories": ["consumer"]
-      },
+      {"code": 101, "label": {"base": "Menu"}},
       {"code": 80, "label": {"base": {"full": "Left Arrow", "1u": "←"}}},
       {"code": 81, "label": {"base": {"full": "Down Arrow", "1u": "↓"}}},
       {"code": 82, "label": {"base": {"full": "Up Arrow", "1u": "↑"}}},
@@ -638,10 +638,32 @@
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
       },
-      {"code": 74, "label": {"base": "Home"}},
-      {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
-      {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
-      {"code": 77, "label": {"base": "End"}},
+      {
+        "code": 20552,
+        "label": {
+          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
+          "base": "Back"
+        },
+        "categories": ["mousekeys"]
+      },
+      {
+        "code": 144,
+        "label": {"base": {"full": "Lang1"}},
+        "categories": ["lang_intl"]
+      },
+      {
+        "code": 145,
+        "label": {"base": {"full": "Lang2"}},
+        "categories": ["lang_intl"]
+      },
+      {
+        "code": 20560,
+        "label": {
+          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
+          "base": "Forward"
+        },
+        "categories": ["mousekeys"]
+      },
       {"code": 49, "label": {"base": "\\", "shifted": "|"}},
       {
         "code": 2097,
