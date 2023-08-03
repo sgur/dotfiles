@@ -41,6 +41,7 @@ let g:lsp_diagnostics_virtual_text_insert_mode_enabled = get(g:, 'lsp_diagnostic
 let g:lsp_diagnostics_virtual_text_align = 'after'
 let g:lsp_diagnostics_virtual_text_padding_left = 4
 let g:lsp_diagnostics_virtual_text_prefix = "--- "
+let g:lsp_diagnostics_virtual_text_wrap = "truncate"
 
 let g:lsp_inlay_hints_enabled = has('textprop') && has('patch-9.0.0167')
 
