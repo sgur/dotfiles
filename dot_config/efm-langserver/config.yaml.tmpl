@@ -5,6 +5,18 @@ root-markers:
   - .git/
 
 tools:
+  any-secretlint: &any-secretlint
+    prefix: secretlint
+    lint-command: >-
+      {{ lookPath "npx" }}
+      --
+      @secretlint/quick-start
+      --format unix
+    lint-stdin: false
+    lint-formats:
+      - "%f:%l:%c: %m"
+      - "%-G%.%#"
+
   css-stylelint: &css-stylelint
     prefix: stylelint
     lint-command: >-
@@ -331,3 +343,4 @@ languages:
 
   =:
     - <<: *any-cspell
+    - <<: *any-secretlint
