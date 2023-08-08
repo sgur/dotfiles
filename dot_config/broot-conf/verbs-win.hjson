@@ -1,0 +1,16 @@
+
+{
+    verbs: [
+        {
+            invocation: edit
+            keys: [
+                enter
+                right
+            ]
+            shortcut: e
+            execution: "vim +{line} {file}"
+            leave_broot: false
+            apply_to: file
+        }
+    ]
+}
