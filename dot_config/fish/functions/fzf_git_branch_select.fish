@@ -2,6 +2,7 @@
 # fzf を使って git のブランチを選択して git switch する fish 関数
 function fzf_git_branch_select -d "Branch selection with fzf"
     set -l selected_branch (git branch --all --format='%(refname:short)' \
+        | grep -v -e '^origin$' \
         | $FZF_CMD --reverse --no-multi \
             --prompt="branches> " --query "$argv" \
             --preview-window="right,65%" \
