@@ -9,7 +9,7 @@ if test -n "$TMUX"; and type -q fzf-tmux
         set -gx FZF_CMD fzf-tmux -d 40%
     end
 else
-    set -gx FZF_CMD fzf --height=50%
+    set -gx FZF_CMD fzf --height=60%
 end
 
 # https://github.com/decors/fish-ghq
