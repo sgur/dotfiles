@@ -126,3 +126,5 @@ fi
 if [ -x "$(which broot)" ] ; then
   eval "$(broot --print-shell-function bash)"
 fi
+
+source /home/sugiurms/.config/broot/launcher/bash/br
