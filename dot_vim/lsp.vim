@@ -126,11 +126,16 @@ endfunction "}}}
 
 " vim-lsp-settings {{{1
 
-let s:lsp_settings_javascript_langservers = ['typescript-language-server', 'eslint-language-server']
+let s:lsp_settings_javascript_langservers = ['typescript-language-server', 'eslint-language-server', 'tailwindcss-intellisense']
 let g:lsp_settings_filetype_javascript = s:lsp_settings_javascript_langservers
+let g:lsp_settings_filetype_javascriptreact = s:lsp_settings_javascript_langservers
 let g:lsp_settings_filetype_typescript = s:lsp_settings_javascript_langservers
+let g:lsp_settings_filetype_typescriptreact = s:lsp_settings_javascript_langservers
 
 let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver']
+
+let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver']
+
 
 let g:lsp_settings = get(g:, 'lsp_settings', {})
 
@@ -259,7 +264,7 @@ let g:lsp_settings['gopls'] = #{
 
 " JavaScript, Typescript {{{2
 let g:lsp_settings['typescript-language-server'] = #{
-      \ whitelist: ['typescript', 'typescript.tsx', 'typescriptreact'] +
+      \ allowlist: ['typescript', 'typescript.tsx', 'typescriptreact'] +
       \            ['javascript', 'javascript.jsx', 'javascriptreact']
       \}
 
@@ -295,7 +300,7 @@ let g:lsp_settings['pylsp-all']= #{
 
 " Bash {{{2
 let g:lsp_settings['bash-language-server'] = #{
-      \ whitelist: ['sh', 'bash'],
+      \ allowlist: ['sh', 'bash'],
       \}
 
 " XML {{{2
@@ -307,6 +312,10 @@ let g:lsp_settings['bash-language-server'] = #{
 " Csharp {{{2
 " let g:lsp_settings['omnisharp-lsp'] = #{}
 
+" Tailwind CSS  {{{2
+let g:lsp_settings['tailwindcss-intellisense'] = #{
+      \ allowlist: ['typescriptreact', 'javascriptreact', 'html', 'css', 'svelte', 'mdx'],
+      \}
 " }}}
 
 if executable('npx')
