@@ -53,6 +53,7 @@ Set-PSReadLineKeyHandler -Key Ctrl+d -Function DeleteChar
 Set-PSReadLineKeyHandler -Key Ctrl+Backspace -Function BackwardDeleteWord
 Set-PSReadLineKeyHandler -Key Ctrl+p -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key Ctrl+n -Function HistorySearchForward
+Set-PSReadLineKeyHandler -Key Ctrl+w -Function BackwardKillWord
 
 # Prediction
 try {
