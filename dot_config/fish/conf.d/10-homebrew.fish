@@ -67,6 +67,13 @@ if status is-login
         fish_add_path -g $prefix/bin
         set -gx DOTNET_ROOT $prefix/libexec
     end
+
+    if test -d $HOMEBREW_PREFIX/opt/ruby@3.1
+        set -l prefix (brew --prefix ruby@3.1)
+        fish_add_path -g $prefix/bin
+        set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
+        set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
+    end
 end
 
 if test -d $HOMEBREW_PREFIX/opt/fzf
