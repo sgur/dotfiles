@@ -146,3 +146,4 @@ wttr
 xmodifiers
 zellij
 zoxide
+toastify
