@@ -3,6 +3,12 @@
 version: 2
 root-markers:
   - .git/
+{{ if eq .chezmoi.os "windows" -}}
+log-file: {{ joinPath (env "TEMP") "efm-langserver.log" }}
+{{ else -}}
+log-file: {{ joinPath (output "mktemp" "-d" "-u" | trim | osDir) "efm-langserver.log" }}
+{{ end -}}
+log-level: 2
 
 tools:
   any-secretlint: &any-secretlint
