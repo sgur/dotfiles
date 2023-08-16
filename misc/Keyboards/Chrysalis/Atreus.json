@@ -400,12 +400,13 @@
       {"code": 41, "label": {"base": "Esc"}},
       {"code": 101, "label": {"base": "Menu"}},
       {
-        "code": 20552,
+        "code": 592,
         "label": {
-          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Back"
+          "hint": {"full": "Alt+", "1u": "A+"},
+          "base": {"full": "Left Arrow", "1u": "←"}
         },
-        "categories": ["mousekeys"]
+        "categories": ["with-modifiers", "alt"],
+        "baseCode": 80
       },
       {
         "code": 144,
@@ -418,12 +419,13 @@
         "categories": ["lang_intl"]
       },
       {
-        "code": 20560,
+        "code": 591,
         "label": {
-          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Forward"
+          "hint": {"full": "Alt+", "1u": "A+"},
+          "base": {"full": "Right Arrow", "1u": "→"}
         },
-        "categories": ["mousekeys"]
+        "categories": ["with-modifiers", "alt"],
+        "baseCode": 79
       },
       {"code": 49, "label": {"base": "\\", "shifted": "|"}},
       {
