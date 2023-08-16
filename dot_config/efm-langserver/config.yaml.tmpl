@@ -202,14 +202,24 @@ tools:
       {{ lookPath "npx" }} --yes
       --
       cspell
+      lint
       --no-progress
       --no-color
       --no-summary
       --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/cspell.config.yaml
-    lint-stdin: false
+      stdin://${INPUT}
+    lint-stdin: true
     lint-formats:
       - "%I%f:%l:%c - %m"
       - "%Z"
+    hover-command: >-
+      {{ lookPath "npx" }} --yes
+      --
+      cspell
+      suggestions
+      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/cspell.config.yaml
+      --stdin
+    hover-stdin: true
 
   any-efm-langserver: &any-efm-langserver
     prefix: efm-langserver
