@@ -33,7 +33,7 @@ tools:
       stylelint
       --formatter unix
       --config
-      {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/stylelintrc.yaml
+      {{ joinPath .chezmoi.homeDir ".config" "stylelintrc.yaml" }}
       --stdin
       --stdin-filename ${INPUT}
     lint-stdin: true
@@ -49,7 +49,7 @@ tools:
           - '--'
           - 'stylelint'
           - '--config'
-          - '{{- if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/stylelint.config.js'
+          - {{ joinPath .chezmoi.homeDir ".config" "stylelintrc.yaml" | squote }}
           - '--fix'
           - '${INPUT}'
 
@@ -85,7 +85,7 @@ tools:
       --package=markdownlint-cli2
       --
       markdownlint-cli2-config
-      {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/config.markdownlint-cli2.yaml
+      {{ joinPath .chezmoi.homeDir ".config" "config.markdownlint-cli2.yaml" }}
     lint-stdin: false
     lint-formats:
       - "%f:%l:%c %m"
@@ -100,7 +100,8 @@ tools:
       --package=markdownlint-cli
       --
       markdownlint
-      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/markdownlint.yaml
+      --config
+      {{ joinPath .chezmoi.homeDir ".config" "markdownlint.yaml" }}
       --stdin
     lint-stdin: true
     lint-formats:
@@ -114,7 +115,8 @@ tools:
           - '--package=markdownlint-cli'
           - '--'
           - 'markdownlint'
-          - '--config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/markdownlint.yaml'
+          - '--config'
+          - {{ joinPath .chezmoi.homeDir ".config" "markdownlint.yaml" | squote }}
           - '--fix'
           - '${INPUT}'
 
@@ -206,7 +208,8 @@ tools:
       --no-progress
       --no-color
       --no-summary
-      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/cspell.config.yaml
+      --config
+      {{ joinPath .chezmoi.homeDir ".config" "cspell.config.yaml" }}
       stdin://${INPUT}
     lint-stdin: true
     lint-formats:
@@ -217,7 +220,8 @@ tools:
       --
       cspell
       suggestions
-      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/cspell.config.yaml
+      --config
+      {{ joinPath .chezmoi.homeDir ".config" "cspell.config.yaml" }}
       --stdin
     hover-stdin: true
 
@@ -237,7 +241,8 @@ tools:
       --package=@commitlint/cli
       --
       commitlint
-      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/commitlintrc.yaml
+      --config
+      {{ joinPath .chezmoi.homeDir ".config" "commitlintrc.yaml" }}
     lint-stdin: true
     lint-formats:
       - "%-G✖   found%.%#"
@@ -256,7 +261,8 @@ tools:
       --package=textlint-rule-preset-japanese
       --
       textlint
-      --config {{ if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/textlintrc.yaml
+      --config
+      {{ joinPath .chezmoi.homeDir ".config" "textlintrc.yaml" }}
       -f unix --no-color --stdin --stdin-filename ${INPUT}
     lint-stdin: true
     lint-formats:
@@ -276,7 +282,7 @@ tools:
           - '--package=textlint-rule-preset-japanese'
           - 'textlint'
           - '--config'
-          - '{{- if eq .chezmoi.os "windows" -}} %USERPROFILE% {{- else -}} ~ {{- end -}} /.config/textlintrc.json'
+          - {{ joinPath .chezmoi.homeDir ".config" "textlintrc.yaml" | squote }}
           - '--fix'
           - '${INPUT}'
 
