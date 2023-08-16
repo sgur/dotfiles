@@ -10,6 +10,10 @@ log-file: {{ joinPath (output "mktemp" "-d" "-u" | trim | osDir) "efm-langserver
 {{ end -}}
 log-level: 2
 
+commands:
+  - title: reload
+    command: :reload-config
+
 tools:
   any-secretlint: &any-secretlint
     prefix: secretlint
@@ -347,15 +351,10 @@ languages:
     - <<: *any-prettier
 
   yaml:
+    - <<: *any-efm-langserver
     - <<: *yaml-yamllint
     - <<: *yaml-actionlint
     - <<: *any-prettier
-{{ if eq .chezmoi.os "windows" }}
-  template:
-{{- else }}
-  yaml.chezmoitmpl:
-{{- end }}
-    - <<: *any-efm-langserver
 
 {{- if false }}
   gitcommit:
