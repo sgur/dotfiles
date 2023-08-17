@@ -1,6 +1,10 @@
 # yaml-language-server: $schema=https://raw.githubusercontent.com/DavidAnson/markdownlint/main/schema/markdownlint-config-schema.json
 ---
 default: true
+# MD013/line-length
+MD013: false
+# MD025/single-title/single-h1
+MD025: false
 # MD033/no-inline-html
 MD033: false
 # MD041/first-line-heading/first-line-h1
