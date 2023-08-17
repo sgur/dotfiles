@@ -71,6 +71,7 @@ if status is-login
     if test -d $HOMEBREW_PREFIX/opt/ruby@3.1
         set -l prefix (brew --prefix ruby@3.1)
         fish_add_path -g $prefix/bin
+        fish_add_path -g /home/linuxbrew/.linuxbrew/lib/ruby/gems/3.1.0/bin
         set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
         set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
     end
