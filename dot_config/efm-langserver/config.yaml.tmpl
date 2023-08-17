@@ -10,9 +10,9 @@ log-file: {{ joinPath (output "mktemp" "-d" "-u" | trim | osDir) "efm-langserver
 {{ end -}}
 log-level: 2
 
-commands:
-  - title: reload
-    command: :reload-config
+# commands:
+#   - title: reload
+#     command: :reload-config
 
 tools:
   any-secretlint: &any-secretlint
@@ -229,15 +229,6 @@ tools:
       --stdin
     hover-stdin: true
 
-  any-efm-langserver: &any-efm-langserver
-    prefix: efm-langserver
-    root-markers:
-      - .config/efm-langserver/config.yaml
-      - .config/efm-langserver/config.yaml.tmpl
-    commands:
-      - title: reload
-        command: :reload-config
-
   any-commitlint: &any-commitlint
     prefix: commitlint
     lint-command: >-
@@ -351,7 +342,6 @@ languages:
     - <<: *any-prettier
 
   yaml:
-    - <<: *any-efm-langserver
     - <<: *yaml-yamllint
     - <<: *yaml-actionlint
     - <<: *any-prettier
