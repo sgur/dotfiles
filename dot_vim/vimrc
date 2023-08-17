@@ -83,6 +83,7 @@ set spelllang& spelllang+=cjk # Prevent duplication
 &spellfile = expand(rc_dir .. '/spell/' .. &encoding .. '.add')
 set spelloptions& spelloptions+=camel
 set tags+=tags;,.git/tags
+set textwidth=132 # B4 ラインプリンタの桁数は 136 桁
 set ttimeout ttimeoutlen=100
 set undodir^=$HOME/.cache/vim/undo undofile
 set visualbell
@@ -93,12 +94,14 @@ if has('win32')
   set viminfo+=r\\\\ viminfo+=rJ: viminfo+=rK:
 endif
 # wildignore には中間生成物だけ書いておくのが混乱が少ない
+# spell-checker: disable
 set wildignore+=*.o,*.obj,*.so,*.out,*.jar,*.war,*.ser,*.py?,*.luac,*.sw?,*.tmp,*.db,cscope*.out,*.pak
 if has('win32') || has('win64')
   set wildignore+=desktop.ini,NTUSER*,ntuser*,*.sys,*.pdb,*.pch,*.dcu
 elseif has('mac') || has('osx')
   set wildignore+=.DS_Store
 endif
+# spell-checker: enable
 set wildignorecase
 set wildmenu wildmode=longest:full,full
 set wildoptions&
