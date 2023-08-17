@@ -6,7 +6,11 @@ end
 fish_add_path -P ~/bin ~/.local/bin
 
 if status is-login
-    set -gx EDITOR vim
+    if type -q hx
+        set -gx EDITOR hx
+    else if type -q vim
+        set -gx EDITOR vim
+    end
     if test "$TERM_PROGRAM" = 'vscode'
         set -gx EDITOR 'code -w'
     end
