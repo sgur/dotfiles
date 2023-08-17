@@ -1,0 +1,53 @@
+# https://github.com/helix-editor/helix/blob/23.05/languages.toml
+[[language-server]]
+vscode-eslint-language-server = { command = "npx", args = ["--yes", "--package=vscode-langservers-extracted", "--", "vscode-eslint-language-server", "--stdio"] }
+
+[[language]]
+name = "awk"
+language-server = { command = "npx", args = ["--yes", "awk-language-server"]}
+
+[[language]]
+name = "bash"
+indent = { tab-width = 2, unit = "  " }
+formatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
+language-server = { command = "npx", args = ["--yes", "bash-language-server", "start"]}
+
+[[language]]
+name = "css"
+formatter = { command = "npx", args = ["prettier", "--parser", "css"] }
+language-server = { command = "npx", args = ["--yes", "--package=vscode-langservers-extracted", "--", "vscode-css-language-server", "--stdio"]}
+
+[[language]]
+name = "fish"
+formatter = { command = "fish_indent" }
+auto-format = true
+
+[[language]]
+name = "html"
+formatter = { command = "npx", args = ["prettier", "--parser", "html"] }
+language-server = { command = "npx", args = ["--yes", "--package=vscode-langservers-extracted", "--", "vscode-html-language-server", "--stdio"]}
+
+[[language]]
+name = "javascript"
+formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "json"
+scope = "source.json"
+formatter = { command = "npx", args = ["prettier", "--parser", "json"] }
+language-server = { command = "npx", args = ["--yes", "--package", "vscode-langservers-extracted", "--", "vscode-json-language-server", "--stdio"]}
+
+[[language]]
+name = "typescript"
+formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "tsx"
+formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
+auto-format = true
+
+[[language]]
+name = "yaml"
+language-server = { command = "npx", args = ["--yes", "yaml-language-server", "--stdio"], config = { yaml = { format = { enable = true }, validation = true }}}

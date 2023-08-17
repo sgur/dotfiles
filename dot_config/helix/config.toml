@@ -1,0 +1,35 @@
+theme = "tokyonight"
+
+[editor]
+cursorline = true
+mouse = false
+middle-click-paste = false
+true-color = true
+color-modes = true
+
+[editor.lsp]
+display-messages = true
+display-inlay-hints = true
+
+[editor.cursor-shape]
+insert = "bar"
+select = "underline"
+
+[editor.whitespace.render]
+space = "none"
+nbsp = "all"
+tab = "all"
+newline = "all"
+
+[editor.whitespace.characters]
+# space = "·"
+nbsp = "⍽"
+tab = "→"
+newline = "⏎"
+tabpad = "·" # Tabs will look like "→···" (depending on tab width)
+
+[editor.indent-guides]
+render = true
+
+[editor.soft-wrap]
+enable = true
