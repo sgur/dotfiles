@@ -722,9 +722,11 @@ pack.Add('vim-operator-replace', OperatorReplaceInit)
 # operator-siege (opt) {{{3
 def InitOperatorSiege() # {{{
   nnoremap ys  <Plug>(operator-siege-add)
+  vnoremap ys  <Plug>(operator-siege-add)
+  onoremap ys  <Plug>(operator-siege-add)
   nnoremap yS <Plug>(operator-siege-add-with-indent)
-  vnoremap S <Plug>(operator-siege-add-with-indent)
-  onoremap S <Plug>(operator-siege-add-with-indent)
+  vnoremap yS <Plug>(operator-siege-add-with-indent)
+  onoremap yS <Plug>(operator-siege-add-with-indent)
   nnoremap cs  <Plug>(operator-siege-change)
   nnoremap ds  <Plug>(operator-siege-delete)
 enddef # }}}
