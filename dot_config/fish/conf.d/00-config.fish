@@ -29,6 +29,9 @@ end
 if test -z "$SSH_TTY"
     set -gx GPG_TTY (tty)
 end
+if type -q gpgconf
+    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+end
 
 if status is-interactive
     # unbind Alt-v (edit_command_buffer)
