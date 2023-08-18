@@ -126,7 +126,7 @@ try{
 		}
 	}
 	__fnm_hook
-	fnm completions | Out-String | Invoke-Expression
+	fnm completions --shell power-shell | Out-String | Invoke-Expression
 }
 catch {
 	Write-Warning "fnm not found: scoop install fnm"
