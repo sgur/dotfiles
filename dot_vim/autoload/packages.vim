@@ -179,6 +179,10 @@ function! s:init() abort "{{{
 
   " Colorscheme {{{2
 
+  call minpac#add('gustavo-hms/garbo', #{
+        \ type: 'opt',
+        \ })
+
   call minpac#add('cocopon/iceberg.vim', #{
         \ type: 'opt',
         \ })
