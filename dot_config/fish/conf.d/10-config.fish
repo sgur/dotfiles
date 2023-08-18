@@ -10,6 +10,8 @@ if status is-login
         set -gx EDITOR hx
     else if type -q vim
         set -gx EDITOR vim
+        # git commit では copilot を使いたい
+        set -gx GIT_EDITOR vim
     end
     if test "$TERM_PROGRAM" = 'vscode'
         set -gx EDITOR 'code -w'
