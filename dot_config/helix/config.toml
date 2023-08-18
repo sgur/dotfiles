@@ -1,4 +1,4 @@
-theme = "tokyonight"
+theme = "base16_terminal"
 
 [editor]
 cursorline = true
@@ -33,3 +33,7 @@ render = true
 
 [editor.soft-wrap]
 enable = true
+
+[editor.file-picker]
+max-depth = 6
+hidden = false
