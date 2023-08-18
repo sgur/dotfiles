@@ -35,6 +35,7 @@ scoop/
 .config/helix/
 .config/fish/
 .config/zellij/
+.config/kitty/
 .Brewfile*
 .gnupg/
 {{ end }}
@@ -43,4 +44,7 @@ scoop/
 # Ignoring on non-Windows-WSL
 bin/wsl-compact-memory
 bin/xdg-open
+{{ else }}
+# Ignoring on Windows-WSL
+.config/kitty/
 {{ end }}
