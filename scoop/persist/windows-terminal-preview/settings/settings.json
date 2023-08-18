@@ -84,10 +84,10 @@
                 "size": 12.0,
                 "weight": "normal"
             },
-            "opacity": 100,
+            "opacity": 80,
             "padding": "16,8",
             "startingDirectory": "%USERPROFILE%",
-            "useAcrylic": false
+            "useAcrylic": true
         },
         "list": 
         [
