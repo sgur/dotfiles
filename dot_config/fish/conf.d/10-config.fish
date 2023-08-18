@@ -28,6 +28,7 @@ end
 
 if test -z "$SSH_TTY"
     set -gx GPG_TTY (tty)
+    gpg-connect-agent updatestartuptty /bye >/dev/null
 end
 if type -q gpgconf
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
