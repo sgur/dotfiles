@@ -72,11 +72,11 @@ function! s:exit_handler(info, job, status) abort "{{{
 
       call add(l:matches, l:item)
     endif
-endfor
+  endfor
 
-call asyncomplete#complete(a:info['opt']['name'], l:ctx, l:start_col, l:matches)
+  call asyncomplete#complete(a:info['opt']['name'], l:ctx, l:start_col, l:matches)
 endfunction "}}}
 
 let s:grep_cmd = executable('rg')
-      \ ? ['rg', '--no-line-number', '--color=never']
-      \ : ['grep', '--color=never']
+      \ ? ['rg', '--no-line-number', '--color=never', '--max-count=5']
+      \ : ['grep', '--color=never', '--max-count=5']
