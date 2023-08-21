@@ -29,7 +29,7 @@ const rc_dir = expand('<sfile>:p:h:gs?\?/?')
 &termencoding = &encoding
 set encoding=utf-8
 try
-  language ja_JP
+  language ja_JP.UTF-8
 catch /^Vim\%((\a\+)\)\=:E197:/
   language C
 endtry
@@ -69,6 +69,9 @@ set nolangremap
 set laststatus=2
 if has('iconv')
   &makeencoding = (has('win32') && &encoding is 'utf-8') ? &encoding : 'char'
+endif
+if !has('win32')
+  set makeprg=env\ LC_ALL=C\ make
 endif
 set matchpairs+=（:）,｛:｝,「:」,［:］,『:』,【:】
 set nrformats& nrformats-=octal
