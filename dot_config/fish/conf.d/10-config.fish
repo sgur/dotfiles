@@ -28,11 +28,9 @@ if status is-login
     set -gx LESS --incsearch --quit-if-one-screen --raw-control-chars
 end
 
-if test -z "$SSH_TTY"
+if type -q gpg
     set -gx GPG_TTY (tty)
     gpg-connect-agent updatestartuptty /bye >/dev/null
-end
-if type -q gpgconf
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 end
 
