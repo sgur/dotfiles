@@ -53,10 +53,10 @@ function! s:init() abort "{{{
         \ depth: 9999
         \ })
 
-  call minpac#add('sgur/vim-editorconfig', #{
-        \ type: 'opt',
-        \ depth: 9999
-        \ })
+  " call minpac#add('sgur/vim-editorconfig', #{
+  "       \ type: 'opt',
+  "       \ depth: 9999
+  "       \ })
 
   call minpac#add('sgur/vim-textobj-parameter', #{
         \ type: 'opt',
@@ -64,6 +64,10 @@ function! s:init() abort "{{{
         \ })
 
   " Generic {{{2
+
+  call minpac#add('editorconfig/editorconfig-vim', #{
+        \ type: 'opt',
+        \ })
 
   call minpac#add('github/copilot.vim', #{
         \ type: 'opt'

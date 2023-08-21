@@ -531,8 +531,7 @@ enddef # }}}
 pack.Add('ctrlp.vim', InitCtrlp)
 
 # editorconfig (opt) {{{2
-pack.Add('vim-editorconfig')
-g:editorconfig_root_chdir = 1
+pack.Add('editorconfig-vim')
 
 # emmet (opt) {{{2
 augroup vimrc_plugin_emmet
