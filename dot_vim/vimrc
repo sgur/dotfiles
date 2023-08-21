@@ -412,7 +412,6 @@ def AltrInit()
 enddef
 pack.Add('vim-altr', AltrInit)
 
-
 # asterisk (opt) {{{2
 def AsteriskInit()
   noremap *   <Plug>(asterisk-*)
@@ -544,17 +543,6 @@ augroup END
 g:user_emmet_leader_key = '<C-b>'
 g:user_emmet_install_global = 0
 
-# empty-prompt (opt) {{{2
-def EmptyPromptMappings()
-  # : で Cmdline mode
-  call empty_prompt#map({'lhs': ':', 'rhs': '<C-w>:'})
-  # <Esc> で Normal mode へ
-  call empty_prompt#map({'lhs': '<Esc>', 'rhs': '<C-w>N'})
-  # ZZ で終了
-  call empty_prompt#map({'lhs': 'ZZ', 'rhs': '<C-w><C-c>'})
-enddef
-pack.Add('empty-prompt.vim', EmptyPromptMappings)
-
 # fakeclip (opt) {{{2
 if !has('clipboard')
   if system('cat /proc/sys/kernel/osrelease') =~ 'Microsoft'
@@ -566,15 +554,6 @@ if !has('clipboard')
   endif
   call pack.Add('vim-fakeclip')
 endif
-
-# fern (opt) {{{2
-def InitFern() # {{{
-  packadd! fern-git-status.vim
-  g:fern_git_status_disable_startup = 1
-  fern_git_status#init()
-  nnoremap <F9>  <Cmd>Fern . -drawer -toggle<CR>
-enddef # }}}
-pack.Add('fern.vim', InitFern)
 
 # flutter (opt) {{{2
 pack.Add('vim-flutter')
@@ -881,11 +860,6 @@ def InitVsnip() # {{{
   g:vsnip_filetypes.jsonc = ['json']
 enddef # }}}
 pack.Add('vim-vsnip', InitVsnip)
-
-# vue {{{2
-g:vim_vue_plugin_use_typescript = 1
-g:vim_vue_plugin_use_sass = 1
-g:vim_vue_plugin_use_scss = 1
 
 # webapi {{{2
 g:webapi#system_function = 'using_job#system'

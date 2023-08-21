@@ -48,10 +48,10 @@ function! s:init() abort "{{{
 
   " Self-made {{{2
 
-  call minpac#add('sgur/minpac-toml', #{
-        \ type: 'opt',
-        \ depth: 9999
-        \ })
+  " call minpac#add('sgur/minpac-toml', #{
+  "       \ type: 'opt',
+  "       \ depth: 9999
+  "       \ })
 
   " call minpac#add('sgur/vim-editorconfig', #{
   "       \ type: 'opt',
@@ -70,14 +70,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('github/copilot.vim', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('lambdalisue/fern.vim', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('lambdalisue/fern-git-status.vim', #{
         \ type: 'opt'
         \ })
 
@@ -203,10 +195,6 @@ function! s:init() abort "{{{
         \ type: 'opt',
         \ })
 
-  call minpac#add('sainnhe/everforest', #{
-        \ type: 'opt'
-        \ })
-
   " Filetype {{{2
 
   call minpac#add('alker0/chezmoi.vim')
@@ -214,10 +202,6 @@ function! s:init() abort "{{{
   call minpac#add('ap/vim-css-color')
 
   call minpac#add('AndrewRadev/tagalong.vim', #{
-        \ type: 'opt',
-        \ })
-
-  call minpac#add('tyru/empty-prompt.vim', #{
         \ type: 'opt',
         \ })
 
@@ -241,8 +225,6 @@ function! s:init() abort "{{{
 
   call minpac#add('evanleck/vim-svelte')
 
-  call minpac#add('leafOfTree/vim-vue-plugin')
-
   call minpac#add('kevinoid/vim-jsonc')
 
   call minpac#add('sheerun/vim-polyglot')
@@ -254,8 +236,6 @@ function! s:init() abort "{{{
   call minpac#add('hail2u/vim-css3-syntax')
 
   call minpac#add('kana/vim-vspec')
-
-  call minpac#add('rkennedy/vim-delphi')
 
   call minpac#add('tyru/skkdict.vim')
 
