@@ -49,6 +49,12 @@ comment-token = "#"
 indent = { tab-width = 2, unit = "  " }
 language-server = { command = "powershell-languageserver" }
 
+# It look broken
+# https://github.com/helix-editor/helix/issues/3123
+# [[grammar]]
+# name = "pwsh"
+# source = { git = "https://github.com/PowerShell/tree-sitter-PowerShell", rev = "1ac090522cb339a6fd9d3ac915da01cb263d69e1" }
+
 [[language]]
 name = "typescript"
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }

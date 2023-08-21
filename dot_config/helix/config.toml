@@ -6,6 +6,9 @@ mouse = false
 middle-click-paste = false
 true-color = true
 color-modes = true
+# For pwsh
+# https://github.com/helix-editor/helix/discussions/6209#discussioncomment-5288892
+# shell = ["pwsh.exe","-NoLogo","-NoProfile","-NoProfileLoadTime","-Command","$PSStyle.OutputRendering='PlainText';"]
 
 [editor.lsp]
 display-messages = true
