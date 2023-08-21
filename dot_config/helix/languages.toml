@@ -39,6 +39,17 @@ formatter = { command = "npx", args = ["prettier", "--parser", "json"] }
 language-server = { command = "npx", args = ["--yes", "--package", "vscode-langservers-extracted", "--", "vscode-json-language-server", "--stdio"]}
 
 [[language]]
+name = "pwsh"
+# language-id = "powershell"
+scope = "source.ps1"
+file-types = ["ps1", "psm1", "psd1"]
+shebangs = ["pwsh"]
+roots = [".git"]
+comment-token = "#"
+indent = { tab-width = 2, unit = "  " }
+language-server = { command = "powershell-languageserver" }
+
+[[language]]
 name = "typescript"
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
