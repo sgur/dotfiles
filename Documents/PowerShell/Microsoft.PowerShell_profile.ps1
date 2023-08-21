@@ -117,8 +117,8 @@ catch {
 }
 
 ## fnm
-try{
-	Invoke-Expression -ErrorAction Stop (& fnm env | Out-String)
+if (Get-Command -ErrorAction SilentlyContinue fnm | Out-Null) {
+	fnm env --shell power-shell | Out-String | Invoke-Expression
 	function __fnm_hook {
 		# spell-checker: disable-next-line
 		If ((Test-Path .nvmrc) -Or (Test-Path .node-version)) {
@@ -128,16 +128,13 @@ try{
 	__fnm_hook
 	fnm completions --shell power-shell | Out-String | Invoke-Expression
 }
-catch {
-	Write-Warning "fnm not found: scoop install fnm"
-}
 
 ## Set-Location Hook
 $ExecutionContext.InvokeCommand.LocationChangedAction = {
-	if (Get-Command -Type Function __fnm_hook) {
+	if (Get-Command -ErrorAction SilentlyContinue -Type Function __fnm_hook) {
 		__fnm_hook
 	}
-	if (Get-Command -Type Function __zoxide_hook) {
+	if (Get-Command -ErrorAction SilentlyContinue -Type Function __zoxide_hook) {
 		__zoxide_hook
 	}
 }
