@@ -34,6 +34,7 @@ scoop/
 .profile
 .local/bin/
 .config/helix/
+.config/kak/
 .config/fish/
 .config/zellij/
 .config/kitty/
