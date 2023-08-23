@@ -8,11 +8,11 @@ fish_add_path -P ~/bin ~/.local/bin
 if status is-login
     if type -q hx
         set -gx EDITOR hx
-    else if type -q vim
+    else
         set -gx EDITOR vim
-        # git commit では copilot を使いたい
-        set -gx GIT_EDITOR vim
     end
+    # git commit では copilot を使いたいので vim を利用する
+    set -gx GIT_EDITOR vim
     if test "$TERM_PROGRAM" = 'vscode'
         set -gx EDITOR 'code -w'
     end

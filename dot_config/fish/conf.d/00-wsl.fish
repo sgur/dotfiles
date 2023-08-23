@@ -13,6 +13,12 @@ if test (umask) = "0000"
    umask 022
 end
 
+# Error: Too many open files 対策
+# https://bayashi.net/diary/2020/0730
+# - /etc/pam.d/common-session, /etc/pam.d/common-session-noninteractive に
+#     session required pam_limits.so を追加した方がよいかも
+ulimit --file-descriptor-count 2048
+
 if status is-login
    # https://specifications.freedesktop.org/basedir-spec/latest/ar01s03.html
    set -gx XDG_DATA_HOME $HOME/.local/share
