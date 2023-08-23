@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/conventional-changelog/commitlint/master/%40commitlint/config-validator/src/commitlint.schema.json
 ---
 # The rules below have been manually copied from @commitlint/config-conventional
 # and match the v1.0.0 specification:

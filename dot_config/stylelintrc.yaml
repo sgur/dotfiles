@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://unpkg.com/@changesets/config/schema.json
 ---
 extends:
   - stylelint-config-standard
