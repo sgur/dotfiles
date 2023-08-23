@@ -38,6 +38,7 @@ scoop/
 .config/fish/
 .config/zellij/
 .config/kitty/
+.config/rtx/
 .Brewfile*
 .gnupg/
 {{ end }}
