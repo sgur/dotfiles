@@ -29,7 +29,8 @@ local config = {
   -- 2022-04-14: Belafonte Night
   -- 2022-04-21: Afterglow
   -- 2022-04-25: Rapture
-  color_scheme = "SynthWave (Gogh)",
+  -- 2023-08-23: SynthWave (Gogh)
+  color_scheme = "Catppuccin Mocha",
   hyperlink_rules = {
     -- default
     {
@@ -61,7 +62,7 @@ local config = {
     fade_out_function = "EaseOut",
     fade_out_duration_ms = 150,
   },
-  window_background_opacity = 0.92
+  window_background_opacity = 0.92,
 }
 
 -- x86_64-pc-windows-msvc - Windows
@@ -72,6 +73,7 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   config.default_prog = { pwsh_path }
   config.font = wezterm.font("UDEV Gothic NFLG")
   config.font_size = 12
+  config.exit_behavior = 'Hold'
   config.launch_menu = {
     {
       label = "Command Promt with clink",
@@ -108,7 +110,7 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   }
 end
 if wezterm.target_triple == "x86_64-apple-darwin" then
-  config.font = wezterm.font("PlemolJP Console NF", {weight = 'Medium'})
+  config.font = wezterm.font("UDEV Gothic NFLG")
   config.font_size = 16
 end
 
