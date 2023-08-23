@@ -175,7 +175,8 @@ function! s:init() abort "{{{
 
   " Colorscheme {{{2
 
-  call minpac#add('gustavo-hms/garbo', #{
+  call minpac#add('catppuccin/vim', #{
+        \ name: 'catppuccin',
         \ type: 'opt',
         \ })
 
