@@ -1,4 +1,4 @@
---theme="Nord"
+--theme="Catppuccin-mocha"
 
 --map-syntax "*.wslconfig:INI"
 --map-syntax "*.conf:INI"
