@@ -3,20 +3,12 @@ $OutputEncoding = [Text.UTF8Encoding]::UTF8
 [System.Console]::OutputEncoding = [System.Text.Encoding]::GetEncoding("utf-8")
 $Env:LC_ALL = "ja_JP.utf-8"
 
-# $EDITOR を gVim にする
-$Env:EDITOR = 'gvim --remote-tab-silent-wait'
-## vscode のターミナル内のときのみ code -w
-if ($Env:TERM_PROGRAM -eq 'vscode') {
-	$Env:EDITOR = 'code -w'
-}
-
 ## PSReadLine
 $PSReadLineOptions = @{
 	BellStyle = "Visual"
 	EditMode = "Emacs"
 	HistorySearchCursorMovesToEnd = $true
 	HistoryNoDuplicates = $true
-	PredictionSource = "History"
 }
 Set-PSReadLineOption @PSReadLineOptions
 
