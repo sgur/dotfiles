@@ -50,4 +50,5 @@ bin/xdg-open
 {{ else }}
 # Ignoring on Windows-WSL
 .config/kitty/
+.config/wezterm/
 {{ end }}
