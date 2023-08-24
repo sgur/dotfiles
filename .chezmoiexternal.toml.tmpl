@@ -15,3 +15,12 @@ url = "https://raw.githubusercontent.com/vim-scripts/zenesque.vim/master/colors/
 type = "archive"
 url = "https://sourceforge.net/projects/wordlist/files/speller/2020.12.07/wordlist-en_US-2020.12.07.zip/download"
 include = ["en_US.txt"]
+
+{{ if eq .chezmoi.os "windows" }}
+["Documents/PowerShell/Modules/Catppuccin"]
+type = "archive"
+extract = true
+stripComponents = 1
+include = ["*/en-US/**", "*/*.ps*"]
+url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
+{{ end }}
