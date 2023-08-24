@@ -147,3 +147,4 @@ xmodifiers
 zellij
 zoxide
 toastify
+catppuccin
