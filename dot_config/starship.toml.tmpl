@@ -1,8 +1,8 @@
+palette = {{ if eq .chezmoi.os "windows" }} "catppuccin_mocha" {{ else }} "catppuccin_macchiato" {{ end }}
 {{- if eq .chezmoi.os "windows" }}
 scan_timeout = 100
 command_timeout = 3000
 {{- end }}
-palette = "catppuccin_mocha"
 
 [aws]
 force_display = true

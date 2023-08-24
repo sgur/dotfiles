@@ -1,3 +1,2 @@
-colorscheme catppuccin_mocha
+colorscheme catppuccin_macchiato
 set-option global ui_options terminal_assistant=none
-
