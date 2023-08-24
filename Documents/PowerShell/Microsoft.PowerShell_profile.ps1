@@ -279,7 +279,7 @@ if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath
 		if (Test-Path Alias:diff) { Remove-Item -Force -Path Alias:diff }
 		Invoke-Expression "function global:diff { $('$input | uutils diff $args') }"
 		if (Test-Path Alias:tee) { Remove-Item -Force -Path Alias:tee }
-		Invoke-Expression "function global:tee.exe { $('$input | uutils tee $args') }"
+		Invoke-Expression "function global:tee { $('$input | uutils tee $args') }"
 		if (Test-Path Alias:ls) { Remove-Item -Path Alias:ls }
 		function global:ls { uutils ls --classify=auto --color=auto --human-readable --dereference-command-line-symlink-to-dir --hide=_* --hide=.* --ignore=NTUSER.* --ignore=ntuser.* --ignore='Application Data' --ignore='Local Settings' --ignore='My Documents' --ignore='Start Menu' --ignore='スタート メニュー' --hide='*scoopappsyarncurrent*' $args }
 	} catch {
@@ -299,7 +299,7 @@ elseif (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -Child
 		if (Test-Path Alias:diff) { Remove-Item -Force -Path Alias:diff }
 		Invoke-Expression "function global:diff { $('$input | ' + (Join-Path -Path $GitBinPath -ChildPath diff.exe) + ' $args') }"
 		if (Test-Path Alias:tee) { Remove-Item -Force -Path Alias:tee }
-		Invoke-Expression "function global:tee.exe { $('$input | ' + (Join-Path -Path $GitBinPath -ChildPath tee.exe) + ' $args') }"
+		Invoke-Expression "function global:tee { $('$input | ' + (Join-Path -Path $GitBinPath -ChildPath tee.exe) + ' $args') }"
 		if (Test-Path Alias:ls) { Remove-Item -Path Alias:ls }
 		$GitBinLsPath = (Join-Path -Path $GitBinPath -ChildPath 'ls.exe')
 		function global:ls {
