@@ -6,22 +6,20 @@
 #   . ~/.config/powershell/Microsoft.PowerShell_profile.ps1
 #   ```
 
-$CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
-# $CurrentUserScripts = $PSGetPath.CurrentUserScripts
-
-# Scoop Dir
-$ScoopDir = (Join-Path -Path $Env:USERPROFILE -ChildPath "scoop")
-if ($Env:SCOOP)
-{
-	$ScoopDir = $Env:SCOOP
-}
-$ScoopShimsDir = Join-Path -Path $ScoopDir -ChildPath "shims"
-
 # 文字化け対策
 # https://smdn.jp/programming/netfx/tips/unicode_encoding_bom/
 $OutputEncoding = [System.Text.Encoding]::Default
 [System.Console]::OutputEncoding = [System.Text.Encoding]::Default
 $Env:LC_ALL = "ja_JP.utf-8"
+
+$NonInteractive = ([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).Length -gt 0
+if ($NonInteractive)
+{
+	return
+}
+
+$CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
+# $CurrentUserScripts = $PSGetPath.CurrentUserScripts
 
 # $EDITOR を gVim にする
 $Env:EDITOR = ((Get-Command gvim.exe).Source -replace '\\', '\\') + ' --remote-tab-silent-wait'
@@ -31,6 +29,14 @@ if ($env:TERM_PROGRAM -eq "vscode")
 {
 	. "$(code --locate-shell-integration-path pwsh)"
 }
+
+# Scoop Dir
+$ScoopDir = (Join-Path -Path $Env:USERPROFILE -ChildPath "scoop")
+if ($Env:SCOOP)
+{
+	$ScoopDir = $Env:SCOOP
+}
+$ScoopShimsDir = Join-Path -Path $ScoopDir -ChildPath "shims"
 
 # Self-Update
 function Update-Self
@@ -311,7 +317,14 @@ if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath
 				{
 					Remove-Item -Path Alias:$_
 				}
-				$fn = '$input | uutils ' + $_ + ' $args'
+				if ($_ -in "rm", "mv", "cp")
+				{
+					$fn = '& uutils ' + $_ + ' -i $args'
+				}
+				else
+				{
+					$fn = '$input | uutils ' + $_ + ' $args'
+				}
 				Invoke-Expression "function global:$_ { $fn }"
 			}
 		if (Test-Path Alias:diff)
@@ -349,19 +362,26 @@ elseif (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -Child
 				{
 					Remove-Item -Path Alias:$_
 				}
-				$fn = '$input | ' + (Join-Path -Path $GitBinPath -ChildPath $_) + '.exe $args'
+				if ($_ -in "rm", "mv", "cp")
+				{
+					$fn = '& ' + (Join-Path -Path $GitBinPath -ChildPath $_) + '.exe -i $args'
+				}
+				else
+				{
+					$fn = '$input | ' + (Join-Path -Path $GitBinPath -ChildPath $_) + '.exe $args'
+				}
 				Invoke-Expression "function global:$_ { $fn }"
 			}
 		if (Test-Path Alias:diff)
 		{
-			Remove-Item -Force -Path Alias:diff 
+			Remove-Item -Force -Path Alias:diff
 		}
 		Invoke-Expression "function global:diff { $('$input | ' + (Join-Path -Path $GitBinPath -ChildPath diff.exe) + ' $args') }"
 		if (Test-Path Alias:tee) { Remove-Item -Force -Path Alias:tee }
 		Invoke-Expression "function global:tee { $('$input | ' + (Join-Path -Path $GitBinPath -ChildPath tee.exe) + ' $args') }"
 		if (Test-Path Alias:ls)
 		{
-			Remove-Item -Path Alias:ls 
+			Remove-Item -Path Alias:ls
 		}
 		$GitBinLsPath = (Join-Path -Path $GitBinPath -ChildPath 'ls.exe')
 		function global:ls
