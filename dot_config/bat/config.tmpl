@@ -1,4 +1,4 @@
---theme="Catppuccin-mocha"
+--theme={{ if eq .chezmoi.os "windows" -}} "Catppuccin-mocha" {{- else -}} "Catppuccin-macchiato" {{- end }}
 
 --map-syntax "*.wslconfig:INI"
 --map-syntax "*.conf:INI"
