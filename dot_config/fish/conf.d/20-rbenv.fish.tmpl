@@ -1,5 +1,5 @@
-if not type -q rbenv
-    exit 0
-end
+status is-interactive || exit
 
-status --is-interactive; and rbenv init - fish | source
+{{ if lookPath "rbenv" }}
+{{ output "rbenv" "init" "-" "fish" | trim }}
+{{ end }}
