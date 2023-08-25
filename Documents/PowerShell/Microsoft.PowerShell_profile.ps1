@@ -118,13 +118,7 @@ $Env:BAT_CONFIG_PATH = (Resolve-Path "~/.config/bat/config").Path
 $Env:DOCKER_HOST = "tcp://localhost:2375"
 
 ## Starship
-try
-{
-	Invoke-Expression -ErrorAction Stop (& starship init powershell --print-full-init | Out-String)
-} catch
-{
-	Write-Warning "starship not found: scoop install starship"
-}
+. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
 
 ## zoxide
 try
