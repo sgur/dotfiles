@@ -51,6 +51,14 @@
                 "action": "closeTab"
             },
             "keys": "ctrl+f4"
+        },
+        {
+            "command": 
+            {
+                "action": "moveTab",
+                "window": "new"
+            },
+            "keys": "ctrl+alt+d"
         }
     ],
     "copyFormatting": "html",
@@ -81,7 +89,7 @@
             {
                 "cellHeight": "1.4",
                 "face": "UDEV Gothic NFLG",
-                "size": 11.0,
+                "size": 12.0,
                 "weight": "normal"
             },
             "opacity": 80,
