@@ -392,12 +392,9 @@ try
 ## broot
 if (Get-Command -ErrorAction SilentlyContinue "br")
 {
-} elseif (Get-Command -ErrorAction SilentlyContinue "broot")
-{
-	Invoke-Expression -ErrorAction Stop (broot --print-shell-function powershell | Out-String)
 } else
 {
-	Write-Output "broot not installed: scoop install broot"
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Broot.ps1')
 }
 
 ## WinGet completion
