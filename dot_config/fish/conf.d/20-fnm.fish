@@ -1,3 +1,5 @@
+status is-interactive || exit
+
 if not type -q fnm
     exit 0
 end
