@@ -35,6 +35,7 @@ scoop/
 .local/bin/
 .config/helix/
 .config/kak/
+.config/kak-lsp/
 .config/fish/
 .config/zellij/
 .config/kitty/
