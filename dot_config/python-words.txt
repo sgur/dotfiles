@@ -1,3 +1,6 @@
 botocore
 isinstance
 noqa
+tqdm
+strptime
+strftime
