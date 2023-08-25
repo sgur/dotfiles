@@ -1,5 +1,7 @@
 status is-interactive || exit
 
-if type -q starship
-    starship init fish | source
-end
+{{ if lookPath "starship" }}
+{{ output "starship" "init" "fish" | trim | comment "# " }}
+
+{{ output "starship" "init" "fish" "--print-full-init" | trim }}
+{{ end }}
