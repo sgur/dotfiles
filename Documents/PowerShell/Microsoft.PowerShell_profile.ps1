@@ -121,14 +121,7 @@ $Env:DOCKER_HOST = "tcp://localhost:2375"
 . (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
 
 ## zoxide
-try
-{
-	Invoke-Expression -ErrorAction Stop (zoxide init --hook pwd powershell | Out-String)
-	$Error.Clear()
-} catch
-{
-	Write-Warning "zoxide not found: scoop install zoxide"
-}
+. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Zoxide.ps1')
 
 ## fnm
 if (Get-Command -ErrorAction SilentlyContinue fnm | Out-Null)
