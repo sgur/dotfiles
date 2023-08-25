@@ -1,2 +1,12 @@
 colorscheme catppuccin_macchiato
 set-option global ui_options terminal_assistant=none
+
+eval %sh{kak-lsp --kakoune -s $kak_session}
+lsp-enable
+# hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
+# hook global WinSetOption filetype=(bash|css|html|javascript|jsx|json|typescript|tsx) %{
+#    lsp-enable-window
+#}
+set-option global lsp_hover_anchor true
+set-option global lsp_auto_show_code_actions true
+lsp-auto-hover-enable

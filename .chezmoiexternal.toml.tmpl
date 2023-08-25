@@ -5,7 +5,7 @@ exact = true
 include = ["*/autoload/**", "*/doc/**", "*/plugin/**"]
 refreshPeriod = "24h"
 stripComponents = 1
-url = "https://github.com/k-takata/minpac/archive/master.zip"
+url = "https://github.com/k-takata/minpac/archive/refs/heads/master.zip"
 
 [".vim/colors/zenesque.vim"]
 type = "file"
@@ -23,4 +23,16 @@ extract = true
 stripComponents = 1
 include = ["*/en-US/**", "*/*.ps*"]
 url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
+{{ end }}
+
+{{ if ne .chezmoi.os "windows" }}
+[".local/bin/"]
+type = "archive"
+extract = true
+include = ["kak-lsp", "kak-lsp.toml"]
+{{   if eq .chezmoi.os "darwin" }}
+url = "https://github.com/kak-lsp/kak-lsp/releases/download/v14.2.0/kak-lsp-v14.2.0-x86_64-apple-darwin.tar.gz"
+{{   else }}
+url = "https://github.com/kak-lsp/kak-lsp/releases/download/v14.2.0/kak-lsp-v14.2.0-x86_64-unknown-linux-musl.tar.gz"
+{{   end }}
 {{ end }}
