@@ -1,5 +1,5 @@
 status is-interactive || exit
 
-if type -q zoxide
-    zoxide init fish | source
-end
+{{ if lookPath "zoxide" }}
+{{ output "zoxide" "init" "fish"  | trim }}
+{{ end }}
