@@ -1,6 +1,6 @@
-if not type -q rtx
-    exit 0
-end
+status is-interactive || exit
 
-rtx activate fish | source
+{{ if lookPath "rtx" }}
+{{ output "rtx" "activate" "fish" | trim }}
+{{ end }}
 
