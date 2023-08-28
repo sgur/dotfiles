@@ -1,6 +1,8 @@
 colorscheme catppuccin_macchiato
 set-option global ui_options terminal_assistant=none
 
+addhl global/ wrap -word
+
 eval %sh{kak-lsp --kakoune -s $kak_session}
 lsp-enable
 # hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
