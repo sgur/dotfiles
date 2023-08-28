@@ -35,4 +35,11 @@ url = "https://github.com/kak-lsp/kak-lsp/releases/download/v14.2.0/kak-lsp-v14.
 {{   else }}
 url = "https://github.com/kak-lsp/kak-lsp/releases/download/v14.2.0/kak-lsp-v14.2.0-x86_64-unknown-linux-musl.tar.gz"
 {{   end }}
+
+[".config/kak/autoload/auto-pairs"]
+type = "archive"
+extract = true
+stripComponents = 1
+include = ["*/docs/**", "*/rc/**"]
+url = "https://github.com/alexherbo2/auto-pairs.kak/archive/refs/heads/master.zip"
 {{ end }}
