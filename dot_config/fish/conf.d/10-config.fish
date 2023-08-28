@@ -6,7 +6,9 @@ end
 fish_add_path -P ~/bin ~/.local/bin
 
 if status is-login
-    if type -q hx
+    if type -q kak
+        set -gx EDITOR kak
+    else if type -q hx
         set -gx EDITOR hx
     else
         set -gx EDITOR vim
