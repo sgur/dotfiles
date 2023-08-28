@@ -280,105 +280,59 @@ Initialize-Curl
 Set-Alias -Name open -Value Start-Process
 
 # spell-checker: disable
-$CoreutilsBin = ("arch", "awk", "base32", "base64", "basename", "cat", "cksum", "comm", "cmp", "cp",
-	"cut", "date", "df", "diff3", "dircolors", "dirname", "echo", "env", "expand",
-	"expr", "factor", "false", "fmt", "fold", "gawk", "hashsum", "head", "hostname",
-	"join", "link", "ln", "md5sum", "mkdir", "mktemp", "more", "mv",
-	"nl", "nproc", "od", "paste", "printenv", "printf", "ptx", "pwd",
-	"readlink", "realpath", "relpath", "rm", "rmdir", "sdiff", "sed", "seq", "sha1sum",
-	"sha224sum", "sha256sum", "sha3-224sum", "sha3-256sum", "sha3-384sum",
-	"sha3-512sum", "sha384sum", "sha3sum", "sha512sum", "shake128sum",
-	"shake256sum", "shred", "shuf", "split", "sum", "sync",
-	"tac", "tail", "test", "touch", "tr", "true", "truncate",
-	"tsort", "unexpand", "uniq", "wc", "whoami", "yes")
+$CoreutilsBin = @( "basename", "cat", "chmod", "comm", "cp", "cut", "date",
+	"dirname", "echo", "env", "expr", "false", "fold", "head", "id", "install",
+	"join", "ln", "ls", "md5sum", "mkdir", "mv", "od", "paste", "printf", "ps",
+	"pwd", "rm", "rmdir", "sleep", "sort", "split", "stty", "tail", "tee", "touch",
+	"tr", "true", "uname", "uniq", "wc")
+# "msysmnt" is excluded from coreutils
+$ReadonlyBin = @("tee", "diff", "ls", "sleep", "sort")
+$ConfirmationRequiredBin = @("cp", "mv")
 # spell-checker: enable
-
-## uutils-coreutils
-if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath 'uutils.exe'))
-{
-	try
+$CoreutilsBin | ForEach-Object {
+	if (Test-Path Alias:$_)
 	{
-		$CoreutilsBin |
-			ForEach-Object {
-				if (Test-Path Alias:$_)
-				{
-					Remove-Item -Path Alias:$_
-				}
-				if ($_ -in "rm", "mv", "cp")
-				{
-					$fn = '& uutils ' + $_ + ' -i $args'
-				}
-				else
-				{
-					$fn = '$input | uutils ' + $_ + ' $args'
-				}
-				Invoke-Expression "function global:$_ { $fn }"
-			}
-		if (Test-Path Alias:diff)
+		if ($ReadonlyBin.Contains($_))
 		{
-			Remove-Item -Force -Path Alias:diff
-		}
-		Invoke-Expression "function global:diff { $('$input | uutils diff $args') }"
-		if (Test-Path Alias:tee)
+			Remove-Item -Force -Path Alias:$_
+		} else
 		{
-			Remove-Item -Force -Path Alias:tee
+			Remove-Item -Path Alias:$_
 		}
-		Invoke-Expression "function global:tee { $('$input | uutils tee $args') }"
-		if (Test-Path Alias:ls)
-		{
-			Remove-Item -Path Alias:ls
-		}
-		function global:ls
-		{
-			uutils ls --classify=auto --color=auto --human-readable --dereference-command-line-symlink-to-dir --hide=_* --hide=.* --ignore=NTUSER.* --ignore=ntuser.* --ignore='Application Data' --ignore='Local Settings' --ignore='My Documents' --ignore='Start Menu' --ignore='スタート メニュー' --hide='*scoopappsyarncurrent*' $args 
-		}
-	} catch
-	{
-		Write-Output $_.Exception.Message
 	}
 }
-## msys from git
-elseif (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath 'scoop.ps1'))
+
+function Unregister-GitCoreutilsShims
 {
-	$GitBinPath = (Join-Path -Path $ScoopDir -ChildPath 'apps' | Join-Path -ChildPath 'git' | Join-Path -ChildPath 'current' | Join-Path -ChildPath 'usr' | Join-Path -ChildPath 'bin')
-	try
-	{
-		$CoreutilsBin |
-			ForEach-Object {
-				if (Test-Path Alias:$_)
-				{
-					Remove-Item -Path Alias:$_
-				}
-				if ($_ -in "rm", "mv", "cp")
-				{
-					$fn = '& ' + (Join-Path -Path $GitBinPath -ChildPath $_) + '.exe -i $args'
-				}
-				else
-				{
-					$fn = '$input | ' + (Join-Path -Path $GitBinPath -ChildPath $_) + '.exe $args'
-				}
-				Invoke-Expression "function global:$_ { $fn }"
-			}
-		if (Test-Path Alias:diff)
+	& scoop shim rm ($CoreutilsBin -Join " ")
+}
+
+function Register-GitCoreutilsShims
+{
+	Unregister-GitCoreutilsShims
+
+	$ScoopGitBinDir = Join-Path -Path $ScoopDir -ChildPath "apps" | Join-Path -ChildPath "git" | Join-Path -ChildPath "current" | Join-Path -ChildPath "usr" | Join-Path -ChildPath "bin"
+	$CoreutilsBin | ForEach-Object {
+		$BinPath = Join-Path -Path $ScoopGitBinDir -ChildPath "$_.exe"
+		if ($_ -eq "rm")
 		{
-			Remove-Item -Force -Path Alias:diff
+			& scoop shim add $_ $BinPath '--' --interactive=once
 		}
-		Invoke-Expression "function global:diff { $('$input | ' + (Join-Path -Path $GitBinPath -ChildPath diff.exe) + ' $args') }"
-		if (Test-Path Alias:tee) { Remove-Item -Force -Path Alias:tee }
-		Invoke-Expression "function global:tee { $('$input | ' + (Join-Path -Path $GitBinPath -ChildPath tee.exe) + ' $args') }"
-		if (Test-Path Alias:ls)
+		elseif ($ConfirmationRequiredBin.Contains($_))
 		{
-			Remove-Item -Path Alias:ls
+			& scoop shim add $_ $BinPath '--' --interactive
 		}
-		$GitBinLsPath = (Join-Path -Path $GitBinPath -ChildPath 'ls.exe')
-		function global:ls
+		else
 		{
-			& $GitBinLsPath --classify --color=auto --human-readable --dereference-command-line-symlink-to-dir --hide=_* --hide=.* --ignore=NTUSER.* --ignore=ntuser.* --ignore='Application Data' --ignore='Local Settings' --ignore='My Documents' --ignore='Start Menu' --ignore='スタート メニュー' --hide='*scoopappsyarncurrent*' $args
+			& scoop shim add $_ $BinPath
 		}
-	} catch
-	{
-		Write-Output $_.Exception.Message
+
 	}
+}
+
+function global:ls
+{
+	& ls.exe --classify --color=auto --human-readable --dereference-command-line-symlink-to-dir --hide=_* --hide=.* --ignore=NTUSER.* --ignore=ntuser.* --ignore='Application Data' --ignore='Local Settings' --ignore='My Documents' --ignore='Start Menu' --ignore='スタート メニュー' --hide='*scoopappsyarncurrent*' $args
 }
 
 ## gsudo
