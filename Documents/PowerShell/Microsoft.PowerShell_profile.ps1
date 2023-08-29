@@ -309,8 +309,6 @@ function Unregister-GitCoreutilsShims
 
 function Register-GitCoreutilsShims
 {
-	Unregister-GitCoreutilsShims
-
 	$ScoopGitBinDir = Join-Path -Path $ScoopDir -ChildPath "apps" | Join-Path -ChildPath "git" | Join-Path -ChildPath "current" | Join-Path -ChildPath "usr" | Join-Path -ChildPath "bin"
 	$CoreutilsBin | ForEach-Object {
 		$BinPath = Join-Path -Path $ScoopGitBinDir -ChildPath "$_.exe"
@@ -326,7 +324,6 @@ function Register-GitCoreutilsShims
 		{
 			& scoop shim add $_ $BinPath
 		}
-
 	}
 }
 
