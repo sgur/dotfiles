@@ -194,9 +194,9 @@ endif
 # c_CTRL-o で現在の画面を示すパターンを埋め込む {{{2
 def SearchNarrowToWindow(): string
   if getcmdtype() !~ '[/?]'
-    return "\<CR>"
+    return ""
   endif
-  return "\<C-b>" .. printf('\%%>%dl\%%<%dl', line('w0'), line('w$')) .. "\<CR>"
+  return "\<C-b>" .. printf('\%%>%dl\%%<%dl', line('w0'), line('w$'))
 enddef
 cnoremap <expr> <C-o>  SearchNarrowToWindow()
 
@@ -229,7 +229,6 @@ nnoremap ]n  <Cmd>next<CR>
 nnoremap ]N  <Cmd>last<CR>
 nnoremap [n  <Cmd>previous<CR>
 nnoremap [N  <Cmd>rewind<CR>
-
 nnoremap ]l  <Cmd>lnext<CR>
 nnoremap ]L  <Cmd>llast<CR>
 nnoremap [l  <Cmd>lprevious<CR>
@@ -243,13 +242,6 @@ nnoremap [F  <Cmd>lpfile<CR>
 # Use br(broot) in terminal
 const broot_confs = ['~/.vim/etc/broot/verbs.hjson', '~/.config/broot/conf.hjson']->map((k, v) => expand(v))->filter((k, v) => filereadable(v))->join(';')
 command! -nargs=? -complete=dir Br botright call term_start(['broot', '--conf', broot_confs, <f-args>], {term_rows: 20, term_finish: 'close'})
-
-# append current line to buffer {{{2
-
-# https://twitter.com/gorilla0513/status/1504306926154567683
-# Usage:
-# :global/{pattern}/AppendBufLine {buffer}
-command! -nargs=1 -complete=buffer AppendBufLine  appendbufline(<f-args>, "$", trim(getline(".")))
 
 # synstack {{{2
 command! -nargs=0 SynNameStack
@@ -688,31 +680,31 @@ def InitMolder() # {{{
           \ nnoremap <silent><buffer> l
           \   :<C-u>rightbelow<Space>vsplit<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
   augroup END
-enddef # }}}
-try
-  packadd! vim-molder-operations
-catch /^Vim\%((\a\+)\)\=:E919/
-  echomsg v:exception
+  try
+    packadd! vim-molder-operations
+  catch /^Vim\%((\a\+)\)\=:E919/
+    echomsg v:exception
 endtry
+enddef # }}}
 pack.Add('vim-molder', InitMolder)
 
 # operator-user {{{2
 
 # operator-replace {{{3
-def OperatorReplaceInit() # {{{
+def InitOperatorReplace() # {{{
   nnoremap gr  <Plug>(operator-replace)
   xnoremap gr  <Plug>(operator-replace)
 enddef # }}}
-pack.Add('vim-operator-replace', OperatorReplaceInit)
+pack.Add('vim-operator-replace', InitOperatorReplace)
 
 # operator-siege (opt) {{{3
 def InitOperatorSiege() # {{{
   nnoremap ys  <Plug>(operator-siege-add)
-  vnoremap ys  <Plug>(operator-siege-add)
-  onoremap ys  <Plug>(operator-siege-add)
+  # vnoremap ys  <Plug>(operator-siege-add)
+  # onoremap ys  <Plug>(operator-siege-add)
   nnoremap yS <Plug>(operator-siege-add-with-indent)
-  vnoremap yS <Plug>(operator-siege-add-with-indent)
-  onoremap yS <Plug>(operator-siege-add-with-indent)
+  # vnoremap yS <Plug>(operator-siege-add-with-indent)
+  # onoremap yS <Plug>(operator-siege-add-with-indent)
   nnoremap cs  <Plug>(operator-siege-change)
   nnoremap ds  <Plug>(operator-siege-delete)
 enddef # }}}
@@ -762,7 +754,13 @@ g:polyglot_disabled = ['sensible', 'svelte', 'vue']
 g:loaded_sensible = 1
 
 # markdown {{{3
-g:vim_markdown_fenced_languages = ['c++=cpp', 'viml=vim', 'bash=sh', 'csharp=cs', 'sh', 'python', 'javascript', 'xml']
+g:vim_markdown_fenced_languages = [
+  'bash=sh', 'shell=sh',
+  'c++=cpp',
+  'csharp=cs',
+  'js=javascript', 'jsx=javascriptreact', 'ts=typescript', 'tsx=typescriptreact',
+  'viml=vim',
+]
 if has('win32')
   g:vim_markdown_fenced_languages += ['dosbatch', 'ini=dosini']
 endif

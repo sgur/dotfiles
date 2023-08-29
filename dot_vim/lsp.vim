@@ -108,6 +108,8 @@ function! s:buffer_setup() abort "{{{
   nmap <buffer> <LocalLeader>st <Plug>(lsp-status)
   nmap <buffer> <LocalLeader>tdef <Plug>(lsp-type-definition)
   nmap <buffer> <LocalLeader>ws <Plug>(lsp-workspace-symbol)
+  nmap <buffer> [d  <Plug>(lsp-previous-diagnostic)
+  nmap <buffer> ]d  <Plug>(lsp-next-diagnostic)
 endfunction "}}}
 
 " Icons {{{2
