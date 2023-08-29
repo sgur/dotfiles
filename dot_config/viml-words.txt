@@ -25,6 +25,7 @@ cpfile
 cprevious
 cterm
 ctrlp
+cword
 doautocmd
 echohl
 echon
@@ -42,6 +43,7 @@ getcwd
 getfsize
 grepprg
 hlgroup
+hlsearch
 imactivatefunc
 imap
 iminsert
@@ -52,6 +54,7 @@ isdirectory
 isearch
 iskeyword
 iunmap
+javascrectreact
 llast
 lnext
 lnfile

@@ -15,11 +15,11 @@ boto
 broot
 cache
 cascadia
+catppuccin
 cfnresponse
 chdir
 chezmoitmpl
 chromedriver
-cica
 clangd
 clsx
 cmyk
@@ -32,8 +32,6 @@ csrf
 csslintrc
 ctags
 curlrc
-cword
-defualt
 deno
 devtool
 difft
@@ -64,10 +62,8 @@ haml
 hiberfil
 hjson
 hkcu
-hlsearch
 icns
 ipynb
-javascrectreact
 keymaster
 ldflags
 markdownlint
@@ -89,7 +85,6 @@ osrelease
 owasp
 paren
 pcidss
-pdip
 pipenv
 plantuml
 plemoljp
@@ -122,6 +117,7 @@ streetsidesoftware
 stylelintrc
 tailwindcss
 textlintrc
+toastify
 tolower
 typioca
 udev
@@ -146,5 +142,3 @@ wttr
 xmodifiers
 zellij
 zoxide
-toastify
-catppuccin
