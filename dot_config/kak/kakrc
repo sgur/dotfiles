@@ -1,16 +1,14 @@
 colorscheme catppuccin_macchiato
-set-option global ui_options terminal_assistant=none
+set-option global ui_options terminal_assistant=none terminal_enable_mouse=false
 
-addhl global/ wrap -word
+add-highlighter global/ wrap -word
+add-highlighter global/ show-matching
+add-highlighter global/ show-whitespaces -lf '⏎' -spc ' ' -tab '→' -nbsp '⍽' -tabpad '·'
 
 enable-auto-pairs
 
 eval %sh{kak-lsp --kakoune -s $kak_session}
 lsp-enable
-# hook global WinSetOption filetype=(rust|python|go|javascript|typescript|c|cpp) %{
-# hook global WinSetOption filetype=(bash|css|html|javascript|jsx|json|typescript|tsx) %{
-#    lsp-enable-window
-#}
 set-option global lsp_hover_anchor true
 set-option global lsp_auto_show_code_actions true
 lsp-auto-hover-enable
@@ -20,9 +18,7 @@ evaluate-commands %sh{
         find -L "$1" -type f -name '*\.kak' \
             | sed 's/.*/try %{ source "&" } catch %{ echo -debug Autoload: could not load "&" }/'
     }
-    if [ -d "${kak_runtime}/autoload" ]; then
-        autoload_directory ${kak_runtime}/autoload/
+    if [ -d "${kak_runtime}/rc" ]; then
+        autoload_directory ${kak_runtime}/rc
     fi
 }
-
-
