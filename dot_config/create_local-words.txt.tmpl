@@ -1,5 +1,6 @@
-{{- if eq .chezmoi.os "windows" }}
-{{- env "USERNAME" }}
-{{- else }}
-{{- env "USER" }}
-{{- end }}
+{{ if eq .chezmoi.os "windows" -}}
+{{ env "USERNAME" }}
+{{ else -}}
+{{ env "USER" }}
+{{ end -}}
+{{ output "hostname" -}}
