@@ -1,7 +1,9 @@
 #:schema https://raw.githubusercontent.com/jdxcode/rtx/v2023.8.6/schema/rtx.json
 
 [tools]
+{{ if eq .chezmoi.os "linux" -}}
 ruby = ['2.7.3', '3.1.4']
 python = [{version = '3.8.13'}]
+{{- end }}
 
 [settings]
