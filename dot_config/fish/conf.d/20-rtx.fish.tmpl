@@ -3,10 +3,13 @@ status is-interactive || exit
 if type -q fnm;
     or type -q pyenv;
     or type -q rbenv
-  echo "rtx: fnm, pyenv, rbenv is installed."
+    echo "rtx: fnm, pyenv, rbenv is installed."
 end
 
 {{ if lookPath "rtx" }}
+if test -L (which rtx)
+    fish_add_path --global (dirname (realpath (which rtx)))
+end
+
 {{ output "rtx" "activate" "fish" | trim }}
 {{ end }}
-
