@@ -24,7 +24,6 @@ AppData/
 AppData/Local/
 AppData/Roaming/
 Documents/
-misc/
 scoop/
 .wslconfig
 {{ else }}
