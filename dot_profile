@@ -33,3 +33,4 @@ fi
 if [ -x $(which git-credential-manager) ]; then
   export GCM_CREDENTIAL_STORE gpg
 fi
+. "$HOME/.cargo/env"
