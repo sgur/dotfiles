@@ -45,8 +45,8 @@ scoop/
 
 {{ if not .wsl }}
 # Ignoring on non-Windows-WSL
-bin/wsl-compact-memory
-bin/xdg-open
+.local/bin/wsl-compact-memory
+.local/bin/xdg-open
 {{ else }}
 # Ignoring on Windows-WSL
 .config/kitty/
