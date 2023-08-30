@@ -8,10 +8,9 @@ timeout = 1800 # seconds = 30 minutes
 
 [language.bash]
 filetypes = ["sh"]
-# roots = [".git", ".hg"]
-roots = []
-command = "npx"
-args = ["--yes", "bash-language-server", "start"]
+roots = [".git", ".hg"]
+command = "bash-language-server"
+args = ["start"]
 
 [language.c_cpp]
 filetypes = ["c", "cpp"]
@@ -40,8 +39,8 @@ command = "crystalline"
 [language.css]
 filetypes = ["css"]
 roots = ["package.json", ".git", ".hg"]
-command = "npx"
-args = ["--yes", "--package=vscode-langservers-extracted", "--", "vscode-css-language-server", "--stdio"]
+command = "vscode-css-languageserver"
+args = ["--stdio"]
 
 [language.less]
 filetypes = ["less"]
@@ -124,8 +123,8 @@ settings_section = "_"
 [language.html]
 filetypes = ["html"]
 roots = ["package.json"]
-command = "npx"
-args = ["--yes", "--package=vscode-langservers-extracted", "--", "vscode-html-language-server", "--stdio"]
+command = "vscode-html-languageserver"
+args = ["--stdio"]
 
 # # Commented out by default because you still need to set the paths in the JDT
 # # Language Server arguments below before this can become a valid configuration.
@@ -160,14 +159,14 @@ args = ["--yes", "--package=vscode-langservers-extracted", "--", "vscode-html-la
 [language.jsx] # works for javascript as well
 filetypes = ["javascript"]
 roots = ["package.json", "tsconfig.json", ".git", ".hg"]
-command = "npx"
-args = ["--yes", "--pacakge=typescript-language-server", "--package=typescript", "typescript-language-server", "--stdio"]
+command = "typescript-language-server"
+args = ["--stdio"]
 
 [language.json]
 filetypes = ["json"]
 roots = ["package.json"]
-command = "npx"
-args = ["--yes", "--package", "vscode-langservers-extracted", "--", "vscode-json-language-server", "--stdio"]
+command = "vscode-json-languageserver"
+args = ["--stdio"]
 
 # Requires Julia package "LanguageServer"
 # Run: `julia --project=@kak-lsp -e 'import Pkg; Pkg.add("LanguageServer")'` to install it
@@ -368,8 +367,8 @@ args = ["serve"]
 [language.tsx] # works for typescript as well
 filetypes = ["typescript"]
 roots = ["package.json", "tsconfig.json", ".git", ".hg"]
-command = "npx"
-args = ["--yes", "--pacakge=typescript-language-server", "--package=typescript", "typescript-language-server", "--stdio"]
+command = "typescript-language-server"
+args = ["--stdio"]
 
 # [language.typescript]
 # filetypes = ["typescript"]
@@ -383,13 +382,12 @@ args = ["--yes", "--pacakge=typescript-language-server", "--package=typescript",
 [language.yaml]
 filetypes = ["yaml"]
 roots = [".git", ".hg"]
-command = "npx"
-args = ["--yes", "yaml-language-server", "--stdio"]
+command = "yaml-language-server"
+args = ["--stdio"]
 [language.yaml.settings]
 # See https://github.com/redhat-developer/yaml-language-server#language-server-settings
 # Defaults are at https://github.com/redhat-developer/yaml-language-server/blob/master/src/yamlSettings.ts
-yaml.format.enable = true
-yaml.validation = true
+# yaml.format.enable = true
 
 [language.zig]
 filetypes = ["zig"]
