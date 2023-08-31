@@ -364,6 +364,12 @@ args = ["serve"]
 # See https://github.com/hashicorp/terraform-ls/blob/main/docs/SETTINGS.md
 # rootModulePaths = []
 
+[language.toml]
+filetype = ["toml"]
+roots = [".git", ".hg"]
+command = "taplo-lsp"
+args = ["lsp", "stdio"]
+
 [language.tsx] # works for typescript as well
 filetypes = ["typescript"]
 roots = ["package.json", "tsconfig.json", ".git", ".hg"]

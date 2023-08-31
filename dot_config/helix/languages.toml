@@ -89,4 +89,8 @@ language-server = { command = "taplo-lsp", args = ["lsp", "stdio"] }
 
 [[language]]
 name = "python"
-language-server = { command = "pylsp-all" }
+# language-server = { command = "pylsp-all" }
+# language-server = { command = "pyright-langserver", args = ["--stdio"], config = { python = { analysis = { typeCheckingMode = "strict", useLibraryCodeForTypes = true, reportMissingImports = true } } } }
+formatter = { command = "black", args = ["--quiet", "-"] }
+auto-format = true
+roots = ["pyproject.toml"]
