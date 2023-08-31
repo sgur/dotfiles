@@ -486,19 +486,3 @@ try
 } catch
 {
 }
-
-# Helix
-
-function Start-HelixEditor
-{
-	$VimLspSettingsServerDir = (
-			Join-Path -Path $Env:USERPROFILE -ChildPath ".local" |
-			Join-Path -ChildPath "share" |
-			Join-Path -ChildPath "vim-lsp-settings" |
-			Join-Path -ChildPath "servers")
-	$ServerPaths = Get-ChildItem $VimLspSettingsServerDir | Convert-Path
-	$Env:Path = $Env:Path + ";" + ($ServerPaths -join ';')
-	& hx.exe $args
-}
-
-Set-Alias -Name hx -Value Start-HelixEditor
