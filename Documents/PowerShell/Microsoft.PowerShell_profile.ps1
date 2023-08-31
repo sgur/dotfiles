@@ -12,6 +12,21 @@ $OutputEncoding = [System.Text.Encoding]::Default
 [System.Console]::OutputEncoding = [System.Text.Encoding]::Default
 $Env:LC_ALL = "ja_JP.utf-8"
 
+# ~/.local/bin を有効にする
+$LocalBinDir = (Join-Path -Path $Env:USERPROFILE -ChildPath ".local" | Join-Path -ChildPath "bin")
+if (Test-Path $LocalBinDir)
+{
+	$Env:PATH = ($LocalBinDir, $Env:PATH) -join ";"
+}
+
+# Scoop Dir
+$ScoopDir = (Join-Path -Path $Env:USERPROFILE -ChildPath "scoop")
+if ($Env:SCOOP)
+{
+	$ScoopDir = $Env:SCOOP
+}
+$ScoopShimsDir = Join-Path -Path $ScoopDir -ChildPath "shims"
+
 $NonInteractive = ([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).Length -gt 0
 if ($NonInteractive)
 {
@@ -30,14 +45,6 @@ if ($env:TERM_PROGRAM -eq "vscode")
 	. "$(code --locate-shell-integration-path pwsh)"
 }
 
-# Scoop Dir
-$ScoopDir = (Join-Path -Path $Env:USERPROFILE -ChildPath "scoop")
-if ($Env:SCOOP)
-{
-	$ScoopDir = $Env:SCOOP
-}
-$ScoopShimsDir = Join-Path -Path $ScoopDir -ChildPath "shims"
-
 # Self-Update
 function Update-Self
 {
@@ -46,7 +53,7 @@ function Update-Self
 	}
 }
 
-## PSReadLine
+# PSReadLine
 $PSReadLineOptions = @{
 	BellStyle = "Visual"
 	EditMode = "Emacs"
@@ -64,7 +71,7 @@ Set-PSReadLineKeyHandler -Key Ctrl+p -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key Ctrl+n -Function HistorySearchForward
 Set-PSReadLineKeyHandler -Key Ctrl+w -Function BackwardKillWord
 
-# Prediction
+## Prediction
 try
 {
 	Set-PSReadLineOption -ErrorAction Stop -PredictionSource HistoryAndPlugin
@@ -111,19 +118,20 @@ try
 	Write-Warning "Update PsReadline: pwsh -NoProfile -Command ""Install-Module PSReadLine -Force -AllowPrerelease"""
 }
 
-## bat
+
+# bat
 $Env:BAT_CONFIG_PATH = (Resolve-Path "~/.config/bat/config").Path
 
-## docker
+# docker
 $Env:DOCKER_HOST = "tcp://localhost:2375"
 
-## Starship
+# Starship
 . (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
 
-## zoxide
+# zoxide
 . (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Zoxide.ps1')
 
-## fnm
+# fnm
 if (Get-Command -ErrorAction SilentlyContinue fnm | Out-Null)
 {
 	fnm env --shell power-shell | Out-String | Invoke-Expression
@@ -139,7 +147,7 @@ if (Get-Command -ErrorAction SilentlyContinue fnm | Out-Null)
 	fnm completions --shell power-shell | Out-String | Invoke-Expression
 }
 
-## Set-Location Hook
+# Set-Location Hook
 $ExecutionContext.InvokeCommand.LocationChangedAction = {
 	if (Get-Command -ErrorAction SilentlyContinue -Type Function __fnm_hook)
 	{
@@ -151,7 +159,7 @@ $ExecutionContext.InvokeCommand.LocationChangedAction = {
 	}
 }
 
-## wttr.in
+# wttr.in
 function Get-Weather()
 {
 	Param(
@@ -162,13 +170,13 @@ function Get-Weather()
 }
 Set-Alias -Name wttr.in -Value Get-Weather
 
-## Test-Colors
+# Test-Colors
 function Test-Colors
 {
 	& (Join-Path -Path $CurrentUserScripts -ChildPath 'Test-Colors.ps1')
 }
 
-## ghq + jzf
+# ghq + jzf
 # https://uvb-76.hatenablog.com/entry/2020/02/14/032712
 function Select-Repository
 {
@@ -249,7 +257,7 @@ Set-PSReadLineKeyHandler -Chord Ctrl+g -ScriptBlock {
 	Select-Branch
 }
 
-## AWS CLI のコマンド補完
+# AWS CLI のコマンド補完
 if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath 'aws_completer.exe'))
 {
 	Register-ArgumentCompleter -Native -CommandName aws -ScriptBlock {
@@ -264,7 +272,7 @@ if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath
 	}
 }
 
-## Windows デフォルトの curl を利用しない
+# Windows デフォルトの curl を利用しない
 function Initialize-Curl
 {
 	$CurlBin = '~\scoop\apps\curl\current\bin\'
@@ -332,7 +340,7 @@ function global:ls
 	& ls.exe --classify --color=auto --human-readable --dereference-command-line-symlink-to-dir --hide=_* --hide=.* --ignore=NTUSER.* --ignore=ntuser.* --ignore='Application Data' --ignore='Local Settings' --ignore='My Documents' --ignore='Start Menu' --ignore='スタート メニュー' --hide='*scoopappsyarncurrent*' $args
 }
 
-## gsudo
+# gsudo
 try
 {
 	Import-Module -ErrorAction SilentlyContinue "gsudoModule.psd1"
@@ -340,7 +348,7 @@ try
 {
 }
 
-## broot
+# broot
 if (Get-Command -ErrorAction SilentlyContinue "br")
 {
 } else
@@ -348,7 +356,7 @@ if (Get-Command -ErrorAction SilentlyContinue "br")
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Broot.ps1')
 }
 
-## WinGet completion
+# WinGet completion
 # https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md#powershell
 if (Get-Command -ErrorAction SilentlyContinue winget.exe | Out-Null)
 {
@@ -363,13 +371,13 @@ if (Get-Command -ErrorAction SilentlyContinue winget.exe | Out-Null)
 	}
 }
 
-## Sleep Computer
+# Sleep Computer
 function Suspend-Computer
 {
 	& (Join-Path -Path $CurrentUserScripts -ChildPath 'Suspend-Computer.ps1')
 }
 
-## Enable VS2019 Buildchain
+# Enable VS2019 Buildchain
 function Enter-VsDevShell2019
 {
 	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Start-VsDevShell.ps1'
@@ -378,7 +386,7 @@ function Enter-VsDevShell2019
 	$Host.UI.RawUI.WindowTitle = "Developer PowerShell for VS2019"
 }
 
-## Enable VS2022
+# Enable VS2022
 function Enter-VsDevShell2022
 {
 	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Start-VsDevShell.ps1'
@@ -387,21 +395,21 @@ function Enter-VsDevShell2022
 	$Host.UI.RawUI.WindowTitle = "Developer PowerShell for VS2022"
 }
 
-## Set wallpaper
+# Set wallpaper
 function Set-RandomWallpaper
 {
 	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Set-RandomWallpaper.ps1'
 	Start-Job -FilePath $Path | Out-Null
 }
 
-## MS Teams のキャッシュを削除する
+# MS Teams のキャッシュを削除する
 function Clear-MsTeamsCache
 {
 	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Clear-MsTeamsCache.ps1'
 	Start-Job -FilePath $Path | Out-Null
 }
 
-## WSL2 向けに Large Send Offload を無効にする
+# WSL2 向けに Large Send Offload を無効にする
 # docker pull が高速化される(かも)
 function Disable-WslNetAdapterLso
 {
@@ -409,7 +417,7 @@ function Disable-WslNetAdapterLso
 	Start-Process -Verb RunAs -FilePath "pwsh.exe" -ArgumentList "-c", $Path
 }
 
-## Catppuccin
+# Catppuccin
 try
 {
 	Import-Module Catppuccin
@@ -479,3 +487,18 @@ try
 {
 }
 
+# Helix
+
+function Start-HelixEditor
+{
+	$VimLspSettingsServerDir = (
+			Join-Path -Path $Env:USERPROFILE -ChildPath ".local" |
+			Join-Path -ChildPath "share" |
+			Join-Path -ChildPath "vim-lsp-settings" |
+			Join-Path -ChildPath "servers")
+	$ServerPaths = Get-ChildItem $VimLspSettingsServerDir | Convert-Path
+	$Env:Path = $Env:Path + ";" + ($ServerPaths -join ';')
+	& hx.exe $args
+}
+
+Set-Alias -Name hx -Value Start-HelixEditor
