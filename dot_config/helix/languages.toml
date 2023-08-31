@@ -51,9 +51,9 @@ indent = { tab-width = 2, unit = "  " }
 
 # It look broken
 # https://github.com/helix-editor/helix/issues/3123
-# [[grammar]]
-# name = "pwsh"
-# source = { git = "https://github.com/PowerShell/tree-sitter-PowerShell", rev = "1ac090522cb339a6fd9d3ac915da01cb263d69e1" }
+[[grammar]]
+name = "pwsh"
+source = { git = "https://github.com/sgur/tree-sitter-PowerShell", rev = "263b6637aa8ab4cdc8c39da3d93adb657d7aa60d" }
 
 [[language]]
 name = "jsx"
