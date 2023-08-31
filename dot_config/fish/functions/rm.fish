@@ -2,7 +2,7 @@ function rm --wraps=rm
     if test (uname) = 'Darwin'
         command rm -i $argv
     else
-        command rm --interactive $argv
+        command rm --interactive=once $argv
     end
 end
 
