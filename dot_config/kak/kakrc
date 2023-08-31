@@ -7,7 +7,7 @@ add-highlighter global/ show-whitespaces -lf '⏎' -spc ' ' -tab '→' -nbsp '�
 
 enable-auto-pairs
 
-eval %sh{kak-lsp --kakoune -s $kak_session}
+eval %sh{kak-lsp --kakoune --session $kak_session}
 lsp-enable
 set-option global lsp_hover_anchor true
 set-option global lsp_auto_show_code_actions true
