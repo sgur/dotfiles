@@ -26,12 +26,14 @@ AppData/Roaming/
 Documents/
 scoop/
 .wslconfig
+.local/bin/*.cmd
 {{ else }}
 # Ignoring on Windows
 .actrc
 .bashrc
 .profile
-.local/bin/
+.local/bin/wsl-*
+.local/bin/xdg-*
 .config/helix/
 .config/kak/
 .config/kak-lsp/
