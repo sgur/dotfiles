@@ -1,18 +1,27 @@
-colorscheme catppuccin_macchiato
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=false
+
+colorscheme catppuccin_macchiato
 
 add-highlighter global/ wrap -word
 add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces -lf '⏎' -spc ' ' -tab '→' -nbsp '⍽' -tabpad '·'
 
-enable-auto-pairs
+# mappings
+map global normal '#' :comment-line<ret>
 
+# kak-lsp
 eval %sh{kak-lsp --kakoune --session $kak_session}
 lsp-enable
 set-option global lsp_hover_anchor true
 set-option global lsp_auto_show_code_actions true
 lsp-auto-hover-enable
 
+map global user -docstring 'lsp mode' l ':enter-user-mode lsp<ret>'
+
+# autoload/auto-pairs
+enable-auto-pairs
+
+# kak_runtime/rc
 evaluate-commands %sh{
     autoload_directory() {
         find -L "$1" -type f -name '*\.kak' \
@@ -22,3 +31,10 @@ evaluate-commands %sh{
         autoload_directory ${kak_runtime}/rc
     fi
 }
+
+## tools/grep
+set-option global grepcmd 'rg --color=never --vimgrep'
+
+## detection/editorconfig
+hook global BufOpenFile .* %{ editorconfig-load }
+hook global BufNewFile .* %{ editorconfig-load }
