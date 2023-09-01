@@ -44,9 +44,9 @@ name = "pwsh"
 scope = "source.ps1"
 file-types = ["ps1", "psm1", "psd1"]
 shebangs = ["pwsh"]
-roots = [".git"]
+roots = []
 comment-token = "#"
-indent = { tab-width = 2, unit = "  " }
+indent = { tab-width = 4, unit = "    " }
 # language-server = { command = "powershell-languageserver" }
 
 # It look broken
