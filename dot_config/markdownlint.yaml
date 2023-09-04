@@ -9,8 +9,8 @@ MD025: false
 MD033: false
 # MD041/first-line-heading/first-line-h1
 MD041: false
-# MD053/link-fragments
-MD050: false
+# MD051/link-fragments
+MD051: false
 # MD053/link-image-reference-definitions
 MD053: false
 
