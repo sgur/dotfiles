@@ -1,9 +1,9 @@
 function rm --wraps=rm
-    if test (uname) = 'Darwin'
-        command rm -i $argv
-    else
-        command rm --interactive=once $argv
-    end
+{{- if eq .chezmoi.os "linux" }}
+    command rm --interactive=once $argv
+{{- else }}
+    command rm -i $argv
+{{- end }}
 end
 
 # vim:ts=4 sw=4 et
