@@ -5,12 +5,20 @@
 progress = true
 format = "yaml"
 
+[edit]
+{{- if eq .chezmoi.os "windows" }}
+command = "gvim.exe"
+args = ["--remote-tab-wait-silent"]
+{{- else }}
+command = "vim"
+{{- end }}
+
 [git]
 autoCommit = true
 autoPush = false
 
-{{- if eq .chezmoi.os "windows" }}
 [cd]
+{{- if eq .chezmoi.os "windows" }}
 command='pwsh'
 args=['-NoLogo']
 {{- end }}
