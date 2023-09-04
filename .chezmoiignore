@@ -47,6 +47,10 @@ scoop/
 
 {{ if not .wsl }}
 # Ignoring on non-Windows-WSL
+.local/bin/clip.exe
+.local/bin/code
+.local/bin/pass
+.local/bin/powershell.exe
 .local/bin/wsl-compact-memory
 .local/bin/xdg-open
 {{ else }}
