@@ -8,7 +8,7 @@ end
 
 {{ if lookPath "rtx" }}
 if test -L (which rtx)
-    fish_add_path --global (dirname (realpath (which rtx)))
+    set -gx PATH (dirname (realpath (which rtx))) $PATH
 end
 
 {{ output "rtx" "activate" "fish" | trim }}
