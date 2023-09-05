@@ -1,21 +1,21 @@
-# https://github.com/helix-editor/helix/blob/23.05/languages.toml
-[[language-server]]
-vscode-eslint-language-server = { command = "npx", args = ["--yes", "--package=vscode-langservers-extracted", "--", "vscode-eslint-language-server", "--stdio"] }
+# Default configuration: https://github.com/helix-editor/helix/blob/master/languages.toml
 
-[[language]]
-name = "awk"
-language-server = { command = "npx", args = ["--yes", "awk-language-server"]}
+[language-server]
+
+efm-langserver = { command = "efm-langserver" }
+eslint-language-server = { command = "eslint-language-server", args = ["--stdio"] }
+pylsp-all = { command = "pylsp-all" }
+taplo-lsp = { command = "taplo-lsp", args = ["lsp", "stdio"] }
+pyright-langserver = { command = "pyright-langserver", args = ["--stdio"], config = { python = { analysis = { typeCheckingMode = "strict", useLibraryCodeForTypes = true, reportMissingImports = true } } } }
 
 [[language]]
 name = "bash"
 indent = { tab-width = 2, unit = "  " }
 formatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
-# language-server = { command = "npx", args = ["--yes", "bash-language-server", "start"]}
 
 [[language]]
 name = "css"
 formatter = { command = "npx", args = ["prettier", "--parser", "css"] }
-# language-server = { command = "npx", args = ["--yes", "--package=vscode-langservers-extracted", "--", "vscode-css-language-server", "--stdio"]}
 
 [[language]]
 name = "fish"
@@ -25,18 +25,11 @@ auto-format = true
 [[language]]
 name = "html"
 formatter = { command = "npx", args = ["prettier", "--parser", "html"] }
-# language-server = { command = "npx", args = ["--yes", "--package=vscode-langservers-extracted", "--", "vscode-html-language-server", "--stdio"]}
-
-[[language]]
-name = "javascript"
-formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
-auto-format = true
 
 [[language]]
 name = "json"
 scope = "source.json"
 formatter = { command = "npx", args = ["prettier", "--parser", "json"] }
-# language-server = { command = "npx", args = ["--yes", "--package", "vscode-langservers-extracted", "--", "vscode-json-language-server", "--stdio"]}
 
 [[language]]
 name = "pwsh"
@@ -47,7 +40,6 @@ shebangs = ["pwsh"]
 roots = []
 comment-token = "#"
 indent = { tab-width = 4, unit = "    " }
-# language-server = { command = "powershell-languageserver" }
 
 # It look broken
 # https://github.com/helix-editor/helix/issues/3123
@@ -59,38 +51,36 @@ source = { git = "https://github.com/sgur/tree-sitter-PowerShell", rev = "263b66
 name = "jsx"
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
-# language-server = { command = "npx", args = ["--yes", "--package=typescript", "--package=typescript-language-server", "typescript-language-server", "--stdio"] }
+language-servers = ["typescript-language-server", "eslint-language-server"]
 
 [[language]]
 name = "javascript"
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
-# language-server = { command = "npx", args = ["--yes", "--package=typescript", "--package=typescript-language-server", "typescript-language-server", "--stdio"] }
+language-servers = ["typescript-language-server", "eslint-language-server"]
 
 [[language]]
 name = "typescript"
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
-# language-server = { command = "npx", args = ["--yes", "--package=typescript", "--package=typescript-language-server", "typescript-language-server", "--stdio"] }
+language-servers = ["typescript-language-server", "eslint-language-server"]
 
 [[language]]
 name = "tsx"
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
-# language-server = { command = "npx", args = ["--yes", "--package=typescript", "--package=typescript-language-server", "typescript-language-server", "--stdio"] }
+language-servers = ["typescript-language-server", "eslint-language-server"]
 
 [[language]]
 name = "yaml"
-# language-server = { command = "npx", args = ["--yes", "yaml-language-server", "--stdio"], config = { yaml = { format = { enable = true }, validation = true }}}
 
 [[language]]
 name = "toml"
-language-server = { command = "taplo-lsp", args = ["lsp", "stdio"] }
+language-servers = ["taplo-lsp"]
 
 [[language]]
 name = "python"
-# language-server = { command = "pylsp-all" }
-# language-server = { command = "pyright-langserver", args = ["--stdio"], config = { python = { analysis = { typeCheckingMode = "strict", useLibraryCodeForTypes = true, reportMissingImports = true } } } }
+language-servers = ["pylsp-all", "pyright-langserver"]
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 roots = ["pyproject.toml"]
