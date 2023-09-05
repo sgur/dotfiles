@@ -124,11 +124,19 @@
             },
             {
                 "colorScheme": "Catppuccin Macchiato",
-                "commandline": "C:\\Windows\\system32\\wsl.exe ~ -d Ubuntu",
+                "commandline": "C:\\Windows\\system32\\wsl.exe --cd ~ -d Ubuntu --shell-type login",
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
                 "name": "Ubuntu",
                 "source": "Windows.Terminal.Wsl"
+            },
+            {
+                "colorScheme": "Catppuccin Macchiato",
+                "commandline": "C:\\Windows\\system32\\wsl.exe --cd ~ -d Ubuntu --shell-type login --exec /home/linuxbrew/.linuxbrew/bin/nu",
+                "guid": "{a81a4ab8-794f-4b83-9790-a7807b0836dc}",
+                "hidden": false,
+                "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
+                "name": "nu shell"
             },
             {
                 "colorScheme": "Ubuntu-ColorScheme",
@@ -151,12 +159,6 @@
                 "commandline": "wsl -u root -- sh -c 'docker logs --follow --tail 30 cntlm'",
                 "guid": "{bc8c78c4-c8d4-4f7a-92a3-001ded7e2829}",
                 "name": "cntlm log (Docker)"
-            },
-            {
-                "commandline": "nu.exe",
-                "guid": "{2ddf4618-64ee-4c75-a5e0-252f2b6ad7f7}",
-                "name": "nu shell",
-                "useAtlasEngine": false
             }
         ]
     },
