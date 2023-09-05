@@ -7,7 +7,8 @@ fish_add_path -P ~/bin ~/.local/bin
 
 if status is-login
     # version が 23.05 より新しければ EDITOR に hx を設定する
-    if type -q hx ;and test (hx --version | string split ' ')[2] -gt 23.05
+    set -l hx_version (hx --version | string split ' ')
+    if type -q hx ;and test $hx_version[2] -ge 23.05 ;and not string match '* (7f5940be)' $hx_version[3]
         set -gx EDITOR hx
     else
         set -gx EDITOR vim
