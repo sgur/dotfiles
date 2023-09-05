@@ -282,6 +282,9 @@ theme "catppuccin-macchiato"
 //   - false
 //
 // mouse_mode false
+{{- if .wsl }}
+mouse_mode false
+{{- end}}
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
@@ -300,10 +303,6 @@ theme "catppuccin-macchiato"
 // copy_command "xclip -selection clipboard" // x11
 // copy_command "wl-copy"                    // wayland
 // copy_command "pbcopy"                     // osx
-
-{{- if .wsl }}
-copy_command "/mnt/c/Windows/System32/clip.exe"
-{{- end}}
 
 // Choose the destination for copied text
 // Allows using the primary selection buffer (on x11/wayland) instead of the system clipboard.
