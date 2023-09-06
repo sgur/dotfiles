@@ -6,12 +6,13 @@ end
 fish_add_path -P ~/bin ~/.local/bin
 
 if status is-login
+    set -gx EDITOR vim
     # version が 23.05 より新しければ EDITOR に hx を設定する
-    set -l hx_version (hx --version | string split ' ')
-    if type -q hx ;and test $hx_version[2] -ge 23.05 ;and not string match '* (7f5940be)' $hx_version[3]
-        set -gx EDITOR hx
-    else
-        set -gx EDITOR vim
+    if type -q hx
+        set -l hx_version (hx --version | string split ' ')
+        if test $hx_version[2] -ge 23.05 ;and not string match '* (7f5940be)' $hx_version[3]
+            set -gx EDITOR hx
+        end
     end
     # git commit では copilot を使いたいので vim を利用する
     set -gx GIT_EDITOR vim
