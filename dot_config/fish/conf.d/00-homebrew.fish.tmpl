@@ -10,14 +10,18 @@
 status is-login || exit
 
 # Homebrew
-{{ if stat "/home/local/bin/brew" }}
+{{ if stat "/home/local/bin/brew" -}}
 {{ output "/usr/local/bin/brew" "shellenv" "fish" }}
-{{ end }}
+{{ end -}}
+
+{{ if stat "/opt/homebrew/bin/brew" -}}
+{{ output "/opt/homebrew/bin/brew" "shellenv" "fish" }}
+{{ end -}}
 
 # Linuxbrew
-{{ if stat "/home/linuxbrew/.linuxbrew/bin/brew" }}
-{{ output "/home/linuxbrew/.linuxbrew/bin/brew" "shellenv" "fish" }}
-    {{ end }}
+{{ if stat "/home/linuxbrew/.linuxbrew/bin/brew" -}}
+    {{ output "/home/linuxbrew/.linuxbrew/bin/brew" "shellenv" "fish" }}
+{{ end -}}
 
 if not type -q brew
     exit 0
