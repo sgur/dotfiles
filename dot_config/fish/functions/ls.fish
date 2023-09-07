@@ -1,6 +1,10 @@
-if type -q exa
+if type -q eza
+    function ls --wraps=ls --description 'eza'
+        command eza --classify --icons --color=auto --color-scale $argv
+    end
+else if type -q exa
     function ls --wraps=ls --description 'exa'
-        command exa --color=auto --classify --icons $argv
+        command exa --classify --icons --color=auto --color-scale $argv
     end
 else
     if type -q sw_vers
