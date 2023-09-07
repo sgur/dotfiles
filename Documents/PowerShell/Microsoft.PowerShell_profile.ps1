@@ -323,21 +323,28 @@ function Register-GitCoreutilsShims
 		if ($_ -eq "rm")
 		{
 			& scoop shim add $_ $BinPath '--' --interactive=once
-		}
-		elseif ($ConfirmationRequiredBin.Contains($_))
+		} elseif ($ConfirmationRequiredBin.Contains($_))
 		{
 			& scoop shim add $_ $BinPath '--' --interactive
-		}
-		else
+		} else
 		{
 			& scoop shim add $_ $BinPath
 		}
 	}
 }
 
-function global:ls
+if (Get-Command -Type Application -Name eza)
 {
-	& ls.exe --classify --color=auto --human-readable --dereference-command-line-symlink-to-dir --hide=_* --hide=.* --ignore=NTUSER.* --ignore=ntuser.* --ignore='Application Data' --ignore='Local Settings' --ignore='My Documents' --ignore='Start Menu' --ignore='スタート メニュー' --hide='*scoopappsyarncurrent*' $args
+	function global:ls
+	{
+		& eza.exe --classify --color=auto --color-scale --icons --ignore-glob='NTUSER.*|ntuser.*|Application Data|Local Settings|My Documents|Start Menu|スタート メニュー' $args
+	}
+} else
+{
+	function global:ls
+	{
+		& ls.exe --classify --color=auto --human-readable --dereference-command-line-symlink-to-dir --hide=_* --hide=.* --ignore=NTUSER.* --ignore=ntuser.* --ignore='Application Data' --ignore='Local Settings' --ignore='My Documents' --ignore='Start Menu' --ignore='スタート メニュー' --hide='*scoopappsyarncurrent*' $args
+	}
 }
 
 # gsudo

@@ -27,6 +27,12 @@ extract = true
 stripComponents = 1
 include = ["*/en-US/**", "*/*.ps*"]
 url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
+
+[".local/bin/eza.exe"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/eza-community/eza/releases/latest/download/x86_64-pc-windows-gnu-eza.exe"
+
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
