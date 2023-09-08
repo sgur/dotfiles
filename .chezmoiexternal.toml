@@ -23,6 +23,7 @@ include = ["en_US.txt"]
 {{ if eq .chezmoi.os "windows" }}
 ["Documents/PowerShell/Modules/Catppuccin"]
 type = "archive"
+refreshPeriod = "168h" # 1-week
 extract = true
 stripComponents = 1
 include = ["*/en-US/**", "*/*.ps*"]
@@ -32,12 +33,12 @@ url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://github.com/eza-community/eza/releases/latest/download/x86_64-pc-windows-gnu-eza.exe"
-
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
 [".local/bin/"]
 type = "archive"
+refreshPeriod = "168h" # 1-week
 extract = true
 include = ["kak-lsp", "kak-lsp.toml"]
 {{   if eq .chezmoi.os "darwin" }}
@@ -46,10 +47,19 @@ url = "https://github.com/kak-lsp/kak-lsp/releases/download/v14.2.0/kak-lsp-v14.
 url = "https://github.com/kak-lsp/kak-lsp/releases/download/v14.2.0/kak-lsp-v14.2.0-x86_64-unknown-linux-musl.tar.gz"
 {{   end }}
 
-# [".config/kak/autoload/auto-pairs"]
-# type = "archive"
-# extract = true
-# stripComponents = 1
-# include = ["*/README.md", "*/docs/**", "*/rc/**"]
-# url = "https://github.com/alexherbo2/auto-pairs.kak/archive/refs/heads/master.zip"
+[".config/kak/autoload/auto-pairs"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+extract = true
+stripComponents = 1
+include = ["*/README.md", "*/docs/**", "*/rc/**"]
+url = "https://github.com/alexherbo2/auto-pairs.kak/archive/refs/heads/master.zip"
+
+[".config/kak"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+extract = true
+stripComponents = 1
+include = ["*/colors/*"]
+url = "https://github.com/catppuccin/kakoune/archive/refs/heads/master.zip"
 {{ end }}
