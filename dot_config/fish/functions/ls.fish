@@ -4,6 +4,7 @@ if type -q eza
     end
 else if type -q exa
     function ls --wraps=ls --description 'exa'
+        set_color $fish_color_error; echo "warning: Use eza instead of exa"
         command exa --classify --icons --color=auto --color-scale $argv
     end
 else
