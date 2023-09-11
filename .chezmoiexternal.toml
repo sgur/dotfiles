@@ -21,6 +21,7 @@ url = "https://sourceforge.net/projects/wordlist/files/speller/2020.12.07/wordli
 include = ["en_US.txt"]
 
 {{ if eq .chezmoi.os "windows" }}
+
 ["Documents/PowerShell/Modules/Catppuccin"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
@@ -33,9 +34,9 @@ url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://github.com/eza-community/eza/releases/latest/download/x86_64-pc-windows-gnu-eza.exe"
-{{ end }}
 
-{{ if ne .chezmoi.os "windows" }}
+{{ else }}
+
 [".config/kak/bundle/kak-bundle"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
@@ -43,4 +44,5 @@ extract = true
 stripComponents = 1
 include = ["*/README.md", "*/rc/**"]
 url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
+
 {{ end }}
