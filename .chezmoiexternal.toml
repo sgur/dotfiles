@@ -47,6 +47,14 @@ url = "https://github.com/kak-lsp/kak-lsp/releases/download/v14.2.0/kak-lsp-v14.
 url = "https://github.com/kak-lsp/kak-lsp/releases/download/v14.2.0/kak-lsp-v14.2.0-x86_64-unknown-linux-musl.tar.gz"
 {{   end }}
 
+[".config/kak/autoload/kak-bundle"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+extract = true
+stripComponents = 1
+include = ["*/README.md", "*/rc/**"]
+url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
+
 [".config/kak/autoload/auto-pairs"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
