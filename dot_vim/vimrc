@@ -74,6 +74,9 @@ if !has('win32')
   set makeprg=env\ LC_ALL=C\ make
 endif
 set matchpairs+=（:）,｛:｝,「:」,［:］,『:』,【:】
+if has('mouse')
+  &mouse = &term =~ 'xterm' ? 'a' : 'nvi'
+endif
 set nrformats& nrformats-=octal
 &shelltemp = !(has('win32') || has('win64')) || !has('filterpipe')
 set shiftwidth=0 shiftround softtabstop=-1
