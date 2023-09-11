@@ -1,0 +1,14 @@
+# options
+set diff-options = --diff-algorithm=patience
+set line-graphics = utf-8
+set vertical-split = no
+set wrap-lines = yes
+
+# keybindings
+bind status + !git commit --amend
+# compare commit in log view with its parent per http://stackoverflow.com/questions/436362/shorthand-for-diff-of-git-commit-with-its-parent
+bind diff <F4> !git --paginate difftool --no-prompt --trust-exit-code %(commit)^! %(file)
+bind generic <F5> !git --paginate difftool --no-prompt --trust-exit-code --dir-diff %(commit)^!
+bind status <F4> !git --paginate difftool --no-prompt --trust-exit-code -- %(file)
+bind stage <F4> !git --paginate difftool --no-prompt --trust-exit-code -- %(file)
+

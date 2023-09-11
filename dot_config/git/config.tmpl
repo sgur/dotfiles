@@ -69,32 +69,37 @@
 
 {{ if lookPath "diffsitter" -}}
 [diff]
-    tool = diffsitter
+	tool = diffsitter
 [difftool]
-    prompt = false
+	prompt = false
 [difftool "diffsitter"]
-    cmd = diffsitter "$LOCAL" "$REMOTE"
+	cmd = diffsitter "$LOCAL" "$REMOTE"
 {{- end }}
 
 {{ if (lookPath "difft") -}}
 [diff]
-    external = difft
+	external = difft
+	tool = difftastic
+[difftool]
+	prompt = false
+[difftool "difftastic"]
+	cmd = difft "$LOCAL" "$REMOTE"
 
 {{- else if (lookPath "delta") -}}
 [core]
-    pager = delta --diff-so-fancy
+	pager = delta --diff-so-fancy
 
 [interactive]
-    diffFilter = delta --color-only
+	diffFilter = delta --color-only
 
 [delta]
-# use n and N to move between diff sections
-    navigate = true
-# set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
-    light = false
+	# use n and N to move between diff sections
+	navigate = true
+	# set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+	light = false
 
 [diff]
-    colorMoved = default
+	colorMoved = default
 {{- end }}
 
 [difftool]
