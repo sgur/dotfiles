@@ -43,12 +43,4 @@ extract = true
 stripComponents = 1
 include = ["*/README.md", "*/rc/**"]
 url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
-
-[".config/kak"]
-type = "archive"
-refreshPeriod = "168h" # 1-week
-extract = true
-stripComponents = 1
-include = ["*/colors/*"]
-url = "https://github.com/catppuccin/kakoune/archive/refs/heads/master.zip"
 {{ end }}
