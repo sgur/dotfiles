@@ -10,12 +10,19 @@ pyright-langserver = { command = "pyright-langserver", args = ["--stdio"], confi
 
 [[language]]
 name = "bash"
-indent = { tab-width = 2, unit = "  " }
 formatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
+language-servers = ["bash-language-server", "efm-langserver"]
+
 
 [[language]]
 name = "css"
 formatter = { command = "npx", args = ["prettier", "--parser", "css"] }
+language-servers = ["vscode-css-language-server", "efm-langserver"]
+
+[[language]]
+name = "scss"
+formatter = { command = "npx", args = ["prettier", "--parser", "css"] }
+language-servers = ["vscode-css-language-server", "efm-langserver"]
 
 [[language]]
 name = "fish"
@@ -23,13 +30,20 @@ formatter = { command = "fish_indent" }
 auto-format = true
 
 [[language]]
+name = "go"
+scope = "source.go"
+language-servers = ["gopls", "efm-langserver"]
+
+[[language]]
 name = "html"
 formatter = { command = "npx", args = ["prettier", "--parser", "html"] }
+language-servers = ["vscode-html-language-server", "efm-langserver"]
 
 [[language]]
 name = "json"
 scope = "source.json"
 formatter = { command = "npx", args = ["prettier", "--parser", "json"] }
+language-servers = ["vscode-json-language-server", "efm-langserver"]
 
 [[language]]
 name = "pwsh"
@@ -48,39 +62,48 @@ name = "pwsh"
 source = { git = "https://github.com/sgur/tree-sitter-PowerShell", rev = "263b6637aa8ab4cdc8c39da3d93adb657d7aa60d" }
 
 [[language]]
+name = "markdown"
+language-servers = ["marksman", "efm-langserver"]
+
+[[language]]
 name = "jsx"
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server"]
+language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
 
 [[language]]
 name = "javascript"
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server"]
+language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
 
 [[language]]
 name = "typescript"
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server"]
+language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
 
 [[language]]
 name = "tsx"
 formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server"]
+language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
 
 [[language]]
 name = "yaml"
+language-servers = ["yaml-language-server", "efm-langserver"]
 
 [[language]]
 name = "toml"
-language-servers = ["taplo-lsp"]
+language-servers = ["taplo-lsp", "efm-langserver"]
 
 [[language]]
 name = "python"
-language-servers = ["pylsp-all", "pyright-langserver"]
+language-servers = ["pylsp-all", "pyright-langserver", "efm-langserver"]
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 roots = ["pyproject.toml"]
+
+[[language]]
+name = "kdl"
+language-servers = ["efm-langserver"]
