@@ -36,40 +36,13 @@ url = "https://github.com/eza-community/eza/releases/latest/download/x86_64-pc-w
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
-[".local/bin/"]
-type = "archive"
-refreshPeriod = "168h" # 1-week
-extract = true
-include = ["kak-lsp", "kak-lsp.toml"]
-{{   if eq .chezmoi.os "darwin" }}
-url = "https://github.com/kak-lsp/kak-lsp/releases/download/v14.2.0/kak-lsp-v14.2.0-x86_64-apple-darwin.tar.gz"
-{{   else }}
-url = "https://github.com/kak-lsp/kak-lsp/releases/download/v14.2.0/kak-lsp-v14.2.0-x86_64-unknown-linux-musl.tar.gz"
-{{   end }}
-
-[".config/kak/autoload/powerline"]
-type = "archive"
-refreshPeriod = "168h" # 1-week
-extract = true
-stripComponents = 1
-include = ["*/README.md", "*/rc/**"]
-url = "https://github.com/andreyorst/powerline.kak/archive/refs/heads/master.zip"
-
-[".config/kak/autoload/kak-bundle"]
+[".config/kak/bundle/kak-bundle"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
 extract = true
 stripComponents = 1
 include = ["*/README.md", "*/rc/**"]
 url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
-
-[".config/kak/autoload/auto-pairs"]
-type = "archive"
-refreshPeriod = "168h" # 1-week
-extract = true
-stripComponents = 1
-include = ["*/README.md", "*/docs/**", "*/rc/**"]
-url = "https://github.com/alexherbo2/auto-pairs.kak/archive/refs/heads/master.zip"
 
 [".config/kak"]
 type = "archive"

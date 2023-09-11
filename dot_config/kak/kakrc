@@ -1,7 +1,7 @@
+# ui
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=false
 
-colorscheme catppuccin_macchiato
-
+# highlight
 add-highlighter global/ wrap -word
 add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces -lf '⏎' -spc ' ' -tab '→' -nbsp '⍽' -tabpad '·'
@@ -9,32 +9,47 @@ add-highlighter global/ show-whitespaces -lf '⏎' -spc ' ' -tab '→' -nbsp '�
 # mappings
 map global normal '#' :comment-line<ret>
 
-# kak-lsp
-eval %sh{kak-lsp --kakoune --session $kak_session}
-lsp-enable
-set-option global lsp_hover_anchor true
-set-option global lsp_auto_show_code_actions true
-lsp-auto-hover-enable
-
-map global user -docstring 'lsp mode' l ':enter-user-mode lsp<ret>'
-
-# autoload/auto-pairs
-enable-auto-pairs
-
-# kak_runtime/rc
-evaluate-commands %sh{
-    autoload_directory() {
-        find -L "$1" -type f -name '*\.kak' \
-            | sed 's/.*/try %{ source "&" } catch %{ echo -debug Autoload: could not load "&" }/'
-    }
-    if [ -d "${kak_runtime}/rc" ]; then
-        autoload_directory ${kak_runtime}/rc
-    fi
-}
-
-## tools/grep
+# tools/grep
 set-option global grepcmd 'rg --color=never --vimgrep'
 
-## detection/editorconfig
+# detection/editorconfig
+# make sure to install editorconfig cli (ex. brew)
 hook global BufOpenFile .* %{ editorconfig-load }
 hook global BufNewFile .* %{ editorconfig-load }
+
+# detection/windowsing
+evaluate-commands %sh{
+    [ -z "${kak_opt_windowing_modules}" ] || [ -n "$ZELLIJ" ] || echo 'fail zellij not detected'
+}
+
+# bundle (installed via chezmoi)
+source "%val{config}/bundle/kak-bundle/rc/kak-bundle.kak"
+
+# bundle/auto-pairs
+bundle auto-pairs.kak https://github.com/alexherbo2/auto-pairs.kak %{
+    enable-auto-pairs
+}
+
+# bundle/catppuccint
+bundle-noload catppuccin 'git clone https://github.com/catppuccin/kakoune catppuccin' %{
+} %{
+    mkdir -p ${kak_config}/colors
+    ln -sf "${kak_opt_bundle_path}/catppuccin/colors" "${kak_config}/colors/catppuccin"
+}
+try %{
+    colorscheme catppuccin_macchiato
+}
+
+# bundle/kak-lsp
+bundle kak-lsp https://github.com/kak-lsp/kak-lsp %{
+    # eval %sh{kak-lsp --kakoune --session $kak_session}
+    set-option global lsp_hover_anchor true
+    set-option global lsp_auto_show_code_actions true
+
+    lsp-enable
+    lsp-auto-hover-enable
+
+    map global user -docstring 'lsp mode' l ':enter-user-mode lsp<ret>'
+} %{
+    cargo install --locked --force --path .
+}
