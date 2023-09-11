@@ -17,11 +17,6 @@ set-option global grepcmd 'rg --color=never --vimgrep'
 hook global BufOpenFile .* %{ editorconfig-load }
 hook global BufNewFile .* %{ editorconfig-load }
 
-# detection/windowsing
-evaluate-commands %sh{
-    [ -z "${kak_opt_windowing_modules}" ] || [ -n "$ZELLIJ" ] || echo 'fail zellij not detected'
-}
-
 # bundle (installed via chezmoi)
 source "%val{config}/bundle/kak-bundle/rc/kak-bundle.kak"
 
