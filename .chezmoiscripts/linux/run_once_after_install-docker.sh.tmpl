@@ -24,10 +24,10 @@ sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plug
 
 sudo usermod $USER --append --group docker
 
-{{   if .wsl -}}
+{{   if (and .wsl (not (include "/etc/wsl.conf" | fromToml).boot.systemd)) -}}
 mkdir -p /etc/docker/
 echo '{ "hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2375"] }' | sudo tee /etc/docker/daemon.json > /dev/null
-echo {{ dict | setValueAtPath "boot.systemd" false | setValueAtPath "boot.command" "/usr/sbin/service docker start" | toIni | quote }} | sudo tee -a /etc/wsl.conf
+echo {{ include "/etc/wsl.conf" | fromToml | setValueAtPath "boot.command" "/usr/sbin/service docker start" | toToml | quote }} | sudo tee /etc/wsl.conf
 {{   else -}}
 cat - << EOS | sudo tee /etc/systemd/system/docker.service.d/override.conf > /dev/null
 # % systemd daemon-reload
