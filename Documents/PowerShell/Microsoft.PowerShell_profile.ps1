@@ -288,11 +288,13 @@ Initialize-Curl
 Set-Alias -Name open -Value Start-Process
 
 # spell-checker: disable
-$CoreutilsBin = @( "basename", "cat", "chmod", "comm", "cp", "cut", "date",
-	"dirname", "echo", "env", "expr", "false", "fold", "head", "id", "install",
-	"join", "ln", "ls", "md5sum", "mkdir", "mv", "od", "paste", "printf", "ps",
-	"pwd", "rm", "rmdir", "sleep", "sort", "split", "stty", "tail", "tee", "touch",
-	"tr", "true", "uname", "uniq", "wc")
+$CoreutilsBin = @(
+	"basename", "cat", "chmod", "comm", "cp", "cut", "date", "dirname", "echo",
+	"env", "expr", "false", "fold", "head", "id", "install", "join", "ln", "ls",
+	"md5sum", "mkdir", "mv", "od", "paste", "printf", "ps", "pwd", "rm",
+	"rmdir", "sleep", "sort", "split", "stty", "tail", "tee", "touch", "tr",
+	"true", "uname", "uniq", "wc",
+	"grep")
 # "msysmnt" is excluded from coreutils
 $ReadonlyBin = @("tee", "diff", "ls", "sleep", "sort")
 $ConfirmationRequiredBin = @("cp", "mv")
