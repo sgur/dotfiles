@@ -1,0 +1,20 @@
+{{ if eq .chezmoi.os "windows" -}}
+@echo off
+setlocal
+{{ $baseDir := expandenv "$APPDATA\\Mozilla\\Firefox" }}
+{{ $profiles := joinPath $baseDir "profiles.ini" | include | fromIni }}
+{{   range $profiles -}}
+{{     if and (hasKey . "Name") (eq .Name "dev-edition-default") -}}
+{{ $profilePath := joinPath $baseDir .Path "user.js" }}
+echo user_pref("security.enterprise_roots.enabled", true); > {{ $profilePath | quote }}
+echo user_pref("extensions.update.requireBuiltInCerts", false); >> {{ $profilePath | quote }}
+echo user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true); >> {{ $profilePath | quote }}
+{{ $userChromeDir := joinPath $baseDir .Path "chrome" }}
+{{       if not (stat $userChromeDir) -}}
+mkdir {{ $userChromeDir | quote }}
+{{       end -}}
+{{ $userChromePath := joinPath $userChromeDir "userChrome.css" }}
+echo #TabsToolbar { visibility: collapse !important; } > {{ $userChromePath | quote }}
+{{     end -}}
+{{   end -}}
+{{ end -}}
