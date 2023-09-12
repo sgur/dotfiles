@@ -2,6 +2,12 @@
 {{- $docker := false -}}
 {{- $docker = promptBoolOnce . "docker" "Install docker" -}}
 
+{{- $wsl := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
+{{- $wsl_systemd := false -}}
+{{- if $wsl -}}
+{{- $wsl_systemd = promptBoolOnce . "systemd" "Using systemd" -}}
+{{- end -}}
+
 progress = true
 format = "yaml"
 
@@ -25,5 +31,8 @@ args=['-NoLogo']
 
 [data]
 docker = {{ $docker }}
-wsl = {{ (and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft")) }}
+wsl = {{ $wsl }}
+{{ if $wsl -}}
+wsl_systemd = {{ $wsl_systemd }}
+{{ end -}}
 distribution = {{ get .chezmoi.osRelease "id" | quote }}
