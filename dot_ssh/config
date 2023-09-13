@@ -31,3 +31,9 @@ Compression yes
 #
 # サーバーからの自動切断を防ぐ
 ServerAliveInterval 60
+
+#
+# ssh を実行した端末から pinentry-curses で gpg-agent がパスフレーズを要求するようにリフレッシュさせる
+# <https://wiki.archlinux.jp/index.php/GnuPG> > 適切な TTY を使うように pinentry を設定
+# Match host * exec "gpg-connect-agent updatestartuptty /bye"
+
