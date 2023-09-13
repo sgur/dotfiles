@@ -127,6 +127,8 @@ keybinds {
     }
     tmux {
         bind "[" { SwitchToMode "Scroll"; }
+        bind "}" { MovePane; }
+        bind "{" { MovePaneBackwards; }
         bind "Alt b" { Write 2; SwitchToMode "Normal"; }
         bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }
         bind "%" { NewPane "Right"; SwitchToMode "Normal"; }
@@ -282,9 +284,6 @@ theme "catppuccin-macchiato"
 //   - false
 //
 // mouse_mode false
-{{- if .wsl }}
-mouse_mode false
-{{- end}}
 
 // Configure the scroll back buffer size
 // This is the number of lines zellij stores for each pane in the scroll back
