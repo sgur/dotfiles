@@ -1,14 +1,24 @@
 theme = "catppuccin_macchiato"
 
 [editor]
-cursorline = true
 mouse = false
 middle-click-paste = false
+cursorline = true
+idle-timeout = 100
 true-color = true
+undercurl = true
+bufferline = "multiple"
 color-modes = true
+
 # For pwsh
 # https://github.com/helix-editor/helix/discussions/6209#discussioncomment-5288892
 # shell = ["pwsh.exe","-NoLogo","-NoProfile","-NoProfileLoadTime","-Command","$PSStyle.OutputRendering='PlainText';"]
+
+[editor.statusline]
+left = ["mode", "spinner"]
+center = ["file-name", "separator", "file-type", "version-control"]
+right = ["diagnostics", "selections", "position", "separator", "file-encoding", "file-line-ending"]
+separator = ""
 
 [editor.lsp]
 display-messages = true
@@ -17,6 +27,10 @@ display-inlay-hints = true
 [editor.cursor-shape]
 insert = "bar"
 select = "underline"
+
+[editor.file-picker]
+hidden = false
+max-depth = 6
 
 [editor.whitespace.render]
 space = "none"
@@ -33,10 +47,7 @@ tabpad = "·" # Tabs will look like "→···" (depending on tab width)
 
 [editor.indent-guides]
 render = true
+character = "▏" # "│"
 
 [editor.soft-wrap]
 enable = true
-
-[editor.file-picker]
-max-depth = 6
-hidden = false
