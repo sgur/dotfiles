@@ -58,3 +58,26 @@ scoop/
 .config/kitty/
 .config/wezterm/
 {{ end }}
+
+# fisher/Catppuccin Themes
+.config/fish/themes/Catppuccin*
+# fisher/ni
+.config/fish/completions/ni.fish
+.config/fish/functions/ni.fish
+# fisher/autopair
+.config/fish/conf.d/autopair.fish
+.config/fish/*/_autopair_*.fish
+# fisher/sponge
+.config/fish/conf.d/sponge.fish
+.config/fish/functions/_sponge_*.fish
+.config/fish/functions/sponge_filter_*.fish
+# fisher/base
+.config/fish/functions/__bass.py
+.config/fish/functions/bass.fish
+
+# kak/bundle
+.config/kak/bundle/
+.config/kak/colors/
+
+# helix/runtime
+.config/helix/runtime/
