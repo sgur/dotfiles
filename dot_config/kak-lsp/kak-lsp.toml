@@ -112,7 +112,7 @@ settings_section = "gopls"
 
 [language.haskell]
 filetypes = ["haskell"]
-roots = ["Setup.hs", "stack.yaml", "*.cabal"]
+roots = ["hie.yaml", "cabal.project", "Setup.hs", "stack.yaml", "*.cabal"]
 command = "haskell-language-server-wrapper"
 args = ["--lsp"]
 settings_section = "_"
@@ -156,11 +156,15 @@ args = ["--stdio"]
 # # See https://github.dev/eclipse/eclipse.jdt.ls
 # # "java.format.insertSpaces" = true
 
-[language.jsx] # works for javascript as well
+[language.javascriptreact]
 filetypes = ["javascript"]
 roots = ["package.json", "tsconfig.json", ".git", ".hg"]
 command = "typescript-language-server"
 args = ["--stdio"]
+settings_section = "_"
+[language.javascriptreact.settings._]
+# quotePreference = "single"
+# javascript.format.semicolons = "insert"
 
 [language.json]
 filetypes = ["json"]
@@ -252,6 +256,12 @@ command = "lua-language-server"
 # See https://github.com/sumneko/vscode-lua/blob/master/setting/schema.json
 # diagnostics.enable = true
 
+[language.markdown]
+filetypes = ["md", "mkd", "markdown"]
+roots = [".git", ".hg"]
+command = "marksman"
+args = ["server"]
+
 [language.nim]
 filetypes = ["nim"]
 roots = ["*.nimble", ".git", ".hg"]
@@ -264,7 +274,8 @@ command = "rnix-lsp"
 
 [language.ocaml]
 filetypes = ["ocaml"]
-roots = ["Makefile", "opam", "*.opam", "dune"]
+# Often useful to simply do a `touch dune-workspace` in your project root folder if you have problems with root detection
+roots = ["dune-workspace", "dune-project", "Makefile", "opam", "*.opam", "esy.json", ".git", ".hg", "dune"]
 command = "ocamllsp"
 
 [language.php]
@@ -289,6 +300,7 @@ settings_section = "_"
 [language.python.settings._]
 # See https://github.com/python-lsp/python-lsp-server#configuration
 # pylsp.configurationSources = ["flake8"]
+pylsp.plugins.jedi_completion.include_params = true
 
 [language.r]
 filetypes = ["r"]
@@ -365,16 +377,20 @@ args = ["serve"]
 # rootModulePaths = []
 
 [language.toml]
-filetype = ["toml"]
+filetypes = ["toml"]
 roots = [".git", ".hg"]
 command = "taplo-lsp"
 args = ["lsp", "stdio"]
 
-[language.tsx] # works for typescript as well
+[language.typescriptreact]
 filetypes = ["typescript"]
 roots = ["package.json", "tsconfig.json", ".git", ".hg"]
 command = "typescript-language-server"
 args = ["--stdio"]
+settings_section = "_"
+[language.typescriptreact.settings._]
+# quotePreference = "double"
+# typescript.format.semicolons = "insert"
 
 # [language.typescript]
 # filetypes = ["typescript"]

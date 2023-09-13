@@ -1,3 +1,18 @@
+# https://phaazon.net/blog/more-hindsight-vim-helix-kakoune
+define-command -hidden open_buffer_picker %{
+    prompt buffer: -menu -buffer-completion %{
+        buffer %val{text}
+    }
+}
+map global user -docstring 'open buffer picker' b ':open_buffer_picker<ret>'
+
+define-command -hidden open_file_picker %{
+    prompt file: -menu -shell-script-candidates 'fd --type=file' %{
+        edit -existing %val{text}
+    }
+}
+map global user -docstring 'open file picker' f ':open_file_picker<ret>'
+
 # ui
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=false
 
@@ -25,11 +40,11 @@ bundle auto-pairs.kak https://github.com/alexherbo2/auto-pairs.kak %{
     enable-auto-pairs
 }
 
-# bundle/catppuccint
+# bundle/catppuccin
 bundle-noload catppuccin 'git clone https://github.com/catppuccin/kakoune catppuccin' %{
 } %{
     mkdir -p ${kak_config}/colors
-    ln -sf "${kak_opt_bundle_path}/catppuccin/colors" "${kak_config}/colors/catppuccin"
+    ln --symbolic --force --no-dereference "${kak_opt_bundle_path}/catppuccin/colors" "${kak_config}/colors/catppuccin"
 }
 try %{
     colorscheme catppuccin_macchiato
@@ -40,11 +55,31 @@ bundle kak-lsp https://github.com/kak-lsp/kak-lsp %{
     # eval %sh{kak-lsp --kakoune --session $kak_session}
     set-option global lsp_hover_anchor true
     set-option global lsp_auto_show_code_actions true
+    set-option global lsp_diagnostic_line_error_sign 'E'
+    set-option global lsp_diagnostic_line_hint_sign 'H'
+    set-option global lsp_diagnostic_line_info_sign 'I'
+    set-option global lsp_diagnostic_line_warning_sign 'W'
 
     lsp-enable
     lsp-auto-hover-enable
+    lsp-inlay-hints-enable global
+    lsp-inlay-diagnostics-enable global
 
     map global user -docstring 'lsp mode' l ':enter-user-mode lsp<ret>'
 } %{
     cargo install --locked --force --path .
+}
+
+# bundle/kak-tree-sitter
+bundle kak-tree-sitter https://github.com/phaazon/kak-tree-sitter %{
+    eval %sh{ kak-tree-sitter --kakoune --daemonize --server --session $kak_session }
+} %{
+    (
+        cd kak-tree-sitter
+        cargo install --locked --force --path .
+    )
+    (
+        cd ktsctl
+        cargo install --locked --force --path .
+    )
 }
