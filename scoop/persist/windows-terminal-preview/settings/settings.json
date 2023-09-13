@@ -91,10 +91,8 @@
                 "face": "PlemolJP Console NF",
                 "weight": "medium"
             },
-            "opacity": 80,
             "padding": "16,8",
-            "startingDirectory": "%USERPROFILE%",
-            "useAcrylic": true
+            "startingDirectory": "%USERPROFILE%"
         },
         "list": 
         [
