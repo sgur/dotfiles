@@ -1,0 +1,7 @@
+{{ if stat "/home/linuxbrew/.linuxbrew/opt/kakoune/share/kak/autoload/" }}
+/home/linuxbrew/.linuxbrew/opt/kakoune/share/kak/autoload
+{{ else if stat "/opt/homebrew/kakoune/share/kak/autoload/" }}
+/opt/homebrew/kakoune/share/kak/autoload
+{{ else if stat "/usr/local/share/kak/autoload/" }}
+/usr/local/share/kak/autoload
+{{ end }}
