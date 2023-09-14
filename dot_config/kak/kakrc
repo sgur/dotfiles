@@ -1,3 +1,49 @@
+# Suspend and Resume
+define-command suspend -docstring 'suspend: backgrounds current kakoune client.' %{
+    evaluate-commands %sh{
+        platform=$(uname -s)
+        case $platform in
+            Darwin)
+                kill_cmd="/bin/kill"
+                break
+                ;;
+            Linux)
+                kill_cmd="/usr/bin/kill"
+                break
+                ;;
+        esac
+        # Send kakoune client to the background
+        $kill_cmd -SIGTSTP $kak_client_pid
+    }
+}
+map global user -docstring 'suspend kakoune job' <C-z> ':suspend<ret>'
+
+# Git integration via Tig <https://github.com/mawww/kakoune/wiki/Git-integration-via-Tig>
+define-command tig -params .. -docstring "Run tig" %{
+    terminal env "EDITOR=kak -c %val{session}" tig %arg{@}
+}
+define-command tig-blame-here -docstring "Run tig blame on the current line" %{
+    tig -C %sh{git rev-parse --show-toplevel} blame -C "+%val{cursor_line}" -- %sh{
+        dir="$(git rev-parse --show-toplevel)"
+        printf %s "${kak_buffile##$dir/}"
+    }
+}
+
+define-command tig-blame-selection -docstring "Run tig -L on the selected lines" %{
+    evaluate-commands -draft -save-regs d %{
+        execute-keys <a-:>
+        set-register d %sh{git rev-parse --show-toplevel}
+        tig -C %reg{d} %sh{
+            anchor=${kak_selection_desc%,*}
+            anchor_line=${anchor%.*}
+            cursor=${kak_selection_desc#*,}
+            cursor_line=${cursor%.*}
+            d=$kak_reg_d
+            printf %s "-L$anchor_line,$cursor_line:${kak_buffile##$d/}"
+        }
+    }
+}
+
 # https://phaazon.net/blog/more-hindsight-vim-helix-kakoune
 define-command -hidden open_buffer_picker %{
     prompt buffer: -menu -buffer-completion %{
@@ -13,6 +59,9 @@ define-command -hidden open_file_picker %{
 }
 map global user -docstring 'open file picker' f ':open_file_picker<ret>'
 
+map global normal '#' :comment-line<ret>
+map global normal '^' :comment-block<ret>
+
 # ui
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=false
 
@@ -21,16 +70,64 @@ add-highlighter global/ wrap -word
 add-highlighter global/ show-matching
 add-highlighter global/ show-whitespaces -lf '⏎' -spc ' ' -tab '→' -nbsp '⍽' -tabpad '·'
 
-# mappings
-map global normal '#' :comment-line<ret>
-
-# tools/grep
-set-option global grepcmd 'rg --color=never --vimgrep'
-
-# detection/editorconfig
+# rc/detection/editorconfig
 # make sure to install editorconfig cli (ex. brew)
 hook global BufOpenFile .* %{ editorconfig-load }
 hook global BufNewFile .* %{ editorconfig-load }
+
+# rc/detection/modeline
+hook global BufOpenFile .* %{ modeline-parse }
+
+# rc/tools/grep
+set-option global grepcmd 'rg --color=never --vimgrep'
+
+# rc/tools/lint, rt/tools/format
+hook global WinSetOption filetype=css %{
+    set-option window lintcmd "npx stylelint --formatter unix --stdin-filename='%val{buffile}'"
+    set-option buffer formatcmd "npx --yes prettier --stdin-filepath=%val{buffile}"
+}
+
+hook global WinSetOption filetype=javascript %{
+    set-option window lintcmd 'run() { cat "$1" |npx eslint -f unix --stdin --stdin-filename "$kak_buffile";} && run'
+    set-option buffer formatcmd "npx --yes prettier --stdin-filepath=%val{buffile}"
+}
+
+hook global WinSetOption filetype=json %{
+    set-option window lintcmd %{ run() { cat -- "$1" | jq 2>&1 | awk -v filename="$1" '/ at line [0-9]+, column [0-9]+$/ { line=$(NF - 2); column=$NF; sub(/ at line [0-9]+, column [0-9]+$/, ""); printf "%s:%d:%d: error: %s", filename, line, column, $0; }'; } && run }
+    set-option buffer formatcmd "npx --yes prettier --stdin-filepath=%val{buffile}"
+}
+
+hook global WinSetOption filetype=markdown %{
+    set-option buffer formatcmd "npx --yes prettier --stdin-filepath=%val{buffile}"
+}
+
+hook global WinSetOption filetype=python %{
+    set-option window lintcmd "mypy --show-column-numbers"
+    set-option buffer formatcmd 'black -'
+}
+
+hook global BufSetOption filetype=rust %{
+    set-option buffer formatcmd 'rustfmt'
+}
+
+hook global WinSetOption filetype=sh %{
+    set-option window lintcmd "shellcheck -fgcc -Cnever"
+    set-option buffer formatcmd "shfmt"
+}
+
+hook global WinSetOption filetype=yaml %{
+    # set-option window lintcmd "yamllint -f parsble"
+    set-option window lintcmd %{
+        run() {
+           # change [message-type] to message-type:
+           yamllint -f parsable "$1" | sed 's/ \[\(.*\)\] / \1: /'
+        } && run
+    }
+    set-option buffer formatcmd "npx --yes prettier --stdin-filepath=%val{buffile}"
+}
+
+# rc/tools/spell
+set-option global spell_lang "en"
 
 # bundle (installed via chezmoi)
 source "%val{config}/bundle/kak-bundle/rc/kak-bundle.kak"
@@ -53,6 +150,8 @@ try %{
 # bundle/kak-lsp
 bundle kak-lsp https://github.com/kak-lsp/kak-lsp %{
     # eval %sh{kak-lsp --kakoune --session $kak_session}
+    set global lsp_cmd "kak-lsp -s %val{session} -vvv --log ~/.cache/kak-lsp/kak-lsp.log"
+
     set-option global lsp_hover_anchor true
     set-option global lsp_auto_show_code_actions true
     set-option global lsp_diagnostic_line_error_sign 'E'
@@ -82,4 +181,6 @@ bundle kak-tree-sitter https://github.com/phaazon/kak-tree-sitter %{
         cd ktsctl
         cargo install --locked --force --path .
     )
+    # fetch -> compile -> install: KDL syntax
+    ktscl --fetch --compile --install kdl
 }

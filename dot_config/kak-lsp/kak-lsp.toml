@@ -39,19 +39,19 @@ command = "crystalline"
 [language.css]
 filetypes = ["css"]
 roots = ["package.json", ".git", ".hg"]
-command = "vscode-css-languageserver"
+command = "vscode-css-language-server"
 args = ["--stdio"]
 
 [language.less]
 filetypes = ["less"]
 roots = ["package.json", ".git", ".hg"]
-command = "vscode-css-languageserver"
+command = "vscode-css-language-server"
 args = ["--stdio"]
 
 [language.scss]
 filetypes = ["scss"]
 roots = ["package.json", ".git", ".hg"]
-command = "vscode-css-languageserver"
+command = "vscode-css-language-server"
 args = ["--stdio"]
 
 [language.d]
@@ -123,7 +123,7 @@ settings_section = "_"
 [language.html]
 filetypes = ["html"]
 roots = ["package.json"]
-command = "vscode-html-languageserver"
+command = "vscode-html-language-server"
 args = ["--stdio"]
 
 # # Commented out by default because you still need to set the paths in the JDT
@@ -169,7 +169,7 @@ settings_section = "_"
 [language.json]
 filetypes = ["json"]
 roots = ["package.json"]
-command = "vscode-json-languageserver"
+command = "vscode-json-language-server"
 args = ["--stdio"]
 
 # Requires Julia package "LanguageServer"
