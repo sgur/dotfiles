@@ -129,11 +129,11 @@
             },
             {
                 "colorScheme": "Catppuccin Macchiato",
-                "commandline": "C:\\Windows\\system32\\wsl.exe --cd ~ -d Ubuntu --shell-type login --exec /home/linuxbrew/.linuxbrew/bin/nu",
+                "commandline": "C:\\Windows\\system32\\wsl.exe --cd ~ -d Ubuntu --shell-type login -- zellij",
                 "guid": "{a81a4ab8-794f-4b83-9790-a7807b0836dc}",
                 "hidden": false,
                 "icon": "ms-appx:///ProfileIcons/{9acb9455-ca41-5af7-950f-6bca1bc9722f}.png",
-                "name": "nu shell"
+                "name": "Zellij@Ubuntu"
             },
             {
                 "colorScheme": "Ubuntu-ColorScheme",
