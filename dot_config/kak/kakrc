@@ -65,6 +65,20 @@ map global normal '^' :comment-block<ret>
 # ui
 set-option global ui_options terminal_assistant=none terminal_enable_mouse=false
 
+# modeline format
+declare-option -docstring "name of the git branch holding the current buffer" \
+    str modeline_git_branch
+
+hook global WinCreate .* %{
+    hook window NormalIdle .* %{ evaluate-commands %sh{
+        branch=$(cd "$(dirname "${kak_buffile}")" && git rev-parse --abbrev-ref HEAD 2>/dev/null)
+        if [ -n "${branch}" ]; then
+            printf 'set window modeline_git_branch %%{%s}' "[${branch}]"
+        fi
+    } }
+}
+set-option global modelinefmt '%val{bufname} %opt{modeline_git_branch}[%opt{filetype}] %val{cursor_line}:%val{cursor_char_column} {{context_info}} {{mode_info}} - %val{client}@[%val{session}]'
+
 # highlight
 add-highlighter global/ wrap -word
 add-highlighter global/ show-matching
@@ -83,12 +97,12 @@ set-option global grepcmd 'rg --color=never --vimgrep'
 
 # rc/tools/lint, rt/tools/format
 hook global WinSetOption filetype=css %{
-    set-option window lintcmd "npx stylelint --formatter unix --stdin-filename='%val{buffile}'"
+    set-option window lintcmd "npx --yes stylelint --formatter unix --stdin-filename='%val{buffile}'"
     set-option buffer formatcmd "npx --yes prettier --stdin-filepath=%val{buffile}"
 }
 
 hook global WinSetOption filetype=javascript %{
-    set-option window lintcmd 'run() { cat "$1" |npx eslint -f unix --stdin --stdin-filename "$kak_buffile";} && run'
+    set-option window lintcmd 'run() { cat "$1" |npx --yes eslint -f unix --stdin --stdin-filename "$kak_buffile";} && run'
     set-option buffer formatcmd "npx --yes prettier --stdin-filepath=%val{buffile}"
 }
 
