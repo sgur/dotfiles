@@ -1,5 +1,7 @@
 status is-interactive || exit
 
+type -q rtx || exit
+
 if type -q fnm;
     or type -q pyenv;
     or type -q rbenv
