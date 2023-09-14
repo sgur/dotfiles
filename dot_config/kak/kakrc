@@ -183,4 +183,7 @@ bundle kak-tree-sitter https://github.com/phaazon/kak-tree-sitter %{
     )
     # fetch -> compile -> install: KDL syntax
     ktscl --fetch --compile --install kdl
+    ktscl --fetch --compile --install nu
+    ktscl --fetch --compile --install sshclientconfig
+    ktscl --fetch --compile --install xml
 }
