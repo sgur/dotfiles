@@ -335,7 +335,7 @@ function Register-GitCoreutilsShims
 	}
 }
 
-if (Get-Command -Type Application -Name eza)
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 {
 	function global:ls
 	{
