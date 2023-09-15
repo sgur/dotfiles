@@ -20,6 +20,14 @@ type = "archive"
 url = "https://sourceforge.net/projects/wordlist/files/speller/2020.12.07/wordlist-en_US-2020.12.07.zip/download"
 include = ["en_US.txt"]
 
+[".config/helix/themes"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+extract = true
+stripComponents = 3
+include = ["*/themes/default/*.toml"]
+url = "https://github.com/catppuccin/helix/archive/refs/heads/main.zip"
+
 {{ if eq .chezmoi.os "windows" }}
 
 ["Documents/PowerShell/Modules/Catppuccin"]
