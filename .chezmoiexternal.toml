@@ -28,6 +28,18 @@ stripComponents = 3
 include = ["*/themes/default/*.toml"]
 url = "https://github.com/catppuccin/helix/archive/refs/heads/main.zip"
 
+{{ if eq .chezmoi.os "darwin" }}
+
+[".config/kitty/themes"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+extract = true
+stripComponents = 2
+include = ["*/themes/*.conf"]
+url = "https://github.com/catppuccin/kitty/archive/refs/heads/main.zip"
+
+{{ end }}
+
 {{ if eq .chezmoi.os "windows" }}
 
 ["Documents/PowerShell/Modules/Catppuccin"]
