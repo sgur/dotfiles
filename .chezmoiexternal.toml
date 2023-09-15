@@ -36,6 +36,23 @@ refreshPeriod = "168h" # 1-week
 stripComponents = 1
 url = "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-pc-windows-gnu.zip"
 
+["AppData/Local/imhex/themes/catppuccin-frappe.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/catppuccin/imhex/releases/latest/download/catppuccin-frappe.json"
+["AppData/Local/imhex/themes/catppuccin-latte.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/catppuccin/imhex/releases/latest/download/catppuccin-latte.json"
+["AppData/Local/imhex/themes/catppuccin-macchiato.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/catppuccin/imhex/releases/latest/download/catppuccin-macchiato.json"
+["AppData/Local/imhex/themes/catppuccin-mocha.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/catppuccin/imhex/releases/latest/download/catppuccin-mocha.json"
+
 {{ else }} # Non-Windows
 
 [".config/fish"]
