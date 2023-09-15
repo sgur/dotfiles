@@ -126,6 +126,7 @@ $Env:BAT_CONFIG_PATH = (Resolve-Path "~/.config/bat/config").Path
 $Env:DOCKER_HOST = "tcp://localhost:2375"
 
 # fzf catppuccin theme
+# https://github.com/catppuccin/fzf
 
 ## Latte
 # $ENV:FZF_DEFAULT_OPTS=@"
