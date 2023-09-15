@@ -35,7 +35,15 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://github.com/eza-community/eza/releases/latest/download/x86_64-pc-windows-gnu-eza.exe"
 
-{{ else }}
+{{ else }} # Non-Windows
+
+[".config/fish"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+extract = true
+stripComponents = 1
+include = ["*/completions/*.fish", "*/functions/*.fish"]
+url = "https://github.com/jorgebucaran/fisher/archive/refs/heads/main.zip"
 
 [".config/kak/bundle/kak-bundle"]
 type = "archive"
