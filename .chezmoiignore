@@ -8,6 +8,7 @@ README.md
 .chezmoiscripts/darwin/
 .Brewfile.darwin
 .config/kitty/
+Library/
 {{ end }}
 
 {{ if ne .chezmoi.os "linux" }}
