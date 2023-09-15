@@ -53,7 +53,8 @@ url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
 [".local/bin/"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
-stripComponents = 1
+stripComponents = 0
+include = ["eza.exe"]
 url = "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-pc-windows-gnu.zip"
 
 ["AppData/Local/imhex/themes/catppuccin-frappe.json"]
