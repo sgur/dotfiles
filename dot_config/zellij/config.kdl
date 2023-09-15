@@ -8,7 +8,7 @@ keybinds {
         bind "Ctrl z" { SwitchToMode "tmux"; }
     }
     locked {
-        bind "Ctrl g" { SwitchToMode "Normal"; }
+        bind "Alt g" { SwitchToMode "Normal"; }
     }
     resize {
         bind "Alt n" { SwitchToMode "Normal"; }
@@ -41,7 +41,7 @@ keybinds {
         bind "c" { SwitchToMode "RenamePane"; PaneNameInput 0;}
     }
     move {
-        bind "Alt h" { SwitchToMode "Normal"; }
+        bind "Alt m" { SwitchToMode "Normal"; }
         bind "n" "Tab" { MovePane; }
         bind "p" { MovePaneBackwards; }
         bind "h" "Left" { MovePane "Left"; }
@@ -129,7 +129,7 @@ keybinds {
         bind "[" { SwitchToMode "Scroll"; }
         bind "}" { MovePane; }
         bind "{" { MovePaneBackwards; }
-        bind "Alt b" { Write 2; SwitchToMode "Normal"; }
+        bind "Alt z" { Write 2; SwitchToMode "Normal"; }
         bind "\"" { NewPane "Down"; SwitchToMode "Normal"; }
         bind "%" { NewPane "Right"; SwitchToMode "Normal"; }
         bind "z" { ToggleFocusFullscreen; SwitchToMode "Normal"; }
@@ -151,7 +151,7 @@ keybinds {
         bind "x" { CloseFocus; SwitchToMode "Normal"; }
     }
     shared_except "locked" {
-        // bind "Alt g" { SwitchToMode "Locked"; }
+        bind "Alt g" { SwitchToMode "Locked"; }
         bind "Alt q" { Quit; }
         bind "Alt n" { NewPane; }
         bind "Alt h" "Alt Left" { MoveFocusOrTab "Left"; }
@@ -182,10 +182,10 @@ keybinds {
         bind "Alt t" { SwitchToMode "Tab"; }
     }
     shared_except "move" "locked" {
-        bind "Alt h" { SwitchToMode "Move"; }
+        bind "Alt m" { SwitchToMode "Move"; }
     }
     shared_except "tmux" "locked" {
-        bind "Alt b" { SwitchToMode "Tmux"; }
+        bind "Alt z" { SwitchToMode "Tmux"; }
     }
 }
 
