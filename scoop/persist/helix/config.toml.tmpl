@@ -1,0 +1,3 @@
+{{- $config := joinPath .chezmoi.homeDir ".config" "helix" "config.toml" | include | fromToml -}}
+# This config includes ~/.config/helix/config.toml and change theme to "catppuccin_mocha" by chezmoi template.
+{{ setValueAtPath "theme" "catppuccin_mocha" $config | toToml -}}

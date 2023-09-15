@@ -1,0 +1,5 @@
+# Default configuration: https://github.com/helix-editor/helix/blob/23.05/languages.toml
+
+[[language]]
+name = "toml"
+language-server = { command = "taplo-lsp", args = ["lsp", "stdio"] }

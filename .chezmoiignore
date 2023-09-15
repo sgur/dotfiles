@@ -35,7 +35,6 @@ scoop/
 .profile
 .local/bin/wsl-*
 .local/bin/xdg-*
-.config/helix/
 .config/kak/
 .config/kak-lsp/
 .config/fish/
