@@ -184,7 +184,7 @@ bundle kak-lsp https://github.com/kak-lsp/kak-lsp %{
 }
 
 # bundle/kak-tree-sitter
-bundle kak-tree-sitter https://github.com/phaazon/kak-tree-sitter %{
+bundle-customload kak-tree-sitter https://github.com/phaazon/kak-tree-sitter %{
     eval %sh{ kak-tree-sitter --kakoune --daemonize --server --session $kak_session }
 } %{
     (
