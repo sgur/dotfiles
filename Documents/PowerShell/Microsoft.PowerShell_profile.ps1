@@ -13,14 +13,14 @@ $OutputEncoding = [System.Text.Encoding]::Default
 $Env:LC_ALL = "ja_JP.utf-8"
 
 # ~/.local/bin を有効にする
-$LocalBinDir = (Join-Path -Path $Env:USERPROFILE -ChildPath ".local" | Join-Path -ChildPath "bin")
+$LocalBinDir = Join-Path -Path $Env:USERPROFILE -ChildPath ".local" -AdditionalChildPath "bin"
 if (Test-Path $LocalBinDir)
 {
 	$Env:PATH = ($LocalBinDir, $Env:PATH) -join ";"
 }
 
 # Scoop Dir
-$ScoopDir = (Join-Path -Path $Env:USERPROFILE -ChildPath "scoop")
+$ScoopDir = Join-Path -Path $Env:USERPROFILE -ChildPath "scoop"
 if ($Env:SCOOP)
 {
 	$ScoopDir = $Env:SCOOP
@@ -306,8 +306,8 @@ if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath
 # Windows デフォルトの curl を利用しない
 function Initialize-Curl
 {
-	$CurlBin = '~\scoop\apps\curl\current\bin\'
-	if (Test-Path ($CurlBin + "curl.exe"))
+	$CurlBin = Join-Path -Path $ScoopDir -ChildPath "apps" -AdditionalChildPath "curl", "current", "bin"
+	if (Test-Path (Join-Path -Path $CurlBin -ChildPath "curl.exe"))
 	{
 		$Env:PATH = $CurlBin + ";" + $Env:PATH
 	}
@@ -350,7 +350,7 @@ function Unregister-GitCoreutilsShims
 
 function Register-GitCoreutilsShims
 {
-	$ScoopGitBinDir = Join-Path -Path $ScoopDir -ChildPath "apps" | Join-Path -ChildPath "git" | Join-Path -ChildPath "current" | Join-Path -ChildPath "usr" | Join-Path -ChildPath "bin"
+	$ScoopGitBinDir = Join-Path -Path $ScoopDir -ChildPath "apps" -AdditionalChildPath "git", "current", "usr", "bin"
 	$CoreutilsBin | ForEach-Object {
 		$BinPath = Join-Path -Path $ScoopGitBinDir -ChildPath "$_.exe"
 		if ($_ -eq "rm")
