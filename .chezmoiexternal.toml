@@ -38,6 +38,14 @@ stripComponents = 2
 include = ["*/themes/*.conf"]
 url = "https://github.com/catppuccin/kitty/archive/refs/heads/main.zip"
 
+["Library/Developer/Xcode/UserData/FontAndColorThemes"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+extract = true
+stripComponents = 2
+include = ["*/dist/*.xccolortheme"]
+url = "https://github.com/catppuccin/xcode/archive/refs/heads/main.zip"
+
 {{ end }}
 
 {{ if eq .chezmoi.os "windows" }}
