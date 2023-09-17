@@ -28,6 +28,22 @@ stripComponents = 3
 include = ["*/themes/default/*.toml"]
 url = "https://github.com/catppuccin/helix/archive/refs/heads/main.zip"
 
+[".config/gitui/themes"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+extract = true
+stripComponents = 2
+include = ["*/theme/*.ron"]
+url = "https://github.com/catppuccin/gitui/archive/refs/heads/main.zip"
+
+[".config/lazygit"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+extract = true
+stripComponents = 1
+include = ["*/themes/**", "*/themes-mergable/**"]
+url = "https://github.com/catppuccin/lazygit/archive/refs/heads/main.zip"
+
 {{ if eq .chezmoi.os "darwin" }}
 
 [".config/kitty/themes"]
