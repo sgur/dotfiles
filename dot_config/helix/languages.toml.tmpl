@@ -96,6 +96,7 @@ language-servers = ["yaml-language-server", "efm-langserver"]
 [[language]]
 name = "toml"
 language-servers = ["taplo-lsp", "efm-langserver"]
+formatter = { command = "taplo-lsp", args = ["format", "-"]}
 
 [[language]]
 name = "python"

@@ -72,7 +72,7 @@ highlight.groups = [
   "markup.list.numbered",
   "markup.list.unchecked",
   "markup.list.unnumbered",
-  "markup.quote" ,
+  "markup.quote",
   "markup.raw",
   "markup.raw.block",
   "markup.raw.inline",
