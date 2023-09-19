@@ -1,0 +1,8 @@
+@REM このファイルは %LocalAppData%\clink に保存する
+@echo off
+
+{{ if lookPath "eza.exe" -}}
+@doskey ls=eza.exe --classify --color=auto --color-scale --icons --ignore-glob="NTUSER.*|ntuser.*|Application Data|Local Settings|My Documents|Start Menu|スタート メニュー" $*
+{{ else if lookPath "ls.exe" -}}
+@doskey ls=ls.exe -F --ignore="NTUSER.DAT*" --ignore="My Documents" --ignore="Application Data" --ignore="Local Settings" $*
+{{ end -}}

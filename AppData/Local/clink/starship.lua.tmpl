@@ -1,3 +1,5 @@
 -- starship.lua
 
+{{ if stat (lookPath "starship") -}}
 load(io.popen('starship init cmd'):read("*a"))()
+{{ end -}}

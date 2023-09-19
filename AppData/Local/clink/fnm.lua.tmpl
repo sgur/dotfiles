@@ -1,4 +1,7 @@
+-- fnm.lua
+{{ if stat (lookPath "fnm") -}}
 ---@diagnostic disable: undefined-global, undefined-field
+
 if (clink.version_encoded or 0) < 10020030 then
    error("fnm requires a newer version of Clink; please upgrade to Clink v1.2.30 or later.")
 end
@@ -25,3 +28,4 @@ local function fnm_init_error(err)
   print("fnm env failed:", err)
 end
 xpcall(fnm_init, fnm_init_error)
+{{ end -}}

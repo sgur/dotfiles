@@ -98,6 +98,12 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://github.com/catppuccin/imhex/releases/latest/download/catppuccin-mocha.json"
 
+["AppData/Local/clink/lib/clink-zoxide"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+stripComponents = 1
+url = "https://github.com/shunsambongi/clink-zoxide/archive/refs/heads/master.zip"
+
 {{ else }} # Non-Windows
 
 [".config/fish"]
