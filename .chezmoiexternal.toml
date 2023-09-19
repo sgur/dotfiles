@@ -15,10 +15,10 @@ url = "https://github.com/k-takata/minpac/archive/refs/heads/master.zip"
 type = "file"
 url = "https://raw.githubusercontent.com/vim-scripts/zenesque.vim/master/colors/zenesque.vim"
 
-[".local/share/dict/"]
-type = "archive"
+[".local/share/dict/en_US.txt"]
+type = "archive-file"
 url = "https://sourceforge.net/projects/wordlist/files/speller/2020.12.07/wordlist-en_US-2020.12.07.zip/download"
-include = ["en_US.txt"]
+path = "en_US.txt"
 
 [".config/helix/themes"]
 type = "archive"
@@ -74,16 +74,21 @@ stripComponents = 1
 include = ["*/en-US/**", "*/*.ps*"]
 url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
 
-[".local/bin/"]
-type = "archive"
+[".local/bin/eza.exe"]
+type = "archive-file"
 refreshPeriod = "168h" # 1-week
-stripComponents = 0
-include = ["eza.exe"]
+path = "eza.exe"
 url = "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-pc-windows-gnu.zip"
+
+[".local/bin/taplo.exe"]
+type = "archive-file"
+refreshPeriod = "168h" # 1-wee
+path = "taplo.exe"
+url = "https://github.com/tamasfe/taplo/releases/latest/download/taplo-full-windows-x86_64.zip"
 
 ["AppData/Local/imhex/themes/catppuccin-frappe.json"]
 type = "file"
-refreshPeriod = "168h" # 1-week
+refreshPeriod = "168h" # 1-wee
 url = "https://github.com/catppuccin/imhex/releases/latest/download/catppuccin-frappe.json"
 ["AppData/Local/imhex/themes/catppuccin-latte.json"]
 type = "file"
