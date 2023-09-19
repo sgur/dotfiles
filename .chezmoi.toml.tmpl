@@ -8,18 +8,18 @@
 {{- $wsl_systemd = promptBoolOnce . "systemd" "Using systemd" -}}
 {{- end -}}
 
-{{- $cpuCores := 1 }}
-{{- $cpuThreads := 1 }}
-{{- if eq .chezmoi.os "darwin" }}
-{{-   $cpuCores = (output "sysctl" "-n" "hw.physicalcpu_max") | trim | atoi }}
-{{-   $cpuThreads = (output "sysctl" "-n" "hw.logicalcpu_max") | trim | atoi }}
-{{- else if eq .chezmoi.os "linux" }}
-{{-   $cpuCores = (output "sh" "-c" "lscpu --online --parse | grep --invert-match '^#' | sort --field-separator=',' --key='2,4' --unique | wc --lines") | trim | atoi }}
-{{-   $cpuThreads = (output "sh" "-c" "lscpu --online --parse | grep --invert-match '^#' | wc --lines") | trim | atoi }}
-{{- else if eq .chezmoi.os "windows" }}
-{{-   $cpuCores = (output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" "(Get-CimInstance -ClassName 'Win32_Processor').NumberOfCores") | trim | atoi }}
-{{-   $cpuThreads = (output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" "(Get-CimInstance -ClassName 'Win32_Processor').NumberOfLogicalProcessors") | trim | atoi }}
-{{- end }}
+{{- $cpuCores := 1 -}}
+{{- $cpuThreads := 1 -}}
+{{- if eq .chezmoi.os "darwin" -}}
+{{-   $cpuCores = (output "sysctl" "-n" "hw.physicalcpu_max") | trim | atoi -}}
+{{-   $cpuThreads = (output "sysctl" "-n" "hw.logicalcpu_max") | trim | atoi -}}
+{{- else if eq .chezmoi.os "linux" -}}
+{{-   $cpuCores = (output "sh" "-c" "lscpu --online --parse | grep --invert-match '^#' | sort --field-separator=',' --key='2,4' --unique | wc --lines") | trim | atoi -}}
+{{-   $cpuThreads = (output "sh" "-c" "lscpu --online --parse | grep --invert-match '^#' | wc --lines") | trim | atoi -}}
+{{- else if eq .chezmoi.os "windows" -}}
+{{-   $cpuCores = (output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" "(Get-CimInstance -ClassName 'Win32_Processor').NumberOfCores") | trim | atoi -}}
+{{-   $cpuThreads = (output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" "(Get-CimInstance -ClassName 'Win32_Processor').NumberOfLogicalProcessors") | trim | atoi -}}
+{{- end -}}
 
 progress = true
 format = "yaml"
@@ -28,8 +28,11 @@ format = "yaml"
 {{- if eq .chezmoi.os "windows" }}
 command = "gvim.exe"
 args = ["--remote-tab-wait-silent"]
-{{- else }}
-command = "vim"
+{{- end }}
+
+[diff]
+{{- if lookPath "difft" }}
+command = "difft"
 {{- end }}
 
 [git]
@@ -45,9 +48,9 @@ args=['-NoLogo']
 [data]
 docker = {{ $docker }}
 wsl = {{ $wsl }}
-{{ if $wsl -}}
+{{- if $wsl }}
 wsl_systemd = {{ $wsl_systemd }}
-{{ end -}}
+{{- end }}
 distribution = {{ get .chezmoi.osRelease "id" | quote }}
 cpuCores = {{ $cpuCores }}
 cpuThreads = {{ $cpuThreads }}
