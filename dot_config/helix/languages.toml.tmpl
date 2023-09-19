@@ -107,3 +107,16 @@ roots = ["pyproject.toml"]
 [[language]]
 name = "kdl"
 language-servers = ["efm-langserver"]
+
+[language-server.vscode-json-language-server.config]
+provideFormatter = true
+[language-server.vscode-json-language-server.config.json]
+format = { enable = true }
+
+{{ $catalog := output "curl" "-sJL" "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json" | fromJson -}}
+{{ slice ( $catalog | jq "[.schemas[] | select(.fileMatch | any(endswith(\"json\")))?] | {\"language-server\": {\"vscode-json-language-server\": {config: {json: {schemas: .}}}}}" | toToml | splitList "\n") 5 | join "\n" -}}
+
+[language-server.yaml-language-server.config.yaml]
+format = { enable = true }
+
+{{ slice ( $catalog | jq "[.schemas[] | select(.fileMatch | any(endswith(\"yaml\") or endswith(\"yml\")))? ] | map({(.url): (.fileMatch)}) | {\"language-server\": {\"yaml-language-server\": {config: {yaml: {schemas: .}}}}}" | toToml | splitList "\n") 5 | join "\n" -}}
