@@ -16,12 +16,12 @@ language-servers = ["bash-language-server", "efm-langserver"]
 
 [[language]]
 name = "css"
-formatter = { command = "npx", args = ["prettier", "--parser", "css"] }
+formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "css"] }
 language-servers = ["vscode-css-language-server", "efm-langserver"]
 
 [[language]]
 name = "scss"
-formatter = { command = "npx", args = ["prettier", "--parser", "css"] }
+formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "css"] }
 language-servers = ["vscode-css-language-server", "efm-langserver"]
 
 [[language]]
@@ -36,13 +36,13 @@ language-servers = ["gopls", "efm-langserver"]
 
 [[language]]
 name = "html"
-formatter = { command = "npx", args = ["prettier", "--parser", "html"] }
+formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "html"] }
 language-servers = ["vscode-html-language-server", "efm-langserver"]
 
 [[language]]
 name = "json"
 scope = "source.json"
-formatter = { command = "npx", args = ["prettier", "--parser", "json"] }
+formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "json"] }
 language-servers = ["vscode-json-language-server", "efm-langserver"]
 
 [[language]]
@@ -64,28 +64,30 @@ source = { git = "https://github.com/sgur/tree-sitter-PowerShell", rev = "263b66
 [[language]]
 name = "markdown"
 language-servers = ["marksman", "efm-langserver"]
+auto-format = true
+formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "markdown"] }
 
 [[language]]
 name = "jsx"
-formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
+formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
 language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
 
 [[language]]
 name = "javascript"
-formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
+formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
 language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
 
 [[language]]
 name = "typescript"
-formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
+formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
 language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
 
 [[language]]
 name = "tsx"
-formatter = { command = "npx", args = ["prettier", "--parser", "typescript"] }
+formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
 language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
 
