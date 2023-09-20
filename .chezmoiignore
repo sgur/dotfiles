@@ -5,7 +5,7 @@ README.md
 
 {{ if ne .chezmoi.os "darwin" }}
 # Ignoring on non-macOS
-.chezmoiscripts/darwin/
+.chezmoiscripts/darwin/**
 .Brewfile.darwin
 .config/kitty/
 Library/
@@ -13,13 +13,13 @@ Library/
 
 {{ if ne .chezmoi.os "linux" }}
 # Ignoring on non-Linux
-.chezmoiscripts/linux/
+.chezmoiscripts/linux/**
 .Brewfile.linux
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
 # Ignoring on non-Windows
-.chezmoiscripts/windows/
+.chezmoiscripts/windows/**
 vimfiles/
 AppData/
 AppData/Local/
@@ -81,3 +81,5 @@ scoop/
 
 # helix/runtime
 .config/helix/runtime/
+
+/assets/

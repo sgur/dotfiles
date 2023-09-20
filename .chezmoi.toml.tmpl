@@ -54,3 +54,9 @@ wsl_systemd = {{ $wsl_systemd }}
 distribution = {{ get .chezmoi.osRelease "id" | quote }}
 cpuCores = {{ $cpuCores }}
 cpuThreads = {{ $cpuThreads }}
+
+[interpreters.ps1]
+{{- if eq .chezmoi.os "windows" }}
+command = "pwsh.exe"
+args = ["-NoLogo", "-NoProfile"]
+{{- end }}
