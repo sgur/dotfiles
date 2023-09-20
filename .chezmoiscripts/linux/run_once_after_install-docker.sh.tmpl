@@ -1,4 +1,4 @@
-{{ if and (eq .chezmoi.os "linux") (and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "ubuntu")) .docker -}}
+{{ if and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "ubuntu") .docker -}}
 #!/bin/sh
 
 # https://docs.docker.com/engine/install/ubuntu/
