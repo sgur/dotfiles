@@ -30,7 +30,7 @@
 [credential]
 	helper =
 	helper = manager
-{{-  if not (eq .chezmoi.os "windows") }}
+{{-  if eq .chezmoi.os "linux" }}
 {{-    if and (lookPath "gpg") (lookPath "pass") (stat (joinPath .chezmoi.homeDir ".password-store")) }}
 	credentialStore = gpg
 {{-    else }}
