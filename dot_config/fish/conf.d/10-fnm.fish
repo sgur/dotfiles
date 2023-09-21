@@ -1,7 +1,5 @@
 status is-interactive || exit
 
-if not type -q fnm
-    exit 0
-end
+type -q fnm || exit
 
 fnm env --use-on-cd | source

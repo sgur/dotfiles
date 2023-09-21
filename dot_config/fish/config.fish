@@ -12,8 +12,10 @@ end
 # 共通の設定はログインシェルでのみ行う
 status is-login || exit
 
-for dir_path in ~/.yarn/bin ~/.cargo/bin ~/go/bin
-    fish_add_path $dir_path
+for dir_path in ~/.yarn/bin ~/.cargo/bin ~/go/bin ~/.dotnet/tools
+    if test -d $dir_path
+        fish_add_path $dir_path
+    end
 end
 fish_add_path ~/bin ~/.local/bin
 
