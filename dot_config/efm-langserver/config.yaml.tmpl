@@ -71,15 +71,6 @@ tools:
       - prettier.config.js
       - prettier.config.cjs
       - .prettierrc.toml
-    commands:
-      - title: 'prettier fix'
-        command: {{ lookPath "npx" }}
-        arguments:
-          - '--yes'
-          - 'prettier'
-          - '--fix'
-          - '--write'
-          - '${INPUT}'
 
   markdown-markdownlint-cli2: &markdown-markdownlint-cli2
     prefix: markdownlint-cli2
