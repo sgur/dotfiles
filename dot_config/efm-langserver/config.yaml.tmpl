@@ -3,11 +3,7 @@
 version: 2
 root-markers:
   - .git/
-{{ if eq .chezmoi.os "windows" -}}
-log-file: {{ joinPath (env "TEMP") "efm-langserver.log" }}
-{{ else -}}
-log-file: {{ joinPath (output "mktemp" "-d" "-u" | trim | osDir) "efm-langserver.log" }}
-{{ end -}}
+log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
 log-level: 2
 
 # commands:
@@ -43,19 +39,6 @@ tools:
     lint-stdin: true
     lint-formats:
       - "%f:%l:%c: %m"
-    commands:
-      - title: 'stylelint fix'
-        command: {{ lookPath "npx" }}
-        arguments:
-          - '--yes'
-          - '--package=stylelint'
-          - '--package=stylelint-config-standard'
-          - '--'
-          - 'stylelint'
-          - '--config'
-          - {{ joinPath .chezmoi.homeDir ".config" "stylelintrc.yaml" | squote }}
-          - '--fix'
-          - '${INPUT}'
 
   any-prettier: &any-prettier
     prefix: prettier
@@ -102,18 +85,6 @@ tools:
     lint-formats:
       - "%f:%l:%c %m"
       - "%f:%l %m"
-    commands:
-      - title: 'markdownlint fix'
-        command: {{ lookPath "npx" }}
-        arguments:
-          - '--yes'
-          - '--package=markdownlint-cli'
-          - '--'
-          - 'markdownlint'
-          - '--config'
-          - {{ joinPath .chezmoi.homeDir ".config" "markdownlint.yaml" | squote }}
-          - '--fix'
-          - '${INPUT}'
 
   html-markuplint: &html-markuplint
     prefix: markuplint
@@ -153,7 +124,13 @@ tools:
 # pip3 install --user black
   python-black: &python-black
     prefix: black
-    format-command: "black --quiet -"
+    format-command: "black - --quiet --stdin-filename ${INPUT}"
+    format-stdin: true
+
+# pip3 install --user isort
+  python-isort: &python-isort
+    prefix: isort
+    format-command: "isort - --quiet --stdout"
     format-stdin: true
 
 # {scoop,brew} install hadolint
@@ -162,17 +139,6 @@ tools:
     lint-command: hadolint
     lint-formats:
       - "%f:%l %m"
-
-# pip3 install --user yamllint
-  yaml-yamllint: &yaml-yamllint
-    prefix: yamllint
-    lint-command: "yamllint --strict --format parsable -"
-    lint-stdin: true
-    lint-formats:
-      - '%f:%l:%c: [%t%*[a-z]] %m'
-    env:
-      - 'PYTHONIOENCODING=UTF-8'
-      - 'PYTHONUTF8=1'
 
 # scoop or brew install actionlint
   yaml-actionlint: &yaml-actionlint
@@ -257,20 +223,6 @@ tools:
       - "%E%f:%l:%c: %m"
       - "%Z%m [%trror/%r]"
       - "%C%m"
-    commands:
-      - title: 'textlint fix'
-        command: {{ lookPath "npx" }}
-        arguments:
-          - '--yes'
-          - '--package=textlint'
-          - '--package=textlint-rule-preset-ja-technical-writing'
-          - '--package=textlint-rule-preset-ja-spacing'
-          - '--package=textlint-rule-preset-japanese'
-          - 'textlint'
-          - '--config'
-          - {{ joinPath .chezmoi.homeDir ".config" "textlintrc.yaml" | squote }}
-          - '--fix'
-          - '${INPUT}'
 
 languages:
   css:
@@ -312,6 +264,7 @@ languages:
     # - <<: *python-flake8
     - <<: *python-mypy
     - <<: *python-black
+    - <<: *python-isort
     - <<: *any-cspell
 
   scss:
@@ -333,7 +286,7 @@ languages:
     - <<: *any-prettier
 
   yaml:
-    - <<: *yaml-yamllint
+    # - <<: *yaml-yamllint
     - <<: *yaml-actionlint
     - <<: *any-prettier
 
