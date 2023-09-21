@@ -1,0 +1,2 @@
+{{- $path := joinPath (ternary (joinPath "/mnt" "c" "Users" (expandenv "$USER")) (expandenv "$USERPROFILE") (empty (env "USERPROFILE"))) "scoop" "apps" "typora" "current" "typora.exe" -}}
+{{ lookPath $path -}}
