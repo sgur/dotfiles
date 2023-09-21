@@ -28,6 +28,8 @@ format = "yaml"
 {{- if eq .chezmoi.os "windows" }}
 command = "gvim.exe"
 args = ["--remote-tab-wait-silent"]
+{{- else }}
+command = "vim"
 {{- end }}
 
 [diff]
