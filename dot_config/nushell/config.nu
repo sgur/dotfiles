@@ -785,6 +785,45 @@ $env.config = {
                 ]
             }
         }
+        {
+            name: fuzzy_history
+            modifier: control
+            keycode: char_r
+            mode: [emacs, vi_normal, vi_insert]
+            event: [
+                {
+                    send: ExecuteHostCommand
+                    cmd: "commandline (
+                        history
+                            | each { |it| $it.command }
+                            | uniq
+                            | reverse
+                            | str join (char -i 0)
+                            | fzf --read0 --layout=reverse --height=40% -q (commandline)
+                            | decode utf-8
+                            | str trim
+                    )"
+                }
+            ]
+        }
+        {
+            name: fuzzy_repository
+            modifier: control
+            keycode: char_q
+            mode: [emacs, vi_normal, vi_insert]
+            event: [
+                {
+                    send: ExecuteHostCommand
+                    cmd: "cd (
+                        ghq list
+                            | fzf --layout=reverse --height=40% -q (commandline)
+                            | decode utf-8
+                            | path join (ghq root) $in
+                            | str trim
+                    )"
+                }
+            ]
+        }
     ]
 }
 
