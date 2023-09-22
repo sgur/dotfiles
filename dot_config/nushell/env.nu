@@ -30,12 +30,10 @@ $env.NU_PLUGIN_DIRS = [
 # To add entries to PATH (on Windows you might use Path), you can use the following pattern:
 # $env.PATH = ($env.PATH | split row (char esep) | prepend '/some/path')
 
-mkdir ~/.cache
+mkdir ~/.cache/nushell
 if (not (which starship | is-empty)) {
-    mkdir ~/.cache/starship
-    starship init nu | save -f ~/.cache/starship/init.nu
+    starship init nu | save -f ~/.cache/nushell/starship.nu
 }
 if (not (which zoxide | is-empty)) {
-    mkdir ~/.cache/zoxide
-    zoxide init nushell | save -f ~/.cache/zoxide/init.nu
+    zoxide init nushell | save -f ~/.cache/nushell/zoxide.nu
 } 

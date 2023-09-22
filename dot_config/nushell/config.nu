@@ -827,9 +827,9 @@ $env.config = {
     ]
 }
 
-if (not (which starship | is-empty)) {
-    source ~/.cache/starship/init.nu
+if ("~/.cache/nushell/starship.nu" | path exists) {
+    source ~/.cache/nushell/starship.nu
 }
-if (not (which zoxide | is-empty)) {
-    source ~/.cache/zoxide/init.nu
+if ("~/.cache/nushell/zoxide.nu" | path exists) {
+    source ~/.cache/nushell/zoxide.nu
 } 
