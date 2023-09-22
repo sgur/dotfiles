@@ -22,8 +22,12 @@ fish_add_path ~/bin ~/.local/bin
 # meaningful-ooo/sponge
 set sponge_purge_only_on_exit true
 
+set -gx EDITOR vim
 # git commit では copilot を使いたいので vim を利用する
 set -gx GIT_EDITOR vim
+if type -q hx
+    set -gx EDITOR hx
+end
 
 if test (uname) = Darwin -a "$TERM" = screen-256color
     set -gx TERM xterm-256color
