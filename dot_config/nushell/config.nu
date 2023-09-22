@@ -833,3 +833,7 @@ if ("~/.cache/nushell/starship.nu" | path exists) {
 if ("~/.cache/nushell/zoxide.nu" | path exists) {
     source ~/.cache/nushell/zoxide.nu
 } 
+
+if ("~/.config/broot/launcher/nushell/br" | path exists) {
+    source ~/.config/broot/launcher/nushell/br
+}
