@@ -79,12 +79,6 @@ stripComponents = 1
 include = ["*/en-US/**", "*/*.ps*"]
 url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
 
-[".local/bin/eza.exe"]
-type = "archive-file"
-refreshPeriod = "168h" # 1-week
-path = "eza.exe"
-url = "https://github.com/eza-community/eza/releases/latest/download/eza.exe_x86_64-pc-windows-gnu.zip"
-
 [".local/bin/taplo-lsp.exe"]
 type = "archive-file"
 refreshPeriod = "168h" # 1-wee
