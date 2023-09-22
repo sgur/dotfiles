@@ -33,7 +33,19 @@ $env.NU_PLUGIN_DIRS = [
 mkdir ~/.cache/nushell
 if (not (which starship | is-empty)) {
     starship init nu | save -f ~/.cache/nushell/starship.nu
+} else {
+    rm --force ~/.cache/nushell/starship.nu
+    touch ~/.cache/nushell/starship.nu
 }
 if (not (which zoxide | is-empty)) {
     zoxide init nushell | save -f ~/.cache/nushell/zoxide.nu
+} else {
+    rm --force ~/.cache/nushell/zoxide.nu
+    touch ~/.cache/nushell/zoxide.nu
+}
+if $nu.os-info.name == "windows" {
+    cp ~/AppData/Roaming/dystroy/broot/config/launcher/nushell/br ~/.cache/nushell/broot.nu
 } 
+if $nu.os-info.name == "linux" {
+    cp ~/.config/broot/config/launcher/nushell/br ~/.cache/nushell/broot.nu
+}

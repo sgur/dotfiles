@@ -827,13 +827,6 @@ $env.config = {
     ]
 }
 
-if ("~/.cache/nushell/starship.nu" | path exists) {
-    source ~/.cache/nushell/starship.nu
-}
-if ("~/.cache/nushell/zoxide.nu" | path exists) {
-    source ~/.cache/nushell/zoxide.nu
-} 
-
-if ("~/.config/broot/launcher/nushell/br" | path exists) {
-    source ~/.config/broot/launcher/nushell/br
-}
+source ~/.cache/nushell/starship.nu
+source ~/.cache/nushell/zoxide.nu
+source ~/.cache/nushell/broot.nu
