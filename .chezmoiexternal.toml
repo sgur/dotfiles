@@ -78,7 +78,7 @@ url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
 type = "archive-file"
 refreshPeriod = "168h" # 1-week
 path = "eza.exe"
-url = "https://github.com/eza-community/eza/releases/latest/download/eza_x86_64-pc-windows-gnu.zip"
+url = "https://github.com/eza-community/eza/releases/latest/download/eza.exe_x86_64-pc-windows-gnu.zip"
 
 [".local/bin/taplo-lsp.exe"]
 type = "archive-file"
