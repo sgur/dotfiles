@@ -118,6 +118,8 @@ try
 	Write-Warning "Update PsReadline: pwsh -NoProfile -Command ""Install-Module PSReadLine -Force -AllowPrerelease"""
 }
 
+# xh completions
+. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Xh.ps1')
 
 # bat
 $Env:BAT_CONFIG_PATH = (Resolve-Path "~/.config/bat/config").Path

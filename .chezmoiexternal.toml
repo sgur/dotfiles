@@ -66,6 +66,11 @@ url = "https://github.com/catppuccin/xcode/archive/refs/heads/main.zip"
 
 {{ if eq .chezmoi.os "windows" }}
 
+["Documents/PowerShell/Scripts/Complete-Xh.ps1"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://raw.githubusercontent.com/ducaale/xh/master/completions/_xh.ps1"
+
 ["Documents/PowerShell/Modules/Catppuccin"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
