@@ -33,13 +33,21 @@ verbs: [
     # Example:
     #  execution: nvim +{line} {file}
     {
-        invocation: edit
+        # invocation: edit
         keys: [
             enter
-            right
         ]
         shortcut: e
-        execution: "$EDITOR +{line} {file}"
+        # execution: "$EDITOR +{line} {file}"
+        execution: "hx {file}:{line}"
+        leave_broot: false
+        apply_to: file
+    }
+    {
+        keys: [
+            right
+        ]
+        execution: "zellij edit --line-number {line} {file}"
         leave_broot: false
         apply_to: file
     }
