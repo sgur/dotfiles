@@ -132,6 +132,8 @@ let light_theme = {
     shape_vardecl: purple
 }
 
+use ~/.config/nushell/themes/catppuccin-mocha.nu
+
 # External completer example
 # let carapace_completer = {|spans|
 #     carapace $spans.0 nushell $spans | from json
@@ -236,7 +238,8 @@ $env.config = {
         vi_normal: underscore # block, underscore, line, blink_block, blink_underscore, blink_line (underscore is the default)
     }
 
-    color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
+    # color_config: $dark_theme # if you want a more interesting theme, you can replace the empty record with `$dark_theme`, `$light_theme` or another custom record
+    color_config: ($dark_theme | merge (catppuccin-mocha))
     use_grid_icons: true
     footer_mode: "25" # always, never, number_of_rows, auto
     float_precision: 2 # the precision for displaying floats in tables
