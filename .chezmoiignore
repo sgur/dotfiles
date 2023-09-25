@@ -33,9 +33,9 @@ scoop/
 .actrc
 .bashrc
 .profile
+.local/bin/taplo-lsp.exe
 .local/bin/wsl-*
 .local/bin/xdg-*
-.local/bin/*.exe
 .config/kak/
 .config/kak-lsp/
 .config/fish/
@@ -49,9 +49,12 @@ scoop/
 {{ if not .wsl }}
 # Ignoring on non-Windows-WSL
 .local/bin/clip.exe
+.local/bin/cmd.exe
 .local/bin/code
 .local/bin/pass
 .local/bin/powershell.exe
+.local/bin/pwsh.exe
+.local/bin/typora
 .local/bin/wsl-compact-memory
 .local/bin/xdg-open
 {{ else }}
