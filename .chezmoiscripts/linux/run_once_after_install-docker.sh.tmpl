@@ -11,7 +11,7 @@ sudo apt-get update
 sudo apt-get install -y ca-certificates curl gnupg
 
 sudo install -m 0755 -d /etc/apt/keyrings
-curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /etc/apt/keyrings/docker.gpg
+curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor --output /etc/apt/keyrings/docker.gpg
 sudo chmod a+r /etc/apt/keyrings/docker.gpg
 
 echo \
@@ -27,7 +27,9 @@ sudo usermod $USER --append --group docker
 {{   if (and .wsl (not (include "/etc/wsl.conf" | fromToml).boot.systemd)) -}}
 mkdir -p /etc/docker/
 echo '{ "hosts": ["unix:///var/run/docker.sock", "tcp://0.0.0.0:2375"] }' | sudo tee /etc/docker/daemon.json > /dev/null
-echo {{ include "/etc/wsl.conf" | fromToml | setValueAtPath "boot.command" "/usr/sbin/service docker start" | toToml | quote }} | sudo tee /etc/wsl.conf
+cat << EOS | sudo tee /etc/wsl.conf
+{{ include "/etc/wsl.conf" | fromToml | setValueAtPath "boot.command" "/usr/sbin/service docker start" | toToml | replace "'" "\"" }}
+EOS
 {{   else -}}
 cat - << EOS | sudo tee /etc/systemd/system/docker.service.d/override.conf > /dev/null
 # % systemd daemon-reload
