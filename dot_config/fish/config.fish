@@ -21,6 +21,7 @@ fish_add_path ~/bin ~/.local/bin
 
 # meaningful-ooo/sponge
 set sponge_purge_only_on_exit true
+set sponge_delay 5
 
 set -gx EDITOR vim
 # git commit では copilot を使いたいので vim を利用する
