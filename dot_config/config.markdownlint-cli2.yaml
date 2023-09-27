@@ -4,6 +4,8 @@ config:
   default: true
   # MD013/line-length
   MD013: false
+  # MD024/no-duplicate-heading
+  MD024: false 
   # MD025/single-title/single-h1
   MD025: false
   # MD033/no-inline-html
