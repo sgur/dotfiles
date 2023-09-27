@@ -134,7 +134,7 @@ endfunction "}}}
 let s:lsp_settings_javascript_langservers = ['typescript-language-server', 'eslint-language-server', 'tailwindcss-intellisense']
 let g:lsp_settings_filetype_javascript = s:lsp_settings_javascript_langservers
 let g:lsp_settings_filetype_javascriptreact = s:lsp_settings_javascript_langservers
-let g:lsp_settings_filetype_typescript = s:lsp_settings_javascript_langservers
+let g:lsp_settings_filetype_typescript = s:lsp_settings_javascript_langservers + ['deno']
 let g:lsp_settings_filetype_typescriptreact = s:lsp_settings_javascript_langservers
 
 let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver']
