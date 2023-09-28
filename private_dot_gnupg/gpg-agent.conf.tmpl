@@ -1,0 +1,11 @@
+{{ if and .wsl (lookPath "powershell.exe") -}}
+pinentry-program {{ joinPath .chezmoi.homeDir ".local" "bin" "pinentry-wsl-ps1" }}
+{{ else -}}
+pinentry-program {{ output "which" "pinentry-curses" }}
+{{ end -}}
+default-cache-ttl 3600
+max-cache-ttl 14400
+
+enable-ssh-support
+default-cache-ttl-ssh 1800
+max-cache-ttl-ssh 7200
