@@ -29,7 +29,6 @@ brew "helix", args: ["HEAD"]
 brew "htmlq"
 brew "jq"
 brew "kakoune"
-brew "lazydocker"
 brew "macvim"
 brew "node@18"
 brew "openjdk@17"
