@@ -27,15 +27,13 @@ AppData/Roaming/
 Documents/
 scoop/
 .wslconfig
-.local/bin/*.cmd
+bin/*.cmd
 {{ else }}
 # Ignoring on Windows
 .actrc
 .bashrc
 .profile
 .local/bin/taplo-lsp.exe
-.local/bin/wsl-*
-.local/bin/xdg-*
 .config/kak/
 .config/kak-lsp/
 .config/fish/
@@ -55,8 +53,8 @@ scoop/
 .local/bin/powershell.exe
 .local/bin/pwsh.exe
 .local/bin/typora
-.local/bin/wsl-compact-memory
-.local/bin/xdg-open
+bin/wsl-compact-memory
+bin/xdg-open
 {{ else }}
 # Ignoring on Windows-WSL
 .config/kitty/
