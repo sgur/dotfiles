@@ -2,6 +2,7 @@ README.md
 .config/fish/fish_variables
 .vim/pack/minpac
 .vim/pack/chezmoi/*/*/doc/tags
+Tools/*
 
 {{ if ne .chezmoi.os "darwin" }}
 # Ignoring on non-macOS
@@ -20,28 +21,28 @@ Library/
 {{ if ne .chezmoi.os "windows" }}
 # Ignoring on non-Windows
 .chezmoiscripts/windows/**
-vimfiles/
+.wslconfig
 AppData/
 AppData/Local/
 AppData/Roaming/
 Documents/
-scoop/
-.wslconfig
 bin/*.cmd
+scoop/
+vimfiles/
 {{ else }}
 # Ignoring on Windows
+.Brewfile*
 .actrc
 .bashrc
-.profile
-.local/bin/taplo-lsp.exe
-.config/kak/
-.config/kak-lsp/
 .config/fish/
-.config/zellij/
+.config/kak-lsp/
+.config/kak/
 .config/kitty/
 .config/rtx/
-.Brewfile*
+.config/zellij/
 .gnupg/
+.local/bin/taplo-lsp.exe
+.profile
 {{ end }}
 
 {{ if not .wsl }}

@@ -81,6 +81,24 @@ executable = true
 
 {{ if eq .chezmoi.os "windows" }}
 
+["Tools/FaithType"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+extract = true
+stripComponents = 1
+url = "https://github.com/m13253/FaithType/releases/download/latest/FaithType.zip"
+
+["Tools/Disable Peak Limiter"]
+type = "archive"
+extract = true
+stripComponents = 1
+url = "https://kawamoto.no-ip.org/henteko/myapp/dpeaklim12.zip"
+
+["Tools/noMeiryoUI"]
+type = "archive"
+extract = true
+url = "https://github.com/Tatsu-syo/noMeiryoUI/releases/download/TAG-3.2.1.1/noMeiryoUI3.2.1.1.zip"
+
 ["Documents/PowerShell/Scripts/Complete-Xh.ps1"]
 type = "file"
 refreshPeriod = "168h" # 1-week
