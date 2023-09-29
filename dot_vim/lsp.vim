@@ -41,7 +41,7 @@ let g:lsp_diagnostics_echo_cursor = !g:lsp_diagnostics_float_cursor
 let g:lsp_diagnostics_float_cursor = exists('*popup_create')
 let g:lsp_diagnostics_virtual_text_enabled = has('textprop') && has('patch-9.0.0178')
 let g:lsp_diagnostics_virtual_text_insert_mode_enabled = get(g:, 'lsp_diagnostics_virtual_text_enabled', 0) && has('textprop') && has('patch-9.0.0178')
-let g:lsp_diagnostics_virtual_text_align = 'after'
+let g:lsp_diagnostics_virtual_text_align = 'above'
 let g:lsp_diagnostics_virtual_text_padding_left = 4
 let g:lsp_diagnostics_virtual_text_prefix = "--- "
 let g:lsp_diagnostics_virtual_text_wrap = "truncate"
@@ -83,7 +83,18 @@ augroup vimrc_plugin_lsp
   autocmd BufWinEnter *  call s:on_bufwinenter_lsp()
   autocmd OptionSet readonly  call s:on_bufwinenter_lsp()
   autocmd FileType lsp-quickpick-filter  setlocal iminsert=0
+  " autocmd CursorHold *  call s:lsp_hover_command()
 augroup END
+
+function! s:lsp_hover_command() abort "{{{
+  let hover_enabled_servers =
+        \ lsp#get_allowed_servers()
+        \ ->filter({k, v -> v != 'efm-langserver'})
+        \ ->filter({k, v -> lsp#get_server_status(v) == 'running'})
+        \ ->filter({k, v -> get(lsp#get_server_capabilities(v), 'hoverProvider', v:false) })
+  let hover_command = empty(hover_enabled_servers) ? "LspHover" : "LspHover --server=" .. hover_enabled_servers[0]
+  execute hover_command
+endfunction "}}}
 
 function! s:buffer_setup() abort "{{{
   nmap <silent> <expr> [g max(values(lsp#get_buffer_diagnostics_counts())) > 0 ? "\<Plug>(lsp-previous-diagnostic)" : ":\<C-u>cprevious\<CR>"
@@ -91,26 +102,21 @@ function! s:buffer_setup() abort "{{{
   setlocal tagfunc=lsp#tagfunc
   setlocal omnifunc=lsp#omni#complete
 
-  nmap <buffer> <C-LeftMouse>  <plug>(lsp-definition)
-  nmap <buffer> <LocalLeader>ca <Plug>(lsp-code-action)
-  nmap <buffer> <LocalLeader>cl <Plug>(lsp-code-lens)
-  nmap <buffer> <LocalLeader>dec <Plug>(lsp-declaration)
-  nmap <buffer> <LocalLeader>def <Plug>(lsp-definition)
-  nmap <buffer> <LocalLeader>dd <Plug>(lsp-document-diagnostics)
-  nmap <buffer> <LocalLeader>df <Plug>(lsp-document-format)
-  vmap <buffer> <LocalLeader>df <Plug>(lsp-document-format)
-  nmap <buffer> <LocalLeader>h <Plug>(lsp-hover)
-  nmap <buffer> <LocalLeader>impl <Plug>(lsp-implementation)
-  nmap <buffer> <LocalLeader>pdec <Plug>(lsp-peek-declaratioN)
-  nmap <buffer> <LocalLeader>pdef <Plug>(lsp-peek-definition)
-  nmap <buffer> <LocalLeader>pimpl <plug>(lsp-peek-implementation)
-  nmap <buffer> <LocalLeader>ptdef <plug>(lsp-peek-type-definition)
-  nmap <buffer> <LocalLeader>ref <Plug>(lsp-references)
-  nmap <buffer> <LocalLeader>ren <Plug>(lsp-rename)
-  nmap <buffer> <LocalLeader>sig <Plug>(lsp-signature-help)
-  nmap <buffer> <LocalLeader>st <Plug>(lsp-status)
-  nmap <buffer> <LocalLeader>tdef <Plug>(lsp-type-definition)
-  nmap <buffer> <LocalLeader>ws <Plug>(lsp-workspace-symbol)
+  " helix-like mappings
+  nmap <buffer> <LocalLeader>s <Plug>(lsp-document-symbol)
+  nmap <buffer> <LocalLeader>S <Plug>(lsp-workspace-symbol)
+  nmap <buffer> <LocalLeader>d <Plug>(lsp-document-diagnostics)
+  nmap <buffer> <LocalLeader>a <Plug>(lsp-code-action)
+  nmap <buffer> <LocalLeader>k <Plug>(lsp-hover)
+  nmap <buffer> <LocalLeader>f <Plug>(lsp-document-format)
+  nmap <buffer> <LocalLeader>r <Plug>(lsp-rename)
+
+  nmap <buffer> <LocalLeader>gd <Plug>(lsp-definition)
+  nmap <buffer> <LocalLeader>gD <Plug>(lsp-declaration)
+  nmap <buffer> <LocalLeader>gi <Plug>(lsp-implementation)
+  nmap <buffer> <LocalLeader>gr <Plug>(lsp-references)
+  nmap <buffer> <LocalLeader>gy <Plug>(lsp-type-definition)
+
   nmap <buffer> [d  <Plug>(lsp-previous-diagnostic)
   nmap <buffer> ]d  <Plug>(lsp-next-diagnostic)
 endfunction "}}}
@@ -138,9 +144,6 @@ let g:lsp_settings_filetype_typescript = s:lsp_settings_javascript_langservers +
 let g:lsp_settings_filetype_typescriptreact = s:lsp_settings_javascript_langservers
 
 let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver']
-
-let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver']
-
 
 let g:lsp_settings = get(g:, 'lsp_settings', {})
 

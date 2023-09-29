@@ -92,6 +92,7 @@ set tags+=tags;,.git/tags
 set textwidth=132 # B4 ラインプリンタの桁数は 136 桁
 set ttimeout ttimeoutlen=100
 set undodir^=$HOME/.cache/vim/undo undofile
+set updatetime=2000
 set visualbell
 set virtualedit+=block
 set viewdir=$HOME/.cache/vim/view
