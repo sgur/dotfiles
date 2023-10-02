@@ -107,6 +107,7 @@ name = "yaml"
 language-servers = ["yaml-language-server", "efm-langserver"]
 
 [language-server]
+deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
 eslint-language-server = { command = "eslint-language-server", args = ["--stdio"] }
 pylsp-all = { command = "pylsp-all" }
