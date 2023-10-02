@@ -107,7 +107,8 @@ function! s:buffer_setup() abort "{{{
   nmap <buffer> <LocalLeader>S <Plug>(lsp-workspace-symbol)
   nmap <buffer> <LocalLeader>d <Plug>(lsp-document-diagnostics)
   nmap <buffer> <LocalLeader>a <Plug>(lsp-code-action)
-  nmap <buffer> <LocalLeader>k <Plug>(lsp-hover)
+  " nmap <buffer> <LocalLeader>k <Plug>(lsp-hover)
+  nmap <buffer> <LocalLeader>k <Cmd>call <SID>lsp_hover_command()<CR>
   nmap <buffer> <LocalLeader>f <Plug>(lsp-document-format)
   nmap <buffer> <LocalLeader>r <Plug>(lsp-rename)
 
