@@ -69,16 +69,6 @@ url = "https://github.com/catppuccin/xcode/archive/refs/heads/main.zip"
 
 {{ end }}
 
-{{ if .wsl }}
-
-[".local/bin/pinentry-wsl-ps1"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://raw.githubusercontent.com/diablodale/pinentry-wsl-ps1/master/pinentry-wsl-ps1.sh"
-executable = true
-
-{{ end }}
-
 {{ if eq .chezmoi.os "windows" }}
 
 ["Tools/FaithType"]
