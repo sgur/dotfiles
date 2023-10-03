@@ -143,3 +143,4 @@ wttr
 xmodifiers
 zellij
 zoxide
+vimrc
