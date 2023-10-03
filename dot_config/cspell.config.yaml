@@ -15,15 +15,15 @@ dictionaryDefinitions:
     path: ~/.config/local-words.txt
 overrides:
   - filename: "**/{*.vim,vimrc,gvimrc}"
-    languageId: "viml"
+    languageId: "vim"
 languageSettings:
-  - languageId: "viml"
+  - languageId: "vim"
     locale: "*"
-    dictionaries: ["viml"]
+    dictionaries: ["vim"]
     dictionaryDefinitions:
       - addWords: true
-        name: viml
-        path: ~/.config/viml-words.txt
+        name: vim
+        path: ~/.config/vim-words.txt
   - languageId: "python"
     locale: "*"
     dictionaries: ["python"]
@@ -31,5 +31,12 @@ languageSettings:
       - addWords: true
         name: python
         path: ~/.config/python-words.txt
+  - languageId: "go"
+    locale: "*"
+    dictionaries: ["go"]
+    dictionaryDefinitions:
+      - addWords: true
+        name: go
+        path: ~/.config/go-words.txt
 ignorePaths:
   - 'node_modules/**'
