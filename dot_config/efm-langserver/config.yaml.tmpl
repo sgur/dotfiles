@@ -4,13 +4,20 @@ version: 2
 root-markers:
   - .git/
 log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
-log-level: 2
+log-level: 3
 
 # commands:
 #   - title: reload
 #     command: :reload-config
 
 tools:
+  fish-lint: &fish-lint
+    lint-command: fish --no-execute
+    lint-stdin: false
+    lint-stderr: true
+    lint-formats:
+      - '%f (line %l): %m'
+
   any-secretlint: &any-secretlint
     prefix: secretlint
     lint-command: >-
@@ -176,15 +183,6 @@ tools:
     lint-formats:
       - "%I%f:%l:%c - %m"
       - "%Z"
-    hover-command: >-
-      {{ lookPath "npx" }} --yes
-      --
-      cspell
-      suggestions
-      --config
-      {{ joinPath .chezmoi.homeDir ".config" "cspell.config.yaml" }}
-      --stdin
-    hover-stdin: true
 
   any-commitlint: &any-commitlint
     prefix: commitlint
@@ -232,6 +230,9 @@ languages:
 
   dockerfile:
     - <<: *dockerfile-hadolint
+
+  fish:
+    - <<: *fish-lint
 
   html:
     - <<: *any-prettier
