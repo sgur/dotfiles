@@ -1,7 +1,12 @@
---theme={{ if eq .chezmoi.os "windows" -}} "Catppuccin-mocha" {{- else -}} "Catppuccin-macchiato" {{- end }}
+--italic-text=always
 
---map-syntax "*.wslconfig:INI"
 --map-syntax "*.conf:INI"
---map-syntax "*.toml.tmpl:TOML"
---map-syntax "*.yaml.tmpl:YAML"
 --map-syntax "*.json*.tmpl:JSON"
+--map-syntax "*.ron:RUST"
+--map-syntax "*.toml.tmpl:TOML"
+--map-syntax "*.wslconfig:INI"
+--map-syntax "*.yaml.tmpl:YAML"
+
+--style="numbers,changes,header"
+
+--theme={{ if eq .chezmoi.os "windows" -}} "Catppuccin-mocha" {{- else -}} "Catppuccin-macchiato" {{- end }}
