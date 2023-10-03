@@ -49,11 +49,10 @@ vimfiles/
 # Ignoring on non-Windows-WSL
 .local/bin/clip.exe
 .local/bin/cmd.exe
-.local/bin/code
-.local/bin/pass
 .local/bin/powershell.exe
 .local/bin/pwsh.exe
 .local/bin/typora
+bin/code
 bin/wsl-compact-memory
 bin/xdg-open
 {{ else }}

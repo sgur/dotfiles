@@ -1,0 +1,5 @@
+#!/bin/sh
+
+{{ $code_path := joinPath .wsl_userprofile "AppData" "Local" "Programs" "Microsoft VS Code" "bin" "code" -}}
+
+env PINENTRY_USER_DATA=code {{ $code_path | quote }} "$@"
