@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+# Choose pinentry depending on PINENTRY_USER_DATA
+# https://a3nm.net/git/mybin/file/my-pinentry.html
+
+case $PINENTRY_USER_DATA in
+code)
+{{ if .wsl -}}
+{{- $pinentryGpg4win := joinPath "/mnt" "c" "Program Files (x86)" "Gpg4win" "bin" "pinentry.exe" -}}
+{{- $pinentryMsysGit := joinPath .wsl_userprofile "scoop" "apps" "git" "current" "usr" "bin" "pinentry.exe" -}}
+{{  if lookPath $pinentryGpg4win -}}
+  exec {{ $pinentryGpg4win | quote }} "$@"
+{{  else if lookPath $pinentryMsysGit -}}
+  exec {{ $pinentryMsysGit | quote }} "$@"
+{{  end -}}
+{{ end -}}
+  ;;
+none)
+  exit 1 # Do not ask for passphrase
+  ;;
+*)
+  exec {{ lookPath "pinentry-curses" }} "$@"
+esac
+
+

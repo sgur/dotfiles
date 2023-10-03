@@ -1,11 +1,5 @@
 {{ if .wsl -}}
-{{- $pinentryGpg4win := joinPath "/mnt" "c" "Program Files (x86)" "Gpg4win" "bin" "pinentry.exe" -}}
-{{- $pinentryMsysGit := joinPath .wsl_userprofile "scoop" "apps" "git" "current" "usr" "bin" "pinentry.exe" -}}
-{{  if lookPath $pinentryGpg4win -}}
-pinentry-program {{ $pinentryGpg4win | quote }}
-{{  else if lookPath $pinentryMsysGit -}}
-pinentry-program {{ $pinentryMsysGit | quote }}
-{{  end -}}
+pinentry-program {{ lookPath "wsl-pinentry" | quote }}
 {{ end -}}
 default-cache-ttl 3600
 max-cache-ttl 14400
