@@ -155,6 +155,7 @@ let g:lsp_settings['efm-langserver'] = #{
       \ disabled: !executable('go'),
       \ initialization_options: #{
       \   documentFormatting: v:true,
+      \   documentRangeFormatting: v:false,
       \   hover: v:true,
       \   documentSymbol: v:true,
       \   codeAction: v:true,
