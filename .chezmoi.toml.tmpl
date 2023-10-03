@@ -4,8 +4,14 @@
 
 {{- $wsl := and (eq .chezmoi.os "linux") (.chezmoi.kernel.osrelease | lower | contains "microsoft") }}
 {{- $wsl_systemd := false -}}
+{{- $wsl_userprofile := "" -}}
 {{- if $wsl -}}
 {{- $wsl_systemd = promptBoolOnce . "systemd" "Using systemd" -}}
+{{-   if env "USERPROFILE" | empty | not -}}
+{{- $wsl_userprofile = env "USERPROFILE" -}}
+{{-   else if expandenv "/mnt/c/Users/$USER" | stat -}}
+{{- $wsl_userprofile = expandenv "/mnt/c/Users/$USER" -}}
+{{-   end -}}
 {{- end -}}
 
 {{- $cpuCores := 1 -}}
@@ -52,6 +58,7 @@ docker = {{ $docker }}
 wsl = {{ $wsl }}
 {{- if $wsl }}
 wsl_systemd = {{ $wsl_systemd }}
+wsl_userprofile = {{ $wsl_userprofile | quote }}
 {{- end }}
 distribution = {{ get .chezmoi.osRelease "id" | quote }}
 cpuCores = {{ $cpuCores }}
