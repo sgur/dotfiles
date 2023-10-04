@@ -1,5 +1,5 @@
 {{ if .wsl -}}
-pinentry-program {{ lookPath "wsl-pinentry" | quote }}
+pinentry-program {{ joinPath .chezmoi.homeDir "bin" "wsl-pinentry" | quote }}
 {{ end -}}
 default-cache-ttl 3600
 max-cache-ttl 14400
