@@ -47,9 +47,8 @@ vimfiles/
 
 {{ if not .wsl }}
 # Ignoring on non-Windows-WSL
-.local/bin/clip.exe
+.cache/vim/bin/
 .local/bin/cmd.exe
-.local/bin/powershell.exe
 .local/bin/pwsh.exe
 .local/bin/typora
 bin/code
