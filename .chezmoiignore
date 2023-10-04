@@ -54,6 +54,7 @@ vimfiles/
 .local/bin/typora
 bin/code
 bin/wsl-compact-memory
+bin/wsl-pinentry
 bin/xdg-open
 {{ else }}
 # Ignoring on Windows-WSL
