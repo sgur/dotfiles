@@ -444,7 +444,7 @@ autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
 autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
       \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
       \   name: 'file',
-      \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' 'css'],
+      \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css'],
       \   completor: function('asyncomplete#sources#file#completor')
       \}))
 # dictionary source
