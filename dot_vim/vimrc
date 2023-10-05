@@ -444,20 +444,20 @@ autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
 autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
       \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
       \   name: 'file',
-      \   allowlist: ['vim', 'javascript', 'css'],
+      \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact' 'css'],
       \   completor: function('asyncomplete#sources#file#completor')
       \}))
 # dictionary source
-autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-      \ asyncomplete#register_source(asyncomplete#sources#dictionary#get_source_options({
-      \   name: 'dictionary',
-      \   allowlist: ['*'],
-      \   completor: function('asyncomplete#sources#dictionary#completor'),
-      \   config: {
-      \     dictionary_file: expand('~/.local/share/dict/words'),
-      \     complete_min_chars: 6,
-      \   }
-      \}))
+# autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+#       \ asyncomplete#register_source(asyncomplete#sources#dictionary#get_source_options({
+#       \   name: 'dictionary',
+#       \   allowlist: ['*'],
+#       \   completor: function('asyncomplete#sources#dictionary#completor'),
+#       \   config: {
+#       \     dictionary_file: expand('~/.local/share/dict/words'),
+#       \     complete_min_chars: 6,
+#       \   }
+#       \}))
 
 if argc(-1) > 0
   autocmd vimrc_plugin_asyncomplete VimEnter *  asyncomplete#enable_for_buffer()
@@ -541,8 +541,12 @@ g:user_emmet_install_global = 0
 
 # fakeclip (opt) {{{2
 if !has('clipboard')
-  if system('cat /proc/sys/kernel/osrelease') =~? 'Microsoft'
-    $PATH ..= ':' .. expand('~/.cache/vim/bin/')
+  if system('cat /proc/sys/kernel/osrelease') =~ 'Microsoft'
+    for bin in ['clip.exe', 'powershell.exe']
+      if !executable(bin)
+        echohl WarningMsg | echo bin "is not in $PATH" | echohl
+      endif
+    endfor
   endif
   call pack.Add('vim-fakeclip')
 endif
@@ -564,6 +568,9 @@ augroup vimrc_plugin_healthcheck
   autocmd FuncUndefined health#*  packadd! vim-healthcheck
 augroup END
 command -nargs=* -bar CheckHealth call health#check([<f-args>])
+
+# lexima (opt) {{{2
+pack.Add('lexima.vim')
 
 # lightline {{{2
 pack.Add('lightline.vim')
@@ -729,25 +736,6 @@ xmap <expr> g<Space>  vimrc#operator#define_excmd('x', 'trailing-space', 'substi
 command! -nargs=0 PackUpdate  packages#update()
 command! -nargs=0 PackClean  packages#clean()
 command! -nargs=0 PackInstall  packages#install()
-
-# pear-tree (opt) {{{2
-# <BS> にしか機能がマップされないので <C-h> でも有効になるようにマップする
-def InitPearTree() # {{{
-  g:pear_tree_ft_disabled = get(g:, 'pear_tree_ft_disabled', [])
-  g:pear_tree_ft_disabled += ['lsp-quickpick-filter']
-  imap <C-h> <BS>
-  augroup vimrc_plugin_pear-tree
-    autocmd!
-    autocmd FileType vim
-          \ b:pear_tree_pairs = extend({'{': {closer: '}', not_in: ['Comment', 'String']}}, g:pear_tree_pairs, 'keep')
-    autocmd FileType html,flow,javascrectreact
-          \ b:pear_tree_pairs = extend({'<*>': {'closer': '</*>'}}, g:pear_tree_pairs)
-  augroup END
-enddef # }}}
-pack.Add('pear-tree', InitPearTree)
-g:pear_tree_smart_openers = 1
-g:pear_tree_smart_closers = 1
-g:pear_tree_smart_backspace = 1
 
 # polyglot {{{2
 g:polyglot_disabled = ['sensible', 'svelte', 'vue']

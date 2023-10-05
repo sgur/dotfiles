@@ -109,7 +109,7 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
-  call minpac#add('tmsvg/pear-tree', #{
+  call minpac#add('cohama/lexima.vim', #{
         \ type: 'opt'
         \ })
 
@@ -181,10 +181,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('cocopon/iceberg.vim', #{
-        \ type: 'opt',
-        \ })
-
-  call minpac#add('arcticicestudio/nord-vim', #{
         \ type: 'opt',
         \ })
 

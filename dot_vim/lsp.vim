@@ -103,12 +103,14 @@ function! s:buffer_setup() abort "{{{
   setlocal omnifunc=lsp#omni#complete
 
   " helix-like mappings
+  nmap <buffer> ]d  <Plug>(lsp-next-diagnostic)
+  nmap <buffer> [d  <Plug>(lsp-previous-diagnostic)
+
   nmap <buffer> <LocalLeader>s <Plug>(lsp-document-symbol)
   nmap <buffer> <LocalLeader>S <Plug>(lsp-workspace-symbol)
   nmap <buffer> <LocalLeader>d <Plug>(lsp-document-diagnostics)
   nmap <buffer> <LocalLeader>a <Plug>(lsp-code-action)
-  " nmap <buffer> <LocalLeader>k <Plug>(lsp-hover)
-  nmap <buffer> <LocalLeader>k <Cmd>call <SID>lsp_hover_command()<CR>
+  nmap <buffer> <LocalLeader>k <Plug>(lsp-hover)
   nmap <buffer> <LocalLeader>f <Plug>(lsp-document-format)
   nmap <buffer> <LocalLeader>r <Plug>(lsp-rename)
 
@@ -155,7 +157,6 @@ let g:lsp_settings['efm-langserver'] = #{
       \ disabled: !executable('go'),
       \ initialization_options: #{
       \   documentFormatting: v:true,
-      \   documentRangeFormatting: v:false,
       \   hover: v:true,
       \   documentSymbol: v:true,
       \   codeAction: v:true,
