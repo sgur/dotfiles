@@ -10,22 +10,25 @@
 status is-login || exit
 
 # Homebrew
+
+{{ $brew := false -}}
+
 {{ if stat "/home/local/bin/brew" -}}
 {{ output "/usr/local/bin/brew" "shellenv" "fish" }}
+{{- $brew = true -}}
 {{ end -}}
 
 {{ if stat "/opt/homebrew/bin/brew" -}}
 {{ output "/opt/homebrew/bin/brew" "shellenv" "fish" }}
+{{- $brew = true -}}
 {{ end -}}
 
-# Linuxbrew
 {{ if stat "/home/linuxbrew/.linuxbrew/bin/brew" -}}
-    {{ output "/home/linuxbrew/.linuxbrew/bin/brew" "shellenv" "fish" }}
+{{ output "/home/linuxbrew/.linuxbrew/bin/brew" "shellenv" "fish" }}
+{{- $brew = true -}}
 {{ end -}}
 
-if not type -q brew
-    exit 0
-end
+{{ if $brew -}}
 
 if not contains $HOMEBREW_PREFIX/share/fish/vendor_completions.d $fish_complete_path
     set -gx fish_complete_path $HOMEBREW_PREFIX/share/fish/vendor_completions.d $fish_complete_path
@@ -33,46 +36,48 @@ end
 
 set -gx HOMEBREW_CURLRC 1
 
-if test -d $HOMEBREW_PREFIX/opt/openssl@1.1
-    set -l prefix (brew --prefix openssl@1.1)
-    fish_add_path -g $prefix/bin
-    set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
-    set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
-end
+{{ if get (expandenv "$HOMEBREW_PREFIX/opt/openssl@1.1" | stat) "isDir" -}}
+{{- $prefix := output "brew" "--prefix" "openssl@1.1" | trim -}}
+fish_add_path -g {{ joinPath $prefix "bin" }}
+set -gx LDFLAGS {{ printf "-L%s/lib" $prefix }} $LDFLAGS
+set -gx CPPFLAGS {{ printf "-I%s/include" $prefix }} $CPPFLAGS
+{{- end }}
 
-if test -d $HOMEBREW_PREFIX/opt/openssl@3
-    set -l prefix (brew --prefix openssl@3)
-    fish_add_path -g $prefix/bin
-    set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
-    set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
-end
+{{ if get (expandenv "$HOMEBREW_PREFIX/opt/openssl@3" | stat) "isDir" -}}
+{{- $prefix := output "brew" "--prefix" "openssl@3" | trim -}}
+fish_add_path -g {{ joinPath $prefix "bin" }}
+set -gx LDFLAGS {{ printf "-L%s/lib" $prefix }} $LDFLAGS
+set -gx CPPFLAGS {{ printf "-I%s/include" $prefix }} $CPPFLAGS
+{{- end }}
 
-if test -d $HOMEBREW_PREFIX/opt/node@18
-    set -l prefix (brew --prefix node@18)
-    fish_add_path -g $prefix/bin
-    set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
-    set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
-end
+{{ if get (expandenv "$HOMEBREW_PREFIX/opt/node@18" | stat) "isDir" -}}
+{{- $prefix := output "brew" "--prefix" "node@18" | trim -}}
+fish_add_path -g {{ joinPath $prefix "bin" }}
+set -gx LDFLAGS {{ printf "-L%s/lib" $prefix }} $LDFLAGS
+set -gx CPPFLAGS {{ printf "-I%s/include" $prefix }} $CPPFLAGS
+{{- end }}
 
-if test -d $HOMEBREW_PREFIX/opt/openjdk@17
-    set -l prefix (brew --prefix openjdk@17)
-    fish_add_path -g $prefix/bin
-end
+{{ if get (expandenv "$HOMEBREW_PREFIX/opt/openjdk@17" | stat) "isDir" -}}
+{{- $prefix := output "brew" "--prefix" "openjdk@17" | trim -}}
+fish_add_path -g {{ joinPath $prefix "bin" }}
+{{- end}}
 
-if test -d $HOMEBREW_PREFIX/opt/dotnet@6
-    set -l prefix (brew --prefix dotnet@6)
-    fish_add_path -g $prefix/bin
-    set -gx DOTNET_ROOT $prefix/libexec
-end
+{{ if get (expandenv "$HOMEBREW_PREFIX/opt/dotnet@6" | stat) "isDir" -}}
+{{- $prefix := output "brew" "--prefix" "dotnet@6" | trim -}}
+fish_add_path -g {{ joinPath $prefix "bin" }}
+set -gx DOTNET_ROOT {{ joinPath $prefix "libexec" }}
+{{- end }}
 
-if test -d $HOMEBREW_PREFIX/opt/ruby@3.1
-    set -l prefix (brew --prefix ruby@3.1)
-    fish_add_path -g $prefix/bin
-    fish_add_path -g $HOMEBREW_PREFIX/lib/ruby/gems/3.1.0/bin
-    set -gx LDFLAGS "-L$prefix/lib" $LDFLAGS
-    set -gx CPPFLAGS "-I$prefix/include" $CPPFLAGS
-end
+{{ if get (expandenv "$HOMEBREW_PREFIX/opt/ruby@3.1" | stat) "isDir" -}} 
+{{- $prefix := output "brew" "--prefix" "ruby@3.1" | trim -}}
+fish_add_path -g {{ joinPath $prefix "bin" }}
+fish_add_path -g {{ expandenv "$HOMEBREW_PREFIX/lib/ruby/gems/3.1.0/bin" }}
+set -gx LDFLAGS {{ printf "-L%s/lib" $prefix }} $LDFLAGS
+set -gx CPPFLAGS {{ printf "-I%s/include" $prefix }} $CPPFLAGS
+{{- end }}
 
-if test -d $HOMEBREW_PREFIX/opt/fzf
-    source $HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.fish
-end
+{{ if get (expandenv "$HOMEBREW_PREFIX/opt/fzf" | stat) "isDir" -}}
+    source {{ expandenv "$HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.fish" }}
+{{- end }}
+
+{{- end }}
