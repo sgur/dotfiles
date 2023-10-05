@@ -47,6 +47,7 @@ electron
 esbenp
 esbuild
 esdoc
+expandenv
 fcitx
 fillstruct
 flowtype
