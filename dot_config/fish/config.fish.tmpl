@@ -1,6 +1,6 @@
 {{ if lookPath "gpg" -}}
 set -gx GPG_TTY (tty)
-gpg-connect-agent updatestartuptty /bye > /dev/null &
+gpg-connect-agent --quiet updatestartuptty /bye &
 set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
 commandline -f repaint
 {{- end }}
