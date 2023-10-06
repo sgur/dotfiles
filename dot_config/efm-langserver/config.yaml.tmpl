@@ -29,6 +29,7 @@ tools:
     lint-formats:
       - "%f:%l:%c: %m"
       - "%-G%.%#"
+    lint-ignore-exit-code: true
 
   css-stylelint: &css-stylelint
     prefix: stylelint
@@ -76,6 +77,7 @@ tools:
       - "%f:%l:%c %m"
       - "%f:%l %m"
       - "%-G%.%#"
+    lint-ignore-exit-code: true
 
   markdown-markdownlint: &markdown-markdownlint
     prefix: markdownlint
@@ -183,6 +185,7 @@ tools:
     lint-formats:
       - "%I%f:%l:%c - %m"
       - "%Z"
+    lint-ignore-exit-code: true
 
   any-commitlint: &any-commitlint
     prefix: commitlint
@@ -221,6 +224,7 @@ tools:
       - "%E%f:%l:%c: %m"
       - "%Z%m [%trror/%r]"
       - "%C%m"
+    lint-ignore-exit-code: true
 
 languages:
   css:
