@@ -5,20 +5,20 @@ status is-login || exit
 # Only display this information in interactive shells
 status is-interactive || exit
 
-if not test -x /usr/bin/lsb_release ;or lsb_release --id | grep -v "Ubuntu" > /dev/null
-   exit 0
-end
+{{ if or (lookPath "lsb_release" | not) (output "lsb_release" "--id" | contains "Ubuntu" | not ) -}}
+exit 0
+{{ end -}}
 
 # /etc/profile.d/update-motd.sh
 
 set -l stamp $HOME/.motd_shown
 
 function eval_gettext
-    if type -q gettext
-        echo (env TEXTDOMAIN=update-motd TEXTDOMAINDIR=/usr/share/locale gettext "$argv[1]")
-    else
-        echo "$argv[1]"
-    end
+{{ if lookPath "gettext" -}}
+    echo (env TEXTDOMAIN=update-motd TEXTDOMAINDIR=/usr/share/locale gettext "$argv[1]")
+{{ else -}}
+    echo "$argv[1]"
+{{ end -}}
 end
 
 # Also, don't display if .hushlogin exists or MOTD was shown recently

@@ -1,0 +1,9 @@
+{{ if or (eq (env "WSL_DISTRO_NAME") "Debian") (stat "/etc/debian_version") -}}
+{{   if lookPath "lsb_release" | not -}}
+echo "sudo apt install lsb-release"
+exit 0
+{{   end -}}
+if string match --quiet '*Debian' (lsb_release --id)
+    set -gx FISH_UNIT_TESTS_RUNNING 1
+end
+{{ end -}}

@@ -1,17 +1,13 @@
 status is-interactive || exit
 
-type -q rtx || exit
-
-if type -q fnm;
-    or type -q pyenv;
-    or type -q rbenv
-    echo "rtx: fnm, pyenv, rbenv is installed."
-end
+{{ if or (lookPath "fnm") (lookPath "pyenv") (lookPath "rbenv") -}}
+echo "rtx: fnm, pyenv, rbenv is installed."
+{{ end -}}
 
 {{ if lookPath "rtx" }}
-if test -L (which rtx)
-    fish_add_path -g (dirname (realpath (which rtx)))
-end
+{{   if eq (get (lstat (lookPath "rtx")) "type") "symlink" -}}
+fish_add_path -g (dirname (realpath (which rtx)))
+{{   end -}}
 
 {{ output "rtx" "activate" "fish" | trim }}
 {{ end }}

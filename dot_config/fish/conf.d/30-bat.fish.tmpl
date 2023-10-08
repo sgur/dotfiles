@@ -1,9 +1,6 @@
 status is-interactive || exit
 
-if not type -q bat
-    exit 0
-end
-
+{{ if lookPath "bat" -}}
 function bat_theme_preview_with
     if test (count $argv) -eq 0
         echo 'no args'
@@ -13,3 +10,4 @@ function bat_theme_preview_with
 end
 
 complete --command bat_theme_preview_with --require-parameter
+{{ end -}}

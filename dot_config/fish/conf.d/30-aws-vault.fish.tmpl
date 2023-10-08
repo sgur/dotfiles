@@ -1,0 +1,9 @@
+{{ if and (lookPath "aws-vault") (get (stat (joinPath .chezmoi.homeDir ".password-store")) "isDir") -}}
+set -gx AWS_VAULT_BACKEND pass
+set -gx AWS_VAULT_PASS_PREFIX aws-vault
+
+set -gx AWS_VAULT_PASS_CMD pass
+{{   if lookPath "gopass" -}} 
+set -gx AWS_VAULT_PASS_CMD gopass
+{{   end -}}
+{{ end -}}

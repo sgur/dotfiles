@@ -1,12 +1,9 @@
 #!/usr/bin/env fish
 
 # WSL Specific
-
-# 環境変数 $WSLENV を見るパターンでもよい
-# if test -z "$WSLENV"
-if test ! -f /proc/sys/fs/binfmt_misc/WSLInterop
-    exit 0
-end
+{{ if stat "/proc/sys/fs/binfmt_misc/WSLInterop" | not -}}
+exit 0
+{{ end -}}
 
 # umask の設定を非WSL環境と同じにする
 if test (umask) = 0000

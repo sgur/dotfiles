@@ -1,5 +1,6 @@
 status is-interactive || exit
 
-type -q fnm || exit
-
+{{ if lookPath "fnm" -}}
 fnm env --use-on-cd | source
+{{ end -}}
+
