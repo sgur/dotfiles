@@ -5,9 +5,7 @@ echo "rtx: fnm, pyenv, rbenv is installed."
 {{ end -}}
 
 {{ if lookPath "rtx" }}
-{{   if eq (get (lstat (lookPath "rtx")) "type") "symlink" -}}
 fish_add_path -g (dirname (realpath (which rtx)))
-{{   end -}}
 
 {{ output "rtx" "activate" "fish" | trim }}
 {{ end }}
