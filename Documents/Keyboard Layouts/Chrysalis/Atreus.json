@@ -407,16 +407,8 @@
         },
         "categories": ["mousekeys"]
       },
-      {
-        "code": 144,
-        "label": {"base": {"full": "Lang1"}},
-        "categories": ["lang_intl"]
-      },
-      {
-        "code": 145,
-        "label": {"base": {"full": "Lang2"}},
-        "categories": ["lang_intl"]
-      },
+      {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
+      {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
       {
         "code": 20560,
         "label": {
