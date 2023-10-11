@@ -159,7 +159,7 @@ endif
 
 # key-mappings {{{1
 
-# From defualt.vim {{{2
+# From default.vim {{{2
 
 # Don't use Q for Ex mode, use it for formatting.  Except for Select mode.
 # Revert with ":unmap Q".
@@ -244,8 +244,8 @@ nnoremap [F  <Cmd>lpfile<CR>
 # user-commands {{{1
 
 # Use br(broot) in terminal
-const broot_confs = ['~/.vim/etc/broot/verbs.hjson', '~/.config/broot/conf.hjson']->map((k, v) => expand(v))->filter((k, v) => filereadable(v))->join(';')
-command! -nargs=? -complete=dir Br botright call term_start(['broot', '--conf', broot_confs, <f-args>], {term_rows: 20, term_finish: 'close'})
+const broot_configs = ['~/.vim/etc/broot/verbs.hjson', '~/.config/broot/conf.hjson']->map((k, v) => expand(v))->filter((k, v) => filereadable(v))->join(';')
+command! -nargs=? -complete=dir Br botright call term_start(['broot', '--conf', broot_configs, <f-args>], {term_rows: 20, term_finish: 'close'})
 
 # synstack {{{2
 command! -nargs=0 SynNameStack
@@ -723,7 +723,7 @@ nmap <expr> gy  vimrc#operator#define('n', 'eval', 'vimrc#operator#eval')
 xmap <expr> gy  vimrc#operator#define('x', 'eval', 'vimrc#operator#eval')
 
 nmap <expr> g:  vimrc#operator#define('n', 'excmd', 'vimrc#operator#excmd')
-xmap <expr> g:  vimrc#operator#define('x', 'excmd', 'vimrc#operator#exmcd')
+xmap <expr> g:  vimrc#operator#define('x', 'excmd', 'vimrc#operator#excmd')
 
 nmap <expr> g<Space>  vimrc#operator#define_excmd('n', 'trailing-space', 'substitute/\s\+$//ge')
 xmap <expr> g<Space>  vimrc#operator#define_excmd('x', 'trailing-space', 'substitute/\s\+$//ge')

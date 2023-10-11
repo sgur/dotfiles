@@ -12,6 +12,7 @@ bufnr
 bufread
 buftype
 bufwinenter
+bufwinnr
 bwipeout
 clast
 cmdbang
@@ -29,6 +30,7 @@ cword
 doautocmd
 echohl
 echon
+excmd
 excmd
 exepath
 fnameescape
@@ -50,18 +52,24 @@ iminsert
 imsearch
 imstatusfunc
 inoremap
+isabsolutepath
 isdirectory
 isearch
 iskeyword
+isnot
 iunmap
 javascrectreact
+lexima
 llast
 lnext
 lnfile
+logipat
 lpfile
 lprevious
 lpwstr
 lrewind
+makeencoding
+makeprg
 matchparen
 nargs
 netrw
@@ -75,6 +83,8 @@ nvmrc
 omap
 omni
 omnifunc
+pmru
+pumvisible
 renmode
 setbufvar
 sfile
@@ -90,6 +100,7 @@ ttimeout
 ttimeoutlen
 unmap
 viml
+vimlsp
 vimrc
 vmap
 vnoremap

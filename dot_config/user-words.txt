@@ -118,6 +118,7 @@ statefull
 streetsidesoftware
 stylelintrc
 tailwindcss
+tapi+
 textlintrc
 toastify
 tolower
@@ -130,6 +131,7 @@ vcsh
 venv
 vercel
 version
+vimrc
 visualstudio
 vlang
 vnclegacy
@@ -144,4 +146,3 @@ wttr
 xmodifiers
 zellij
 zoxide
-vimrc
