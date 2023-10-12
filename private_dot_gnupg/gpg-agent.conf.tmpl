@@ -1,5 +1,7 @@
 {{ if .wsl -}}
 pinentry-program {{ joinPath .chezmoi.homeDir "bin" "wsl-pinentry" | quote }}
+{{ else if eq .chezmoi.os "darwin" -}}
+pinentry-program {{ lookPath "pinentry-curses" | quote }}
 {{ end -}}
 default-cache-ttl 3600
 max-cache-ttl 14400
