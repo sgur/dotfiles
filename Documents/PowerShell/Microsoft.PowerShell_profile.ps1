@@ -375,7 +375,8 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 {
 	function global:ls
 	{
-		& eza.exe --classify --color=auto --color-scale --icons --ignore-glob='NTUSER.*|ntuser.*|Application Data|Local Settings|My Documents|Start Menu|スタート メニュー' $args
+		& eza.exe --classify --color=auto --color-scale --icons --no-quotes --group-directories-first `
+			--ignore-glob='NTUSER.*|ntuser.*|Application Data|Local Settings|My Documents|Start Menu|スタート メニュー' $args
 	}
 } else
 {
