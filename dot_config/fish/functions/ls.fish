@@ -1,12 +1,12 @@
 if type -q eza
     function ls --wraps=ls --description eza
-        command eza --group-directories-first --classify --icons --color=auto --color-scale $argv
+        command eza --classify --color=auto --color-scale --icons --no-quotes --group-directories-first $argv
     end
 else if type -q exa
     function ls --wraps=ls --description exa
         set_color $fish_color_error
         echo "warning: Use eza instead of exa"
-        command exa --group-directories-first --classify --icons --color=auto --color-scale $argv
+        command exa --classify --color=auto --color-scale --icons --no-quotes --group-directories-first $argv
     end
 else
     if type -q sw_vers
