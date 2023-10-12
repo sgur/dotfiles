@@ -2,6 +2,8 @@ README.md
 .config/fish/fish_variables
 .vim/pack/minpac
 .vim/pack/chezmoi/*/*/doc/tags
+Tools/**/*.exe
+Tools/**/*.bat
 
 {{ if ne .chezmoi.os "darwin" }}
 # Ignoring on non-macOS
@@ -28,7 +30,6 @@ Documents/
 bin/*.cmd
 scoop/
 vimfiles/
-Tools/*
 {{ else }}
 # Ignoring on Windows
 .Brewfile*
