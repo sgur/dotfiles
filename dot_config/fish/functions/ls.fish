@@ -1,9 +1,9 @@
 if type -q eza
-    function ls --wraps=ls --description eza
+    function ls --wraps=eza --description eza
         command eza --classify --color=auto --color-scale --icons --no-quotes --group-directories-first $argv
     end
 else if type -q exa
-    function ls --wraps=ls --description exa
+    function ls --wraps=exa --description exa
         set_color $fish_color_error
         echo "warning: Use eza instead of exa"
         command exa --classify --color=auto --color-scale --icons --no-quotes --group-directories-first $argv
