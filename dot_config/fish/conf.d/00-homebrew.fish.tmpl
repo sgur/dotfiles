@@ -13,7 +13,7 @@ status is-login || exit
 
 {{ $brew := false -}}
 
-{{ if stat "/home/local/bin/brew" -}}
+{{ if stat "/usr/local/bin/brew" -}}
 {{ output "/usr/local/bin/brew" "shellenv" "fish" }}
 {{- $brew = true -}}
 {{ end -}}
