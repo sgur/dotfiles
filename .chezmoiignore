@@ -30,6 +30,7 @@ Documents/
 bin/*.cmd
 scoop/
 vimfiles/
+Tools/
 {{ else }}
 # Ignoring on Windows
 .Brewfile*
