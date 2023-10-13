@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+# spell-checker: disable
+
+set -e
+
+GOPLS=0.13.1
+
+function go_install() {
+	GOPATH=$(pwd) GOBIN=$(pwd) GO111MODULE=on go install -v "$1"
+	GOPATH=$(pwd) GO111MODULE=on go clean -modcache
+	rm -rf src pkg 2>/dev/null
+}
+
+{{ $gopls := joinPath .chezmoi.homeDir ".local" "share" "lsp-servers" "gopls" -}}
+mkdir -p {{ $gopls }}
+pushd {{ $gopls }}
+
+go_install golang.org/x/tools/gopls@v$GOPLS
+
+ln -sf $(pwd)/gopls {{ joinPath .chezmoi.homeDir ".local" "bin" }}
+
+popd
