@@ -1,6 +1,15 @@
 {{ if lookPath "starship" }}
+
 {{ output "starship" "init" "powershell" | comment "# "}}
+
+function Invoke-Starship-TransientFunction {
+  &starship module shell
+  &starship module character
+}
+
 {{ output "starship" "init" "powershell" "--print-full-init" }}
+
+Enable-TransientPrompt
 {{ else }}
 Write-Warning "starship is not installed"
 {{ end }}
