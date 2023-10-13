@@ -22,8 +22,8 @@ path = "en_US.txt"
 
 [".config/helix/themes/catppuccin"]
 type = "archive"
+exact = true
 refreshPeriod = "168h" # 1-week
-extract = true
 stripComponents = 3
 include = ["*/themes/default/*.toml"]
 url = "https://github.com/catppuccin/helix/archive/refs/heads/main.zip"
@@ -31,7 +31,6 @@ url = "https://github.com/catppuccin/helix/archive/refs/heads/main.zip"
 [".config/gitui/themes"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
-extract = true
 stripComponents = 2
 include = ["*/theme/*.ron"]
 url = "https://github.com/catppuccin/gitui/archive/refs/heads/main.zip"
@@ -39,7 +38,6 @@ url = "https://github.com/catppuccin/gitui/archive/refs/heads/main.zip"
 [".config/lazygit"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
-extract = true
 stripComponents = 1
 include = ["*/themes/**", "*/themes-mergable/**"]
 url = "https://github.com/catppuccin/lazygit/archive/refs/heads/main.zip"
@@ -54,7 +52,6 @@ url = "https://raw.githubusercontent.com/nushell/nu_scripts/main/themes/themes/c
 [".config/kitty/themes"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
-extract = true
 stripComponents = 2
 include = ["*/themes/*.conf"]
 url = "https://github.com/catppuccin/kitty/archive/refs/heads/main.zip"
@@ -62,7 +59,6 @@ url = "https://github.com/catppuccin/kitty/archive/refs/heads/main.zip"
 ["Library/Developer/Xcode/UserData/FontAndColorThemes"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
-extract = true
 stripComponents = 2
 include = ["*/dist/*.xccolortheme"]
 url = "https://github.com/catppuccin/xcode/archive/refs/heads/main.zip"
@@ -74,19 +70,16 @@ url = "https://github.com/catppuccin/xcode/archive/refs/heads/main.zip"
 ["Tools/FaithType"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
-extract = true
 stripComponents = 1
 url = "https://github.com/m13253/FaithType/releases/download/latest/FaithType.zip"
 
 ["Tools/Disable Peak Limiter"]
 type = "archive"
-extract = true
 stripComponents = 1
 url = "https://kawamoto.no-ip.org/henteko/myapp/dpeaklim12.zip"
 
 ["Tools/noMeiryoUI"]
 type = "archive"
-extract = true
 url = "https://github.com/Tatsu-syo/noMeiryoUI/releases/download/TAG-3.2.1.1/noMeiryoUI3.2.1.1.zip"
 
 ["Documents/PowerShell/Scripts/Complete-Xh.ps1"]
@@ -96,8 +89,8 @@ url = "https://raw.githubusercontent.com/ducaale/xh/master/completions/_xh.ps1"
 
 ["Documents/PowerShell/Modules/Catppuccin"]
 type = "archive"
+exact = true
 refreshPeriod = "168h" # 1-week
-extract = true
 stripComponents = 1
 include = ["*/en-US/**", "*/*.ps*"]
 url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
@@ -127,6 +120,7 @@ url = "https://github.com/catppuccin/imhex/releases/latest/download/catppuccin-m
 
 ["AppData/Local/clink/lib/clink-zoxide"]
 type = "archive"
+exact = true
 refreshPeriod = "168h" # 1-week
 stripComponents = 1
 url = "https://github.com/shunsambongi/clink-zoxide/archive/refs/heads/master.zip"
@@ -156,7 +150,6 @@ executable = true
 [".config/fish"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
-extract = true
 stripComponents = 1
 include = ["*/completions/*.fish", "*/functions/*.fish"]
 url = "https://github.com/jorgebucaran/fisher/archive/refs/heads/main.zip"
@@ -171,8 +164,8 @@ url = {{ printf "https://raw.githubusercontent.com/docker/cli/v%s/contrib/comple
 
 [".config/kak/bundle/kak-bundle"]
 type = "archive"
+exact = true
 refreshPeriod = "168h" # 1-week
-extract = true
 stripComponents = 1
 include = ["*/README.md", "*/rc/**"]
 url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
