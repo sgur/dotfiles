@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+# spell-checker: disable
+
+set -e
+
+BASH_LANGUAGE_SERVER=5.0.0
+DOCKERFILE_LANGUAGE_SERVER_NODEJS=0.11.0
+PYRIGHT=1.1.331
+TYPESCRIPT=5.2.2
+TYPESCRIPT_LANGUAGE_SERVER=3.3.2
+VIM_LANGUAGE_SERVER=2.3.1
+VSCODE_LANGSERVERS_EXTRACTED=4.7.0
+YAML_LANGUAGE_SERVER=1.14.0
+
+function create_empty_package() {
+  if [ ! -f package.json ]; then
+    npm init -y
+    echo '{"name": ""}' > package.json
+  fi
+}
+
+function npm_install() {
+  local name=$1
+  local packages="${@:2:$#}"
+
+  local path={{- joinPath .chezmoi.homeDir ".local" "share" "lsp-servers" -}}/$name
+  mkdir -p $path
+  pushd $path
+
+  create_empty_package
+  npm install $packages
+
+  ln -sf "./node_modules/.bin/$name" .
+  ln -sf "$(pwd)/node_modules/.bin/$name" {{ joinPath .chezmoi.homeDir ".local" "bin" }}
+  popd
+}
+
+npm_install bash-language-server bash-language-server@$BASH_LANGUAGE_SERVER
+npm_install docker-langserver dockerfile-language-server-nodejs@$DOCKERFILE_LANGUAGE_SERVER_NODEJS
+npm_install pyright-langserver pyright@$PYRIGHT
+npm_install tsserver typescript@$TYPESCRIPT
+npm_install typescript-language-server typescript-language-server@$TYPESCRIPT_LANGUAGE_SERVER
+npm_install vim-language-server vim-language-server@$VIM_LANGUAGE_SERVER
+npm_install vscode-css-language-server vscode-langservers-extracted@$VSCODE_LANGSERVERS_EXTRACTED
+npm_install vscode-html-language-server vscode-langservers-extracted@$VSCODE_LANGSERVERS_EXTRACTED
+npm_install vscode-json-languageserver vscode-langservers-extracted@$VSCODE_LANGSERVERS_EXTRACTED
+npm_install yaml-language-server yaml-language-server@$YAML_LANGUAGE_SERVER

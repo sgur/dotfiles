@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+# spell-checker: disable
+
+set -e
+
+{{ $efm_langserver := joinPath .chezmoi.homeDir ".local" "share" "lsp-servers" "efm-langserver" -}}
+mkdir -p {{ $efm_langserver }}
+pushd {{ $efm_langserver }}
+
+version=0.0.48
+
+os=$(uname -s | tr "[:upper:]" "[:lower:]")
+if [ $(uname -m) = "x86_64" ];
+then
+  arch="amd64"
+else
+  arch="arm64"
+fi
+case $os in
+linux)
+  curl -sL \
+    "https://github.com/mattn/efm-langserver/releases/download/v${version}/efm-langserver_v${version}_linux_${arch}.tar.gz" \
+    -o "efm-langserver_v${version}_linux_${arch}.tar.gz"
+  tar -C . --strip=1 -zxf "efm-langserver_v${version}_linux_${arch}.tar.gz"
+  rm "efm-langserver_v${version}_linux_${arch}.tar.gz"
+  ;;
+darwin)
+  platform="darwin_"$arch
+  ;;
+esac
+
+
+chmod +x efm-langserver
+ln -sf "$(pwd)/efm-langserver" {{ joinPath .chezmoi.homeDir ".local" "bin" }}
+
+popd
