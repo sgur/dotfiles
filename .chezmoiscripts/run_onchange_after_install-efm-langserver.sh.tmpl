@@ -18,7 +18,7 @@ else
 fi
 case $os in
 linux)
-  curl -sL \
+  curl -L \
     "https://github.com/mattn/efm-langserver/releases/download/v${version}/efm-langserver_v${version}_linux_${arch}.tar.gz" \
     -o "efm-langserver_v${version}_linux_${arch}.tar.gz"
   tar -C . --strip=1 -zxf "efm-langserver_v${version}_linux_${arch}.tar.gz"

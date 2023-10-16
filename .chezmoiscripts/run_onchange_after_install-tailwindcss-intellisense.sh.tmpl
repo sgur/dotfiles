@@ -12,7 +12,7 @@ url="https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/
 asset="vscode-tailwindcss.vsix"
 
 curl -L "$url" -o "$asset"
-unzip "$asset"
+unzip -o "$asset"
 rm "$asset" \[Content_Types\].xml extension.vsixmanifest
 
 chmod +x extension/dist/tailwindServer.js

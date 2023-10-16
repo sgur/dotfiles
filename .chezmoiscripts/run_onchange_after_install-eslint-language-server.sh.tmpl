@@ -11,8 +11,8 @@ version=2.2.0
 
 url="https://github.com/microsoft/vscode-eslint/releases/download/release%2F2.2.20-Insider/vscode-eslint-${version}.vsix"
 asset=vscode-eslint-${version}.vsix
-curl -sL "$url" -o "$asset"
-unzip -f "$asset"
+curl -L "$url" -o "$asset"
+unzip -o -f "$asset"
 rm "$asset"
 
 cat <<EOF >eslint-language-server
