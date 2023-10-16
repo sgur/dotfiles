@@ -3,7 +3,7 @@
 
 set -e
 
-GOPLS=0.13.1
+GOPLS=v0.13.1
 
 function go_install() {
 	GOPATH=$(pwd) GOBIN=$(pwd) GO111MODULE=on go install -v "$1"
@@ -15,7 +15,7 @@ function go_install() {
 mkdir -p {{ $gopls }}
 pushd {{ $gopls }}
 
-go_install golang.org/x/tools/gopls@v$GOPLS
+go_install golang.org/x/tools/gopls@$GOPLS
 
 ln -sf $(pwd)/gopls {{ joinPath .chezmoi.homeDir ".local" "bin" }}
 
