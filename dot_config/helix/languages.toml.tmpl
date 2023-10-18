@@ -111,14 +111,11 @@ deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
 eslint-language-server = { command = "eslint-language-server", args = ["--stdio"] }
 obsidian-lsp = { command = "obsidian-lsp", args = ["--stdio"] }
-pylsp-all = { command = "pylsp-all" }
+pylsp-all = { command = "pylsp-all", config = { pylsp = { configurationSources = ['flake8'], plugins = { autopep8 = { enabled = false }, mccabe = { enabled = false }, pycodestyle = { enabled = false }, pyflakes = { enabled = false }, yapf = { enabled = false } } } } }
 pyright-langserver = { command = "pyright-langserver", args = ["--stdio"], config = { python = { analysis = { typeCheckingMode = "strict", useLibraryCodeForTypes = true, reportMissingImports = true } } } }
 ruff-lsp = { command = "ruff-lsp", config = { settings = { args = [], run = "onSave" } } }
 stylelint-lsp = { command = "stylelint-lsp", args = ["--stdio"] }
 taplo-lsp = { command = "taplo", args = ["lsp", "stdio"] }
-
-[language-server.vscode-json-language-server.config]
-provideFormatter = true
 
 [language-server.vscode-json-language-server.config.json]
 format = { enable = true }
