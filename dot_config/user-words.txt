@@ -69,6 +69,7 @@ keymaster
 ldflags
 macchiato
 markdownlint
+mccabe
 msvs
 mswin
 msys
@@ -95,8 +96,13 @@ privs
 psirt
 pulumi
 pwsh
+pycodestyle
+pydocstyle
 pyenv
+pyflakes
 pylance
+pylsp
+pyright
 pytest
 pythonioencoding
 pythonutf8
@@ -119,6 +125,7 @@ streetsidesoftware
 stylelintrc
 tailwindcss
 tapi+
+taplo
 textlintrc
 toastify
 tolower
@@ -144,5 +151,6 @@ wslenv
 wslpath
 wttr
 xmodifiers
+yapf
 zellij
 zoxide
