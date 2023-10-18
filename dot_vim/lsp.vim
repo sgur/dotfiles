@@ -292,10 +292,11 @@ let g:lsp_settings['pylsp-all']= #{
       \   pylsp: #{
       \     configurationSources: ['flake8'],
       \     plugins: #{
-      \       flake8: #{ enabled: v:true },
+      \       autopep8: #{ enabled: v:false },
       \       mccabe: #{ enabled: v:false },
       \       pycodestyle: #{ enabled: v:false },
       \       pyflakes: #{ enabled: v:false },
+      \       yapf: #{ enabled: v:false },
       \     }
       \   }
       \ }
