@@ -6,6 +6,7 @@ set -e
 PYTHON_LSP_SERVER=1.8.2
 PYTHON_LSP_BLACK=1.3.0
 PYTHON_LSP_ISORT=0.1
+RUFF_LSP=0.0.41
 
 {{ $python_lsp_server := joinPath .chezmoi.homeDir ".local" "share" "lsp-servers" "pylsp-all" -}}
 mkdir -p {{ $python_lsp_server }}
@@ -13,7 +14,16 @@ pushd {{ $python_lsp_server }}
 python3 -m venv ./venv
 ./venv/bin/pip3 install -U pip
 ./venv/bin/pip3 install "python-lsp-server[all]"==$PYTHON_LSP_SERVER
-./venv/bin/pip3 install "python-lsp-black"==$PYTHON_LSP_BLACK
-./venv/bin/pip3 install "python-lsp-isort"==$PYTHON_LSP_ISORT
+# ./venv/bin/pip3 install "python-lsp-black"==$PYTHON_LSP_BLACK
+# ./venv/bin/pip3 install "python-lsp-isort"==$PYTHON_LSP_ISORT
 ln -sf $(pwd)/venv/bin/pylsp {{ joinPath .chezmoi.homeDir ".local" "bin" "pylsp-all" }}
+popd
+
+{{ $ruff_lsp := joinPath .chezmoi.homeDir ".local" "share" "lsp-servers" "ruff-lsp" -}}
+mkdir -p {{ $ruff_lsp }}
+pushd {{ $ruff_lsp }}
+python3 -m venv ./venv
+./venv/bin/pip3 install -U pip
+./venv/bin/pip3 install "ruff-lsp"==$RUFF_LSP
+ln -sf $(pwd)/venv/bin/ruff-lsp {{ joinPath .chezmoi.homeDir ".local" "bin" "ruff-lsp" }}
 popd

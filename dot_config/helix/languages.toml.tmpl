@@ -71,7 +71,7 @@ indent = { tab-width = 4, unit = "    " }
 
 [[language]]
 name = "python"
-language-servers = ["pylsp-all", "pyright-langserver", "efm-langserver"]
+language-servers = ["pylsp-all", "pyright-langserver", "ruff-lsp", "efm-langserver"]
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 roots = ["pyproject.toml"]
@@ -113,6 +113,7 @@ eslint-language-server = { command = "eslint-language-server", args = ["--stdio"
 obsidian-lsp = { command = "obsidian-lsp", args = ["--stdio"] }
 pylsp-all = { command = "pylsp-all" }
 pyright-langserver = { command = "pyright-langserver", args = ["--stdio"], config = { python = { analysis = { typeCheckingMode = "strict", useLibraryCodeForTypes = true, reportMissingImports = true } } } }
+ruff-lsp = { command = "ruff-lsp", config = { settings = { args = [], run = "onSave" } } }
 stylelint-lsp = { command = "stylelint-lsp", args = ["--stdio"] }
 taplo-lsp = { command = "taplo", args = ["lsp", "stdio"] }
 
