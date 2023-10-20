@@ -39,7 +39,7 @@ let g:lsp_popup_menu_server_blacklist = get(g:, 'lsp_popup_menu_server_blacklist
 let g:lsp_diagnostics_float_cursor = has('patch-8.1.1364')
 let g:lsp_diagnostics_echo_cursor = !g:lsp_diagnostics_float_cursor
 let g:lsp_diagnostics_float_cursor = exists('*popup_create')
-let g:lsp_diagnostics_virtual_text_enabled = has('textprop') && has('patch-9.0.0178')
+let g:lsp_diagnostics_virtual_text_enabled = !has('win32') && has('textprop') && has('patch-9.0.0178')
 let g:lsp_diagnostics_virtual_text_insert_mode_enabled = get(g:, 'lsp_diagnostics_virtual_text_enabled', 0) && has('textprop') && has('patch-9.0.0178')
 let g:lsp_diagnostics_virtual_text_align = 'above'
 let g:lsp_diagnostics_virtual_text_padding_left = 4
@@ -98,6 +98,7 @@ endfunction "}}}
 
 function! s:buffer_setup() abort "{{{
   nmap <silent> <expr> [g max(values(lsp#get_buffer_diagnostics_counts())) > 0 ? "\<Plug>(lsp-previous-diagnostic)" : ":\<C-u>cprevious\<CR>"
+
   nmap <silent> <expr> ]g max(values(lsp#get_buffer_diagnostics_counts())) > 0 ? "\<Plug>(lsp-next-diagnostic)" : ":\<C-u>cnext\<CR>"
   setlocal tagfunc=lsp#tagfunc
   setlocal omnifunc=lsp#omni#complete
