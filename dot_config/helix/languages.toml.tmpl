@@ -111,11 +111,71 @@ deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
 eslint-language-server = { command = "eslint-language-server", args = ["--stdio"] }
 obsidian-lsp = { command = "obsidian-lsp", args = ["--stdio"] }
-pylsp-all = { command = "pylsp-all", config = { pylsp = { configurationSources = ['flake8'], plugins = { autopep8 = { enabled = false }, mccabe = { enabled = false }, pycodestyle = { enabled = false }, pyflakes = { enabled = false }, yapf = { enabled = false } } } } }
-pyright-langserver = { command = "pyright-langserver", args = ["--stdio"], config = { python = { analysis = { typeCheckingMode = "strict", useLibraryCodeForTypes = true, reportMissingImports = true } } } }
 ruff-lsp = { command = "ruff-lsp", config = { settings = { args = [], run = "onSave" } } }
 stylelint-lsp = { command = "stylelint-lsp", args = ["--stdio"] }
-taplo-lsp = { command = "taplo", args = ["lsp", "stdio"] }
+
+[language-server.pylsp-all]
+command = "pylsp-all"
+
+[language-server.pylsp-all.config]
+pylsp = { configurationSources = ['flake8'] }
+
+[language-server.pylsp-all.config.plugins]
+autopep8 = { enabled = false }
+mccabe = { enabled = false }
+pycodestyle = { enabled = false }
+pyflakes = { enabled = false }
+yapf = { enabled = false }
+
+[language-server.pyright-langserver]
+command = "pyright-langserver"
+args = ["--stdio"]
+
+[language-server.pyright-langserver.config.python.analysis]
+typeCheckingMode = "strict"
+useLibraryCodeForTypes = true
+reportMissingImports = true
+
+[language-server.taplo-lsp]
+command = "taplo"
+args = ["lsp", "stdio"]
+
+[language-server.taplo-lsp.config]
+activationStatus = true
+taploConfig = 'taplo://taplo.toml'
+taploConfigEnabled = true
+semanticTokens = false
+debug = false
+
+[language-server.taplo-lsp.config.evenBetterToml.schema]
+enabled = true
+links = false
+repositoryEnabled = true
+repositoryUrl = "https://taplo.tamasfe.dev/schema_index.json"
+
+[language-server.taplo-lsp.config.evenBetterToml.schema.associations]
+'^(.*(/|\\)Cargo\.toml|Cargo\.toml)$' = "taplo://Cargo.toml"
+
+[language-server.taplo-lsp.config.evenBetterToml.formatter]
+alignEntries = false
+alignComments = true
+arrayTrailingComma = true
+arrayAutoExpand = true
+arrayAutoCollapse = true
+compactArrays = true
+compactInlineTables = false
+compactEntries = false
+columnWidth = 80
+indentTables = false
+indentEntries = false
+indentString = {}
+reorderKeys = true
+allowedBlankLines = 2
+trailingNewline = true
+crlf = false
+
+[language-server.taplo-lsp.config.evenBetterToml.actions]
+ignoreDepracatedAssociations = false
 
 [language-server.vscode-json-language-server.config.json]
 format = { enable = true }
