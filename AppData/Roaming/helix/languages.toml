@@ -2,4 +2,4 @@
 
 [[language]]
 name = "toml"
-language-server = { command = "taplo-lsp", args = ["lsp", "stdio"] }
+language-server = { command = "taplo-lsp.exe", args = ["run"] }
