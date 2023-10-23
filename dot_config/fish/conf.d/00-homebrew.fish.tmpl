@@ -36,30 +36,30 @@ end
 
 set -gx HOMEBREW_CURLRC 1
 
-{{ if get (expandenv "$HOMEBREW_PREFIX/opt/openssl@1.1" | stat) "isDir" -}}
-{{- $prefix := output "brew" "--prefix" "openssl@1.1" | trim -}}
+{{ range (list "openssl@3" "openssl@1.1") -}}
+{{   if get (joinPath (env "HOMEBREW_PREFIX") "opt" . | stat) "isDir" -}}
+{{- $prefix := output "brew" "--prefix" . | trim -}}
 fish_add_path -g {{ joinPath $prefix "bin" }}
-set -gx LDFLAGS {{ printf "-L%s/lib" $prefix }} $LDFLAGS
-set -gx CPPFLAGS {{ printf "-I%s/include" $prefix }} $CPPFLAGS
+set -gx LDFLAGS $LDFLAGS {{ printf "-L%s/lib" $prefix }}
+set -gx CPPFLAGS $CPPFLAGS {{ printf "-I%s/include" $prefix }}
+{{   break -}}
+{{   end -}}
 {{- end }}
 
-{{ if get (expandenv "$HOMEBREW_PREFIX/opt/openssl@3" | stat) "isDir" -}}
-{{- $prefix := output "brew" "--prefix" "openssl@3" | trim -}}
+{{ range (list "node@20" "node@18") -}}
+{{   if get (joinPath (env "HOMEBREW_PREFIX") "opt" . | stat) "isDir" -}}
+{{- $prefix := output "brew" "--prefix" . | trim -}}
 fish_add_path -g {{ joinPath $prefix "bin" }}
-set -gx LDFLAGS {{ printf "-L%s/lib" $prefix }} $LDFLAGS
-set -gx CPPFLAGS {{ printf "-I%s/include" $prefix }} $CPPFLAGS
-{{- end }}
-
-{{ if get (expandenv "$HOMEBREW_PREFIX/opt/node@18" | stat) "isDir" -}}
-{{- $prefix := output "brew" "--prefix" "node@18" | trim -}}
-fish_add_path -g {{ joinPath $prefix "bin" }}
-set -gx LDFLAGS {{ printf "-L%s/lib" $prefix }} $LDFLAGS
-set -gx CPPFLAGS {{ printf "-I%s/include" $prefix }} $CPPFLAGS
+set -gx LDFLAGS $LDFLAGS {{ printf "-L%s/lib" $prefix }}
+set -gx CPPFLAGS $CPPFLAGS {{ printf "-I%s/include" $prefix }}
+{{   break -}}
+{{   end -}}
 {{- end }}
 
 {{ if get (expandenv "$HOMEBREW_PREFIX/opt/openjdk@17" | stat) "isDir" -}}
 {{- $prefix := output "brew" "--prefix" "openjdk@17" | trim -}}
 fish_add_path -g {{ joinPath $prefix "bin" }}
+set -gx CPPFLAGS $CPPFLAGS {{ printf "-I%s/include" $prefix }}
 {{- end}}
 
 {{ if get (expandenv "$HOMEBREW_PREFIX/opt/dotnet@6" | stat) "isDir" -}}
@@ -72,8 +72,8 @@ set -gx DOTNET_ROOT {{ joinPath $prefix "libexec" }}
 {{- $prefix := output "brew" "--prefix" "ruby@3.1" | trim -}}
 fish_add_path -g {{ joinPath $prefix "bin" }}
 fish_add_path -g {{ expandenv "$HOMEBREW_PREFIX/lib/ruby/gems/3.1.0/bin" }}
-set -gx LDFLAGS {{ printf "-L%s/lib" $prefix }} $LDFLAGS
-set -gx CPPFLAGS {{ printf "-I%s/include" $prefix }} $CPPFLAGS
+set -gx LDFLAGS $LDFLAGS {{ printf "-L%s/lib" $prefix }}
+set -gx CPPFLAGS $CPPFLAGS {{ printf "-I%s/include" $prefix }}
 {{- end }}
 
 {{ if get (expandenv "$HOMEBREW_PREFIX/opt/fzf" | stat) "isDir" -}}
