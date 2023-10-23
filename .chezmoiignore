@@ -45,17 +45,15 @@ Tools/
 .config/rtx/
 .config/zellij/
 .gnupg/
-.local/bin/taplo-lsp.exe
-.local/bin/afx.exe
 .profile
 {{ end }}
 
 {{ if not .wsl }}
 # Ignoring on non-Windows-WSL
 .cache/vim/bin/
-.local/bin/cmd.exe
-.local/bin/pwsh.exe
-.local/bin/typora
+bin/cmd.exe
+bin/pwsh.exe
+bin/typora
 bin/code
 bin/wsl-compact-memory
 bin/wsl-pinentry
