@@ -171,3 +171,18 @@ include = ["*/README.md", "*/rc/**"]
 url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
 
 {{ end }}
+
+
+{{ if eq .chezmoi.os "windows" }}
+[".local/bin/afx.exe"]
+type = "archive-file"
+refreshPeriod = "168h" # 1-week
+path = "afx.exe"
+url = "https://github.com/babarot/afx/releases/latest/download/afx_windows_x86_64.zip"
+{{ else }}
+[".local/bin/afx"]
+type = "archive-file"
+refreshPeriod = "168h" # 1-week
+path = "afx"
+url = {{ printf "https://github.com/babarot/afx/releases/latest/download/afx_%s_%s.tar.gz" .chezmoi.os .chezmoi.arch | quote }}
+{{ end }}

@@ -46,6 +46,7 @@ Tools/
 .config/zellij/
 .gnupg/
 .local/bin/taplo-lsp.exe
+.local/bin/afx.exe
 .profile
 {{ end }}
 
