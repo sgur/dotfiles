@@ -181,8 +181,9 @@ path = "afx.exe"
 url = "https://github.com/babarot/afx/releases/latest/download/afx_windows_x86_64.zip"
 {{ else }}
 [".local/bin/afx"]
+{{ $arch := eq .chezmoi.arch "amd64" | ternary "x86_64" .chezmoi.arch -}}
 type = "archive-file"
 refreshPeriod = "168h" # 1-week
 path = "afx"
-url = {{ printf "https://github.com/babarot/afx/releases/latest/download/afx_%s_%s.tar.gz" .chezmoi.os .chezmoi.arch | quote }}
+url = {{ printf "https://github.com/babarot/afx/releases/latest/download/afx_%s_%s.tar.gz" .chezmoi.os $arch | quote }}
 {{ end }}
