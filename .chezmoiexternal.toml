@@ -45,7 +45,7 @@ url = "https://github.com/catppuccin/lazygit/archive/refs/heads/main.zip"
 [".config/nushell/themes/catppuccin-mocha.nu"]
 type = "file"
 refreshPeriod = "168h" # 1-week
-url = "https://raw.githubusercontent.com/nushell/nu_scripts/main/themes/themes/catppuccin-mocha.nu"
+url = "https://raw.githubusercontent.com/nushell/nu_scripts/main/themes/nu-themes/catppuccin-mocha.nu"
 
 {{ if eq .chezmoi.os "darwin" }}
 
