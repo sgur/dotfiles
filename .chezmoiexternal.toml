@@ -100,6 +100,7 @@ type = "archive-file"
 refreshPeriod = "168h" # 1-week
 path = "taplo-lsp.exe"
 url = "https://github.com/tamasfe/taplo/releases/download/release-lsp-0.2.6/taplo-lsp-windows-x86_64.zip"
+executable = true
 
 ["AppData/Local/imhex/themes/catppuccin-frappe.json"]
 type = "file"
@@ -179,6 +180,7 @@ type = "archive-file"
 refreshPeriod = "168h" # 1-week
 path = "afx.exe"
 url = "https://github.com/babarot/afx/releases/latest/download/afx_windows_x86_64.zip"
+executable = true
 {{ else }}
 [".local/bin/afx"]
 {{ $arch := eq .chezmoi.arch "amd64" | ternary "x86_64" .chezmoi.arch -}}
@@ -186,4 +188,5 @@ type = "archive-file"
 refreshPeriod = "168h" # 1-week
 path = "afx"
 url = {{ printf "https://github.com/babarot/afx/releases/latest/download/afx_%s_%s.tar.gz" .chezmoi.os $arch | quote }}
+executable = true
 {{ end }}
