@@ -237,9 +237,11 @@
       {"code": 66, "label": {"base": "F9"}},
       {"code": 67, "label": {"base": "F10"}},
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 17411,
+        "label": {"hint": "LockTo", "base": "#3"},
+        "target": 3,
+        "rangeStart": 17408,
+        "categories": ["layer", "locktolayer"]
       },
       {"code": 74, "label": {"base": "Home"}},
       {"code": 77, "label": {"base": "End"}},
@@ -685,19 +687,24 @@
         "categories": ["blanks"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 17411,
+        "label": {"hint": "LockTo", "base": "#3"},
+        "target": 3,
+        "rangeStart": 17408,
+        "categories": ["layer", "locktolayer"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 20497,
+        "label": {"hint": {"full": "Mouse Wheel", "1u": "M.Whl"}, "base": "Up"},
+        "categories": ["mousekeys"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 20498,
+        "label": {
+          "hint": {"full": "Mouse Wheel", "1u": "M.Whl"},
+          "base": "Down"
+        },
+        "categories": ["mousekeys"]
       },
       {
         "code": 65535,
