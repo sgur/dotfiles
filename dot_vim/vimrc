@@ -89,6 +89,9 @@ set spelllang& spelllang+=cjk # Prevent duplication
 &spellfile = expand(rc_dir .. '/spell/' .. &encoding .. '.add')
 set spelloptions& spelloptions+=camel
 set tags+=tags;,.git/tags
+if has('win32')
+  set termwintype=conpty
+endif
 set textwidth=132 # B4 ラインプリンタの桁数は 136 桁
 set ttimeout ttimeoutlen=100
 set undodir^=$HOME/.cache/vim/undo undofile
