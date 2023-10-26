@@ -511,17 +511,19 @@ def InitCtrlp() # {{{
   packadd ctrlp-sonictemplate
   g:ctrlp_extensions = ['sonictemplate', 'ghq']
 
-  g:ctrlp_user_command = ['.git', 'git ls-files --cached --exclude-standard']
+  g:ctrlp_user_command = {
+      \ types: {
+      \   1: ['.git', 'git ls-files --cached --exclude-standard'],
+      \ }}
   if executable('fd')
-    g:ctrlp_user_command += [
-          \ 'fd --no-ignore-vcs --hidden --follow --type file --color never --max-results 30000'
-          \ ]
+    g:ctrlp_user_command.fallback =
+          \ 'fd --no-ignore-vcs --hidden --follow --type file --color never --max-results 1000'
   elseif executable('rg')
-    g:ctrlp_user_command += [
-          \ 'rg --files --no-ignore --no-messages --hidden --follow'
+    g:ctrlp_user_command.fallback =
+          \ 'rg --files --no-ignore --no-messages --hidden --follow --max-count 1000'
           \ .. ' --glob="!{.git,.hg,node_modules,.mypy_cache,.pytest_cache,.settings}/"'
           \ .. ' --glob="!{*.exe,*.dll,*.bmp,*.gif,*.png,*.jpg,*.jpeg,*.tif,*.ico,*.woff,*.ttf,*.pdf,package-lock.json,yarn.lock}"'
-          \ .. ' --glob="!{' .. escape(&wildignore, '''"') .. '}"']
+          \ .. ' --glob="!{' .. escape(&wildignore, '''"') .. '}"'
   endif
   if !has('patch-8.2.1665')
     return
