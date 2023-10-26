@@ -42,3 +42,7 @@ set -gx LANG ja_JP.UTF-8
 set -gx PIPENV_VENV_IN_PROJECT 1
 
 set -gx LESS --incsearch --quit-if-one-screen --raw-control-chars
+
+{{ if .wsl -}}
+set -gx fish_help_browser (which xdg-open)
+{{- end }}
