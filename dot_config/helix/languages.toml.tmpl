@@ -76,10 +76,6 @@ formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 roots = ["pyproject.toml"]
 
-[[grammar]]
-name = "ron"
-source = { git = "https://github.com/0xcharly/tree-sitter-ron", rev = "aa4ab0333ff2e6a22d79e1fbfb2c48b619a7793e" }
-
 [[language]]
 name = "scss"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "css"] }
