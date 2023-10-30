@@ -3,6 +3,8 @@
 
 set -e
 
+MARKSMAN=2023-07-25
+
 {{ $marksman := joinPath .chezmoi.homeDir ".local" "share" "lsp-servers" "marksman" -}}
 mkdir -p {{ $marksman }}
 pushd {{ $marksman }}
@@ -23,7 +25,7 @@ darwin)
   ;;
 esac
 
-curl -L -o marksman "https://github.com/artempyanykh/marksman/releases/latest/download/marksman-$platform"
+curl -L -o marksman "https://github.com/artempyanykh/marksman/releases/download/$MARKSMAN/marksman-$platform"
 
 chmod +x marksman
 ln -sf "$(pwd)/marksman" {{ joinPath .chezmoi.homeDir ".local" "bin" }}

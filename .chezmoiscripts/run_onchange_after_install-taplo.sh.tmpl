@@ -3,6 +3,8 @@
 
 set -e
 
+TAPLO=0.8.1
+
 {{ $taplo := joinPath .chezmoi.homeDir ".local" "share" "lsp-servers" "taplo" -}}
 mkdir -p {{ $taplo }}
 pushd {{ $taplo }}
@@ -26,7 +28,7 @@ darwin)
   ;;
 esac
 
-curl -L "https://github.com/tamasfe/taplo/releases/latest/download/taplo-full-$platform.gz" | gzip -d >taplo
+curl -L "https://github.com/tamasfe/taplo/releases/download/$TAPLO/taplo-full-$platform.gz" | gzip -d >taplo
 
 chmod +x taplo
 ln -sf "$(pwd)/taplo" {{ joinPath .chezmoi.homeDir ".local" "bin" }}
