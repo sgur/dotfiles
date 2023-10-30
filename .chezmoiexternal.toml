@@ -95,13 +95,6 @@ stripComponents = 1
 include = ["*/en-US/**", "*/*.ps*"]
 url = "https://github.com/catppuccin/powershell/archive/refs/heads/main.zip"
 
-[".local/bin/taplo-lsp.exe"]
-type = "archive-file"
-refreshPeriod = "168h" # 1-week
-path = "taplo-lsp.exe"
-url = "https://github.com/tamasfe/taplo/releases/download/release-lsp-0.2.6/taplo-lsp-windows-x86_64.zip"
-executable = true
-
 ["AppData/Local/imhex/themes/catppuccin-frappe.json"]
 type = "file"
 refreshPeriod = "168h" # 1-week
@@ -171,22 +164,4 @@ stripComponents = 1
 include = ["*/README.md", "*/rc/**"]
 url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
 
-{{ end }}
-
-
-{{ if eq .chezmoi.os "windows" }}
-[".local/bin/afx.exe"]
-type = "archive-file"
-refreshPeriod = "168h" # 1-week
-path = "afx.exe"
-url = "https://github.com/babarot/afx/releases/latest/download/afx_windows_x86_64.zip"
-executable = true
-{{ else }}
-[".local/bin/afx"]
-{{ $arch := eq .chezmoi.arch "amd64" | ternary "x86_64" .chezmoi.arch -}}
-type = "archive-file"
-refreshPeriod = "168h" # 1-week
-path = "afx"
-url = {{ printf "https://github.com/babarot/afx/releases/latest/download/afx_%s_%s.tar.gz" .chezmoi.os $arch | quote }}
-executable = true
 {{ end }}
