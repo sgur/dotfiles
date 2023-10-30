@@ -147,6 +147,8 @@ let g:lsp_settings_filetype_javascriptreact = s:lsp_settings_javascript_langserv
 let g:lsp_settings_filetype_typescript = s:lsp_settings_javascript_langservers + ['deno']
 let g:lsp_settings_filetype_typescriptreact = s:lsp_settings_javascript_langservers
 
+let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+
 let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver', 'ruff-lsp']
 
 let g:lsp_settings = get(g:, 'lsp_settings', {})
