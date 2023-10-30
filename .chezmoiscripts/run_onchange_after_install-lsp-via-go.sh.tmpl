@@ -4,19 +4,24 @@
 set -e
 
 GOPLS=v0.13.1
+GOLANGCI_LINT_LANGSERVER=v0.0.8
 
 function go_install() {
-	GOPATH=$(pwd) GOBIN=$(pwd) GO111MODULE=on go install -v "$1"
-	GOPATH=$(pwd) GO111MODULE=on go clean -modcache
-	rm -rf src pkg 2>/dev/null
+  local name=$1
+  local package=$2
+
+  local path={{- joinPath .chezmoi.homeDir ".local" "share" "lsp-servers" -}}/$name
+  mkdir -p $path
+  pushd $path
+
+  GOPATH=$(pwd) GOBIN=$(pwd) GO111MODULE=on go install -v "$package"
+  GOPATH=$(pwd) GO111MODULE=on go clean -modcache
+  rm -rf src pkg 2>/dev/null
+
+  ln -sf $(pwd)/$name {{ joinPath .chezmoi.homeDir ".local" "bin" }}
+  popd
 }
 
-{{ $gopls := joinPath .chezmoi.homeDir ".local" "share" "lsp-servers" "gopls" -}}
-mkdir -p {{ $gopls }}
-pushd {{ $gopls }}
 
-go_install golang.org/x/tools/gopls@$GOPLS
-
-ln -sf $(pwd)/gopls {{ joinPath .chezmoi.homeDir ".local" "bin" }}
-
-popd
+go_install gopls golang.org/x/tools/gopls@$GOPLS
+go_install golangci-lint-langserver github.com/nametake/golangci-lint-langserver@$GOLANGCI_LINT_LANGSERVER
