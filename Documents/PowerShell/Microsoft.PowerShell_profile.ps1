@@ -536,3 +536,22 @@ try
 } catch
 {
 }
+
+# Login via aws-vault
+# https://adamtheautomator.com/powershell-validateset/#Using_a_Class_for_a_ValidateSet_Value_List_A_Real_Example
+class AwsProfiles : System.Management.Automation.IValidateSetValuesGenerator
+{
+	[string[]] GetValidValues()
+	{
+		return wsl.exe --shell-type login -- aws configure list-profiles
+	}
+}
+function Start-AwsConsole {
+	param(
+		[Parameter(Mandatory = $true)]
+		[ValidateSet([AwsProfiles])]
+		[string] $Profile
+	)
+	$Token = wsl.exe --shell-type login -- aws-vault login $Profile --stdout
+	rundll32.exe url.dll,FileProtocolHandler $Token
+}
