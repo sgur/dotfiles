@@ -546,7 +546,8 @@ class AwsProfiles : System.Management.Automation.IValidateSetValuesGenerator
 		return wsl.exe --shell-type login -- aws configure list-profiles
 	}
 }
-function Start-AwsConsole {
+function Start-AwsConsole
+{
 	param(
 		[Parameter(Mandatory = $true)]
 		[ValidateSet([AwsProfiles])]
@@ -554,4 +555,34 @@ function Start-AwsConsole {
 	)
 	$Token = wsl.exe --shell-type login -- aws-vault login $Profile --stdout
 	rundll32.exe url.dll,FileProtocolHandler $Token
+}
+
+function Invoke-AwsVault
+{
+	param(
+		[Parameter(Mandatory, Position = 0)]
+		[ValidateSet([AwsProfiles])]
+		[string] $AwsProfile,
+		[Parameter(Mandatory, Position = 1)]
+		[System.Management.Automation.ScriptBlock] $ScriptBlock
+	)
+	$AccessKeyId = $Env:AWS_ACCESS_KEY_ID
+	$SecretAccessKey = $Env:AWS_SECRET_ACCESS_KEY
+	$Sessiontoken = $Env:AWS_SESSION_TOKEN
+	$Expiration = $Env:AWS_CREDENTIAL_EXPIRATION
+	try
+	{
+		$EnvJson = wsl.exe --shell-type login -- aws-vault export $AwsProfile --format=json | ConvertFrom-Json
+		$Env:AWS_ACCESS_KEY_ID = $EnvJson.AccessKeyId
+		$Env:AWS_SECRET_ACCESS_KEY = $EnvJson.SecretAccessKey
+		$Env:AWS_SESSION_TOKEN = $EnvJson.Sessiontoken
+		$Env:AWS_CREDENTIAL_EXPIRATION=$EnvJson.Expiration.ToString('O')
+		Invoke-Command -ScriptBlock $ScriptBlock
+	} finally
+	{
+		$Env:AWS_ACCESS_KEY_ID = $AccessKeyId
+		$Env:AWS_SECRET_ACCESS_KEY = $SecretAccessKey
+		$Env:AWS_SESSION_TOKEN = $Sessiontoken
+		$Env:AWS_CREDENTIAL_EXPIRATION=$Expiration
+	}
 }
