@@ -74,7 +74,7 @@ if !has('win32')
   set makeprg=env\ LC_ALL=C\ make
 endif
 set matchpairs+=（:）,｛:｝,「:」,［:］,『:』,【:】
-if has('mouse')
+if has('mouse') && !exists("$ZELLIJ")
   &mouse = &term =~ 'xterm' ? 'a' : 'nvi'
 endif
 set nrformats& nrformats-=octal
