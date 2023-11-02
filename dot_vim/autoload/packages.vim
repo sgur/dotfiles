@@ -77,10 +77,6 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
-  call minpac#add('kana/vim-fakeclip', #{
-        \ type: 'opt'
-        \ })
-
   call minpac#add('andymass/vim-matchup', #{
         \ type: 'opt'
         \ })

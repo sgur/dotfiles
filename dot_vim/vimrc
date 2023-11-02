@@ -544,14 +544,6 @@ augroup END
 g:user_emmet_leader_key = '<C-b>'
 g:user_emmet_install_global = 0
 
-# fakeclip (opt) {{{2
-if !has('clipboard')
-  if system('cat /proc/sys/kernel/osrelease') =~ 'Microsoft'
-    $PATH ..= ':' .. expand('~/.cache/vim/bin/')
-  endif
-  call pack.Add('vim-fakeclip')
-endif
-
 # flutter (opt) {{{2
 pack.Add('vim-flutter')
 
