@@ -27,16 +27,16 @@
             "keys": "alt+shift+o"
         },
         {
-            "command": "unbound",
-            "keys": "alt+enter"
-        },
-        {
             "command": 
             {
                 "action": "splitPane",
                 "split": "down"
             },
             "keys": "alt+shift+'"
+        },
+        {
+            "command": "unbound",
+            "keys": "alt+enter"
         },
         {
             "command": 
@@ -158,6 +158,18 @@
                 "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
                 "name": "nushell",
                 "startingDirectory": "%USERPROFILE%"
+            },
+            {
+                "guid": "{45958b6f-04ee-5b83-af58-67b66bfb9c3e}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{65c635b5-4d2e-535e-a75a-462ed0e40d22}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
             }
         ]
     },
