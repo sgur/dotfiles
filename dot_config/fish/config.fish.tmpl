@@ -1,13 +1,24 @@
-{{ if lookPath "gpg" -}}
-set -gx GPG_TTY (tty)
-gpg-connect-agent --quiet updatestartuptty /bye > /dev/null &
-set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-commandline -f repaint
-{{- end }}
+if status is-interactive
+    {{ if lookPath "gpg" -}}
+    set -gx GPG_TTY (tty)
+    gpg-connect-agent --quiet updatestartuptty /bye > /dev/null &
+    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+    commandline -f repaint
+    {{- end }}
 
 # vscode の integrated terminal からは vscode のエディターを開く
-if test "$TERM_PROGRAM" = "vscode"
-    set -gx EDITOR 'code -w'
+    if test "$TERM_PROGRAM" = "vscode"
+        set -gx EDITOR 'code -w'
+    end
+
+    abbr cp cp -i
+    abbr mv mv -i
+{{- if eq .chezmoi.os "linux" }}
+    abbr rm rm --interactive=once
+{{- else }}
+    abbr rm rm -i
+{{- end }}
+    abbr ipecho curl --silent ipecho.net/plain
 end
 
 # 共通の設定はログインシェルでのみ行う
