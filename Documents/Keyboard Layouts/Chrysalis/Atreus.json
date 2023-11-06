@@ -82,12 +82,12 @@
         "categories": ["modifier", "dualuse", "rshift"]
       },
       {
-        "code": 50720,
+        "code": 49696,
         "baseCode": 15,
-        "label": {"hint": "AltGr/", "base": "l"},
-        "modifier": "AltGr",
+        "label": {"hint": "Alt/", "base": "l"},
+        "modifier": "Alt",
         "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "altgr"]
+        "categories": ["modifier", "dualuse", "alt"]
       },
       {
         "code": 49988,
@@ -121,7 +121,14 @@
       {"code": 17, "label": {"base": "n", "shifted": "N"}},
       {"code": 16, "label": {"base": "m", "shifted": "M"}},
       {"code": 54, "label": {"base": ",", "shifted": "<"}},
-      {"code": 55, "label": {"base": ".", "shifted": ">"}},
+      {
+        "code": 50760,
+        "baseCode": 55,
+        "label": {"hint": "AltGr/", "base": "."},
+        "modifier": "AltGr",
+        "rangeStart": 49169,
+        "categories": ["modifier", "dualuse", "altgr"]
+      },
       {"code": 56, "label": {"base": "/", "shifted": "?"}},
       {"code": 53, "label": {"base": "`", "shifted": "~"}},
       {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
