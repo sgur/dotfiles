@@ -1,5 +1,6 @@
 {{ if lookPath "zoxide" }}
+Write-Host -NoNewline "✔ zoxide "
 {{ output "zoxide" "init" "--hook" "pwd" "powershell" }}
 {{ else }}
-Write-Warning "zoxide is not installed"
+Write-Host -NoNewline "🆖 zoxide "
 {{ end }}

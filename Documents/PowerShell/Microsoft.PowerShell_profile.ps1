@@ -121,7 +121,12 @@ try
 # xh completions
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
 {
+	Write-Host -NoNewline "✔ xh "
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Xh.ps1')
+}
+else
+{
+	Write-Host -NoNewline "🆖 xh "
 }
 
 # bat
@@ -173,6 +178,7 @@ if ($Env:WT_SESSION)
 # fnm
 if (Get-Command -ErrorAction SilentlyContinue fnm | Out-Null)
 {
+	Write-Host -NoNewline "✔ fnm "
 	fnm env --shell power-shell | Out-String | Invoke-Expression
 	function __fnm_hook
 	{
@@ -184,6 +190,10 @@ if (Get-Command -ErrorAction SilentlyContinue fnm | Out-Null)
 	}
 	__fnm_hook
 	fnm completions --shell power-shell | Out-String | Invoke-Expression
+}
+else
+{
+	Write-Host -NoNewline "🆖 fnm "
 }
 
 # Set-Location Hook
@@ -376,6 +386,7 @@ function Register-GitCoreutilsShims
 
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 {
+	Write-Host -NoNewline "✔ eza "
 	$IconOption = $Env:WT_SESSION ? "--icons" : $null
 	function global:ls
 	{
@@ -384,6 +395,7 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 	}
 } else
 {
+	Write-Host -NoNewline "🆖 eza "
 	function global:ls
 	{
 		& ls.exe --classify --color=auto --human-readable --dereference-command-line-symlink-to-dir --hide=_* --hide=.* --ignore=NTUSER.* --ignore=ntuser.* --ignore='Application Data' --ignore='Local Settings' --ignore='My Documents' --ignore='Start Menu' --ignore='スタート メニュー' --hide='*scoopappsyarncurrent*' $args
@@ -586,3 +598,17 @@ function Invoke-AwsVault
 		$Env:AWS_CREDENTIAL_EXPIRATION=$Expiration
 	}
 }
+
+# carapace
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name carapace)
+{
+	Write-Host -NoNewline "✔ carapace "
+	Set-PSReadLineOption -Colors @{ "Selection" = "`e[7m" }
+	Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
+	carapace _carapace | Out-String | Invoke-Expression
+}
+else
+{
+	Write-Host -NoNewline "🆖 carapace "
+}
+Write-Host ""

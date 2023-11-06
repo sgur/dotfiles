@@ -1,5 +1,6 @@
 {{ if lookPath "broot" }}
+Write-Host -NoNewline "✔ broot "
 {{ output "broot" "--print-shell-function" "powershell" }}
 {{ else }}
-Write-Warning "broot is not installed"
+Write-Host -NoNewline "🆖 broot "
 {{ end }}
