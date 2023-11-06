@@ -31,7 +31,7 @@ if has('win32')
   let g:lsp_settings_global_settings_dir = expand('~/.local/share/vim-lsp-settings')
 endif
 
-let g:lsp_log_verbose = 3
+let g:lsp_log_verbose = 1
 let g:lsp_log_file = expand('~/.cache/vim-lsp/vim-lsp.log')
 
 let g:lsp_popup_menu_server_blacklist = get(g:, 'lsp_popup_menu_server_blacklist', ['efm-langserver'])
