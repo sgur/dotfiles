@@ -123,8 +123,7 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
 {
 	Write-Host -NoNewline "✔ xh "
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Xh.ps1')
-}
-else
+} else
 {
 	Write-Host -NoNewline "🆖 xh "
 }
@@ -190,8 +189,7 @@ if (Get-Command -ErrorAction SilentlyContinue fnm | Out-Null)
 	}
 	__fnm_hook
 	fnm completions --shell power-shell | Out-String | Invoke-Expression
-}
-else
+} else
 {
 	Write-Host -NoNewline "🆖 fnm "
 }
@@ -606,8 +604,7 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name carapace)
 	Set-PSReadLineOption -Colors @{ "Selection" = "`e[7m" }
 	Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 	carapace _carapace | Out-String | Invoke-Expression
-}
-else
+} else
 {
 	Write-Host -NoNewline "🆖 carapace "
 }
