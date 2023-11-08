@@ -6,6 +6,8 @@
 #   . ~/.config/powershell/Microsoft.PowerShell_profile.ps1
 #   ```
 
+$Ext = @{}
+
 # 文字化け対策
 # https://smdn.jp/programming/netfx/tips/unicode_encoding_bom/
 $OutputEncoding = [System.Text.Encoding]::Default
@@ -121,11 +123,11 @@ try
 # xh completions
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
 {
-	Write-Host -NoNewline "✔ xh "
+	$Ext.xh = $true
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Xh.ps1')
 } else
 {
-	Write-Host -NoNewline "🆖 xh "
+	$Ext.xh = $false
 }
 
 # bat
@@ -168,16 +170,32 @@ $ENV:FZF_DEFAULT_OPTS=@"
 # Starship
 if ($Env:WT_SESSION)
 {
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
+	if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name starship)
+	{
+		$Ext.starship = $true
+		. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
+	}
+	else
+	{
+		$Ext.starship = $false
+	}
 }
 
 # zoxide
-. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Zoxide.ps1')
+if (Get-Command -ErrorAction SilentlyContinue zoxide)
+{
+	$Ext.zoxide = $true
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Zoxide.ps1')
+}
+else
+{
+	$Ext.zoxide = $false
+}
 
 # fnm
 if (Get-Command -ErrorAction SilentlyContinue fnm | Out-Null)
 {
-	Write-Host -NoNewline "✔ fnm "
+	$Ext.fnm = $true
 	fnm env --shell power-shell | Out-String | Invoke-Expression
 	function __fnm_hook
 	{
@@ -191,7 +209,7 @@ if (Get-Command -ErrorAction SilentlyContinue fnm | Out-Null)
 	fnm completions --shell power-shell | Out-String | Invoke-Expression
 } else
 {
-	Write-Host -NoNewline "🆖 fnm "
+	$Ext.fnm = $false
 }
 
 # Set-Location Hook
@@ -335,13 +353,11 @@ Initialize-Curl
 Set-Alias -Name open -Value Start-Process
 
 # spell-checker: disable
-$CoreutilsBin = @(
-	"basename", "cat", "chmod", "comm", "cp", "cut", "date", "dirname", "echo",
-	"env", "expr", "false", "fold", "head", "id", "install", "join", "ln", "ls",
-	"md5sum", "mkdir", "mv", "od", "paste", "printf", "ps", "pwd", "rm",
-	"rmdir", "sleep", "sort", "split", "stty", "tail", "tee", "touch", "tr",
-	"true", "uname", "uniq", "wc",
-	"grep")
+$CoreutilsBin = @("basename", "cat", "chmod", "comm", "cp", "cut", "cygpath",
+	"date", "diff", "dirname", "echo", "env", "expr", "false", "fold", "grep",
+	"head", "id", "install", "join", "ln", "ls", "md5sum", "mkdir", "mv", "od",
+	"paste", "printf", "ps", "pwd", "rm", "rmdir", "sleep", "sort", "split", "stty",
+	"tail", "tee", "touch", "tr", "true", "uname", "uniq", "wc")
 # "msysmnt" is excluded from coreutils
 $ReadonlyBin = @("tee", "diff", "ls", "sleep", "sort")
 $ConfirmationRequiredBin = @("cp", "mv")
@@ -384,7 +400,7 @@ function Register-GitCoreutilsShims
 
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 {
-	Write-Host -NoNewline "✔ eza "
+	$Ext.eza = $true
 	$IconOption = $Env:WT_SESSION ? "--icons" : $null
 	function global:ls
 	{
@@ -393,7 +409,7 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 	}
 } else
 {
-	Write-Host -NoNewline "🆖 eza "
+	$Ext.eza = $false
 	function global:ls
 	{
 		& ls.exe --classify --color=auto --human-readable --dereference-command-line-symlink-to-dir --hide=_* --hide=.* --ignore=NTUSER.* --ignore=ntuser.* --ignore='Application Data' --ignore='Local Settings' --ignore='My Documents' --ignore='Start Menu' --ignore='スタート メニュー' --hide='*scoopappsyarncurrent*' $args
@@ -413,7 +429,15 @@ if (Get-Command -ErrorAction SilentlyContinue "br")
 {
 } else
 {
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Broot.ps1')
+	if (Get-Command -ErrorAction SilentlyContinue "broot")
+	{
+		$Ext.broot = $true
+		. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Broot.ps1')
+	}
+	else
+	{
+		$Ext.broot = $false
+	}
 }
 
 # WinGet completion
@@ -600,12 +624,23 @@ function Invoke-AwsVault
 # carapace
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name carapace)
 {
-	Write-Host -NoNewline "✔ carapace "
+	$Ext.carapace = $true
 	Set-PSReadLineOption -Colors @{ "Selection" = "`e[7m" }
 	Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
 	carapace _carapace | Out-String | Invoke-Expression
 } else
 {
-	Write-Host -NoNewline "🆖 carapace "
+	$Ext.carapace = $false
 }
-Write-Host ""
+
+$Buffer = New-Object System.Text.StringBuilder
+$Ext.GetEnumerator() | ForEach-Object { 
+	[void] $Buffer.Append(" ")
+	if ($_.Value)
+	{
+		[void] $Buffer.Append("✔ ")
+	}
+	[void] $Buffer.Append($_.Key)
+}
+Write-Host $Buffer.ToString()
+Remove-Variable -Name Buffer

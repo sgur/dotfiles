@@ -1,6 +1,3 @@
 {{ if lookPath "zoxide" }}
-Write-Host -NoNewline "✔ zoxide "
 {{ output "zoxide" "init" "--hook" "pwd" "powershell" }}
-{{ else }}
-Write-Host -NoNewline "🆖 zoxide "
 {{ end }}
