@@ -18,7 +18,12 @@ none)
   exit 1 # Do not ask for passphrase
   ;;
 *)
-  exec {{ lookPath "pinentry-curses" }} "$@"
+  {{- $pinentryPath := lookPath "pinentry-curses" -}}
+  {{- if $pinentryPath }}
+  exec {{ $pinentryPath }} "$@"
+  {{- else }}
+  exit 1
+  {{- end }}
 esac
 
 
