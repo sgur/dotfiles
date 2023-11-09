@@ -10,16 +10,6 @@ if status is-interactive
     if test "$TERM_PROGRAM" = "vscode"
         set -gx EDITOR 'code -w'
     end
-
-    abbr cp cp -i
-    abbr mv mv -i
-{{- if eq .chezmoi.os "linux" }}
-    abbr rm rm --interactive=once
-{{- else }}
-    abbr rm rm -i
-{{- end }}
-    abbr ipecho curl --silent ipecho.net/plain
-    abbr cu chezmoi update
 end
 
 # 共通の設定はログインシェルでのみ行う
