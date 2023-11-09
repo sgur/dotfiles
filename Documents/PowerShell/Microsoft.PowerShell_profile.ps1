@@ -40,9 +40,10 @@ $CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
 
 # $EDITOR を gVim にする
 $Env:EDITOR = ((Get-Command gvim.exe).Source -replace '\\', '\\') + ' --remote-tab-silent-wait'
+$Env:GIT_EDITOR = ((Get-Command vim.exe).Source -replace '\\', '\\')
 
 # VSCode 上の Integrated Terminal から起動した場合
-if ($env:TERM_PROGRAM -eq "vscode")
+if ($Env:TERM_PROGRAM -eq "vscode")
 {
 	. "$(code --locate-shell-integration-path pwsh)"
 }
@@ -634,7 +635,7 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name carapace)
 }
 
 $Buffer = New-Object System.Text.StringBuilder
-$Ext.GetEnumerator() | ForEach-Object { 
+$Ext.GetEnumerator() | Sort-Object -Property Key | ForEach-Object {
 	[void] $Buffer.Append(" ")
 	if ($_.Value)
 	{
@@ -643,4 +644,5 @@ $Ext.GetEnumerator() | ForEach-Object {
 	[void] $Buffer.Append($_.Key)
 }
 Write-Host $Buffer.ToString()
-Remove-Variable -Name Buffer
+
+Remove-Variable -Name NonInteractive, Buffer, Ext
