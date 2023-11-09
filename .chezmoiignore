@@ -24,6 +24,7 @@ Library/
 .chezmoiscripts/*.ps1*
 .chezmoiscripts/windows/**
 .wslconfig
+.scoopfile.json
 AppData/
 AppData/Local/
 AppData/Roaming/
