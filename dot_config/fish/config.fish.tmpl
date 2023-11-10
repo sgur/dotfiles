@@ -10,6 +10,8 @@ if status is-interactive
     if test "$TERM_PROGRAM" = "vscode"
         set -gx EDITOR 'code -w'
     end
+
+    alias hostname 'uname -n'
 end
 
 # 共通の設定はログインシェルでのみ行う
