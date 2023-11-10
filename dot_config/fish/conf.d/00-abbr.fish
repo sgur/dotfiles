@@ -7,7 +7,7 @@ set -l arch (uname -m)
 # x86_64
 # arm64
 
-if test $os = "Linux"
+if test $os = Linux
     abbr rm rm -i
 else
     abbr rm rm --interactive=once
