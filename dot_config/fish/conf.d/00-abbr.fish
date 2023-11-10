@@ -12,9 +12,14 @@ if test $os = Linux
 else
     abbr rm rm --interactive=once
 end
-abbr cp cp -i
-abbr mv mv -i
-abbr ipecho curl --silent ipecho.net/plain
-abbr cu chezmoi update
-abbr za-c zellij attach --create
-abbr zl zellij list-sessions
+abbr --add cp cp -i
+abbr --add mv mv -i
+abbr --add ipecho -- curl --silent ipecho.net/plain
+abbr --add cu chezmoi update
+abbr --add za zellij attach
+abbr --add za-c -- zellij attach --create
+abbr --add zl zellij list-sessions
+
+abbr --add CC --position anywhere --set-cursor "% | fish_clipboard_copy"
+abbr --add aws-e --set-cursor "aws-vault exec % -- aws"
+abbr --add aws-l --set-cursor "aws-vault login % --stdout | fish_clipboard_copy"
