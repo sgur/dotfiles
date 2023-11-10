@@ -3,6 +3,7 @@
 
 set -e
 
+ASTRO_LS=2.5.2
 BASH_LANGUAGE_SERVER=5.0.0
 DOCKERFILE_LANGUAGE_SERVER_NODEJS=0.11.0
 GRAPHQL_LANGUAGE_SERVICE_CLI=3.3.27
@@ -38,6 +39,7 @@ function npm_install() {
   popd
 }
 
+npm_install astro-ls @astrojs/language-server@$ASTRO_LS
 npm_install bash-language-server bash-language-server@$BASH_LANGUAGE_SERVER
 npm_install docker-langserver dockerfile-language-server-nodejs@$DOCKERFILE_LANGUAGE_SERVER_NODEJS
 npm_install graphql-lsp graphql-language-service-cli@$GRAPHQL_LANGUAGE_SERVICE_CLI
