@@ -1,13 +1,13 @@
 if status is-interactive
     {{ if lookPath "gpg" -}}
     set -gx GPG_TTY (tty)
-    gpg-connect-agent --quiet updatestartuptty /bye > /dev/null &
+    gpg-connect-agent --quiet updatestartuptty /bye >/dev/null &
     set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
     commandline -f repaint
     {{- end }}
 
-# vscode の integrated terminal からは vscode のエディターを開く
-    if test "$TERM_PROGRAM" = "vscode"
+    # vscode の integrated terminal からは vscode のエディターを開く
+    if test "$TERM_PROGRAM" = vscode
         set -gx EDITOR 'code -w'
     end
 

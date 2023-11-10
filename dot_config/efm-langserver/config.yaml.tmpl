@@ -11,6 +11,11 @@ log-level: 5
 #     command: :reload-config
 
 tools:
+  fish-fish_indent: &fish-fish_indent 
+    prefix: fix_indent
+    format-command: fish_indent
+    format-stdin: true
+
   fish-lint: &fish-lint
     lint-command: fish --no-execute
     lint-stdin: false
@@ -240,6 +245,7 @@ languages:
 
   fish:
     - <<: *fish-lint
+    - <<: *fish-fish_indent
 
   html:
     - <<: *any-prettier
