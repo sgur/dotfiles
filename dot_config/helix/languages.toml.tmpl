@@ -1,5 +1,9 @@
 # Default configuration: https://github.com/helix-editor/helix/blob/master/languages.toml
 
+[[languaeg]]
+name = "astro"
+language-servers = ["astro-ls", "efm-langserver"]
+
 [[language]]
 name = "bash"
 formatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
@@ -103,6 +107,7 @@ name = "yaml"
 language-servers = ["yaml-language-server", "efm-langserver"]
 
 [language-server]
+astro-ls = { command = "astro-ls", args = ["--stdio"] }
 deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
 eslint-language-server = { command = "eslint-language-server", args = ["--stdio"] }
