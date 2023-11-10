@@ -151,7 +151,7 @@ if has('vim_starting') && !has('gui_running')
   set t_SI+=[5\ q
   set t_EI+=[1\ q
   set t_te+=[0\ q
-  if exists('$TMUX') && $TERM == 'screen-256color' && has('termguicolors') # {{{
+  if (exists('$TMUX') || exists('$ZELLIJ'))  && $TERM == 'screen-256color' && has('termguicolors') # {{{
     # vim on tmux を true color で利用する
     # https://qiita.com/yami_beta/items/ef535d3458addd2e8fbb
     set t_8f=[38;2;%lu;%lu;%lum
@@ -185,7 +185,7 @@ g:maplocalleader = "\<C-l>"
 noremap <LocalLeader>  <Nop>
 nnoremap <C-l><C-l>  <C-l>
 
-# screen / tmux {{{2
+# screen / tmux / zellij {{{2
 nnoremap <C-z>  <Nop>
 nnoremap <C-z><C-z>  <C-z>
 
