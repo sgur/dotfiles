@@ -405,7 +405,7 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 	$IconOption = $Env:WT_SESSION ? "--icons" : $null
 	function global:ls
 	{
-		& eza.exe --classify --color=auto --color-scale $IconOption --no-quotes --group-directories-first `
+		& eza.exe --classify --color=auto --color-scale=size $IconOption --no-quotes --group-directories-first `
 			--ignore-glob='NTUSER.*|ntuser.*|Application Data|Local Settings|My Documents|Start Menu|スタート メニュー' $args
 	}
 } else
