@@ -12,6 +12,10 @@ if status is-interactive
     end
 
     alias hostname 'uname -n'
+
+    {{ if lookPath "carapace" -}}
+    carapace _carapace fish | source
+    {{- end }}
 end
 
 # 共通の設定はログインシェルでのみ行う
