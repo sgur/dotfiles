@@ -8,7 +8,7 @@ theme = "catppuccin_mocha"
   "search_next",
 ]
 [keys.normal.Z]
-Z = ":quit"
+Z = ":write-quit" # ":x"
 
 [editor]
 mouse = false
