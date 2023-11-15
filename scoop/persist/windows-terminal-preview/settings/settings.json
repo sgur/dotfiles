@@ -146,6 +146,15 @@
                 "suppressApplicationTitle": true
             },
             {
+                "commandline": "pwsh.exe -NoExit -NoLogo -Command Enter-VsDevShell2022",
+                "guid": "{c8411038-c4da-4acd-a899-3fb2c25aea53}",
+                "hidden": false,
+                "icon": "%ProgramFiles%\\Microsoft Visual Studio\\2022\\Professional\\Common7\\IDE\\Assets\\VisualStudio.70x70.contrast-standard_scale-180.png",
+                "name": "Developer PowerShell for VS 2022",
+                "startingDirectory": "%USERPROFILE%",
+                "suppressApplicationTitle": true
+            },
+            {
                 "closeOnExit": "always",
                 "commandline": "wsl -u root -- sh -c 'docker logs --follow --tail 30 cntlm'",
                 "guid": "{bc8c78c4-c8d4-4f7a-92a3-001ded7e2829}",
