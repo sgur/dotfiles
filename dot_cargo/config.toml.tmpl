@@ -2,6 +2,8 @@
 git-fetch-with-cli = true
 
 [build]
+# v0.5.4 is required for Rust 1.65.0
+# ❯ cargo install --locked sccache@0.5.4
 {{ if lookPath "sccache" -}}
 rustc-wrapper = {{ lookPath "sccache" | quote }}
 {{- end }}
