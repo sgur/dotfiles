@@ -1,7 +1,7 @@
 ## Microsoft.PowerShell_profile.ps1
 #
 # 1. Edit $PROFILE.CurrentUserCurrentHost
-# 2. Put the line below
+# 2. Put the line bellow
 #   ```
 #   . ~/.config/powershell/Microsoft.PowerShell_profile.ps1
 #   ```
