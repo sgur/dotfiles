@@ -158,7 +158,7 @@ bundle-noload catppuccin 'git clone https://github.com/catppuccin/kakoune catppu
     ln -sfn "${kak_opt_bundle_path}/catppuccin/colors" "${kak_config}/colors/catppuccin"
 }
 try %{
-    colorscheme catppuccin_macchiato
+    colorscheme catppuccin_mocha
 }
 
 # bundle/kak-lsp
