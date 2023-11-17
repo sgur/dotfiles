@@ -1,8 +1,7 @@
 #!/usr/bin/env fish
 
-status is-login || exit
-
 # Only display this information in interactive shells
+status is-login || exit
 status is-interactive || exit
 
 {{ if or (lookPath "lsb_release" | not) (output "lsb_release" "--id" | contains "Ubuntu" | not ) -}}
