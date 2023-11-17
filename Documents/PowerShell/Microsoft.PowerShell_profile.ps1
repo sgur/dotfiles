@@ -567,7 +567,7 @@ try
 		$PSStyle.Formatting.Verbose = $Flavor.Yellow.Foreground()
 		$PSStyle.Formatting.Warning = $Flavor.Peach.Foreground()
 	}
-	Set-CatppuccinTheme 'Mocha'
+	Set-CatppuccinTheme 'Macchiato'
 } catch
 {
 }
@@ -637,9 +637,18 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name carapace)
 $Buffer = New-Object System.Text.StringBuilder
 $Ext.GetEnumerator() | Sort-Object -Property Key | ForEach-Object {
 	[void] $Buffer.Append(" ")
-	if ($_.Value)
+	if ($Env:WT_SESSION -ne $null) {
+		if ($_.Value)
+		{
+			[void] $Buffer.Append("✔ ")
+		}
+	}
+	else
 	{
-		[void] $Buffer.Append("✔ ")
+		if (!$_.Value)
+		{
+			[void] $Buffer.Append("[N/A]")
+		}
 	}
 	[void] $Buffer.Append($_.Key)
 }
