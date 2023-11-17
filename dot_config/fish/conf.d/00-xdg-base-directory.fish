@@ -14,8 +14,8 @@ fish_add_path --append --path /snap/bin
 
 # Desktop files (used by desktop environments within both X11 and Wayland) are looked for in XDG_DATA_DIRS; make sure it includes
 # the relevant directory for snappy applications' desktop files.
-set -l snap_xdg_path "/var/lib/snapd/desktop"
-if test -d $snap_xdg_path ;and not string match --quiet "*$snap_xdg_path" $XDG_DATA_DIRS
+set -l snap_xdg_path /var/lib/snapd/desktop
+if test -d $snap_xdg_path; and not string match --quiet "*$snap_xdg_path" $XDG_DATA_DIRS
     set -gx XDG_DATA_DIRS $XDG_DATA_DIRS:$snap_xdg_path
 end
 
