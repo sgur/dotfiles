@@ -588,7 +588,7 @@ function Start-AwsConsole
 		[ValidateSet([AwsProfiles])]
 		[string] $Profile
 	)
-	$Token = wsl.exe --shell-type login -- aws-vault login $Profile --stdout
+	$Token = wsl.exe --shell-type login -- aws-vault login --duration=3h $Profile --stdout
 	rundll32.exe url.dll,FileProtocolHandler $Token
 }
 
