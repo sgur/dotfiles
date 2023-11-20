@@ -21,7 +21,7 @@ Library/
 
 {{ if ne .chezmoi.os "windows" }}
 # Ignoring on non-Windows
-.chezmoiscripts/*.ps1*
+**/*.ps1
 .chezmoiscripts/windows/**
 .wslconfig
 .scoopfile.json
@@ -35,7 +35,7 @@ vimfiles/
 Tools/
 {{ else }}
 # Ignoring on Windows
-.chezmoiscripts/*.sh*
+**/*.*sh
 .Brewfile*
 .actrc
 .bashrc
