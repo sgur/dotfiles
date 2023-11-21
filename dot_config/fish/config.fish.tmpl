@@ -1,8 +1,10 @@
-{{ if lookPath "gpg" -}}
-set -gx GPG_TTY (tty)
-gpg-connect-agent --quiet updatestartuptty /bye >/dev/null &
-set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
-commandline -f repaint
+{{ if and (lookPath "gpg") (lookPath "gpgconf") -}}
+if type -q gpg
+    set -gx GPG_TTY (tty)
+    gpg-connect-agent --quiet updatestartuptty /bye >/dev/null &
+    set -gx SSH_AUTH_SOCK (gpgconf --list-dirs agent-ssh-socket)
+    commandline -f repaint
+end
 {{- end }}
 
 if status is-interactive
