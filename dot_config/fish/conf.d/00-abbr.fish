@@ -23,3 +23,5 @@ abbr --add zl zellij list-sessions
 # abbr --add CC --position anywhere --set-cursor "% | fish_clipboard_copy"
 abbr --add aws:e --set-cursor "aws-vault exec % -- "
 abbr --add aws:l --set-cursor "aws-vault login % --stdout | fish_clipboard_copy"
+
+abbr --add pwsh /mnt/c/Program\\ Files/PowerShell/7/pwsh.exe
