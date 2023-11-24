@@ -6,9 +6,11 @@ root-markers:
 log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
 log-level: 5
 
-# commands:
-#   - title: reload
-#     command: :reload-config
+{{- if false -}}
+commands:
+  - title: reload
+    command: :reload-config
+{{- end }}
 
 tools:
   fish-fish_indent: &fish-fish_indent 
@@ -192,6 +194,17 @@ tools:
       - "%Z"
     lint-ignore-exit-code: true
     lint-severity: 3
+{{- if false -}}
+    completion-command: >-
+      {{ lookPath "npx" }} --yes
+      --
+      cspell
+      suggestions
+      --no-progress
+      --stdin
+      -config {{ joinPath .chezmoi.homeDir ".config" "cspell.config.yaml" }}
+    completion-stdin: true
+{{- end }}
 
   any-commitlint: &any-commitlint
     prefix: commitlint
@@ -275,8 +288,10 @@ languages:
     - <<: *any-cspell
 
   python:
-    # - <<: *python-flake8
-    # - <<: *python-mypy
+{{- if false -}}
+    - <<: *python-flake8
+    - <<: *python-mypy
+{{- end }}
     - <<: *python-black
     - <<: *python-isort
     - <<: *any-cspell
@@ -300,7 +315,9 @@ languages:
     - <<: *any-prettier
 
   yaml:
-    # - <<: *yaml-yamllint
+{{- if false -}}
+    - <<: *yaml-yamllint
+{{- end }}
     - <<: *yaml-actionlint
     - <<: *any-prettier
 
