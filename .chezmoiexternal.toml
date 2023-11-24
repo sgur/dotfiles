@@ -20,13 +20,25 @@ type = "archive-file"
 url = "https://sourceforge.net/projects/wordlist/files/speller/2020.12.07/wordlist-en_US-2020.12.07.zip/download"
 path = "en_US.txt"
 
-[".config/helix/themes/catppuccin"]
-type = "archive"
-exact = true
+[".config/helix/themes/catppuccin_frappe.toml"]
+type = "file"
 refreshPeriod = "168h" # 1-week
-stripComponents = 3
-include = ["*/themes/default/*.toml"]
-url = "https://github.com/catppuccin/helix/archive/refs/heads/main.zip"
+url = "https://raw.githubusercontent.com/catppuccin/helix/main/themes/default/catppuccin_frappe.toml"
+
+[".config/helix/themes/catppuccin_latte.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://raw.githubusercontent.com/catppuccin/helix/main/themes/default/catppuccin_latte.toml"
+
+[".config/helix/themes/catppuccin_macchiato.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://raw.githubusercontent.com/catppuccin/helix/main/themes/default/catppuccin_macchiato.toml"
+
+[".config/helix/themes/catppuccin_mocha.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://raw.githubusercontent.com/catppuccin/helix/main/themes/default/catppuccin_mocha.toml"
 
 [".config/gitui/themes"]
 type = "archive"
