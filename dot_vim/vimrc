@@ -436,21 +436,21 @@ augroup vimrc_plugin_asyncomplete
   autocmd BufWinEnter *  OnBufwinenterAsyncomplete()
   autocmd OptionSet readonly  OnBufwinenterAsyncomplete()
 augroup END
-# buffer source
-autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-      \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-      \   name: 'buffer',
-      \   allowlist: ['*'],
-      \   completor: function('asyncomplete#sources#buffer#completor')
-      \}))
+# # buffer source
+# autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+#       \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+#       \   name: 'buffer',
+#       \   allowlist: ['*'],
+#       \   completor: function('asyncomplete#sources#buffer#completor'),
+#       \}))
 # file source
 autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
       \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
       \   name: 'file',
-      \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css'],
+      \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'markdown'],
       \   completor: function('asyncomplete#sources#file#completor')
       \}))
-# dictionary source
+# # dictionary source
 # autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
 #       \ asyncomplete#register_source(asyncomplete#sources#dictionary#get_source_options({
 #       \   name: 'dictionary',
