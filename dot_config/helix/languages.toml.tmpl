@@ -2,27 +2,28 @@
 
 [[languaeg]]
 name = "astro"
-language-servers = ["astro-ls", "efm-langserver"]
+language-servers = ["astro-ls", "efm-langserver", "scls"]
 
 [[language]]
 name = "bash"
 formatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
-language-servers = ["bash-language-server", "efm-langserver"]
+language-servers = ["bash-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "css"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "css"] }
-language-servers = ["vscode-css-language-server", "efm-langserver"]
+language-servers = ["vscode-css-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "fish"
 formatter = { command = "fish_indent" }
 auto-format = true
+language-servers = ["efm-langserver", "scls"]
 
 [[language]]
 name = "go"
 scope = "source.go"
-language-servers = ["gopls", "golangci-lint-langserver", "efm-langserver"]
+language-servers = ["gopls", "golangci-lint-langserver", "efm-langserver", "scls"]
 
 [[language]]
 name = "hjson"
@@ -38,25 +39,25 @@ source = { git = "https://github.com/winston0410/tree-sitter-hjson", rev = "02fa
 [[language]]
 name = "html"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "html"] }
-language-servers = ["vscode-html-language-server", "efm-langserver"]
+language-servers = ["vscode-html-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "javascript"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
+language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "json"
 scope = "source.json"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "json"] }
-language-servers = ["vscode-json-language-server", "efm-langserver"]
+language-servers = ["vscode-json-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "jsx"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
+language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "kdl"
@@ -64,7 +65,7 @@ language-servers = ["efm-langserver"]
 
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "efm-langserver"]
+language-servers = ["marksman", "efm-langserver", "scls"]
 auto-format = true
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "markdown"] }
 
@@ -86,7 +87,7 @@ indent = { tab-width = 4, unit = "    " }
 
 [[language]]
 name = "python"
-language-servers = ["pylsp-all", "pyright-langserver", "ruff-lsp", "efm-langserver"]
+language-servers = ["pylsp-all", "pyright-langserver", "ruff-lsp", "efm-langserver", "scls"]
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 roots = ["pyproject.toml"]
@@ -94,28 +95,28 @@ roots = ["pyproject.toml"]
 [[language]]
 name = "scss"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "css"] }
-language-servers = ["vscode-css-language-server", "efm-langserver"]
+language-servers = ["vscode-css-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "toml"
-language-servers = ["taplo-lsp", "efm-langserver"]
+language-servers = ["taplo-lsp", "efm-langserver", "scls"]
 formatter = { command = "taplo-lsp", args = ["format", "-"]}
 
 [[language]]
 name = "tsx"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
+language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "typescript"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver"]
+language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "yaml"
-language-servers = ["yaml-language-server", "efm-langserver"]
+language-servers = ["yaml-language-server", "efm-langserver", "scls"]
 
 [language-server]
 astro-ls = { command = "astro-ls", args = ["--stdio"] }
@@ -125,6 +126,10 @@ eslint-language-server = { command = "eslint-language-server", args = ["--stdio"
 obsidian-lsp = { command = "obsidian-lsp", args = ["--stdio"] }
 ruff-lsp = { command = "ruff-lsp", config = { settings = { args = [], run = "onSave" } } }
 stylelint-lsp = { command = "stylelint-lsp", args = ["--stdio"] }
+
+[language-server.scls]
+command = "simple-completion-language-server"
+config = { max_completion_items = 20, snippets_first = false }
 
 [language-server.pylsp-all]
 command = "pylsp-all"
