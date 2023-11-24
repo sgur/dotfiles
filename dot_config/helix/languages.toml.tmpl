@@ -25,6 +25,17 @@ scope = "source.go"
 language-servers = ["gopls", "golangci-lint-langserver", "efm-langserver"]
 
 [[language]]
+name = "hjson"
+scope = "source.hjson"
+injection-regex = "hson"
+file-types = ["hjson"]
+indent = { tab-width = 4, unit = "  " }
+
+[[grammar]]
+name = "hjson"
+source = { git = "https://github.com/winston0410/tree-sitter-hjson", rev = "02fa3b79b3ff9a296066da6277adfc3f26cbc9e0" }
+
+[[language]]
 name = "html"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "html"] }
 language-servers = ["vscode-html-language-server", "efm-langserver"]
