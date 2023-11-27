@@ -125,6 +125,10 @@
 	trustExitCode = true
 {{- end }}
 
+# https://qiita.com/kawasaki_dev/items/41afaafe477b877b5b73
+[alias]
+    tree = log --graph --pretty=format:'%x09%C(auto) %h %Cgreen %ar %Creset%x09by"%C(cyan ul)%an%Creset" %x09%C(auto)%s %d'
+
 # http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html
 [alias]
 	ctags = !.git/hooks/ctags
