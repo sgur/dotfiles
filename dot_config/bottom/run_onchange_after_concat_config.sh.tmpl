@@ -1,0 +1,17 @@
+#!/bin/sh
+#
+{{- $themeDir := joinPath .chezmoi.homeDir ".config" "bottom" "themes" }}
+# themes/frappe.toml hush: {{ include (joinPath $themeDir "frappe.toml") | sha256sum }}
+# themes/latte.toml hush: {{ include (joinPath $themeDir "latte.toml") | sha256sum }}
+# themes/macchiato.toml hush: {{ include (joinPath $themeDir "macchiato.toml") | sha256sum }}
+# themes/mocha.toml hush: {{ include (joinPath $themeDir "mocha.toml") | sha256sum }}
+
+cat << _HEADER_ > bottom.toml
+# Concat default config with theme config
+#
+
+_HEADER_
+
+cat default_config.toml >> bottom.toml
+
+cat themes/mocha.toml >> bottom.toml
