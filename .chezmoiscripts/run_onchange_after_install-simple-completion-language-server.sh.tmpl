@@ -8,7 +8,7 @@ GHQ={{ lookPath "ghq" | quote }}
 CARGO={{ lookPath "cargo" | quote }}
 
 if [ -x $GHQ ] && [ -x $CARGO ]; then
-  $GHQ get --shallow --branch $SCLS_HASH estin/simple-completion-language-server
+  $GHQ get --shallow estin/simple-completion-language-server
   pushd $(ghq list --full-path | grep "estin/simple-completion-language-server")
   cargo install --path .
   popd
