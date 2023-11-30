@@ -11,11 +11,11 @@ if string match -q "$TERM_PROGRAM" "vscode"
 {{- $oldFishRc := joinPath $vscodeBase "shellIntegration.fish" -}}
 {{   if stat $oldFishRc -}}
     source {{ $oldFishRc }}
-{{   end -}}
+{{-  end }}
 {{- $newFishRc := joinPath $vscodeBase "fish_xdg_data" "fish" "vendor_conf.d" "shellIntegration.fish" -}}
 {{   if stat $newFishRc }}
     source {{ $newFishRc }}
-{{   end -}}
-{{ end -}}
+{{-   end }}
+{{- end }}
 
 end
