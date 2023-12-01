@@ -425,6 +425,7 @@ enddef
 pack.Add('vim-asterisk', AsteriskInit)
 
 # asyncomplete  {{{2
+g:asyncomplete_min_chars = 4
 def OnBufwinenterAsyncomplete()
   b:asyncomplete_enable = !&readonly
 enddef
@@ -436,13 +437,13 @@ augroup vimrc_plugin_asyncomplete
   autocmd BufWinEnter *  OnBufwinenterAsyncomplete()
   autocmd OptionSet readonly  OnBufwinenterAsyncomplete()
 augroup END
-# # buffer source
-# autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-#       \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-#       \   name: 'buffer',
-#       \   allowlist: ['*'],
-#       \   completor: function('asyncomplete#sources#buffer#completor'),
-#       \}))
+# buffer source
+autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+      \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+      \   name: 'buffer',
+      \   allowlist: ['*'],
+      \   completor: function('asyncomplete#sources#buffer#completor')
+      \}))
 # file source
 autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
       \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
@@ -508,8 +509,7 @@ def InitCtrlp() # {{{
 
   packadd ctrlp-ghq
   g:ctrlp_ghq_cache_enabled = 1
-  packadd ctrlp-sonictemplate
-  g:ctrlp_extensions = ['sonictemplate', 'ghq']
+  g:ctrlp_extensions = ['ghq']
 
   g:ctrlp_user_command = {
       \ types: {
@@ -536,14 +536,6 @@ pack.Add('ctrlp.vim', InitCtrlp)
 # editorconfig (opt) {{{2
 pack.Add('editorconfig-vim')
 
-# emmet (opt) {{{2
-augroup vimrc_plugin_emmet
-  autocmd!
-  autocmd FileType css,haml,html,less,sass,scss,slim  packadd emmet-vim | EmmetInstall
-augroup END
-g:user_emmet_leader_key = '<C-b>'
-g:user_emmet_install_global = 0
-
 # flutter (opt) {{{2
 pack.Add('vim-flutter')
 
@@ -554,13 +546,6 @@ endif
 
 # gitgutter (opt) {{{2
 pack.Add('vim-gitgutter')
-
-# healthcheck (opt)]2
-augroup vimrc_plugin_healthcheck
-  autocmd!
-  autocmd FuncUndefined health#*  packadd! vim-healthcheck
-augroup END
-command -nargs=* -bar CheckHealth call health#check([<f-args>])
 
 # lexima (opt) {{{2
 pack.Add('lexima.vim')

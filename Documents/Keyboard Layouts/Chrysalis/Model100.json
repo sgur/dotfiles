@@ -53,25 +53,8 @@
       {"code": 21, "label": {"base": "r", "shifted": "R"}},
       {"code": 23, "label": {"base": "t", "shifted": "T"}},
       {"code": 43, "label": {"base": "Tab"}},
-      {
-        "code": 49467,
-        "baseCode": 42,
-        "label": {
-          "hint": "Shift/",
-          "base": {"full": "Backspace", "1u": "Bksp"}
-        },
-        "modifier": "Shift",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "shift"]
-      },
-      {
-        "code": 49469,
-        "baseCode": 44,
-        "label": {"hint": "Shift/", "base": "Space"},
-        "modifier": "Shift",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "shift"]
-      },
+      {"code": 42, "label": {"base": {"full": "Backspace", "1u": "Bksp"}}},
+      {"code": 44, "label": {"base": "Space"}},
       {"code": 40, "label": {"base": "Enter"}},
       {"code": 28, "label": {"base": "y", "shifted": "Y"}},
       {"code": 24, "label": {"base": "u", "shifted": "U"}},
@@ -80,38 +63,10 @@
       {"code": 19, "label": {"base": "p", "shifted": "P"}},
       {"code": 46, "label": {"base": "=", "shifted": "+"}},
       {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
-      {
-        "code": 49941,
-        "baseCode": 4,
-        "label": {"hint": "Windows/", "base": "a"},
-        "modifier": "Windows",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "gui"]
-      },
-      {
-        "code": 49703,
-        "baseCode": 22,
-        "label": {"hint": "Alt/", "base": "s"},
-        "modifier": "Alt",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "alt"]
-      },
-      {
-        "code": 49432,
-        "baseCode": 7,
-        "label": {"hint": "Shift/", "base": "d"},
-        "modifier": "Shift",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "shift"]
-      },
-      {
-        "code": 49178,
-        "baseCode": 9,
-        "label": {"hint": "Control/", "base": "f"},
-        "modifier": "Control",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "ctrl"]
-      },
+      {"code": 4, "label": {"base": "a", "shifted": "A"}},
+      {"code": 22, "label": {"base": "s", "shifted": "S"}},
+      {"code": 7, "label": {"base": "d", "shifted": "D"}},
+      {"code": 9, "label": {"base": "f", "shifted": "F"}},
       {"code": 10, "label": {"base": "g", "shifted": "G"}},
       {"code": 41, "label": {"base": "Esc"}},
       {
@@ -127,51 +82,51 @@
         "categories": ["modifier"]
       },
       {
-        "code": 17453,
-        "label": {"hint": "ShiftTo", "base": "#3"},
-        "target": 3,
+        "code": 17451,
+        "label": {"hint": "ShiftTo", "base": "#1"},
+        "target": 1,
         "rangeStart": 17450,
         "categories": ["layer", "shifttolayer"]
       },
       {"code": 11, "label": {"base": "h", "shifted": "H"}},
+      {"code": 13, "label": {"base": "j", "shifted": "J"}},
+      {"code": 14, "label": {"base": "k", "shifted": "K"}},
+      {"code": 15, "label": {"base": "l", "shifted": "L"}},
+      {"code": 51, "label": {"base": ";", "shifted": ":"}},
+      {"code": 52, "label": {"base": "'", "shifted": "\""}},
+      {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
       {
-        "code": 49182,
-        "baseCode": 13,
-        "label": {"hint": "Control/", "base": "j"},
-        "modifier": "Control",
+        "code": 49966,
+        "baseCode": 29,
+        "label": {"hint": "Windows/", "base": "z"},
+        "modifier": "Windows",
         "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "ctrl"]
+        "categories": ["modifier", "dualuse", "gui"]
       },
       {
-        "code": 50463,
-        "baseCode": 14,
-        "label": {"hint": "Right Shift/", "base": "k"},
-        "modifier": "Right Shift",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "rshift"]
-      },
-      {
-        "code": 49696,
-        "baseCode": 15,
-        "label": {"hint": "Alt/", "base": "l"},
+        "code": 49708,
+        "baseCode": 27,
+        "label": {"hint": "Alt/", "base": "x"},
         "modifier": "Alt",
         "rangeStart": 49169,
         "categories": ["modifier", "dualuse", "alt"]
       },
       {
-        "code": 51012,
-        "baseCode": 51,
-        "label": {"hint": "Right Windows/", "base": ";"},
-        "modifier": "Right Windows",
+        "code": 49431,
+        "baseCode": 6,
+        "label": {"hint": "Shift/", "base": "c"},
+        "modifier": "Shift",
         "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "rgui"]
+        "categories": ["modifier", "dualuse", "shift"]
       },
-      {"code": 52, "label": {"base": "'", "shifted": "\""}},
-      {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
-      {"code": 29, "label": {"base": "z", "shifted": "Z"}},
-      {"code": 27, "label": {"base": "x", "shifted": "X"}},
-      {"code": 6, "label": {"base": "c", "shifted": "C"}},
-      {"code": 25, "label": {"base": "v", "shifted": "V"}},
+      {
+        "code": 49194,
+        "baseCode": 25,
+        "label": {"hint": "Control/", "base": "v"},
+        "modifier": "Control",
+        "rangeStart": 49169,
+        "categories": ["modifier", "dualuse", "ctrl"]
+      },
       {"code": 5, "label": {"base": "b", "shifted": "B"}},
       {
         "code": 17452,
@@ -181,16 +136,22 @@
         "categories": ["layer", "shifttolayer"]
       },
       {
-        "code": 225,
-        "label": {"base": "Shift"},
-        "location": "left",
-        "categories": ["modifier"]
+        "code": 49154,
+        "label": {
+          "hint": {"full": "OneShot", "1u": "OSM"},
+          "base": {"full": "Left Shift", "1u": "LSft"}
+        },
+        "rangeStart": 49153,
+        "categories": ["oneshot", "modifier"]
       },
       {
-        "code": 229,
-        "label": {"base": "Shift"},
-        "location": "right",
-        "categories": ["modifier"]
+        "code": 49158,
+        "label": {
+          "hint": {"full": "OneShot", "1u": "OSM"},
+          "base": {"full": "Right Shift", "1u": "RSft"}
+        },
+        "rangeStart": 49153,
+        "categories": ["oneshot", "modifier"]
       },
       {
         "code": 17452,
@@ -200,17 +161,38 @@
         "categories": ["layer", "shifttolayer"]
       },
       {"code": 17, "label": {"base": "n", "shifted": "N"}},
-      {"code": 16, "label": {"base": "m", "shifted": "M"}},
-      {"code": 54, "label": {"base": ",", "shifted": "<"}},
       {
-        "code": 50760,
-        "baseCode": 55,
-        "label": {"hint": "AltGr/", "base": "."},
-        "modifier": "AltGr",
+        "code": 50209,
+        "baseCode": 16,
+        "label": {"hint": "Right Control/", "base": "m"},
+        "modifier": "Right Control",
         "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "altgr"]
+        "categories": ["modifier", "dualuse", "rctrl"]
       },
-      {"code": 56, "label": {"base": "/", "shifted": "?"}},
+      {
+        "code": 50503,
+        "baseCode": 54,
+        "label": {"hint": "Right Shift/", "base": ","},
+        "modifier": "Right Shift",
+        "rangeStart": 49169,
+        "categories": ["modifier", "dualuse", "rshift"]
+      },
+      {
+        "code": 49736,
+        "baseCode": 55,
+        "label": {"hint": "Alt/", "base": "."},
+        "modifier": "Alt",
+        "rangeStart": 49169,
+        "categories": ["modifier", "dualuse", "alt"]
+      },
+      {
+        "code": 51017,
+        "baseCode": 56,
+        "label": {"hint": "Right Windows/", "base": "/"},
+        "modifier": "Right Windows",
+        "rangeStart": 49169,
+        "categories": ["modifier", "dualuse", "rgui"]
+      },
       {"code": 45, "label": {"base": "-", "shifted": "_"}}
     ],
     [
@@ -814,46 +796,49 @@
         "categories": ["blanks"]
       },
       {
-        "code": 20552,
-        "label": {
-          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Back"
-        },
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20481,
-        "label": {"hint": "Mouse", "base": "Up"},
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20560,
-        "label": {
-          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Forward"
-        },
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20546,
-        "label": {
-          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Right"
-        },
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20576,
-        "label": {"hint": {"full": "Mouse Warp", "1u": "Warp"}, "base": "End"},
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20521,
-        "label": {
-          "hint": {"full": "Mouse Warp", "1u": "Warp"},
-          "base": {"full": "North-East", "1u": "NE"}
-        },
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
         "code": 65535,
@@ -901,48 +886,49 @@
         "categories": ["blanks"]
       },
       {
-        "code": 20497,
-        "label": {"hint": {"full": "Mouse Wheel", "1u": "M.Whl"}, "base": "Up"},
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20484,
-        "label": {"hint": "Mouse", "base": "Left"},
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20482,
-        "label": {"hint": "Mouse", "base": "Down"},
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20488,
-        "label": {"hint": "Mouse", "base": "Right"},
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20545,
-        "label": {
-          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Left"
-        },
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20517,
-        "label": {
-          "hint": {"full": "Mouse Warp", "1u": "Warp"},
-          "base": {"full": "North-West", "1u": "NW"}
-        },
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
-        "code": 20522,
-        "label": {
-          "hint": {"full": "Mouse Warp", "1u": "Warp"},
-          "base": {"full": "South-East", "1u": "SE"}
-        },
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
         "code": 65535,
@@ -990,43 +976,9 @@
         "categories": ["blanks"]
       },
       {
-        "code": 20498,
-        "label": {
-          "hint": {"full": "Mouse Wheel", "1u": "M.Whl"},
-          "base": "Down"
-        },
-        "categories": ["mousekeys"]
-      },
-      {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 20548,
-        "label": {
-          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Middle"
-        },
-        "categories": ["mousekeys"]
-      },
-      {
-        "code": 20518,
-        "label": {
-          "hint": {"full": "Mouse Warp", "1u": "Warp"},
-          "base": {"full": "South-West", "1u": "SW"}
-        },
-        "categories": ["mousekeys"]
       },
       {
         "code": 65535,

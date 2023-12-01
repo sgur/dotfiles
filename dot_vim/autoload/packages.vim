@@ -73,10 +73,6 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
-  call minpac#add('rhysd/vim-healthcheck', #{
-        \ type: 'opt'
-        \ })
-
   call minpac#add('andymass/vim-matchup', #{
         \ type: 'opt'
         \ })
@@ -94,10 +90,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('mattn/ctrlp-matchfuzzy', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('kaneshin/ctrlp-sonictemplate', #{
         \ type: 'opt'
         \ })
 
@@ -207,10 +199,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('mattn/vim-sonictemplate', #{
-        \ type: 'opt',
-        \ })
-
-  call minpac#add('mattn/emmet-vim', #{
         \ type: 'opt',
         \ })
 
