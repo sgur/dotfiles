@@ -3,6 +3,11 @@
 # > .chezmoiexternal.$FORMAT is interpreted as a template.
 # > This allows different externals to be included on different machines.
 
+[".cache/schemastore/catalog.json"]
+type = "file"
+refreshPeriod = "168h"
+url = "https://www.schemastore.org/api/json/catalog.json"
+
 [".vim/pack/chezmoi/opt/minpac"]
 type = "git-repo"
 refreshPeriod = "24h"

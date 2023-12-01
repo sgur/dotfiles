@@ -237,6 +237,10 @@ function! s:init() abort "{{{
 
   " Lsp {{{2
 
+  call minpac#add('yegappan/lsp', #{
+        \ type: 'opt',
+        \ })
+
   call minpac#add('mattn/vim-lsp-settings', #{
         \ type: 'opt',
         \ })

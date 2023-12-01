@@ -45,7 +45,7 @@ language-servers = ["vscode-html-language-server", "efm-langserver", "scls"]
 name = "javascript"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver", "scls"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "json"
@@ -57,7 +57,7 @@ language-servers = ["vscode-json-language-server", "efm-langserver", "scls"]
 name = "jsx"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver", "scls"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "kdl"
@@ -106,13 +106,13 @@ formatter = { command = "taplo-lsp", args = ["format", "-"]}
 name = "tsx"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver", "scls"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "typescript"
 formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
 auto-format = true
-language-servers = ["typescript-language-server", "eslint-language-server", "efm-langserver", "scls"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "yaml"
@@ -122,7 +122,7 @@ language-servers = ["yaml-language-server", "efm-langserver", "scls"]
 astro-ls = { command = "astro-ls", args = ["--stdio"] }
 deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
-eslint-language-server = { command = "eslint-language-server", args = ["--stdio"] }
+vscode-eslint-language-server = { command = "vscode-eslint-language-server", args = ["--stdio"] }
 obsidian-lsp = { command = "obsidian-lsp", args = ["--stdio"] }
 ruff-lsp = { command = "ruff-lsp", config = { settings = { args = [], run = "onSave" } } }
 stylelint-lsp = { command = "stylelint-lsp", args = ["--stdio"] }
