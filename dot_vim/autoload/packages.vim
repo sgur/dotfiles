@@ -41,9 +41,12 @@ endfunction
 
 " Initialization {{{1
 
+" verbose:
+" - 2: Show error messages from external commands.
 function! s:init() abort "{{{
   call minpac#init(#{
-        \ jobs: s:nproc()
+        \ jobs: s:nproc(),
+        \ verbose: 2,
         \ })
 
   " Self-made {{{2
