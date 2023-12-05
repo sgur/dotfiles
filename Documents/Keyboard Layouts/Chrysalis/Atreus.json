@@ -100,12 +100,12 @@
         "categories": ["modifier", "dualuse", "ctrl"]
       },
       {
-        "code": 49479,
+        "code": 50503,
         "baseCode": 54,
-        "label": {"hint": "Shift/", "base": ","},
-        "modifier": "Shift",
+        "label": {"hint": "Right Shift/", "base": ","},
+        "modifier": "Right Shift",
         "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "shift"]
+        "categories": ["modifier", "dualuse", "rshift"]
       },
       {
         "code": 49736,
@@ -116,17 +116,20 @@
         "categories": ["modifier", "dualuse", "alt"]
       },
       {
-        "code": 49993,
+        "code": 51017,
         "baseCode": 56,
-        "label": {"hint": "Windows/", "base": "/"},
-        "modifier": "Windows",
+        "label": {"hint": "Right Windows/", "base": "/"},
+        "modifier": "Right Windows",
         "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "gui"]
+        "categories": ["modifier", "dualuse", "rgui"]
       },
       {
-        "code": 49990,
-        "baseCode": 53,
-        "label": {"hint": "Windows/", "base": "`"},
+        "code": 50015,
+        "baseCode": 78,
+        "label": {
+          "hint": "Windows/",
+          "base": {"full": "Page Down", "1u": "PgDn"}
+        },
         "modifier": "Windows",
         "rangeStart": 49169,
         "categories": ["modifier", "dualuse", "gui"]
@@ -140,12 +143,9 @@
         "categories": ["modifier", "dualuse", "alt"]
       },
       {
-        "code": 49503,
-        "baseCode": 78,
-        "label": {
-          "hint": "Shift/",
-          "base": {"full": "Page Down", "1u": "PgDn"}
-        },
+        "code": 49478,
+        "baseCode": 53,
+        "label": {"hint": "Shift/", "base": "`"},
         "modifier": "Shift",
         "rangeStart": 49169,
         "categories": ["modifier", "dualuse", "shift"]
@@ -196,12 +196,12 @@
         "categories": ["modifier"]
       },
       {
-        "code": 49470,
-        "baseCode": 45,
-        "label": {"hint": "Shift/", "base": "-"},
-        "modifier": "Shift",
+        "code": 50495,
+        "baseCode": 46,
+        "label": {"hint": "Right Shift/", "base": "="},
+        "modifier": "Right Shift",
         "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "shift"]
+        "categories": ["modifier", "dualuse", "rshift"]
       },
       {
         "code": 49733,
@@ -212,12 +212,12 @@
         "categories": ["modifier", "dualuse", "alt"]
       },
       {
-        "code": 49983,
-        "baseCode": 46,
-        "label": {"hint": "Windows/", "base": "="},
-        "modifier": "Windows",
+        "code": 51006,
+        "baseCode": 45,
+        "label": {"hint": "Right Windows/", "base": "-"},
+        "modifier": "Right Windows",
         "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "gui"]
+        "categories": ["modifier", "dualuse", "rgui"]
       }
     ],
     [
