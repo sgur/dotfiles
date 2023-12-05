@@ -323,15 +323,13 @@
       {"code": 65, "label": {"base": "F8"}},
       {"code": 66, "label": {"base": "F9"}},
       {"code": 67, "label": {"base": "F10"}},
-      {
-        "code": 17411,
-        "label": {"hint": "LockTo", "base": "#3"},
-        "target": 3,
-        "rangeStart": 17408,
-        "categories": ["layer", "locktolayer"]
-      },
-      {"code": 74, "label": {"base": "Home"}},
       {"code": 77, "label": {"base": "End"}},
+      {"code": 74, "label": {"base": "Home"}},
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
       {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
@@ -371,8 +369,8 @@
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
       },
-      {"code": 69, "label": {"base": "F12"}},
-      {"code": 68, "label": {"base": "F11"}}
+      {"code": 68, "label": {"base": "F11"}},
+      {"code": 69, "label": {"base": "F12"}}
     ],
     [
       {
@@ -507,13 +505,13 @@
         "categories": ["mousekeys"]
       },
       {"code": 49, "label": {"base": "\\", "shifted": "|"}},
+      {"code": 77, "label": {"base": "End"}},
+      {"code": 74, "label": {"base": "Home"}},
       {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
       },
-      {"code": 74, "label": {"base": "Home"}},
-      {"code": 77, "label": {"base": "End"}},
       {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
@@ -774,11 +772,12 @@
         "categories": ["blanks"]
       },
       {
-        "code": 17411,
-        "label": {"hint": "LockTo", "base": "#3"},
-        "target": 3,
-        "rangeStart": 17408,
-        "categories": ["layer", "locktolayer"]
+        "code": 20498,
+        "label": {
+          "hint": {"full": "Mouse Wheel", "1u": "M.Whl"},
+          "base": "Down"
+        },
+        "categories": ["mousekeys"]
       },
       {
         "code": 20497,
@@ -786,12 +785,9 @@
         "categories": ["mousekeys"]
       },
       {
-        "code": 20498,
-        "label": {
-          "hint": {"full": "Mouse Wheel", "1u": "M.Whl"},
-          "base": "Down"
-        },
-        "categories": ["mousekeys"]
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
       },
       {
         "code": 65535,
