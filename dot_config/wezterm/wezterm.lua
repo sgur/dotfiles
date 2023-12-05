@@ -71,7 +71,7 @@ local config = {
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   local pwsh_path = "pwsh.exe"
   config.default_prog = { pwsh_path }
-  config.font = wezterm.font("UDEV Gothic NFLG")
+  config.font = wezterm.font("PlemolJP Console NF")
   config.font_size = 12
   config.exit_behavior = 'Hold'
   config.launch_menu = {
@@ -110,7 +110,7 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   }
 end
 if wezterm.target_triple == "x86_64-apple-darwin" then
-  config.font = wezterm.font("UDEV Gothic NFLG")
+  config.font = wezterm.font("PlemolJP Console NF")
   config.font_size = 16
 end
 
