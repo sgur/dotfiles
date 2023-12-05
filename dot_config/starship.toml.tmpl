@@ -1,3 +1,5 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
 palette = {{ if eq .chezmoi.os "windows" }} "catppuccin_macchiato" {{ else }} "catppuccin_mocha" {{ end }}
 {{- if eq .chezmoi.os "windows" }}
 scan_timeout = 100
