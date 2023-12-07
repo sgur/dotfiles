@@ -141,15 +141,16 @@ endfunction "}}}
 
 " vim-lsp-settings {{{1
 
-let s:lsp_settings_javascript_langservers = ['typescript-language-server', 'eslint-language-server', 'tailwindcss-intellisense']
+let s:lsp_settings_common_langservers = ['efm-langserver', 'buffer-ls']
+let s:lsp_settings_javascript_langservers = ['typescript-language-server', 'eslint-language-server', 'tailwindcss-intellisense'] + s:lsp_settings_common_langservers
 let g:lsp_settings_filetype_javascript = s:lsp_settings_javascript_langservers
-let g:lsp_settings_filetype_javascriptreact = s:lsp_settings_javascript_langservers
+let g:lsp_settings_filetype_javascriptreact = g:lsp_settings_filetype_javascript
 let g:lsp_settings_filetype_typescript = s:lsp_settings_javascript_langservers + ['deno']
-let g:lsp_settings_filetype_typescriptreact = s:lsp_settings_javascript_langservers
+let g:lsp_settings_filetype_typescriptreact = g:lsp_settings_filetype_typescript
 
-let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver']
+let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver'] + s:lsp_settings_common_langservers
 
-let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver', 'ruff-lsp']
+let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver', 'ruff-lsp'] + s:lsp_settings_common_langservers
 
 let g:lsp_settings = get(g:, 'lsp_settings', {})
 
@@ -157,7 +158,6 @@ let g:lsp_settings = get(g:, 'lsp_settings', {})
 " Make sure to define $HOME on Windows
 let g:lsp_settings['efm-langserver'] = #{
       \ allowlist: ['*'],
-      \ disabled: !executable('go'),
       \ initialization_options: #{
       \   documentFormatting: v:true,
       \   hover: v:false,
@@ -333,6 +333,37 @@ let g:lsp_settings['tailwindcss-intellisense'] = #{
       \}
 " }}}
 
+" buffer-language-server {{{2
+augroup vimrc_plugin_lsp_buffer
+  autocmd!
+  if executable('simple-completion-language-server')
+    " simple-completion-language-server {{{3
+    " https://github.com/estin/simple-completion-language-server
+    " $ cargo install --git https://github.com/estin/simple-completion-language-server.git
+    autocmd User lsp_setup call lsp#register_server(#{
+          \ name: 'buffer-ls',
+          \ allowlist: ['*'],
+          \ blocklist: [],
+          \ cmd: {server_info -> [lsp_settings#exec_path('simple-completion-language-server')]},
+          \ workspace_config: #{
+          \   max_completion_items: 20,
+          \   snippets_first: v:false
+          \ }
+          \})
+  else
+    " buffer-language-server {{{3
+    " https://github.com/metafates/buffer-language-server
+    " $ cargo install buffer-language-server
+    autocmd User lsp_setup call lsp#register_server(#{
+          \ name: 'buffer-ls',
+          \ allowlist: ['*'],
+          \ blocklist: [],
+          \ cmd: {server_info -> [lsp_settings#exec_path('buffer-language-server')]}
+          \})
+endif
+augroup END
+
+" obsidian-lsp {{{2
 if executable('npx')
   augroup vimrc_plugin_lsp_obisidian-lsp
     autocmd!

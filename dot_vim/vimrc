@@ -425,7 +425,6 @@ enddef
 pack.Add('vim-asterisk', AsteriskInit)
 
 # asyncomplete  {{{2
-g:asyncomplete_min_chars = 4
 def OnBufwinenterAsyncomplete()
   b:asyncomplete_enable = !&readonly
 enddef
@@ -438,12 +437,14 @@ augroup vimrc_plugin_asyncomplete
   autocmd OptionSet readonly  OnBufwinenterAsyncomplete()
 augroup END
 # buffer source
-autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-      \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-      \   name: 'buffer',
-      \   allowlist: ['*'],
-      \   completor: function('asyncomplete#sources#buffer#completor')
-      \}))
+if !executable('simple-completion-language-server')
+  autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+        \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+        \   name: 'buffer',
+        \   allowlist: ['*'],
+        \   completor: function('asyncomplete#sources#buffer#completor')
+        \}))
+endif
 # file source
 autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
       \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
