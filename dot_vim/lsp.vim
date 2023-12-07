@@ -350,7 +350,7 @@ augroup vimrc_plugin_lsp_buffer
           \   snippets_first: v:false
           \ }
           \})
-  else
+  elseif executable('buffer-language-server')
     " buffer-language-server {{{3
     " https://github.com/metafates/buffer-language-server
     " $ cargo install buffer-language-server
@@ -360,7 +360,7 @@ augroup vimrc_plugin_lsp_buffer
           \ blocklist: [],
           \ cmd: {server_info -> [lsp_settings#exec_path('buffer-language-server')]}
           \})
-endif
+  endif
 augroup END
 
 " obsidian-lsp {{{2
