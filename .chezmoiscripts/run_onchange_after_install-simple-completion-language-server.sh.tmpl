@@ -7,9 +7,11 @@ SCLS_HASH=d9097f00e4b65d69ec078f8e12fa469f72e73a1a
 GHQ={{ lookPath "ghq" | quote }}
 CARGO={{ lookPath "cargo" | quote }}
 
-if [ -x $GHQ ] && [ -x $CARGO ]; then
+if [ -x "$GHQ" ] && [ -x "$CARGO" ]; then
   $GHQ get --shallow estin/simple-completion-language-server
-  pushd $(ghq list --full-path | grep "estin/simple-completion-language-server")
+  pushd "$(ghq list --full-path | grep 'estin/simple-completion-language-server')"
+  git fetch --depth 1 origin $SCLS_HASH
+  git reset --hard FETCH_HEAD
   cargo install --path .
   popd
 fi
