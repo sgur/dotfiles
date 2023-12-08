@@ -15,6 +15,7 @@ TYPESCRIPT_LANGUAGE_SERVER=4.1.2
 VIM_LANGUAGE_SERVER=2.3.1
 VSCODE_LANGSERVERS_EXTRACTED=4.8.0
 YAML_LANGUAGE_SERVER=1.14.0
+BIOME=1.4.1
 
 function create_empty_package() {
   if [ ! -f package.json ]; then
@@ -54,3 +55,4 @@ npm_install vscode-html-language-server vscode-langservers-extracted@$VSCODE_LAN
 npm_install vscode-json-language-server vscode-langservers-extracted@$VSCODE_LANGSERVERS_EXTRACTED
 npm_install vscode-eslint-language-server vscode-langservers-extracted@$VSCODE_LANGSERVERS_EXTRACTED
 npm_install yaml-language-server yaml-language-server@$YAML_LANGUAGE_SERVER
+npm_install biome @biomejs/biome@$BIOME

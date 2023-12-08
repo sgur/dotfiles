@@ -70,6 +70,17 @@ tools:
       - prettier.config.cjs
       - .prettierrc.toml
 
+  any-biome: &any-biome
+    prefix: biome
+    format-command: >-
+      {{ lookPath "npx" }} --yes
+      --
+      @biomejs/biome
+      format
+      --config-path={{- joinPath .chezmoi.homeDir ".config" "biome.json" | quote }}
+      --stdin-file-path=${INPUT}
+    format-stdin: true
+
   markdown-markdownlint-cli2: &markdown-markdownlint-cli2
     prefix: markdownlint-cli2
     lint-command: >-
@@ -268,15 +279,15 @@ languages:
     - <<: *any-cspell
 
   javascript:
-    - <<: *any-prettier
+    - <<: *any-biome
     - <<: *any-cspell
 
   javascriptreact:
-    - <<: *any-prettier
+    - <<: *any-biome
     - <<: *any-cspell
 
   json:
-    - <<: *any-prettier
+    - <<: *any-biome
 
   go:
     - <<: *any-cspell
@@ -306,11 +317,11 @@ languages:
     - <<: *any-cspell
 
   typescript:
-    - <<: *any-prettier
+    - <<: *any-biome
     - <<: *any-cspell
 
   typescriptreact:
-    - <<: *any-prettier
+    - <<: *any-biome
     - <<: *any-cspell
 
   vue:
