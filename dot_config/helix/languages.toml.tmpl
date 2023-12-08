@@ -44,21 +44,15 @@ language-servers = ["vscode-html-language-server", "efm-langserver", "buffer-ls"
 
 [[language]]
 name = "javascript"
-formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
-auto-format = true
-language-servers = ["typescript-language-server", "vscode-eslint-language-server", "efm-langserver", "buffer-ls"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "json"
-scope = "source.json"
-formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "json"] }
-language-servers = ["vscode-json-language-server", "efm-langserver", "buffer-ls"]
+language-servers = ["vscode-json-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "jsx"
-formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
-auto-format = true
-language-servers = ["typescript-language-server", "vscode-eslint-language-server", "efm-langserver", "buffer-ls"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "kdl"
@@ -105,15 +99,11 @@ formatter = { command = "taplo-lsp", args = ["format", "-"]}
 
 [[language]]
 name = "tsx"
-formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
-auto-format = true
-language-servers = ["typescript-language-server", "vscode-eslint-language-server", "efm-langserver", "buffer-ls"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "typescript"
-formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "typescript"] }
-auto-format = true
-language-servers = ["typescript-language-server", "vscode-eslint-language-server", "efm-langserver", "buffer-ls"]
+language-servers = ["typescript-language-server", "vscode-eslint-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "yaml"
@@ -127,6 +117,10 @@ vscode-eslint-language-server = { command = "vscode-eslint-language-server", arg
 obsidian-lsp = { command = "obsidian-lsp", args = ["--stdio"] }
 ruff-lsp = { command = "ruff-lsp", config = { settings = { args = [], run = "onSave" } } }
 stylelint-lsp = { command = "stylelint-lsp", args = ["--stdio"] }
+
+[language-server.biome-ls]
+command = "biome"
+args = ["lsp-proxy", "--config-path={{- joinPath .chezmoi.homeDir ".config" "biome.json" -}}"]
 
 [language-server.buffer-ls]
 {{ if lookPath "simple-completion-language-server" -}}
