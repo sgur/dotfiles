@@ -39,12 +39,11 @@ let g:lsp_popup_menu_server_blacklist = get(g:, 'lsp_popup_menu_server_blacklist
 let g:lsp_diagnostics_float_cursor = has('patch-8.1.1364')
 let g:lsp_diagnostics_echo_cursor = !g:lsp_diagnostics_float_cursor
 let g:lsp_diagnostics_float_cursor = exists('*popup_create')
-let g:lsp_diagnostics_virtual_text_enabled = v:false && has('textprop') && has('patch-9.0.0178')
+let g:lsp_diagnostics_virtual_text_enabled = has('textprop') && has('patch-9.0.0178')
 let g:lsp_diagnostics_virtual_text_insert_mode_enabled = get(g:, 'lsp_diagnostics_virtual_text_enabled', 0) && has('textprop') && has('patch-9.0.0178')
 let g:lsp_diagnostics_virtual_text_align = 'above'
-let g:lsp_diagnostics_virtual_text_padding_left = 4
-let g:lsp_diagnostics_virtual_text_prefix = "--- "
-let g:lsp_diagnostics_virtual_text_wrap = "truncate"
+let g:lsp_diagnostics_virtual_text_padding_left = 1
+let g:lsp_diagnostics_virtual_text_prefix = "── "
 
 let g:lsp_inlay_hints_enabled = has('textprop') && has('patch-9.0.0167')
 
@@ -332,6 +331,17 @@ let g:lsp_settings['tailwindcss-intellisense'] = #{
       \ allowlist: ['typescriptreact', 'javascriptreact', 'html', 'css', 'svelte', 'mdx'],
       \}
 " }}}
+
+" biome lsp-proxy {{{2
+augroup vimrc_plugin_lsp_biome
+  autocmd!
+  autocmd User lsp_setup call lsp#register_server(#{
+        \ name: 'biome-lsp',
+        \ allowlist: ['javascript','javascriptreact','typescript','typescriptreact','json','jsonc'],
+        \ blocklist: [],
+        \ cmd: {server_info -> [exepath('biome'), 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]}
+        \})
+augroup END
 
 " buffer-language-server {{{2
 augroup vimrc_plugin_lsp_buffer

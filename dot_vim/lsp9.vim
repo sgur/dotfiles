@@ -20,11 +20,15 @@ call LspOptionsSet({
 
 var lsp_servers: list<dict<any>> = []
 
+def GetLspServerPath(name: string): string
+  return expand(name)->exepath()
+enddef
+
 ## astro
 lsp_servers += [{
   name: 'astro-ls',
   filetype: ['astro'],
-  path: resolve(expand('~/.local/share/lsp-servers/astro-ls/astro-ls')),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/astro-ls/astro-ls'),
   args: ['--stdio']
 }]
 
@@ -32,7 +36,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'bash-language-server',
   filetype: ['sh', 'bash'],
-  path: resolve(expand('~/.local/share/lsp-servers/bash-language-server/bash-language-server')),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/bash-language-server/bash-language-server'),
   args: ['start']
 }]
 
@@ -40,21 +44,21 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'vscode-css-language-server',
   filetype: ['css', 'less', 'sass', 'scss'],
-  path: expand('~/.local/share/lsp-servers/vscode-css-language-server/vscode-css-language-server'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/vscode-css-language-server/vscode-css-language-server'),
   args: ['--stdio'],
 }]
 
 lsp_servers += [{
   name: 'stylelint-lsp',
   filetype: ['css', 'less', 'sass', 'scss'],
-  path: expand('~/.local/share/lsp-servers/stylelint-lsp/stylelint-lsp'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/stylelint-lsp/stylelint-lsp'),
   args: ['--stdio'],
 }]
 
 lsp_servers += [{
   name: 'tailwindcss-intellisense',
   filetype: ['css', 'html', 'javascriptreact', 'typescriptreact'],
-  path: expand('~/.local/share/lsp-servers/tailwindcss-intellisense/tailwindcss-intellisense'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/tailwindcss-intellisense/tailwindcss-intellisense'),
   args: ['--stdio'],
 }]
 
@@ -62,7 +66,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'docker-langserver',
   filetype: ['dockerfile'],
-  path: expand('~/.local/share/lsp-servers/docker-langserver/docker-langserver'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/docker-langserver/docker-langserver'),
   args: ['--stdio'],
 }]
 
@@ -70,7 +74,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'vscode-eslint-language-server',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
-  path: expand('~/.local/share/lsp-servers/vscode-eslint-language-server/vscode-eslint-language-server'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/vscode-eslint-language-server/vscode-eslint-language-server'),
   args: ['--stdio'],
 }]
 
@@ -78,7 +82,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'gopls',
   filetype: 'go',
-  path: exepath('gopls'),
+  path: GetLspServerPath('gopls'),
   args: ['serve'],
   workspaceConfig: {
     gopls: {
@@ -99,7 +103,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'vscode-html-language-server',
   filetype: ['html'],
-  path: expand('~/.local/share/lsp-servers/vscode-html-language-server/vscode-html-language-server'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/vscode-html-language-server/vscode-html-language-server'),
   args: ['--stdio'],
 }]
 
@@ -107,7 +111,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'typescript-language-server',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
-  path: expand('~/.local/share/lsp-servers/typescript-language-server/typescript-language-server'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/typescript-language-server/typescript-language-server'),
   args: ['--stdio'],
   initializationOptions: {
     preferences: {
@@ -125,13 +129,13 @@ lsp_servers += [{
 ## json
 var catalog_file = expand('~/.cache/schemastore/catalog.json')
 var schemas = filereadable(catalog_file)
-      \ ? readfile(catalog_file)->join()->json_decode()['schemas']
-      \ : []
+       \ ? readfile(catalog_file)->join()->json_decode()['schemas']
+       \ : []
 
 lsp_servers += [{
   name: 'vscode-json-language-server',
   filetype: ['json'],
-  path: expand('~/.local/share/lsp-servers/vscode-json-language-server/vscode-json-language-server'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/vscode-json-language-server/vscode-json-language-server'),
   args: ['--stdio'],
   initializationOptions: {
     provideFormatter: v:true
@@ -150,14 +154,14 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'marksman',
   filetype: ['markdown'],
-  path: expand('~/.local/share/lsp-servers/marksman/marksman'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/marksman/marksman'),
   args: ['server']
 }]
 
 lsp_servers += [{
   name: 'obsidian-lsp',
   filetype: ['markdown'],
-  path: expand('~/.local/share/lsp-servers/obsidian-lsp/obsidian-lsp'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/obsidian-lsp/obsidian-lsp'),
   args: ['--stdio'],
   rootSearch: ['.obsidian/'],
   runIfSearch: ['.obsidian/']
@@ -167,7 +171,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'pylsp-all',
   filetype: ['python'],
-  path: expand('~/.local/share/lsp-servers/pylsp-all/pylsp-all'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/pylsp-all/pylsp-all'),
   args: [],
   workspaceConfig: {
     pylsp: {
@@ -186,14 +190,14 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'pyright-langserver',
   filetype: ['python'],
-  path: expand('~/.local/share/lsp-servers/pyright-langserver/pyright-langserver'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/pyright-langserver/pyright-langserver'),
   args: ['--stdio'],
 }]
 
 lsp_servers += [{
   name: 'ruff-lsp',
   filetype: ['python'],
-  path: expand('~/.local/share/lsp-servers/ruff-lsp/ruff-lsp'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/ruff-lsp/ruff-lsp'),
   args: [],
   workspaceConfig: {
     settings: {
@@ -245,7 +249,7 @@ var taplo_lsp_options = {
 lsp_servers += [{
   name: 'taplo-lsp',
   filetype: ['toml'],
-  path: expand('~/.local/share/lsp-servers/taplo/taplo'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/taplo/taplo'),
   args: ['lsp', 'stdio'],
   initializationOptions: taplo_lsp_options,
   workspaceConfig: {
@@ -257,7 +261,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'vim-language-server',
   filetype: ['vim'],
-  path: expand('~/.local/share/lsp-servers/vim-language-server/vim-language-server'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/vim-language-server/vim-language-server'),
   args: ['--stdio'],
   initializationOptions: {
     isNeovim: has('nvim'),
@@ -274,15 +278,15 @@ def SchemasMap(): dict<list<string>>
   for v in schemas
     if has_key(v, 'fileMatch')
       result[v['url']] = v['fileMatch']
-  endif
-endfor
-return result
+    endif
+  endfor
+  return result
 enddef
 
 lsp_servers += [{
   name: 'yaml-language-server',
   filetype: ['yaml'],
-  path: expand('~/.local/share/lsp-servers/yaml-language-server/yaml-language-server'),
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/yaml-language-server/yaml-language-server'),
   args: ['--stdio'],
   workspaceConfig: {
     yaml: {
@@ -294,8 +298,16 @@ lsp_servers += [{
   }
 }]
 
-# Initialize 
+# ## biome lsp-proxy
+lsp_servers += [{
+  name: 'biome-lsp',
+  filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
+  path: exepath('biome'),
+  args: ['lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]
+}]
 
-g:LspAddServer(lsp_servers)
+# Initialize
+
+g:LspAddServer(lsp_servers->filter((_, v) => !empty(v.path)))
 
 # 1
