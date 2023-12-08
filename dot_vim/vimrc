@@ -425,33 +425,34 @@ enddef
 pack.Add('vim-asterisk', AsteriskInit)
 
 # asyncomplete  {{{2
-def OnBufwinenterAsyncomplete()
-  b:asyncomplete_enable = !&readonly
-enddef
-inoremap <C-Space> <Plug>(asyncomplete_force_refresh)
-augroup vimrc_plugin_asyncomplete
-  autocmd!
-  autocmd FuncUndefined asyncomplete#sources#buffer#*  packadd! asyncomplete-buffer.vim
-  autocmd FuncUndefined asyncomplete#sources#file#*  packadd! asyncomplete-file.vim
-  autocmd BufWinEnter *  OnBufwinenterAsyncomplete()
-  autocmd OptionSet readonly  OnBufwinenterAsyncomplete()
-augroup END
+if exists('g:lsp_loaded')
+  def OnBufwinenterAsyncomplete()
+    b:asyncomplete_enable = !&readonly
+  enddef
+  inoremap <C-Space> <Plug>(asyncomplete_force_refresh)
+  augroup vimrc_plugin_asyncomplete
+    autocmd!
+    autocmd FuncUndefined asyncomplete#sources#buffer#*  packadd! asyncomplete-buffer.vim
+    autocmd FuncUndefined asyncomplete#sources#file#*  packadd! asyncomplete-file.vim
+    autocmd BufWinEnter *  OnBufwinenterAsyncomplete()
+    autocmd OptionSet readonly  OnBufwinenterAsyncomplete()
+  augroup END
 # buffer source
-if !executable('simple-completion-language-server')
-  autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-        \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-        \   name: 'buffer',
-        \   allowlist: ['*'],
-        \   completor: function('asyncomplete#sources#buffer#completor')
-        \}))
-endif
+  if !executable('simple-completion-language-server')
+    autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+          \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+          \   name: 'buffer',
+          \   allowlist: ['*'],
+          \   completor: function('asyncomplete#sources#buffer#completor')
+          \}))
+  endif
 # file source
-autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-      \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-      \   name: 'file',
-      \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'markdown'],
-      \   completor: function('asyncomplete#sources#file#completor')
-      \}))
+  autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+        \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
+        \   name: 'file',
+        \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'markdown'],
+        \   completor: function('asyncomplete#sources#file#completor')
+        \}))
 # # dictionary source
 # autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
 #       \ asyncomplete#register_source(asyncomplete#sources#dictionary#get_source_options({
@@ -464,8 +465,9 @@ autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
 #       \   }
 #       \}))
 
-if argc(-1) > 0
-  autocmd vimrc_plugin_asyncomplete VimEnter *  asyncomplete#enable_for_buffer()
+  if argc(-1) > 0
+    autocmd vimrc_plugin_asyncomplete VimEnter *  asyncomplete#enable_for_buffer()
+  endif
 endif
 
 # autofmt (opt) {{{2

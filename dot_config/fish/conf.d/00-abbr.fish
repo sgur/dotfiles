@@ -27,3 +27,5 @@ abbr --add aws.l --set-cursor "aws-vault login % --stdout | fish_clipboard_copy"
 abbr --add pwsh /mnt/c/Program\\ Files/PowerShell/7/pwsh.exe
 
 abbr --add hostname uname -n
+
+abbr --add secretlint -- 'docker run -v (pwd):(pwd) -w (pwd) --rm -it secretlint/secretlint secretlint "**/*"'
