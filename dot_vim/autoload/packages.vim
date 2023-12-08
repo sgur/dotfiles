@@ -46,7 +46,7 @@ endfunction
 function! s:init() abort "{{{
   call minpac#init(#{
         \ jobs: s:nproc(),
-        \ verbose: 2,
+        \ verbose: 3,
         \ })
 
   " Self-made {{{2
