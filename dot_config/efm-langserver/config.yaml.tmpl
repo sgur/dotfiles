@@ -28,7 +28,7 @@ tools:
   any-secretlint: &any-secretlint
     prefix: secretlint
     lint-command: >-
-      {{ lookPath "npx" }}
+      {{ lookPath "npx" }} --yes
       --
       @secretlint/quick-start@latest
       --format unix
