@@ -24,6 +24,22 @@ def GetLspServerPath(name: string): string
   return expand(name)->exepath()
 enddef
 
+## efm-langserver
+lsp_servers += [{
+  name: 'efm-langserver',
+  filetype: ['css', 'dockerfile', 'fish', 'html', 'javascript', 'javascriptreact', 'json', 'go',
+    'markdown', 'ps1', 'python', 'scss', 'sh', 'typescript', 'typescriptreact', 'vim', 'vue', 'yaml'],
+  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/efm-langserver/efm-langserver'),
+  args: ['-c', expand("~/.config/efm-langserver/config.yaml")],
+  initializationOptions: {
+    documentFormatting: v:true,
+    hover: v:false,
+    documentSymbol: v:true,
+    codeAction: v:true,
+    completion: v:true
+  },
+}]
+
 ## astro
 lsp_servers += [{
   name: 'astro-ls',
