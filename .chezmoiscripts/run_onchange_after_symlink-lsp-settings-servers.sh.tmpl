@@ -8,7 +8,6 @@
 {{- range $files }}
 {{- $fileStat := stat . }}
 {{-   if and (isExecutable .) ($fileStat.isDir | not) }}
-{{-     $dir := osDir . }}
 ln -sfv {{ . }} ~/.local/bin/
 {{-   end -}}
 {{- end -}}
