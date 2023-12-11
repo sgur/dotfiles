@@ -13,7 +13,7 @@ commands:
 {{- end }}
 
 tools:
-  fish-fish_indent: &fish-fish_indent 
+  fish-fish_indent: &fish-fish_indent
     prefix: fix_indent
     format-command: fish_indent
     format-stdin: true
@@ -57,7 +57,12 @@ tools:
 
   any-prettier: &any-prettier
     prefix: prettier
-    format-command: {{ lookPath "npx" }} --yes prettier
+    format-command: >-
+      {{ lookPath "npx" }} --yes
+      prettier
+      --stdin-filepath ${INPUT}
+    format-stdin: true
+{{- if false }}
     root-markers:
       - .prettierrc
       - .prettierrc.json
@@ -69,6 +74,7 @@ tools:
       - prettier.config.js
       - prettier.config.cjs
       - .prettierrc.toml
+{{- end }}
 
   any-biome: &any-biome
     prefix: biome
