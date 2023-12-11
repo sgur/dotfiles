@@ -151,12 +151,22 @@ lsp_servers += [{
 }]
 
 ## markdown
+const marksman_bin = GetLspServerPath('~/.local/share/vim-lsp-settings/servers/marksman/marksman'),
 lsp_servers += [{
   name: 'marksman',
   filetype: ['markdown'],
-  path: GetLspServerPath('~/.local/share/vim-lsp-settings/servers/marksman/marksman'),
+  path: marksman_bin,
   args: ['server']
 }]
+
+if marksman_bin->empty()
+  lsp_servers += [{
+    name: 'vscode-markdown-language-server',
+    filetype: ['markdown'],
+    path: exepath('npx'),
+    args: ['--yes', '--package=vscode-langservers-extracted', '--', 'vscode-markdown-language-server', '--stdio']
+  }]
+endif
 
 lsp_servers += [{
   name: 'obsidian-lsp',

@@ -284,10 +284,6 @@ let g:lsp_settings['typescript-language-server'] = #{
 
 " markdown {{{2
 
-" https://github.com/mattn/vim-lsp-settings/issues/527
-let g:lsp_settings['remark-language-server'] = #{
-      \ disabled: v:true
-      \}
 
 " Python {{{2
 let g:lsp_settings['pylsp-all']= #{
@@ -333,17 +329,6 @@ let g:lsp_settings['tailwindcss-intellisense'] = #{
       \}
 " }}}
 
-" biome lsp-proxy {{{2
-augroup vimrc_plugin_lsp_biome
-  autocmd!
-  autocmd User lsp_setup call lsp#register_server(#{
-        \ name: 'biome-lsp',
-        \ allowlist: ['javascript','javascriptreact','typescript','typescriptreact','json','jsonc'],
-        \ blocklist: [],
-        \ cmd: {server_info -> [exepath('biome'), 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]}
-        \})
-augroup END
-
 " buffer-language-server {{{2
 augroup vimrc_plugin_lsp_buffer
   autocmd!
@@ -376,6 +361,31 @@ augroup END
 
 " obsidian-lsp {{{2
 if executable('npx')
+  augroup vimrc_plugin_lsp_vscode-markdown-language-server
+    autocmd!
+    if lsp_settings#exec_path('marksman')->empty()
+      autocmd User lsp_setup call lsp#register_server(#{
+            \ name: 'vscode-markdown-language-server',
+            \ allowlist: ['markdown'],
+            \ blocklist: [],
+            \ cmd: {server_info -> [exepath('npx'), '--yes', '--package=vscode-langservers-extracted', '--',
+            \   'vscode-markdown-language-server', '--stdio']},
+            \ languageId: {server_info->'markdown'},
+            \})
+    endif
+  augroup END
+
+  " biome lsp-proxy {{{3
+  augroup vimrc_plugin_lsp_biome
+    autocmd!
+    autocmd User lsp_setup call lsp#register_server(#{
+          \ name: 'biome-lsp',
+          \ allowlist: ['javascript','javascriptreact','typescript','typescriptreact','json','jsonc'],
+          \ blocklist: [],
+          \ cmd: {server_info -> [exepath('npx'), '--yes', '@biomejs/biome', 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]}
+          \})
+  augroup END
+
   augroup vimrc_plugin_lsp_obisidian-lsp
     autocmd!
     autocmd User lsp_setup call lsp#register_server(#{
