@@ -1,6 +1,8 @@
 {{ if eq .chezmoi.os "darwin" "linux" -}}
 #!/usr/bin/env fish
 
+# fish_plugins hash: {{ joinPath "dot_config" "fish" "fish_plugins" | include | sha256sum }}
+
 if type -q fisher
     fisher update
 end
