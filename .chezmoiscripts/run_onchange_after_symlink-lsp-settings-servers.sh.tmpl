@@ -1,0 +1,14 @@
+#!/bin/bash
+
+{{- $dirs := glob (joinPath .chezmoi.homeDir ".local" "share" "vim-lsp-settings" "servers" "*" ) }}
+# vim-lsp-settings servers are:
+{{ $dirs | toYaml | comment "# " }}
+
+{{- $files := glob (joinPath .chezmoi.homeDir ".local" "share" "vim-lsp-settings" "servers" "*" "*") }}
+{{- range $files }}
+{{- $fileStat := stat . }}
+{{-   if and (isExecutable .) ($fileStat.isDir | not) }}
+{{-     $dir := osDir . }}
+ln -sf {{ . }} ~/.local/bin/
+{{-   end -}}
+{{- end -}}

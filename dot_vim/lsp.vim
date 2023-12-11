@@ -41,7 +41,7 @@ let g:lsp_diagnostics_echo_cursor = !g:lsp_diagnostics_float_cursor
 let g:lsp_diagnostics_float_cursor = exists('*popup_create')
 let g:lsp_diagnostics_virtual_text_enabled = has('textprop') && has('patch-9.0.0178')
 let g:lsp_diagnostics_virtual_text_insert_mode_enabled = get(g:, 'lsp_diagnostics_virtual_text_enabled', 0) && has('textprop') && has('patch-9.0.0178')
-let g:lsp_diagnostics_virtual_text_align = 'above'
+let g:lsp_diagnostics_virtual_text_align = 'after'
 let g:lsp_diagnostics_virtual_text_padding_left = 1
 let g:lsp_diagnostics_virtual_text_prefix = "── "
 
