@@ -156,6 +156,7 @@ let g:lsp_settings = get(g:, 'lsp_settings', {})
 " efm-langserver "{{{2
 " Make sure to define $HOME on Windows
 let g:lsp_settings['efm-langserver'] = #{
+      \ disabled: v:false,
       \ allowlist: ['*'],
       \ initialization_options: #{
       \   documentFormatting: v:true,
