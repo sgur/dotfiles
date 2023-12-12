@@ -151,7 +151,7 @@ lsp_servers += [{
 }]
 
 ## markdown
-const marksman_bin = GetLspServerPath('~/.local/share/vim-lsp-settings/servers/marksman/marksman'),
+const marksman_bin = GetLspServerPath('~/.local/share/vim-lsp-settings/servers/marksman/marksman')
 lsp_servers += [{
   name: 'marksman',
   filetype: ['markdown'],
