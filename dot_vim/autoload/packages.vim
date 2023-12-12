@@ -61,6 +61,11 @@ function! s:init() abort "{{{
   "       \ depth: 9999
   "       \ })
 
+  call minpac#add('sgur/vim-lsp-settings-bridge', #{
+        \ type: 'opt',
+        \ depth: 9999
+        \ })
+
   call minpac#add('sgur/vim-textobj-parameter', #{
         \ type: 'opt',
         \ depth: 9999
@@ -220,8 +225,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('hail2u/vim-css3-syntax')
-
-  call minpac#add('kana/vim-vspec')
 
   call minpac#add('tyru/skkdict.vim')
 

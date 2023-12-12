@@ -1,5 +1,7 @@
 vim9script
 packadd lsp
+packadd vim-lsp-settings-bridge
+packadd vim-lsp-settings
 
 call LspOptionsSet({
   completionMatcher: 'fuzzy',
@@ -14,6 +16,8 @@ call LspOptionsSet({
   useBufferCompletion: v:true,
   vsnipSupport: v:true,
 })
+
+finish
 
 # Servers
 # https://github.com/yegappan/lsp/wiki
@@ -204,9 +208,13 @@ lsp_servers += [{
       configurationSources: ['flake8'],
       plugins: {
         autopep8: { enabled: v:false },
+        flake8: { enabled: v:true },
         mccabe: { enabled: v:false },
         pycodestyle: { enabled: v:false },
+        pydocstyle: { enabled: v:false },
         pyflakes: { enabled: v:false },
+        rope_autoimport: { enabled: v:true },
+        rope_completion: { enabled: v:true },
         yapf: { enabled: v:false },
       }
     }
