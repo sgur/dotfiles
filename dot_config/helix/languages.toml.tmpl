@@ -142,9 +142,13 @@ pylsp = { configurationSources = ['flake8'] }
 
 [language-server.pylsp-all.config.plugins]
 autopep8 = { enabled = false }
+flake8 = { enabled = false }
 mccabe = { enabled = false }
 pycodestyle = { enabled = false }
+pydocstyle = { enabled = false }
 pyflakes = { enabled = false }
+rope_autoimport = { enabled = true }
+rope_completion = { enabled = true }
 yapf = { enabled = false }
 
 [language-server.pyright-langserver]
