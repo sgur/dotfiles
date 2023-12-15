@@ -4,7 +4,7 @@ version: 2
 root-markers:
   - .git/
 log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
-log-level: 5
+log-level: 3
 
 {{- if false -}}
 commands:
@@ -21,7 +21,6 @@ tools:
   fish-lint: &fish-lint
     lint-command: fish --no-execute
     lint-stdin: false
-    lint-stderr: true
     lint-formats:
       - '%f (line %l): %m'
 
@@ -138,23 +137,6 @@ tools:
           - '--fix'
           - '${INPUT}'
 
-# pip3 install --user flake8
-  python-flake8: &python-flake8
-    prefix: flake8
-    lint-command: "flake8 --stdin-display-name ${INPUT} -"
-    lint-stdin: true
-    lint-formats:
-      - "%f:%l:%c: %m"
-
-# pip3 install --user mypy
-  python-mypy: &python-mypy
-    prefix: mypy
-    lint-command: "mypy --show-column-numbers"
-    lint-formats:
-      - "%f:%l:%c: %trror: %m"
-      - "%f:%l:%c: %tarning: %m"
-      - "%f:%l:%c: %tote: %m"
-
 # pip3 install --user black
   python-black: &python-black
     prefix: black
@@ -180,7 +162,7 @@ tools:
     lint-command: >-
 {{- if ne .chezmoi.os "windows" }}
       bash -c "[[ '${INPUT}' =~ \\.github/workflows/ ]]" &&
-{{- end }}
+{{- end -}}
       actionlint
       -oneline
       -no-color
@@ -287,13 +269,16 @@ languages:
   javascript:
     - <<: *any-biome
     - <<: *any-cspell
+    - <<: *any-secretlint
 
   javascriptreact:
     - <<: *any-biome
     - <<: *any-cspell
+    - <<: *any-secretlint
 
   json:
     - <<: *any-biome
+    - <<: *any-secretlint
 
   go:
     - <<: *any-cspell
@@ -307,13 +292,10 @@ languages:
     - <<: *any-cspell
 
   python:
-{{- if false -}}
-    - <<: *python-flake8
-    - <<: *python-mypy
-{{- end }}
-    - <<: *python-black
-    - <<: *python-isort
+    # - <<: *python-black
+    # - <<: *python-isort
     - <<: *any-cspell
+    - <<: *any-secretlint
 
   scss:
     - <<: *css-stylelint
@@ -325,10 +307,12 @@ languages:
   typescript:
     - <<: *any-biome
     - <<: *any-cspell
+    - <<: *any-secretlint
 
   typescriptreact:
     - <<: *any-biome
     - <<: *any-cspell
+    - <<: *any-secretlint
 
   vue:
     - <<: *any-prettier
@@ -339,12 +323,11 @@ languages:
 {{- end }}
     - <<: *yaml-actionlint
     - <<: *any-prettier
+    - <<: *any-secretlint
 
-{{- if false }}
   gitcommit:
+    - <<: *any-secretlint
+{{- if false }}
     - <<: *any-commitlint
 {{- end }}
 
-  =:
-    - <<: *any-cspell
-    - <<: *any-secretlint
