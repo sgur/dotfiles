@@ -74,22 +74,8 @@
         "categories": ["modifier", "dualuse", "ctrl"]
       },
       {"code": 5, "label": {"base": "b", "shifted": "B"}},
-      {
-        "code": 49980,
-        "baseCode": 43,
-        "label": {"hint": "Windows/", "base": "Tab"},
-        "modifier": "Windows",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "gui"]
-      },
-      {
-        "code": 49721,
-        "baseCode": 40,
-        "label": {"hint": "Alt/", "base": "Enter"},
-        "modifier": "Alt",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "alt"]
-      },
+      {"code": 43, "label": {"base": "Tab"}},
+      {"code": 40, "label": {"base": "Enter"}},
       {"code": 17, "label": {"base": "n", "shifted": "N"}},
       {
         "code": 49185,
@@ -123,33 +109,9 @@
         "rangeStart": 49169,
         "categories": ["modifier", "dualuse", "rgui"]
       },
-      {
-        "code": 50015,
-        "baseCode": 78,
-        "label": {
-          "hint": "Windows/",
-          "base": {"full": "Page Down", "1u": "PgDn"}
-        },
-        "modifier": "Windows",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "gui"]
-      },
-      {
-        "code": 49756,
-        "baseCode": 75,
-        "label": {"hint": "Alt/", "base": {"full": "Page Up", "1u": "PgUp"}},
-        "modifier": "Alt",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "alt"]
-      },
-      {
-        "code": 49478,
-        "baseCode": 53,
-        "label": {"hint": "Shift/", "base": "`"},
-        "modifier": "Shift",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "shift"]
-      },
+      {"code": 53, "label": {"base": "`", "shifted": "~"}},
+      {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
+      {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
       {
         "code": 224,
         "label": {"base": {"full": "Control", "1u": "Ctrl"}},
@@ -195,30 +157,9 @@
         "location": "right",
         "categories": ["modifier"]
       },
-      {
-        "code": 50495,
-        "baseCode": 46,
-        "label": {"hint": "Right Shift/", "base": "="},
-        "modifier": "Right Shift",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "rshift"]
-      },
-      {
-        "code": 49733,
-        "baseCode": 52,
-        "label": {"hint": "Alt/", "base": "'"},
-        "modifier": "Alt",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "alt"]
-      },
-      {
-        "code": 51006,
-        "baseCode": 45,
-        "label": {"hint": "Right Windows/", "base": "-"},
-        "modifier": "Right Windows",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "rgui"]
-      }
+      {"code": 45, "label": {"base": "-", "shifted": "_"}},
+      {"code": 52, "label": {"base": "'", "shifted": "\""}},
+      {"code": 46, "label": {"base": "=", "shifted": "+"}}
     ],
     [
       {
