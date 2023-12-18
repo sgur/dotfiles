@@ -14,7 +14,6 @@ Z = ":write-quit" # ":x"
 mouse = false
 middle-click-paste = false
 cursorline = true
-idle-timeout = 100
 true-color = true
 undercurl = true
 bufferline = "multiple"
@@ -26,10 +25,11 @@ color-modes = true
 
 [editor.statusline]
 left = ["mode", "spinner"]
-center = ["file-name", "separator", "file-type", "version-control"]
+center = ["file-name", "read-only-indicator", "file-modification-indicator", "separator", "file-type", "version-control"]
 right = [
   "diagnostics",
   "selections",
+  "register",
   "position",
   "separator",
   "file-encoding",
