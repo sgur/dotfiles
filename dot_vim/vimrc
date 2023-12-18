@@ -701,18 +701,18 @@ pack.Add('vim-operator-siege', InitOperatorSiege)
 
 # {{{3 misc
 # put markers with one whitespace prefix
-nmap <expr> zf  vimrc#operator#define('n', 'better-zf', 'vimrc#operator#zf')
-xmap <expr> zf  vimrc#operator#define('x', 'better-zf', 'vimrc#operator#zf')
+nmap <expr> zf  custom_operator#define('n', 'better-zf', 'custom_operator#zf')
+xmap <expr> zf  custom_operator#define('x', 'better-zf', 'custom_operator#zf')
 
 # eval vim variables
-nmap <expr> gy  vimrc#operator#define('n', 'eval', 'vimrc#operator#eval')
-xmap <expr> gy  vimrc#operator#define('x', 'eval', 'vimrc#operator#eval')
+nmap <expr> gy  custom_operator#define('n', 'eval', 'custom_operator#eval')
+xmap <expr> gy  custom_operator#define('x', 'eval', 'custom_operator#eval')
 
-nmap <expr> g:  vimrc#operator#define('n', 'excmd', 'vimrc#operator#excmd')
-xmap <expr> g:  vimrc#operator#define('x', 'excmd', 'vimrc#operator#excmd')
+nmap <expr> g:  custom_operator#define('n', 'excmd', 'custom_operator#excmd')
+xmap <expr> g:  custom_operator#define('x', 'excmd', 'custom_operator#excmd')
 
-nmap <expr> g<Space>  vimrc#operator#define_excmd('n', 'trailing-space', 'substitute/\s\+$//ge')
-xmap <expr> g<Space>  vimrc#operator#define_excmd('x', 'trailing-space', 'substitute/\s\+$//ge')
+nmap <expr> g<Space>  custom_operator#define_excmd('n', 'trailing-space', 'substitute/\s\+$//ge')
+xmap <expr> g<Space>  custom_operator#define_excmd('x', 'trailing-space', 'substitute/\s\+$//ge')
 
 # pack {{{2
 command! -nargs=0 PackUpdate  packages#update()

@@ -6,7 +6,7 @@ scriptencoding utf-8
 
 " Interface {{{1
 
-function! vimrc#operator#define(mode, title, function) abort
+function! custom_operator#define(mode, title, function) abort
   let map = printf("\<Plug>(operator-%s)", a:title)
   if !hasmapto(map, a:mode)
     call operator#user#define(a:title, a:function)
@@ -14,7 +14,7 @@ function! vimrc#operator#define(mode, title, function) abort
   return map
 endfunction
 
-function! vimrc#operator#define_excmd(mode, title, command) abort
+function! custom_operator#define_excmd(mode, title, command) abort
   let map = printf("\<Plug>(operator-%s)", a:title)
   if !hasmapto(map, a:mode)
     call operator#user#define_ex_command(a:title, a:command)
@@ -22,7 +22,7 @@ function! vimrc#operator#define_excmd(mode, title, command) abort
   return map
 endfunction
 
-function! vimrc#operator#packadd(mode, title, plugin) abort
+function! custom_operator#packadd(mode, title, plugin) abort
   let map = printf("\<Plug>(operator-%s)", a:title)
   if !hasmapto(map, a:mode)
     execute 'packadd' a:plugin
@@ -30,7 +30,7 @@ function! vimrc#operator#packadd(mode, title, plugin) abort
   return map
 endfunction
 
-function! vimrc#operator#zf(motion_wiseness) abort
+function! custom_operator#zf(motion_wiseness) abort
   if &l:foldmethod is# 'marker'
     call map(["'[", "']"], {k, v -> line(v)})
           \ ->map({k,v -> setline(v, getline(v) . ' ')})
@@ -38,7 +38,7 @@ function! vimrc#operator#zf(motion_wiseness) abort
   '[,']fold
 endfunction
 
-function! vimrc#operator#eval(motion_wiseness) abort
+function! custom_operator#eval(motion_wiseness) abort
   let term = a:motion_wiseness isnot# 'line' ? getline("'[")[col("'[")-1: col("']")-1] : getline("'[")
   try
     let result = eval(term)
@@ -60,7 +60,7 @@ function! vimrc#operator#eval(motion_wiseness) abort
   endif
 endfunction
 
-function! vimrc#operator#excmd(motion_wiseness) abort
+function! custom_operator#excmd(motion_wiseness) abort
   normal! '[V']
   redraw
   execute "'[,']" input('excmd? ', '', 'command')
