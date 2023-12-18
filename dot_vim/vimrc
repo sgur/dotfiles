@@ -286,7 +286,7 @@ command! -complete=customlist,dump#complete -nargs=+ Dump  dump#var(<f-args>)
 
 # autocmds {{{1
 
-import autoload 'vimrc/autocmds.vim'
+import autoload 'autocmd_helpers.vim' as autocmds
 import autoload 'mimic.vim'
 import autoload 'http.vim'
 augroup vimrc_autocmds
