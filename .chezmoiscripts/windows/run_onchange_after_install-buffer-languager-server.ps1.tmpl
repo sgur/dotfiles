@@ -1,0 +1,6 @@
+# Latest commit hash:
+{{ output "curl" "https://api.github.com/repos/metafates/buffer-language-server/commits/main" | jq ".commit.tree.sha" | comment "# " }}
+
+{{ if env "OneDrive" -}}
+& cargo install --root "$Env:OneDrive/shared/" --force --git "https://github.com/metafates/buffer-language-server"
+{{- end }}

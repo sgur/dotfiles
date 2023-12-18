@@ -47,16 +47,16 @@ export def Lsp(): string
 
   const counts = lsp#get_buffer_diagnostics_counts()
   var result = []
-  if counts.error
+  if counts.error > 0
     result += ['E:' .. counts.error]
   endif
-  if counts.warning
+  if counts.warning > 0
     result += ['W:' .. counts.warning]
   endif
-  if counts.information
+  if counts.information > 0
     result += ['I:' .. counts.information]
   endif
-  if counts.hint
+  if counts.hint > 0
     result += ['H:' .. counts.hint]
   endif
   return join(result)
