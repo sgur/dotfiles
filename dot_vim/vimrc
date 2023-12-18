@@ -554,6 +554,7 @@ pack.Add('vim-gitgutter')
 pack.Add('lexima.vim')
 
 # lightline {{{2
+import autoload 'lightline_status.vim' as lightline
 pack.Add('lightline.vim')
 g:lightline = extend({
   active:  {
@@ -565,20 +566,20 @@ g:lightline = extend({
     ]
   },
   component_function: {
-    filename: 'vimrc#lightline#filename',
-    modified: 'vimrc#lightline#modified',
-    readonly: 'vimrc#lightline#readonly',
-    cwd: 'vimrc#lightline#getcwd',
-    vim_lsp: 'vimrc#lightline#lsp',
-    vcs_stat: 'vimrc#lightline#vcs_stat',
-    vcs_branch: 'vimrc#lightline#branchname',
+    filename: 'lightline_status#Filename',
+    modified: 'lightline_status#Modified',
+    readonly: 'lightline_status#Readonly',
+    cwd: 'lightline_status#Getcwd',
+    vim_lsp: 'lightline_status#Lsp',
+    vcs_stat: 'lightline_status#VcsStat',
+    vcs_branch: 'lightline_status#Branchname',
   },
   tab: {
     active: ['title'],
     inactive: ['title']
   },
   tab_component_function: {
-    title: 'vimrc#lightline#tab_title',
+    title: 'lightline_status#TabTitle',
   },
   component: {
     percent: '%02p%%',
