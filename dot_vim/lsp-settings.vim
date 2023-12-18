@@ -29,8 +29,7 @@ let g:lsp_settings['efm-langserver'] = #{
       \   documentSymbol: v:true,
       \   codeAction: v:true,
       \   completion: v:true
-      \ },
-      \ args: ['-c', expand("~/.config/efm-langserver/config.yaml")]
+      \ }
       \}
 
 " eslint-language-server "{{{2
