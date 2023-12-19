@@ -6,6 +6,6 @@
 {{- range $files }}
 {{- $fileStat := stat . }}
 {{-   if and (isExecutable .) ($fileStat.isDir | not) }}
-New-Item -ItemType SymbolicLink -Path {{ joinPath (env "USERPROFILE") ".local" "bin" (osBase .) }} -Target {{ . | osClean }}
+New-Item -Force -ItemType SymbolicLink -Path {{ joinPath (env "USERPROFILE") ".local" "bin" (osBase .) }} -Target {{ . | osClean }}
 {{-   end -}}
 {{- end -}}
