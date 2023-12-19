@@ -1,0 +1,10 @@
+# Latest release hash:
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "efm-langserver.json" -}}
+# {{ $release | include | fromJson | jq ".target_commitish" }}
+
+{{- $tagName := $release | include | fromJson | jq ".tag_name" | first }}
+
+
+Invoke-WebRequest "https://github.com/mattn/efm-langserver/releases/download/{{- $tagName -}}/efm-langserver_{{- $tagName -}}_windows_{{- .chezmoi.arch -}}.zip" -OutFile "$env:TEMP\efm-langserver_{{- $tagName -}}.zip"
+Expand-Archive -Force -Path "$env:TEMP\efm-langserver_{{- $tagName -}}.zip" -DestinationPath "$env:TEMP\efm-langserver_{{- $tagName -}}"
+Copy-Item -Path "$env:TEMP\efm-langserver_{{- $tagName -}}\efm-langserver_{{- $tagName -}}_windows_{{- .chezmoi.arch -}}\efm-langserver.exe" -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }} -Force
