@@ -53,8 +53,25 @@
       {"code": 21, "label": {"base": "r", "shifted": "R"}},
       {"code": 23, "label": {"base": "t", "shifted": "T"}},
       {"code": 43, "label": {"base": "Tab"}},
-      {"code": 42, "label": {"base": {"full": "Backspace", "1u": "Bksp"}}},
-      {"code": 44, "label": {"base": "Space"}},
+      {
+        "code": 49467,
+        "baseCode": 42,
+        "label": {
+          "hint": "Shift/",
+          "base": {"full": "Backspace", "1u": "Bksp"}
+        },
+        "modifier": "Shift",
+        "rangeStart": 49169,
+        "categories": ["modifier", "dualuse", "shift"]
+      },
+      {
+        "code": 49469,
+        "baseCode": 44,
+        "label": {"hint": "Shift/", "base": "Space"},
+        "modifier": "Shift",
+        "rangeStart": 49169,
+        "categories": ["modifier", "dualuse", "shift"]
+      },
       {"code": 40, "label": {"base": "Enter"}},
       {"code": 28, "label": {"base": "y", "shifted": "Y"}},
       {"code": 24, "label": {"base": "u", "shifted": "U"}},
@@ -111,22 +128,8 @@
         "rangeStart": 49169,
         "categories": ["modifier", "dualuse", "alt"]
       },
-      {
-        "code": 49431,
-        "baseCode": 6,
-        "label": {"hint": "Shift/", "base": "c"},
-        "modifier": "Shift",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "shift"]
-      },
-      {
-        "code": 49194,
-        "baseCode": 25,
-        "label": {"hint": "Control/", "base": "v"},
-        "modifier": "Control",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "ctrl"]
-      },
+      {"code": 6, "label": {"base": "c", "shifted": "C"}},
+      {"code": 25, "label": {"base": "v", "shifted": "V"}},
       {"code": 5, "label": {"base": "b", "shifted": "B"}},
       {
         "code": 17452,
@@ -161,22 +164,8 @@
         "categories": ["layer", "shifttolayer"]
       },
       {"code": 17, "label": {"base": "n", "shifted": "N"}},
-      {
-        "code": 50209,
-        "baseCode": 16,
-        "label": {"hint": "Right Control/", "base": "m"},
-        "modifier": "Right Control",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "rctrl"]
-      },
-      {
-        "code": 50503,
-        "baseCode": 54,
-        "label": {"hint": "Right Shift/", "base": ","},
-        "modifier": "Right Shift",
-        "rangeStart": 49169,
-        "categories": ["modifier", "dualuse", "rshift"]
-      },
+      {"code": 16, "label": {"base": "m", "shifted": "M"}},
+      {"code": 54, "label": {"base": ",", "shifted": "<"}},
       {
         "code": 49736,
         "baseCode": 55,
