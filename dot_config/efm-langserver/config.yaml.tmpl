@@ -161,9 +161,10 @@ tools:
     prefix: actionlint
     lint-command: >-
 {{- if ne .chezmoi.os "windows" }}
-      bash -c "[[ '${INPUT}' =~ \\.github/workflows/ ]]" &&
-{{- end -}}
+      bash -c "[[ '${INPUT}' =~ \\.github/workflows/ ]]" && actionlint
+{{- else }}
       actionlint
+{{- end }}
       -oneline
       -no-color
       -stdin-filename "${INPUT}"
