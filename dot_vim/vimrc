@@ -425,7 +425,7 @@ enddef
 pack.Add('vim-asterisk', AsteriskInit)
 
 # asyncomplete  {{{2
-if exists('g:lsp_loaded')
+if stridx(&runtimepath, 'vim-lsp') > -1
   def OnBufwinenterAsyncomplete()
     b:asyncomplete_enable = !&readonly
   enddef
@@ -441,7 +441,7 @@ if exists('g:lsp_loaded')
   if !executable('simple-completion-language-server')
     autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
           \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-          \   name: 'buffer',
+          \   name: 'asyncomplete_buffer',
           \   allowlist: ['*'],
           \   completor: function('asyncomplete#sources#buffer#completor')
           \}))
@@ -449,14 +449,14 @@ if exists('g:lsp_loaded')
 # file source
   autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
         \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-        \   name: 'file',
+        \   name: 'asyncomplete_file',
         \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'markdown'],
         \   completor: function('asyncomplete#sources#file#completor')
         \}))
 # # dictionary source
 # autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
 #       \ asyncomplete#register_source(asyncomplete#sources#dictionary#get_source_options({
-#       \   name: 'dictionary',
+#       \   name: 'asyncomplete_dictionary',
 #       \   allowlist: ['*'],
 #       \   completor: function('asyncomplete#sources#dictionary#completor'),
 #       \   config: {
