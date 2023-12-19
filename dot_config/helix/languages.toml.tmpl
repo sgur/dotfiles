@@ -1,5 +1,7 @@
 # Default configuration: https://github.com/helix-editor/helix/blob/master/languages.toml
 
+{{- $catalog := output "curl" "-sJL" "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json" | fromJson }}
+
 [[language]]
 name = "astro"
 language-servers = ["astro-ls", "efm-langserver", "buffer-ls"]
@@ -11,8 +13,8 @@ language-servers = ["bash-language-server", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "css"
-formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "css"] }
-language-servers = ["vscode-css-language-server", "efm-langserver", "buffer-ls"]
+formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "css"] }
+language-servers = ["vscode-css-language-server", "stylelint-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "fish"
@@ -40,7 +42,7 @@ source = { git = "https://github.com/winston0410/tree-sitter-hjson", rev = "02fa
 
 [[language]]
 name = "html"
-formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "html"] }
+formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "html"] }
 language-servers = ["vscode-html-language-server", "efm-langserver", "buffer-ls"]
 
 [[language]]
@@ -61,9 +63,9 @@ language-servers = ["efm-langserver"]
 
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "efm-langserver", "buffer-ls"]
+language-servers = ["marksman", "efm-langserver", "buffer-ls", "obsidian-lsp"]
 auto-format = true
-formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "markdown"] }
+formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "markdown"] }
 
 [[language]]
 name = "pwsh"
@@ -90,8 +92,8 @@ roots = ["pyproject.toml"]
 
 [[language]]
 name = "scss"
-formatter = { command = "npx", args = ["--yes", "prettier", "--parser", "css"] }
-language-servers = ["vscode-css-language-server", "efm-langserver", "buffer-ls"]
+formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "css"] }
+language-servers = ["vscode-css-language-server", "stylelint-lsp-scss", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "toml"
@@ -111,17 +113,9 @@ name = "yaml"
 language-servers = ["yaml-language-server", "efm-langserver", "buffer-ls"]
 
 [language-server]
-astro-ls = { command = "astro-ls", args = ["--stdio"] }
 deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
-vscode-eslint-language-server = { command = "vscode-eslint-language-server", args = ["--stdio"] }
-obsidian-lsp = { command = "obsidian-lsp", args = ["--stdio"] }
 ruff-lsp = { command = "ruff-lsp", config = { settings = { args = [], run = "onSave" } } }
-stylelint-lsp = { command = "stylelint-lsp", args = ["--stdio"] }
-
-[language-server.biome-ls]
-command = "biome"
-args = ["lsp-proxy", '--config-path={{- joinPath .chezmoi.homeDir ".config" "biome.json" | quote -}}']
 
 [language-server.buffer-ls]
 {{ if lookPath "simple-completion-language-server" -}}
@@ -134,6 +128,22 @@ config = { max_completion_items = 20, snippets_first = false }
 # cargo install buffer-language-server
 command = "buffer-language-server"
 {{- end }}
+
+[language-server.astro-ls]
+command = {{ lookPath "pnpm" | quote }}
+args =["--silent", "dlx", "@astrojs/language-server", "--stdio"]
+
+[language-server.bash-language-server]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent", "dlx", "bash-language-server", "start"]
+
+[language-server.biome-ls]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent", "dlx", "@biomejs/biome", "lsp-proxy", '--config-path={{- joinPath .chezmoi.homeDir ".config" "biome.json" | quote -}}']
+
+[language-server.obsidian-lsp]
+command = {{ lookPath "pnpm" | quote }}
+args =["--silent", "dlx", "obsidian-lsp", "--stdio"]
 
 [language-server.pylsp-all]
 command = "pylsp-all"
@@ -153,13 +163,21 @@ rope_completion = { enabled = true }
 yapf = { enabled = false }
 
 [language-server.pyright-langserver]
-command = "pyright-langserver"
-args = ["--stdio"]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent", "dlx", "pyright-langserver", "--stdio"]
 
 [language-server.pyright-langserver.config.python.analysis]
 typeCheckingMode = "strict"
 useLibraryCodeForTypes = true
 reportMissingImports = true
+
+[language-server.stylelint-lsp]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent", "dlx", "stylelint-lsp", "--stdio"]
+
+[language-server.stylelint-lsp-scss]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent", "--package=stylelint-lsp", "--package=stylelint-config-standard-scss", "dlx", "stylelint-lsp", "--stdio"]
 
 [language-server.taplo-lsp]
 command = "taplo"
@@ -202,11 +220,34 @@ crlf = false
 [language-server.taplo-lsp.config.evenBetterToml.actions]
 ignoreDepracatedAssociations = false
 
+[language-server.typescript-language-server]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent", "dlx", "typescript-language-server", "--stdio"]
+
+[language-server.vscode-css-language-server]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-css-language-server", "--stdio"]
+
+[language-server.vscode-eslint-language-server]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-eslint-language-server", "--stdio"]
+
+[language-server.vscode-html-language-server]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-html-language-server", "--stdio"]
+
+[language-server.vscode-json-language-server]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-json-language-server", "--stdio"]
+
 [language-server.vscode-json-language-server.config.json]
 format = { enable = true }
 
-{{ $catalog := output "curl" "-sJL" "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json" | fromJson -}}
 {{ slice ( $catalog | jq "[.schemas[] | select(.fileMatch | any(endswith(\"json\")))?] | {\"language-server\": {\"vscode-json-language-server\": {config: {json: {schemas: .}}}}}" | toToml | splitList "\n") 5 | join "\n" -}}
+
+[language-server.yaml-language-server]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent", "dlx", "yaml-language-server", "--stdio"]
 
 [language-server.yaml-language-server.config.yaml]
 format = { enable = true }
