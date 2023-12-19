@@ -16,7 +16,7 @@ if status is-interactive
     alias hostname 'uname -n'
 
     {{ if lookPath "carapace" -}}
-    carapace _carapace fish | source
+    set -gx fish_complete_path $fish_complete_path {{ joinPath .chezmoi.homeDir ".config" "fish" "carapace_completions" }}
     {{- end }}
 end
 

@@ -1,0 +1,12 @@
+#!/usr/bin/bash
+
+{{ if lookPath "carapace" }}
+
+# carapace supports hash: {{ output "carapace" "--list" | sha256sum }}
+
+{{ $dir := joinPath .chezmoi.homeDir ".config" "fish" "carapace_completions" }}
+mkdir -p {{ $dir }}
+for cmd in $(carapace --list | awk '{print $1}'); do
+	carapace ${cmd} fish > {{ $dir -}}/${cmd}.fish
+done
+{{ end }}
