@@ -27,8 +27,9 @@ tools:
   any-secretlint: &any-secretlint
     prefix: secretlint
     lint-command: >-
-      {{ lookPath "npx" }} --yes
-      --
+      {{ lookPath "pnpm" }}
+      --silent
+      dlx
       @secretlint/quick-start@latest
       --format unix
     lint-stdin: false
@@ -40,10 +41,11 @@ tools:
   css-stylelint: &css-stylelint
     prefix: stylelint
     lint-command: >-
-      {{ lookPath "npx" }} --yes
+      {{ lookPath "pnpm" }}
+      --silent
       --package=stylelint
       --package=stylelint-config-standard
-      --
+      dlx
       stylelint
       --formatter unix
       --config
@@ -57,7 +59,9 @@ tools:
   any-prettier: &any-prettier
     prefix: prettier
     format-command: >-
-      {{ lookPath "npx" }} --yes
+      {{ lookPath "pnpm" }}
+      --silent
+      dlx
       prettier
       --stdin-filepath ${INPUT}
     format-stdin: true
@@ -78,8 +82,9 @@ tools:
   any-biome: &any-biome
     prefix: biome
     format-command: >-
-      {{ lookPath "npx" }} --yes
-      --
+      {{ lookPath "pnpm" }}
+      --silent
+      dlx
       @biomejs/biome
       format
       --config-path={{- joinPath .chezmoi.homeDir ".config" "biome.json" | quote }}
@@ -89,9 +94,10 @@ tools:
   markdown-markdownlint-cli2: &markdown-markdownlint-cli2
     prefix: markdownlint-cli2
     lint-command: >-
-      {{ lookPath "npx" }} --yes
+      {{ lookPath "pnpm" }}
+      --silent
       --package=markdownlint-cli2
-      --
+      dlx
       markdownlint-cli2-config
       {{ joinPath .chezmoi.homeDir ".config" "config.markdownlint-cli2.yaml" }}
     lint-stdin: false
@@ -104,9 +110,10 @@ tools:
   markdown-markdownlint: &markdown-markdownlint
     prefix: markdownlint
     lint-command: >-
-      {{ lookPath "npx" }} --yes
+      {{ lookPath "pnpm" }}
+      --silent
       --package=markdownlint-cli
-      --
+      dlx
       markdownlint
       --config {{ joinPath .chezmoi.homeDir ".config" "markdownlint.yaml" }}
       --stdin
@@ -118,7 +125,9 @@ tools:
   html-markuplint: &html-markuplint
     prefix: markuplint
     lint-command: >-
-      {{ lookPath "npx" }} --yes
+      {{ lookPath "pnpm" }}
+      --silent
+      dlx
       markuplint
       --no-color
       --format Default
@@ -129,9 +138,10 @@ tools:
       - "%-G%.%#"
     commands:
       - title: 'markuplint fix'
-        command: {{ lookPath "npx" }}
+        command: {{ lookPath "pnpm" }}
         arguments:
-          - '--yes'
+          - '--silent'
+          - 'dlx'
           - 'markuplint'
           - '--no-color'
           - '--fix'
@@ -179,8 +189,9 @@ tools:
   any-cspell: &any-cspell
     prefix: cspell
     lint-command: >-
-      {{ lookPath "npx" }} --yes
-      --
+      {{ lookPath "pnpm" }}
+      --silent
+      dlx
       cspell
       lint
       --no-gitignore
@@ -198,8 +209,9 @@ tools:
     lint-severity: 3
 {{- if false -}}
     completion-command: >-
-      {{ lookPath "npx" }} --yes
-      --
+      {{ lookPath "pnpm" }}
+      --silent
+      dlx
       cspell
       suggestions
       --no-progress
@@ -211,9 +223,10 @@ tools:
   any-commitlint: &any-commitlint
     prefix: commitlint
     lint-command: >-
-      {{ lookPath "npx" }}--yes
+      {{ lookPath "pnpm" }}
+      --silent
       --package=@commitlint/cli
-      --
+      dlx
       commitlint
       --config
       {{ joinPath .chezmoi.homeDir ".config" "commitlintrc.yaml" }}
@@ -228,12 +241,13 @@ tools:
   any-textlint: &any-textlint
     prefix: textlint
     lint-command: >-
-      {{ lookPath "npx" }} --yes
+      {{ lookPath "pnpm" }}
+      --silent
       --package=textlint
       --package=textlint-rule-preset-ja-technical-writing
       --package=textlint-rule-preset-ja-spacing
       --package=textlint-rule-preset-japanese
-      --
+      dlx
       textlint
       --config {{ joinPath .chezmoi.homeDir ".config" "textlintrc.yaml" }}
       -f unix

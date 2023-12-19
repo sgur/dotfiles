@@ -175,8 +175,8 @@ if marksman_bin->empty()
   lsp_servers += [{
     name: 'vscode-markdown-language-server',
     filetype: ['markdown'],
-    path: exepath('npx'),
-    args: ['--yes', '--package=vscode-langservers-extracted', '--', 'vscode-markdown-language-server', '--stdio']
+    path: exepath('pnpm'),
+    args: ['--silent', '--package=vscode-langservers-extracted', 'dlx', 'vscode-markdown-language-server', '--stdio']
   }]
 endif
 
@@ -344,8 +344,8 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'biome-lsp',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
-  path: exepath('npx'),
-  args: ['--yes', '--', '@biomejs/biome', 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]
+  path: exepath('pnpm'),
+  args: ['--silent', 'dlx', '@biomejs/biome', 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]
 }]
 
 # initialize

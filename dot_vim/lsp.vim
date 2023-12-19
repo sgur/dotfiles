@@ -163,7 +163,7 @@ augroup vimrc_plugin_lsp_buffer
 augroup END
 
 " obsidian-lsp {{{2
-if executable('npx')
+if executable('pnpm')
   augroup vimrc_plugin_lsp_vscode-markdown-language-server
     autocmd!
     if lsp_settings#exec_path('marksman')->empty()
@@ -171,7 +171,7 @@ if executable('npx')
             \ name: 'vscode-markdown-language-server',
             \ allowlist: ['markdown'],
             \ blocklist: [],
-            \ cmd: {server_info -> [exepath('npx'), '--yes', '--package=vscode-langservers-extracted', '--',
+            \ cmd: {server_info -> [exepath('pnpm'), '--silent', '--package=vscode-langservers-extracted', 'dlx',
             \   'vscode-markdown-language-server', '--stdio']},
             \ languageId: {server_info->'markdown'},
             \})
@@ -185,7 +185,7 @@ if executable('npx')
           \ name: 'biome-lsp',
           \ allowlist: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
           \ blocklist: [],
-          \ cmd: {server_info -> [exepath('npx'), '--yes', '--', '@biomejs/biome', 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]}
+          \ cmd: {server_info -> [exepath('pnpm'), '--silent', 'dlx', '@biomejs/biome', 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]}
           \})
   augroup END
 
@@ -193,7 +193,7 @@ if executable('npx')
     autocmd!
     autocmd User lsp_setup call lsp#register_server(#{
           \ name: 'obsidian-lsp',
-          \ cmd: {server_info->[exepath('npx'), '--yes', 'obsidian-lsp', '--stdio']},
+          \ cmd: {server_info->[exepath('pnpm'), '--silent', 'dlx', 'obsidian-lsp', '--stdio']},
           \ root_ui: {server_info->lsp#utils#path_to_uri(
           \	  lsp#utils#find_nearest_parent_file_directory(
           \	    lsp#utils#get_buffer_path(), ['.obsidian/']
