@@ -1,6 +1,6 @@
 # Default configuration: https://github.com/helix-editor/helix/blob/master/languages.toml
 
-[[languaeg]]
+[[language]]
 name = "astro"
 language-servers = ["astro-ls", "efm-langserver", "buffer-ls"]
 
@@ -32,6 +32,7 @@ injection-regex = "hson"
 file-types = ["hjson"]
 indent = { tab-width = 4, unit = "  " }
 language-servers = ["buffer-ls"]
+roots = []
 
 [[grammar]]
 name = "hjson"
@@ -120,7 +121,7 @@ stylelint-lsp = { command = "stylelint-lsp", args = ["--stdio"] }
 
 [language-server.biome-ls]
 command = "biome"
-args = ["lsp-proxy", "--config-path={{- joinPath .chezmoi.homeDir ".config" "biome.json" -}}"]
+args = ["lsp-proxy", '--config-path={{- joinPath .chezmoi.homeDir ".config" "biome.json" | quote -}}']
 
 [language-server.buffer-ls]
 {{ if lookPath "simple-completion-language-server" -}}

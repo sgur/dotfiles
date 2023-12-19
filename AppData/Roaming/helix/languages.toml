@@ -1,5 +1,0 @@
-# Default configuration: https://github.com/helix-editor/helix/blob/23.05/languages.toml
-
-[language-server.taplo]
-command = "taplo"
-args = ["run"]
