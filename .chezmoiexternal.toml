@@ -104,6 +104,11 @@ url = "https://github.com/catppuccin/xcode/archive/refs/heads/main.zip"
 
 {{ end }}
 
+[".cache/chezmoi-releases/tailwindcss-intellisense.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/tailwindlabs/tailwindcss-intellisense/releases/latest"
+
 {{ if eq .chezmoi.os "windows" }}
 
 [".cache/chezmoi-releases/efm-langserver.json"]
