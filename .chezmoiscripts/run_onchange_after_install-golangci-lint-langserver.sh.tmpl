@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+{{ $cliRelease := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "golangci-lint.json" -}}
+{{ $cliTagName := $cliRelease | include | fromJson | jq ".tag_name" | first -}}
+{{ $cliAsset := printf "golangci-lint-%s-%s-%s.tar.gz" (trimPrefix "v" $cliTagName) .chezmoi.os .chezmoi.arch -}}
+{{ $cliUrl := printf "https://github.com/golangci/golangci-lint/releases/download/%s/%s" $cliTagName $cliAsset }}
+curl -L {{ $cliUrl | quote }} -o {{ $cliAsset }}
+
+tar zxf {{ $cliAsset }}
+rm {{ $cliAsset }}
+
+mv -f {{ trimSuffix ".tar.gz" $cliAsset -}}/golangci-lint {{ joinPath .chezmoi.homeDir ".local" "bin" }}
+
+{{ $lsRelease := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "golangci-lint-langserver.json" -}}
+{{ $lsTagName := $lsRelease | include | fromJson | jq ".tag_name" | first -}}
+{{ $lsAsset := printf "golangci-lint-langserver_%s_%s.tar.gz" .chezmoi.os .chezmoi.arch -}}
+{{ $lsUrl := printf "https://github.com/nametake/golangci-lint-langserver/releases/download/%s/%s" $lsTagName $lsAsset }}
+curl -L {{ $lsUrl | quote }} -o {{ $lsAsset }}
+
+tar zxf {{ $lsAsset }}
+rm {{ $lsAsset }} LICENSE README.md
+
+mv -f golangci-lint-langserver {{ joinPath .chezmoi.homeDir ".local" "bin" }}

@@ -180,6 +180,16 @@ url = "https://github.com/shunsambongi/clink-zoxide/archive/refs/heads/master.zi
 
 {{ else }} # Non-Windows
 
+[".cache/chezmoi-releases/golangci-lint-langserver.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/nametake/golangci-lint-langserver/releases/latest"
+
+[".cache/chezmoi-releases/golangci-lint.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/golangci/golangci-lint/releases/latest"
+
 {{   if lookPath "base64" }}
 
 [".local/bin/copy"]
