@@ -1,0 +1,21 @@
+{{ $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "tailwindcss-intellisense.json" -}}
+{{ $tagName := $release | include | fromJson | jq ".tag_name" | first -}}
+{{ $asset := printf "vscode-tailwindcss-%s.vsix" (trimPrefix "v" $tagName) -}}
+{{ $url := printf "https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/%s/%s" $tagName $asset }}
+
+Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset | quote }}
+Expand-Archive -Force -Path {{ $asset }}
+# Remove-Item -Force ({{ $asset | quote }}, '[Content_Types].xml', 'extension.vsixmanifest')
+
+{{- $tailwindcssLsDir := joinPath .chezmoi.homeDir ".local" "share" "tailwindcss-intellisense" }}
+Remove-Item -Force -Recurse -Path {{ $tailwindcssLsDir | quote}}
+New-Item -ItemType Directory -Path {{ $tailwindcssLsDir | quote}}
+Move-Item -Path '{{ printf "vscode-tailwindcss-%s" (trimPrefix "v" $tagName) -}}\extension' -Destination {{ $tailwindcssLsDir | quote}}
+
+$Batch = @'
+@echo off
+
+{{ lookPath "node" }} {{ joinPath $tailwindcssLsDir "extension" "dist" "tailwindServer.js" | quote }} %*
+'@
+
+Set-Content -Path {{ joinPath .chezmoi.homeDir ".local" "bin" "tailwindcss-intellisense.cmd" | quote }} -Value $Batch
