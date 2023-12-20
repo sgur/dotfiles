@@ -1,4 +1,4 @@
-#!/usr/bin/bash
+#!/usr/bin/env bash
 
 {{ $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "tailwindcss-intellisense.json" -}}
 {{ $tagName := $release | include | fromJson | jq ".tag_name" | first -}}
