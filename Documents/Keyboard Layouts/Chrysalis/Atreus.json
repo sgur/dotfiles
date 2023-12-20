@@ -81,9 +81,9 @@
         "rangeStart": 49169,
         "categories": ["modifier", "dualuse", "rgui"]
       },
-      {"code": 53, "label": {"base": "`", "shifted": "~"}},
-      {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
       {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
+      {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
+      {"code": 53, "label": {"base": "`", "shifted": "~"}},
       {
         "code": 224,
         "label": {"base": {"full": "Control", "1u": "Ctrl"}},
@@ -129,9 +129,9 @@
         "location": "right",
         "categories": ["modifier"]
       },
-      {"code": 45, "label": {"base": "-", "shifted": "_"}},
+      {"code": 46, "label": {"base": "=", "shifted": "+"}},
       {"code": 52, "label": {"base": "'", "shifted": "\""}},
-      {"code": 46, "label": {"base": "=", "shifted": "+"}}
+      {"code": 45, "label": {"base": "-", "shifted": "_"}}
     ],
     [
       {
