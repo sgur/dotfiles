@@ -141,6 +141,10 @@ args = ["--silent", "dlx", "bash-language-server", "start"]
 command = {{ lookPath "pnpm" | quote }}
 args = ["--silent", "dlx", "@biomejs/biome", "lsp-proxy", '--config-path={{- joinPath .chezmoi.homeDir ".config" "biome.json" | quote -}}']
 
+[language-server.graphql-language-service]
+command = {{ lookPath "pnpm" | quote }}
+args = ["--silent", "dlx", "graphql-language-service-cli", "server", "-m", "stream"]
+
 [language-server.obsidian-lsp]
 command = {{ lookPath "pnpm" | quote }}
 args =["--silent", "dlx", "obsidian-lsp", "--stdio"]
