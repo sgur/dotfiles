@@ -4,7 +4,6 @@
 {{ $tagName := $release | include | fromJson | jq ".tag_name" | first -}}
 {{ $asset := printf "vscode-tailwindcss-%s.vsix" (trimPrefix "v" $tagName) -}}
 {{ $url := printf "https://github.com/tailwindlabs/tailwindcss-intellisense/releases/download/%s/%s" $tagName $asset }}
-echo curl -L {{ $url | quote }} -o {{ $asset }}
 curl -L {{ $url | quote }} -o {{ $asset }}
 
 unzip -oq {{ $asset }}
@@ -16,10 +15,11 @@ rm -rf {{ $tailwindcssLsDir }}
 mkdir -p {{ $tailwindcssLsDir }}
 mv extension {{ $tailwindcssLsDir -}}/
 
-cat <<EOF >{{- $tailwindcssLsDir -}}/tailwindcss-intellisense
+{{ $tailwindcssLsBin := joinPath .chezmoi.homeDir ".local" "bin" "tailwindcss-intellisense" }}
+cat <<EOF >{{- $tailwindcssLsBin }}
 #!/bin/sh
 
-node {{ $tailwindcssLsDir -}}/extension/dist/tailwindServer.js \$*
+{{ lookPath "node" }} {{ joinPath $tailwindcssLsDir "extension" "dist" "tailwindServer.js"}} "\$*"
 EOF
 
-chmod +x {{ $tailwindcssLsDir -}}/tailwindcss-intellisense
+chmod +x {{ $tailwindcssLsBin }}
