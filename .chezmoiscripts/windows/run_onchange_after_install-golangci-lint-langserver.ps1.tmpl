@@ -1,0 +1,25 @@
+{{ $cliRelease := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "golangci-lint.json" -}}
+{{ $cliTagName := $cliRelease | include | fromJson | jq ".tag_name" | first -}}
+{{ $cliAsset := printf "golangci-lint-%s-%s-%s.zip" (trimPrefix "v" $cliTagName) .chezmoi.os .chezmoi.arch -}}
+{{ $cliUrl := printf "https://github.com/golangci/golangci-lint/releases/download/%s/%s" $cliTagName $cliAsset }}
+
+Invoke-WebRequest {{ $cliUrl | quote }} -OutFile {{ $cliAsset }}
+
+Expand-Archive -Force -Path {{ $cliAsset }}
+{{ $cliDir := trimSuffix ".zip" $cliAsset }}
+Move-Item -Force -Path '{{- $cliDir -}}\{{ $cliDir -}}\golangci-lint.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
+
+Remove-Item -Force -Recurse -Path {{ $cliAsset | quote }}, {{ $cliDir | quote }}
+
+{{ $lsRelease := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "golangci-lint-langserver.json" -}}
+{{ $lsTagName := $lsRelease | include | fromJson | jq ".tag_name" | first -}}
+{{ $lsAsset := printf "golangci-lint-langserver_%s_%s.zip" .chezmoi.os "x86_64" -}}
+{{ $lsUrl := printf "https://github.com/nametake/golangci-lint-langserver/releases/download/%s/%s" $lsTagName $lsAsset }}
+
+Invoke-WebRequest {{ $lsUrl | quote }} -OutFile {{ $lsAsset }}
+
+Expand-Archive -Force -Path {{ $lsAsset }}
+{{ $lsDir := trimSuffix ".zip" $lsAsset }}
+Move-Item -Force -Path '{{- $lsDir -}}\golangci-lint-langserver.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
+
+Remove-Item -Force -Recurse -Path {{ $lsAsset | quote }}, {{ $lsDir | quote }}
