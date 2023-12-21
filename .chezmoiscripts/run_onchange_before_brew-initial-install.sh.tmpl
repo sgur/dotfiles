@@ -1,0 +1,21 @@
+{{ if and (eq .chezmoi.os "darwin" "linux") -}}
+#!/usr/bin/env bash
+
+{{ if lookPath "brew" | not -}}
+/usr/bin/env bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+{{- end }}
+
+{{ $brewfile := joinPath .chezmoi.sourceDir (printf "dot_Brewfile.%s" .chezmoi.os) -}}
+# Brewfile hash: {{ $brewfile | include | sha256sum }}
+
+{{ $packages := list
+	"fish"
+	"ghq"
+	"git"
+	"git-crypt"
+	"gopass"
+-}}
+
+brew install {{ $packages | join " " }}
+
+{{ end -}}
