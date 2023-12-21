@@ -13,7 +13,7 @@ Remove-Item -Force -Recurse -Path {{ $cliAsset | quote }}, {{ $cliDir | quote }}
 
 {{ $lsRelease := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "golangci-lint-langserver.json" -}}
 {{ $lsTagName := $lsRelease | include | fromJson | jq ".tag_name" | first -}}
-{{ $lsAsset := printf "golangci-lint-langserver_%s_%s.zip" .chezmoi.os "x86_64" -}}
+{{ $lsAsset := printf "golangci-lint-langserver_%s_%s.zip" .chezmoi.os (eq .chezmoi.arch "amd64" | ternary "x86_64" .chezmoi.arch) -}}
 {{ $lsUrl := printf "https://github.com/nametake/golangci-lint-langserver/releases/download/%s/%s" $lsTagName $lsAsset }}
 
 Invoke-WebRequest {{ $lsUrl | quote }} -OutFile {{ $lsAsset }}
