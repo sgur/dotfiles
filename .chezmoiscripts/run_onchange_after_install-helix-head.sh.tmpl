@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+
+# Latest commit hash: {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "helix-editor.json" | include | fromJson | jq ".commit.tree.sha" | first }}
+
+{{ if lookPath "sccache" -}}
+export RUSTC_WRAPPER={{- lookPath "sccache"}}
+{{- end }}
+
+{{ if and (lookPath "ghq") (lookPath "cargo") -}}
+ghq get helix-editor/helix
+pushd $(ghq list -p helix-editor/helix)
+rm -rf target/
+export HELIX_DEFAULT_RUNTIME=$(ghq list -p helix-editor/helix)/runtime
+cargo install --profile opt --locked --path helix-term
+popd
+{{- end }}
