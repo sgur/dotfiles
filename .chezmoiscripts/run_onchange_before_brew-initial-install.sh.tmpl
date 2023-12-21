@@ -16,6 +16,6 @@
 	"gopass"
 -}}
 
-brew install {{ $packages | join " " }}
+brew install --quiet {{ $packages | join " " }}
 
 {{ end -}}
