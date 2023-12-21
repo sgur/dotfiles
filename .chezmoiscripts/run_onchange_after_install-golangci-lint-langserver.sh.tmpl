@@ -15,7 +15,7 @@ rm -rf {{ $cliAsset }} {{ $cliDir }}
 
 {{ $lsRelease := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "golangci-lint-langserver.json" -}}
 {{ $lsTagName := $lsRelease | include | fromJson | jq ".tag_name" | first -}}
-{{ $lsAsset := printf "golangci-lint-langserver_%s_%s.tar.gz" .chezmoi.os .chezmoi.arch -}}
+{{ $lsAsset := printf "golangci-lint-langserver_%s_%s.tar.gz" .chezmoi.os (eq .chezmoi.arch "amd64" | ternary "x86_64" .chezmoi.arch) -}}
 {{ $lsUrl := printf "https://github.com/nametake/golangci-lint-langserver/releases/download/%s/%s" $lsTagName $lsAsset }}
 curl -L {{ $lsUrl | quote }} -o {{ $lsAsset }}
 
