@@ -131,12 +131,12 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/mattn/efm-langserver/releases/latest"
 
-[".cache/chezmoi-commit/buffer-language-server.json"]
+[".cache/chezmoi-commits/buffer-language-server.json"]
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/metafates/buffer-language-server/commits/main"
 
-[".cache/chezmoi-commit/simple-completion-language-server.json"]
+[".cache/chezmoi-commits/simple-completion-language-server.json"]
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/estin/simple-completion-language-server/commits/main"
