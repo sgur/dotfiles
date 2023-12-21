@@ -18,6 +18,12 @@ if status is-interactive
     {{ if lookPath "carapace" -}}
     set -gx fish_complete_path $fish_complete_path {{ joinPath .chezmoi.homeDir ".config" "fish" "carapace_completions" }}
     {{- end }}
+
+    # abbr 用の外部 gist を読み込む
+    {{- $gistPath := joinPath (output "ghq" "list" "-p" "9e80be22552dda4613d7833273f6bc59" | trim) "local_abbr.fish" }}
+    {{ if and (lookPath "ghq") (stat $gistPath) -}}
+    source {{ $gistPath }}
+    {{- end }}
 end
 
 # 共通の設定はログインシェルでのみ行う
