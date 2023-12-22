@@ -4,7 +4,9 @@ version: 2
 root-markers:
   - .git/
 log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
+{{ if false -}}
 log-level: 3
+{{- end }}
 
 {{- if false -}}
 commands:
