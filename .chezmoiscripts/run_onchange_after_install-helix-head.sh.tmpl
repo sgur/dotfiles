@@ -7,7 +7,7 @@ export RUSTC_WRAPPER={{- lookPath "sccache"}}
 {{- end }}
 
 {{ if and (lookPath "ghq") (lookPath "cargo") -}}
-ghq get helix-editor/helix
+ghq get --update helix-editor/helix
 pushd $(ghq list -p helix-editor/helix)
 rm -rf target/
 export HELIX_DEFAULT_RUNTIME=$(ghq list -p helix-editor/helix)/runtime
