@@ -68,20 +68,19 @@ auto-format = true
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "markdown"] }
 
 [[language]]
-name = "pwsh"
-# language-id = "powershell"
+name = "PowerShell"
+language-id = "powershell"
 scope = "source.ps1"
 file-types = ["ps1", "psm1", "psd1"]
 shebangs = ["pwsh"]
 roots = []
 comment-token = "#"
 indent = { tab-width = 4, unit = "    " }
+language-servers = ["powershell-langserver", "buffer-ls"]
 
-# It look broken
-# https://github.com/helix-editor/helix/issues/3123
-# [[grammar]]
-# name = "pwsh"
-# source = { git = "https://github.com/JamesWTruher/tree-sitter-PowerShell", rev = "1ac090522cb339a6fd9d3ac915da01cb263d69e1" }
+[[grammar]]
+name = "PowerShell"
+source = { git = "https://github.com/kiennq/tree-sitter-PowerShell", rev = "ecb861958a94d5e228af02fe702f076b8bcc8d3e" }
 
 [[language]]
 name = "python"
@@ -116,6 +115,7 @@ language-servers = ["yaml-language-server", "efm-langserver", "buffer-ls"]
 deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
 ruff-lsp = { command = "ruff-lsp", config = { settings = { args = [], run = "onSave" } } }
+powershell-langserver = { command = {{ findExecutable "powershell-editor-services" (list (joinPath .chezmoi.homeDir ".local" "share" "powershell-editor-services")) | quote }} }
 
 [language-server.buffer-ls]
 {{ if lookPath "simple-completion-language-server" -}}
