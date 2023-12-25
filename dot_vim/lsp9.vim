@@ -194,6 +194,15 @@ lsp_servers += [{
   runIfSearch: ['.obsidian/']
 }]
 
+## powershell
+
+lsp_servers += [{
+  name: 'powershell-editor-services',
+  filetype: ['powershell', 'ps1'],
+  path: GetLspServerPath('~/.local/share/powershell-editor-services/powershell-editor-services'),
+  args: []
+}]
+
 ## python
 lsp_servers += [{
   name: 'pylsp',
