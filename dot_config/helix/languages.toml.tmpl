@@ -85,7 +85,7 @@ indent = { tab-width = 4, unit = "    " }
 
 [[language]]
 name = "python"
-language-servers = ["pylsp-all", "pyright-langserver", "ruff-lsp", "efm-langserver", "buffer-ls"]
+language-servers = ["pylsp", "pyright-langserver", "ruff-lsp", "efm-langserver", "buffer-ls"]
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 roots = ["pyproject.toml"]
@@ -149,19 +149,14 @@ args = ["--silent", "dlx", "graphql-language-service-cli", "server", "-m", "stre
 command = {{ lookPath "pnpm" | quote }}
 args =["--silent", "dlx", "obsidian-lsp", "--stdio"]
 
-[language-server.pylsp-all]
-command = "pylsp-all"
-
-[language-server.pylsp-all.config]
-pylsp = { configurationSources = ['flake8'] }
-
-[language-server.pylsp-all.config.plugins]
+[language-server.pylsp.config.plugins]
 autopep8 = { enabled = false }
 flake8 = { enabled = false }
 mccabe = { enabled = false }
 pycodestyle = { enabled = false }
 pydocstyle = { enabled = false }
 pyflakes = { enabled = false }
+pylint = { enabled = false }
 rope_autoimport = { enabled = true }
 rope_completion = { enabled = true }
 yapf = { enabled = false }
