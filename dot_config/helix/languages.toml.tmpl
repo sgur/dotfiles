@@ -167,6 +167,9 @@ pylint = { enabled = false }
 rope_autoimport = { enabled = true }
 rope_completion = { enabled = true }
 yapf = { enabled = false }
+{{ if eq .chezmoi.os "windows" -}}
+ruff = { enabled = true }
+{{- end }}
 
 [language-server.pyright-langserver]
 command = {{ lookPath "pnpm" | quote }}
