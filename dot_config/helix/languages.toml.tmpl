@@ -22,6 +22,12 @@ formatter = { command = "fish_indent" }
 auto-format = true
 language-servers = ["efm-langserver", "buffer-ls"]
 
+{{ if eq .chezmoi.os "windows" -}}
+[[grammar]]
+name = "gemini"
+source = { git = "https://git.sr.ht/~nbsp/tree-sitter-gemini", rev = "3cc5e4bdf572d5df4277fc2e54d6299bd59a54b3" }
+{{- end }}
+
 [[language]]
 name = "go"
 scope = "source.go"
