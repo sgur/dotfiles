@@ -222,6 +222,7 @@ lsp_servers += [{
         rope_autoimport: { enabled: v:true },
         rope_completion: { enabled: v:true },
         yapf: { enabled: v:false },
+        ruff: { enabled: has('win32') ? v:true : v:false }
       }
     }
   }
