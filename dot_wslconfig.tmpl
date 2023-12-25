@@ -3,7 +3,7 @@
 [wsl2]
 # 50% of total memory on Windows or 8GB, whichever is less
 # ex. memory=8GB
-# 3/4 of logical processors on Windows
-processors={{- div (mul .cpuThreads 3) 4 }}
+# 1/2 of logical processors on Windows
+processors={{- div .cpuThreads 2 }}
 localhostForwarding=true
 guiApplications={{- eq .chezmoi.windowsVersion.currentMajorVersionNumber 11 }} # Windows11 only
