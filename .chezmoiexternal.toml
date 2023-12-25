@@ -3,11 +3,6 @@
 # > .chezmoiexternal.$FORMAT is interpreted as a template.
 # > This allows different externals to be included on different machines.
 
-[".cache/schemastore/catalog.json"]
-type = "file"
-refreshPeriod = "168h"
-url = "https://www.schemastore.org/api/json/catalog.json"
-
 [".vim/pack/chezmoi/opt/minpac"]
 type = "git-repo"
 refreshPeriod = "24h"
@@ -86,21 +81,6 @@ type = "file"
 refreshPeriod = "168h" # 1-wee
 url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/mocha.toml"
 
-[".cache/chezmoi-releases/golangci-lint-langserver.json"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/nametake/golangci-lint-langserver/releases/latest"
-
-[".cache/chezmoi-releases/golangci-lint.json"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/golangci/golangci-lint/releases/latest"
-
-[".cache/chezmoi-releases/tailwindcss-intellisense.json"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/tailwindlabs/tailwindcss-intellisense/releases/latest"
-
 {{ if eq .chezmoi.os "darwin" }}
 
 [".config/kitty/themes"]
@@ -119,27 +99,7 @@ url = "https://github.com/catppuccin/xcode/archive/refs/heads/main.zip"
 
 {{ end }}
 
-[".cache/chezmoi-commits/helix-editor.json"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/helix-editor/helix/commits/master"
-
 {{ if eq .chezmoi.os "windows" }}
-
-[".cache/chezmoi-releases/efm-langserver.json"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/mattn/efm-langserver/releases/latest"
-
-[".cache/chezmoi-commits/buffer-language-server.json"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/metafates/buffer-language-server/commits/main"
-
-[".cache/chezmoi-commits/simple-completion-language-server.json"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/estin/simple-completion-language-server/commits/main"
 
 ["Tools/FaithType"]
 type = "archive"
@@ -239,3 +199,56 @@ include = ["*/README.md", "*/rc/**"]
 url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
 
 {{ end }}
+
+# SchemaStore Cache
+
+[".cache/schemastore/catalog.json"]
+type = "file"
+refreshPeriod = "168h"
+url = "https://www.schemastore.org/api/json/catalog.json"
+
+# GitHub commit cache
+
+[".cache/chezmoi-commits/helix-editor.json"]
+type = "file"
+refreshPeriod = "24h" # 1-day
+url = "https://api.github.com/repos/helix-editor/helix/commits/master"
+
+{{ if eq .chezmoi.os "windows" }}
+
+[".cache/chezmoi-commits/buffer-language-server.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/metafates/buffer-language-server/commits/main"
+
+[".cache/chezmoi-commits/simple-completion-language-server.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/estin/simple-completion-language-server/commits/main"
+
+{{ end }}
+
+# GitHub release cache
+
+{{ if eq .chezmoi.os "windows" }}
+[".cache/chezmoi-releases/efm-langserver.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/mattn/efm-langserver/releases/latest"
+{{ end }}
+
+[".cache/chezmoi-releases/golangci-lint-langserver.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/nametake/golangci-lint-langserver/releases/latest"
+
+[".cache/chezmoi-releases/golangci-lint.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/golangci/golangci-lint/releases/latest"
+
+[".cache/chezmoi-releases/tailwindcss-intellisense.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/tailwindlabs/tailwindcss-intellisense/releases/latest"
+
