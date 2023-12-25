@@ -15,7 +15,7 @@ rm -rf {{ $tailwindcssLsDir }}
 mkdir -p {{ $tailwindcssLsDir }}
 mv extension {{ $tailwindcssLsDir -}}/
 
-{{ $tailwindcssLsBin := joinPath .chezmoi.homeDir ".local" "bin" "tailwindcss-intellisense" }}
+{{ $tailwindcssLsBin := joinPath .chezmoi.homeDir ".local" "share" "tailwindcss-intellisense" "tailwindcss-intellisense" }}
 cat <<EOF >{{- $tailwindcssLsBin }}
 #!/bin/sh
 

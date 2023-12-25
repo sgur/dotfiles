@@ -8,7 +8,7 @@ language-servers = ["astro-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "bash"
-formatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
+fomatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
 language-servers = ["bash-language-server", "efm-langserver", "buffer-ls"]
 
 [[language]]
@@ -152,6 +152,9 @@ args = ["--silent", "dlx", "graphql-language-service-cli", "server", "-m", "stre
 [language-server.obsidian-lsp]
 command = {{ lookPath "pnpm" | quote }}
 args =["--silent", "dlx", "obsidian-lsp", "--stdio"]
+
+[language-server.pylsp]
+command = {{ joinPath .chezmoi.homeDir ".local" "share" "python-lsp-server" "pylsp" | quote }}
 
 [language-server.pylsp.config.plugins]
 autopep8 = { enabled = false }
