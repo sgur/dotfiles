@@ -252,3 +252,9 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/tailwindlabs/tailwindcss-intellisense/releases/latest"
 
+# PyPi release feed
+
+[".cache/chezmoi-releases/python-lsp-server.xml"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://pypi.org/rss/project/python-lsp-server/releases.xml"
