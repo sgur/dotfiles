@@ -527,26 +527,10 @@
         "label": {"base": "Mute"},
         "categories": ["consumer"]
       },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
+      {"code": 95, "label": {"base": "7"}, "location": "numpad"},
+      {"code": 96, "label": {"base": "8"}, "location": "numpad"},
+      {"code": 97, "label": {"base": "9"}, "location": "numpad"},
+      {"code": 86, "label": {"base": "-"}, "location": "numpad"},
       {
         "code": 20484,
         "label": {"hint": "Mouse", "base": "Left"},
@@ -597,26 +581,10 @@
         },
         "categories": ["consumer"]
       },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
+      {"code": 92, "label": {"base": "4"}, "location": "numpad"},
+      {"code": 93, "label": {"base": "5"}, "location": "numpad"},
+      {"code": 94, "label": {"base": "6"}, "location": "numpad"},
+      {"code": 87, "label": {"base": "+"}, "location": "numpad"},
       {
         "code": 0,
         "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
@@ -650,11 +618,7 @@
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
       },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
+      {"code": 83, "label": {"base": {"full": "Num Lock", "1u": "Num"}}},
       {
         "code": 18666,
         "legacyCode": 23786,
@@ -664,25 +628,13 @@
         },
         "categories": ["consumer"]
       },
+      {"code": 89, "label": {"base": "1"}, "location": "numpad"},
+      {"code": 90, "label": {"base": "2"}, "location": "numpad"},
+      {"code": 91, "label": {"base": "3"}, "location": "numpad"},
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 88,
+        "label": {"base": {"full": "Enter", "1u": "Ent"}},
+        "location": "numpad"
       },
       {
         "code": 20498,
@@ -727,26 +679,10 @@
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
       },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      }
+      {"code": 98, "label": {"base": "0"}, "location": "numpad"},
+      {"code": 99, "label": {"base": "."}, "location": "numpad"},
+      {"code": 85, "label": {"base": "*"}, "location": "numpad"},
+      {"code": 84, "label": {"base": "/"}, "location": "numpad"}
     ],
     [
       {
