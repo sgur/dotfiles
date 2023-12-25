@@ -231,7 +231,18 @@ lsp_servers += [{
   name: 'pyright-langserver',
   filetype: ['python'],
   path: GetLspServerPath('pnpm'),
-  args: ["--silent", "--package=pyright", "dlx", "pyright-langserver", "--stdio"]
+  args: ["--silent", "--package=pyright", "dlx", "pyright-langserver", "--stdio"],
+  workspaceConfig: {
+    python: {
+      analysis: {
+        autoImportCompletions: v:true,
+        autoSearchPaths: v:true,
+        reportMissingImports: true,
+        typeCheckingMode: "strict",
+        useLibraryCodeForTypes: v:true,
+      }
+    }
+  }
 }]
 
 lsp_servers += [{
