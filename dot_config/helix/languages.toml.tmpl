@@ -182,9 +182,11 @@ command = {{ lookPath "pnpm" | quote }}
 args = ["--silent", "--package=pyright", "dlx","pyright-langserver", "--stdio"]
 
 [language-server.pyright-langserver.config.python.analysis]
+autoImportCompletions = true
+autoSearchPaths = true
+reportMissingImports = true
 typeCheckingMode = "strict"
 useLibraryCodeForTypes = true
-reportMissingImports = true
 
 [language-server.stylelint-lsp]
 command = {{ lookPath "pnpm" | quote }}
