@@ -8,7 +8,7 @@ language-servers = ["astro-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "bash"
-fomatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
+formatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
 language-servers = ["bash-language-server", "efm-langserver", "buffer-ls"]
 
 [[language]]
@@ -170,7 +170,7 @@ yapf = { enabled = false }
 
 [language-server.pyright-langserver]
 command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "dlx", "pyright-langserver", "--stdio"]
+args = ["--silent", "--package=pyright", "dlx","pyright-langserver", "--stdio"]
 
 [language-server.pyright-langserver.config.python.analysis]
 typeCheckingMode = "strict"
