@@ -11,6 +11,8 @@ catch /^Vim\%((\a\+)\)\=:E919/
   finish
 endtry
 
+# options
+#
 var lsp_options = {
   completionMatcher: 'fuzzy',
   diagSignErrorText: '😈',
@@ -79,14 +81,6 @@ lsp_servers += [{
   args: ['--silent', 'dlx', 'dockerfile-language-server-nodejs', '--stdio']
 }]
 
-## eslint
-lsp_servers += [{
-  name: 'vscode-eslint-language-server',
-  filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-eslint-language-server", "--stdio"]
-}]
-
 ## go
 lsp_servers += [{
   name: 'gopls',
@@ -133,6 +127,20 @@ lsp_servers += [{
       includeInlayFunctionLikeReturnTypeHints: v:true
     }
   }
+}]
+
+lsp_servers += [{
+  name: 'biome-lsp',
+  filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
+  path: exepath('pnpm'),
+  args: ['--silent', 'dlx', '@biomejs/biome', 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]
+}]
+
+lsp_servers += [{
+  name: 'vscode-eslint-language-server',
+  filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
+  path: GetLspServerPath('pnpm'),
+  args: ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-eslint-language-server", "--stdio"]
 }]
 
 ## json
@@ -214,7 +222,7 @@ lsp_servers += [{
   name: 'pyright-langserver',
   filetype: ['python'],
   path: GetLspServerPath('pnpm'),
-  args: ["--silent", "dlx", "pyright-langserver", "--stdio"]
+  args: ["--silent", "--package=pyright", "dlx", "pyright-langserver", "--stdio"]
 }]
 
 lsp_servers += [{
@@ -336,21 +344,15 @@ lsp_servers += [{
   },
 }]
 
-## biome lsp-proxy
-lsp_servers += [{
-  name: 'biome-lsp',
-  filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
-  path: exepath('pnpm'),
-  args: ['--silent', 'dlx', '@biomejs/biome', 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]
-}]
-
 # initialize
 
+lsp_servers->filter((_, v) => !empty(v.path))
 augroup vimrc_lsp_init
   autocmd!
-  autocmd VimEnter *  g:LspOptionsSet(lsp_options)
-  autocmd VimEnter * ++once g:LspAddServer(lsp_servers->filter((_, v) => !empty(v.path)))
+  autocmd VimEnter * ++once g:LspOptionsSet(lsp_options) | g:LspAddServer(lsp_servers)
+  # Multiple python LSP servers configured but only the first is running
+  # https://github.com/yegappan/lsp/issues/384
+  autocmd VimEnter * ++once if argc() > 0
+    |   LspServer restart
+    | endif
 augroup END
-
-
-
