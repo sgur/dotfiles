@@ -1,4 +1,6 @@
-{{ $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "python-lsp-server" -}}
+{{ if lookPath "python3" -}}
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "python-lsp-server.xml" -}}
+# python-lsp-server rss hash: {{ include $release | sha256sum }}
 
 {{- $pythonLsDir := joinPath .chezmoi.homeDir ".local" "share" "python-lsp-server" }}
 Remove-Item -Force -ErrorAction SilentlyContinue -Recurse {{ $pythonLsDir | quote }}
@@ -10,6 +12,5 @@ python3 -m venv ./venv
 ./venv/Scripts/python.exe -m pip install "python-lsp-server[rope]"
 ./venv/Scripts/python.exe -m pip install "python-lsp-ruff"
 New-Item -ItemType SymbolicLink -Force -Path "pylsp.exe" -Value {{ joinPath $pythonLsDir "venv" "Scripts" "pylsp.exe" | quote }}
-{{ $pythonLsBin := joinPath .chezmoi.homeDir ".local" "bin" "pylsp.exe" }}
-New-Item -ItemType SymbolicLink -Force -Path {{ $pythonLsBin }} -Value {{ joinPath $pythonLsDir "venv" "Scripts" "pylsp.exe" | quote }}
 Pop-Location
+{{- end }}
