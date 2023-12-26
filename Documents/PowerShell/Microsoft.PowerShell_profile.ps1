@@ -323,6 +323,28 @@ Set-PSReadLineKeyHandler -Chord Ctrl+g -ScriptBlock {
 	Select-Branch
 }
 
+function Select-ZoxideHistory
+{
+	try {
+		$Path = $(zoxide query --list | fzf --prompt="mru> " --reverse)
+		if ($LastExitCode -ne 0)
+		{
+			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+			return
+		}
+		Set-Location $Path
+		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+	} catch
+	{
+		Write-Warning "fzf, ghq: executables not installed"
+	}
+}
+
+Set-Alias -Name fzf-zoxide -Value Select-ZoxideHistory
+
+Set-PSReadLineKeyHandler -Chord Ctrl+o -ScriptBlock {
+	Select-ZoxideHistory
+}
 # AWS CLI のコマンド補完
 if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath 'aws_completer.exe'))
 {
