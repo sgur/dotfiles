@@ -120,7 +120,6 @@ language-servers = ["yaml-language-server", "efm-langserver", "buffer-ls"]
 [language-server]
 deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
-ruff-lsp = { command = "ruff-lsp", config = { settings = { args = [], run = "onSave" } } }
 powershell-langserver = { command = {{ findExecutable "powershell-editor-services" (list (joinPath .chezmoi.homeDir ".local" "share" "powershell-editor-services")) | quote }} }
 
 [language-server.buffer-ls]
@@ -187,6 +186,10 @@ autoSearchPaths = true
 reportMissingImports = true
 typeCheckingMode = "strict"
 useLibraryCodeForTypes = true
+
+[language-server.ruff-lsp]
+command = "ruff-lsp"
+config = { settings = { run = "onSave" } }
 
 [language-server.stylelint-lsp]
 command = {{ lookPath "pnpm" | quote }}
