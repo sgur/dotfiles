@@ -225,7 +225,8 @@ lsp_servers += [{
         ruff: { enabled: has('win32') ? v:true : v:false }
       }
     }
-  }
+  },
+  features: { 'codeAction': false }
 }]
 
 lsp_servers += [{
@@ -243,7 +244,8 @@ lsp_servers += [{
         useLibraryCodeForTypes: v:true,
       }
     }
-  }
+  },
+  features: { 'codeAction': false }
 }]
 
 lsp_servers += [{
@@ -253,7 +255,6 @@ lsp_servers += [{
   args: [],
   workspaceConfig: {
     settings: {
-      args: [],
       run: 'onSave'
     }
   }
@@ -316,11 +317,18 @@ lsp_servers += [{
   path: GetLspServerPath('pnpm'),
   args: ['--silent', 'dlx', 'vim-language-server', '--stdio'],
   initializationOptions: {
-    isNeovim: has('nvim'),
+    isNeovim: v:false,
     vimruntime: $VIMRUNTIME,
-    runtimepath: &rtp,
+    runtimepath: &runtimepath,
     iskeyword: &isk .. ',:',
-    diagnostic: {enable: v:true}
+    diagnostic: {enable: v:true},
+    indexes: {
+      runtimepath: v:true
+    },
+    suggest: {
+      fromVimruntime: v:true,
+      fromRuntimepath: v:true
+    }
   }
 }]
 
