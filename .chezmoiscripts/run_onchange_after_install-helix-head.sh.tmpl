@@ -10,7 +10,13 @@ export RUSTC_WRAPPER={{- lookPath "sccache"}}
 ghq get --update helix-editor/helix
 pushd $(ghq list -p helix-editor/helix)
 rm -rf target/
-export HELIX_DEFAULT_RUNTIME=$(ghq list -p helix-editor/helix)/runtime
-cargo install --profile opt --locked --path helix-term
+if [[ -n "$ZELLIJ" ]]; then
+	zellij run --close-on-exit --direction down -- \
+		env HELIX_DEFAULT_RUNTIME=$(ghq list -p helix-editor/helix)/runtime \
+		cargo install --profile opt --locked --path helix-term
+else
+	export HELIX_DEFAULT_RUNTIME=$(ghq list -p helix-editor/helix)/runtime
+	cargo install --profile opt --locked --path helix-term
+fi
 popd
 {{- end }}
