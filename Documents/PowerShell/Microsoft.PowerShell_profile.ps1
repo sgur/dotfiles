@@ -326,7 +326,7 @@ Set-PSReadLineKeyHandler -Chord Ctrl+g -ScriptBlock {
 function Select-ZoxideHistory
 {
 	try {
-		$Path = $(zoxide query --list | fzf --prompt="mru> " --reverse)
+		$Path = $(zoxide query --list | fzf --prompt="zoxide> " --reverse)
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
