@@ -38,8 +38,7 @@ verbs: [
             enter
         ]
         shortcut: e
-        # execution: "$EDITOR +{line} {file}"
-        execution: "hx {file}:{line}"
+        execution: "$EDITOR +{line} {file}"
         leave_broot: false
         apply_to: file
     }
