@@ -67,10 +67,10 @@ lsp_servers += [{
 }]
 
 lsp_servers += [{
-  name: 'tailwindcss-intellisense',
+  name: 'tailwindcss-language-server',
   filetype: ['css', 'html', 'javascriptreact', 'typescriptreact'],
-  path: GetLspServerPath('~/.local/share/tailwindcss-intellisense/tailwindcss-intellisense'),
-  args: ['--stdio'],
+  path: GetLspServerPath('pnpm'),
+  args: ['--silent', 'dlx', '@tailwindcss/language-server', '--stdio'],
 }]
 
 ## dockefile

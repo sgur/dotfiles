@@ -49,7 +49,7 @@ source = { git = "https://github.com/winston0410/tree-sitter-hjson", rev = "02fa
 [[language]]
 name = "html"
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "html"] }
-language-servers = ["vscode-html-language-server", "efm-langserver", "buffer-ls"]
+language-servers = ["vscode-html-language-server", "tailwindcss-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "javascript"
@@ -61,7 +61,7 @@ language-servers = ["vscode-json-language-server", "biome-ls", "efm-langserver",
 
 [[language]]
 name = "jsx"
-language-servers = ["typescript-language-server", "vscode-eslint-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
+language-servers = ["typescript-language-server", "tailwindcss-ls", "vscode-eslint-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "kdl"
@@ -107,7 +107,7 @@ formatter = { command = "taplo-lsp", args = ["format", "-"]}
 
 [[language]]
 name = "tsx"
-language-servers = ["typescript-language-server", "vscode-eslint-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
+language-servers = ["typescript-language-server", "tailwindcss-ls", "vscode-eslint-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "typescript"
@@ -121,6 +121,10 @@ language-servers = ["yaml-language-server", "efm-langserver", "buffer-ls"]
 deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
 powershell-langserver = { command = {{ findExecutable "powershell-editor-services" (list (joinPath .chezmoi.homeDir ".local" "share" "powershell-editor-services")) | quote }} }
+
+[language-server.tailwindcss-ls]
+command = {{ lookPath "pnpm" | quote }}
+args =["--silent", "dlx", "@tailwindcss/language-server", "--stdio"]
 
 [language-server.buffer-ls]
 {{ if lookPath "simple-completion-language-server" -}}
