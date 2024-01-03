@@ -1,0 +1,11 @@
+status is-interactive || exit
+
+{{ if or (lookPath "fnm") (lookPath "pyenv") (lookPath "rbenv") -}}
+echo "mise: fnm, pyenv, rbenv is installed."
+{{ end -}}
+
+{{ if lookPath "mise" }}
+fish_add_path -g (dirname (realpath (which mise)))
+
+{{ output "mise" "activate" "fish" | trim }}
+{{ end }}

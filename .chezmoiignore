@@ -43,7 +43,7 @@ Tools/
 .config/kak-lsp/
 .config/kak/
 .config/kitty/
-.config/rtx/
+.config/mise/
 .config/zellij/
 .gnupg/
 .profile
