@@ -505,7 +505,7 @@ pack.Add('copilot.vim', CopilotInit)
 
 # ctrlp.vim (opt) {{{2
 g:ctrlp_root_markers = ['.git']
-g:ctrlp_use_caching = 1
+g:ctrlp_use_caching = has('win32')
 g:ctrlp_working_path_mode = 'w'
 def InitCtrlp() # {{{
   nnoremap <silent> <C-n>  <Cmd>CtrlPZoxide<CR>
@@ -535,6 +535,13 @@ def InitCtrlp() # {{{
   g:ctrlp_match_func = {match: 'ctrlp_matchfuzzy#matcher'}
 enddef # }}}
 pack.Add('ctrlp.vim', InitCtrlp)
+if executable('zoxide')
+  g:ctrlp_zoxide_default_action = 'CtrlP'
+  augroup vimrc_ctrlp_zoxide
+    autocmd!
+    autocmd DirChanged *  call system('zoxide add ' .. shellescape(expand('<afile>')))
+  augroup END
+endif
 
 # editorconfig (opt) {{{2
 pack.Add('editorconfig-vim')

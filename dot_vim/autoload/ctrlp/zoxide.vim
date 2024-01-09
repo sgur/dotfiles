@@ -29,23 +29,24 @@ function! ctrlp#zoxide#init()
 endfunc
 
 function! ctrlp#zoxide#accept(mode, str) abort
-  call system('zoxide add ' .. shellescape(a:str))
   call ctrlp#exit()
+  execute s:choose_action(a:mode) a:str
+  doautoall BufEnter
+endfunction
+
+function! s:choose_action(mode) abort "{{{
   const actions = get(g:, 'ctrlp_zoxide_actions', [])
   if a:mode != 'm' || empty(actions) || type(actions) != v:t_list
-    call ctrlp#setdir(a:str)
-  else
-    let choice = confirm("Action?", join(map(copy(actions), 'v:val["label"]'), "\n"))
-    redraw
-    if choice == 0
-      return
-    endif
-    let act = actions[choice-1]
-    let action = get(act, 'action', action)
-    let path = get(act, 'path', 1) ? path : a:str
-    exec action a:str
+    return get(g:, 'ctrlp_zoxide_default_action', 'lcd')
   endif
-endfunction
+
+  let choice = confirm("Action?", join(map(copy(actions), 'v:val["label"]'), "\n"))
+  redraw
+  if choice == 0
+    return
+  endif
+  return actions[choice-1]
+endfunction "}}}
 
 let s:id = g:ctrlp_builtins + len(g:ctrlp_ext_vars)
 function! ctrlp#zoxide#id()
