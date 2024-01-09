@@ -38,11 +38,6 @@ args = ["--remote-tab-wait-silent"]
 command = "vim"
 {{- end }}
 
-[diff]
-{{- if lookPath "difft" }}
-command = "difft"
-{{- end }}
-
 [git]
 autoCommit = true
 autoPush = false
