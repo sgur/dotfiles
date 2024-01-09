@@ -13,8 +13,6 @@ if status is-interactive
         set -gx EDITOR 'code -w'
     end
 
-    alias hostname 'uname -n'
-
     {{ if lookPath "carapace" -}}
     set -gx fish_complete_path $fish_complete_path {{ joinPath .chezmoi.homeDir ".config" "fish" "carapace_completions" }}
     {{- end }}

@@ -1,0 +1,13 @@
+status is-interactive || exit
+
+{{ if lookPath "docker" -}}
+{{   if lookPath "dive" | not -}}
+alias dive 'command docker run -ti --rm  -v /var/run/docker.sock:/var/run/docker.sock wagoodman/dive'
+{{-  end }}
+{{   if lookPath "secretlint" | not -}}
+alias secretlint 'command docker run -v (pwd):(pwd) -w (pwd) --rm -it secretlint/secretlint secretlint'
+{{-  end }}
+{{   if lookPath "ctop" | not -}}
+alias ctop 'command docker run --rm -ti --name=ctop --volume /var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop:latest'
+{{-  end }}
+{{- end }}
