@@ -3,7 +3,11 @@ gui:
   nerdFontsVersion: "3"
 {{ $themefile := joinPath .chezmoi.homeDir ".config" "lazygit" "themes" "macchiato" "macchiato-blue.yml" -}}
 {{ if stat $themefile -}}
-{{ include $themefile | indent 2 -}}
+{{ include $themefile | indent 2 | trim -}}
 {{- end }}
 os:
+{{- if eq .chezmoi.os "windows" }}
+  copyToClipboardCmd: "clip.exe"
+{{- else }}
   copyToClipboardCmd: printf "\033]52;c;$(printf {{ "{{text}}" }} | base64)\a" > /dev/tty
+{{- end }}
