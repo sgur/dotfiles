@@ -508,7 +508,7 @@ g:ctrlp_root_markers = ['.git']
 g:ctrlp_use_caching = 1
 g:ctrlp_working_path_mode = 'w'
 def InitCtrlp() # {{{
-  nnoremap <silent> <C-n>  <Cmd>CtrlPMRUFiles<CR>
+  nnoremap <silent> <C-n>  <Cmd>CtrlPZoxide<CR>
 
   packadd ctrlp-ghq
   g:ctrlp_ghq_cache_enabled = 1
