@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# Latest commit hash: {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "helix-editor.json" | include | fromJson | jq ".commit.tree.sha" | first }}
+# Latest commit hash: {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "helix-editor.json" | include | fromJson | jq ".sha" | first }}
 
 {{ if lookPath "sccache" -}}
 export RUSTC_WRAPPER={{- lookPath "sccache"}}
