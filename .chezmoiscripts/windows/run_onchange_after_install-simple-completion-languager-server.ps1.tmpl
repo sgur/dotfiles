@@ -1,6 +1,6 @@
 # Latest commit hash:
-# {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "simple-completion-language-server.json" | include | fromJson | jq ".commit.tree.sha" }}
+# {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "csvlens.json" | include | fromJson | jq ".commit.tree.sha" }}
 
 {{ if and (env "OneDrive") (lookPath "cargo") -}}
-& cargo install --root "$Env:OneDrive/shared/" --force --git "https://github.com/estin/simple-completion-language-server"
+& cargo install --root "$Env:OneDrive/shared/" --force --git "https://github.com/YS-L/csvlens"
 {{- end }}

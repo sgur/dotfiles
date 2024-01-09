@@ -226,6 +226,10 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/estin/simple-completion-language-server/commits/main"
 
+[".cache/chezmoi-commits/csvlens.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/YS-L/csvlens/commits/main"
 {{ end }}
 
 # GitHub release cache
