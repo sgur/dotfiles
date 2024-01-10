@@ -1,7 +1,2 @@
-#:schema https://raw.githubusercontent.com/jdx/mise/v2024.1.0/schema/mise.json
+#:schema https://mise.jdx.dev/schema/settings.json
 
-[tools]
-ruby = ['2.7.3', '3.1.4']
-python = [{version = '3.8.13'}]
-
-[settings]

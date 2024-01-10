@@ -1,0 +1,6 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[tools]
+ruby = ['system', '2.7.3', '3.1.4']
+python = ['system', '3.8.13']
+
