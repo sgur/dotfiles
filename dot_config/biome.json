@@ -1,5 +1,5 @@
 {
-  "$schema": "https://biomejs.dev/schemas/1.5.0/schema.json",
+  "$schema": "https://biomejs.dev/schemas/1.5.1/schema.json",
   "linter": {
     "enabled": true,
     "rules": {
@@ -12,7 +12,8 @@
         "noDoubleEquals": "warn"
       },
       "style": {
-        "noNamespace": "error"
+        "noNamespace": "error",
+        "noUnusedTemplateLiteral": "warn"
       }
     }
   },
@@ -24,6 +25,7 @@
     "enabled": true
   },
   "javascript": {
+    "globals": ["describe", "test", "expect"],
     "formatter": {
       "trailingComma": "es5"
     }
