@@ -25,7 +25,7 @@
     "enabled": true
   },
   "javascript": {
-    "globals": ["describe", "test", "expect"],
+    "globals": ["afterAll", "afterEach", "beforeAll", "beforeEach", "describe", "test"],
     "formatter": {
       "trailingComma": "es5"
     }
