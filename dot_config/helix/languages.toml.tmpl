@@ -148,7 +148,7 @@ args = ["--silent", "dlx", "bash-language-server", "start"]
 
 [language-server.biome-ls]
 command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "dlx", "@biomejs/biome", "lsp-proxy", '--config-path={{- joinPath .chezmoi.homeDir ".config" "biome.json" | quote -}}']
+args = ["--silent", "dlx", "@biomejs/biome", "lsp-proxy"]
 
 [language-server.docker-langserver]
 command = {{ lookPath "pnpm" | quote }}

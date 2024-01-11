@@ -184,7 +184,7 @@ if executable('pnpm')
           \ name: 'biome-lsp',
           \ allowlist: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
           \ blocklist: [],
-          \ cmd: {server_info -> [exepath('pnpm'), '--silent', 'dlx', '@biomejs/biome', 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]}
+          \ cmd: {server_info -> [exepath('pnpm'), '--silent', 'dlx', '@biomejs/biome', 'lsp-proxy']}
           \})
   augroup END
 

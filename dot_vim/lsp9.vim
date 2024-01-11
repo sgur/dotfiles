@@ -133,7 +133,7 @@ lsp_servers += [{
   name: 'biome-lsp',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
   path: exepath('pnpm'),
-  args: ['--silent', 'dlx', '@biomejs/biome', 'lsp-proxy', printf('--config-path="%s"', expand('~/.config/biome.json'))]
+  args: ['--silent', 'dlx', '@biomejs/biome', 'lsp-proxy']
 }]
 
 lsp_servers += [{
