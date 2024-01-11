@@ -81,18 +81,6 @@ tools:
       - .prettierrc.toml
 {{- end }}
 
-  any-biome: &any-biome
-    prefix: biome
-    format-command: >-
-      {{ lookPath "pnpm" }}
-      --silent
-      dlx
-      @biomejs/biome
-      format
-      --config-path={{- joinPath .chezmoi.homeDir ".config" "biome.json" | quote }}
-      --stdin-file-path=${INPUT}
-    format-stdin: true
-
   markdown-markdownlint-cli2: &markdown-markdownlint-cli2
     prefix: markdownlint-cli2
     lint-command: >-
@@ -284,17 +272,14 @@ languages:
     - <<: *any-cspell
 
   javascript:
-    - <<: *any-biome
     - <<: *any-cspell
     - <<: *any-secretlint
 
   javascriptreact:
-    - <<: *any-biome
     - <<: *any-cspell
     - <<: *any-secretlint
 
   json:
-    - <<: *any-biome
     - <<: *any-secretlint
 
   go:
@@ -322,12 +307,10 @@ languages:
     - <<: *any-cspell
 
   typescript:
-    - <<: *any-biome
     - <<: *any-cspell
     - <<: *any-secretlint
 
   typescriptreact:
-    - <<: *any-biome
     - <<: *any-cspell
     - <<: *any-secretlint
 
