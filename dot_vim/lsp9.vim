@@ -12,14 +12,12 @@ catch /^Vim\%((\a\+)\)\=:E919/
 endtry
 
 # options
-#
 var lsp_options = {
   completionMatcher: 'fuzzy',
-  diagSignErrorText: '😈',
-  diagSignHintText: '💡',
-  diagSignInfoText: '🗨️',
-  diagSignWarningText: '🤔',
-  echoSignature: v:true,
+  diagSignErrorText: 'E>',
+  diagSignHintText: 'H>',
+  diagSignInfoText: 'I>',
+  diagSignWarningText: 'W>',
   omniComplete: v:true,
   showDiagWithVirtualText: has('patch-9.0.1157') != 0,
   showInlayHints: has('patch-9.0.0178') != 0,
