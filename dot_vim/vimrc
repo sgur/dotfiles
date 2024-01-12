@@ -186,8 +186,10 @@ noremap <LocalLeader>  <Nop>
 nnoremap <C-l><C-l>  <C-l>
 
 # screen / tmux / zellij {{{2
-nnoremap <C-z>  <Nop>
-nnoremap <C-z><C-z>  <C-z>
+if has('win32') || exists('$TMUX')
+  nnoremap <C-z>  <Nop>
+  nnoremap <C-z><C-z>  <C-z>
+endif
 
 # - でディレクトリを表示 {{{2
 nnoremap -  <Cmd>edit %:p:h<CR>
