@@ -2,5 +2,3 @@
 
 [tools]
 node = ['lts', '18']
-ruby = ['system', '2.7.3', '3.1.4']
-python = ['system', '3.8.13']
