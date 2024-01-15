@@ -73,10 +73,6 @@ function! s:init() abort "{{{
 
   " Generic {{{2
 
-  call minpac#add('dense-analysis/ale', #{
-        \ type: 'opt',
-        \ })
-
   call minpac#add('editorconfig/editorconfig-vim', #{
         \ type: 'opt',
         \ })
