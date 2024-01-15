@@ -29,6 +29,8 @@ var lsp_options = {
 
 var lsp_servers: list<dict<any>> = []
 
+const lsp_default_ignore = ['.local/share/chezmoi/', '/tmp/']
+
 def GetLspServerPath(name: string): string
   return expand(name)->exepath()
 enddef
@@ -163,7 +165,7 @@ lsp_servers += [{
       schemas: schemas
     }
   },
-  runUnlessSearch: ['.local/share/chezmoi/']
+  runUnlessSearch: lsp_default_ignore
 }]
 
 ## markdown
@@ -307,7 +309,7 @@ lsp_servers += [{
   workspaceConfig: {
     evenBetterToml: taplo_lsp_options
   },
-  runUnlessSearch: ['.local/share/chezmoi/']
+  runUnlessSearch: lsp_default_ignore
 }]
 
 ## vim
@@ -356,7 +358,7 @@ lsp_servers += [{
       schemas: SchemasMap()
     }
   },
-  runUnlessSearch: ['.local/share/chezmoi/']
+  runUnlessSearch: lsp_default_ignore
 }]
 
 ## efm-langserver
