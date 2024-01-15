@@ -25,6 +25,7 @@ Library/
 .chezmoiscripts/windows/**
 .wslconfig
 .scoopfile.json
+_curlrc
 AppData/
 AppData/Local/
 AppData/Roaming/
@@ -39,6 +40,7 @@ Tools/
 .Brewfile*
 .actrc
 .bashrc
+.curlrc
 .config/fish/
 .config/kak-lsp/
 .config/kak/
