@@ -27,3 +27,5 @@ abbr --add aws.l --set-cursor "aws-vault login % --stdout | fish_clipboard_copy"
 abbr --add pwsh /mnt/c/Program\\ Files/PowerShell/7/pwsh.exe
 
 abbr --add hostname uname -n
+
+abbr --add plantuml-server docker container run --detach --publish 9999:8080 --name plantuml-server --restart=always plantuml/plantuml-server:jetty
