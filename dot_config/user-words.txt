@@ -4,6 +4,7 @@
 SPIF_+
 SPI_+
 adhoc
+alacritty
 antd
 asgi
 autocrlf
