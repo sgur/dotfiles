@@ -7,6 +7,7 @@
 #   ```
 
 $Ext = @{}
+$IsEmojiSupported = $Env:WT_SESSION -Or $Env:ALACRITTY_LOG
 
 # 文字化け対策
 # https://smdn.jp/programming/netfx/tips/unicode_encoding_bom/
@@ -169,7 +170,7 @@ $ENV:FZF_DEFAULT_OPTS=@"
 "@
 
 # Starship
-if ($Env:WT_SESSION)
+if ($IsEmojiSupported)
 {
 	if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name starship)
 	{
@@ -424,7 +425,7 @@ function Register-GitCoreutilsShims
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 {
 	$Ext.eza = $true
-	$IconOption = $Env:WT_SESSION ? "--icons" : $null
+	$IconOption = $IsEmojiSupported ? "--icons" : $null
 	function global:ls
 	{
 		& eza.exe --classify --color=auto --color-scale=size $IconOption --no-quotes --group-directories-first `
@@ -659,7 +660,7 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name carapace)
 $Buffer = New-Object System.Text.StringBuilder
 $Ext.GetEnumerator() | Sort-Object -Property Key | ForEach-Object {
 	[void] $Buffer.Append(" ")
-	if ($Env:WT_SESSION -ne $null) {
+	if ($IsEmojiSupported) {
 		if ($_.Value)
 		{
 			[void] $Buffer.Append("✔ ")
@@ -676,4 +677,4 @@ $Ext.GetEnumerator() | Sort-Object -Property Key | ForEach-Object {
 }
 Write-Host $Buffer.ToString()
 
-Remove-Variable -Name NonInteractive, Buffer, Ext
+Remove-Variable -Name NonInteractive, Buffer, Ext, IsEmojiSupported
