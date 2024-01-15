@@ -162,7 +162,8 @@ lsp_servers += [{
       },
       schemas: schemas
     }
-  }
+  },
+  runUnlessSearch: ['.local/share/chezmoi/']
 }]
 
 ## markdown
@@ -305,7 +306,8 @@ lsp_servers += [{
   initializationOptions: taplo_lsp_options,
   workspaceConfig: {
     evenBetterToml: taplo_lsp_options
-  }
+  },
+  runUnlessSearch: ['.local/share/chezmoi/']
 }]
 
 ## vim
@@ -353,7 +355,8 @@ lsp_servers += [{
       },
       schemas: SchemasMap()
     }
-  }
+  },
+  runUnlessSearch: ['.local/share/chezmoi/']
 }]
 
 ## efm-langserver
