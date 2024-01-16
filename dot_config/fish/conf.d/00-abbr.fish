@@ -17,7 +17,7 @@ abbr --add mv mv -i
 abbr --add ipecho -- curl --silent ipecho.net/plain
 abbr --add cu chezmoi update
 abbr --add za zellij attach
-abbr --add za-c -- zellij attach --create
+abbr --add zc -- zellij attach --create
 abbr --add zl zellij list-sessions
 
 # abbr --add CC --position anywhere --set-cursor "% | fish_clipboard_copy"
