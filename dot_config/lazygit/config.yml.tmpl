@@ -4,8 +4,13 @@ gui:
   expandFocusedSidePanel: true
 {{ $themefile := joinPath .chezmoi.homeDir ".config" "lazygit" "themes" "macchiato" "macchiato-blue.yml" -}}
 {{ if stat $themefile -}}
-{{ include $themefile | indent 2 | trim -}}
+{{ include $themefile | trim -}}
 {{- end }}
+git:
+{{- if lookPath "difft" }}
+  paging:
+    externalDiffCommand: difft --color=always --display=inline
+{{- end}}
 os:
 {{- if eq .chezmoi.os "windows" }}
   copyToClipboardCmd: "clip.exe"
