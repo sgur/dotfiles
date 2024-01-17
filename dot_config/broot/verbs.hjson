@@ -46,7 +46,7 @@ verbs: [
         keys: [
             right
         ]
-        execution: "zellij edit --line-number {line} {file}"
+        execution: "sh -c \"zellij edit --line-number {line} {file} || $EDITOR +{line} {file}\""
         leave_broot: false
         apply_to: file
     }
