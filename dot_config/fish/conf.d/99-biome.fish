@@ -3,6 +3,6 @@ function enable_biome_default_config --on-event fish_preexec
     if test \( $status -eq 0 \) -a \( -e "$toplevel/biome.json" \)
         set -e BIOME_CONFIG_PATH
     else
-        set -gx BIOME_CONFIG_PATH ~/.config/biome
+        set -gx BIOME_CONFIG_PATH ~/.config/
     end
 end
