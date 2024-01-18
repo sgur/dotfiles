@@ -3,9 +3,10 @@
 set -gx AWS_VAULT_BACKEND pass
 set -gx AWS_VAULT_PASS_PREFIX aws-vault
 
-set -gx AWS_VAULT_PASS_CMD pass
-{{     if lookPath "gopass" -}} 
+{{     if lookPath "gopass" -}}
 set -gx AWS_VAULT_PASS_CMD gopass
+{{     else -}}
+set -gx AWS_VAULT_PASS_CMD pass
 {{     end -}}
 {{   else if eq .chezmoi.os "darwin" -}}
 set -gx AWS_VAULT_BACKEND keychain
