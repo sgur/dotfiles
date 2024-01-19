@@ -20,6 +20,8 @@ if status is-interactive
     {{- end }}
 end
 
+emit fish_ready
+
 # 共通の設定はログインシェルでのみ行う
 status is-login || exit
 

@@ -1,17 +1,27 @@
 status is-interactive || exit
 
+{{ if lookPath "starship" }}
+
 function starship_transient_prompt_func
   starship module directory
   starship module character
 end
+
 function starship_transient_rprompt_func
   starship module time
 end
 
-{{ if lookPath "starship" }}
 {{ output "starship" "init" "fish" | trim | comment "# " }}
 
 {{ output "starship" "init" "fish" "--print-full-init" | trim }}
 
+function enable_transience_handler --on-event fish_ready
+    if test -n "$STARSHIP_SESSION_KEY"
+        enable_transience
+    end
+end
+
 enable_transience
 {{ end }}
+
+
