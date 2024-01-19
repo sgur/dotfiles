@@ -6,7 +6,8 @@
       "recommended": true,
       "correctness": {
         "noUndeclaredVariables": "error",
-        "noUnusedVariables": "warn"
+        "noUnusedVariables": "warn",
+        "useHookAtTopLevel": "error"
       },
       "suspicious": {
         "noDoubleEquals": "warn"
@@ -16,8 +17,6 @@
         "noUnusedTemplateLiteral": "warn"
       },
       "nursery": {
-        "useExhaustiveDependencies": "error",
-        "useHookAtTopLevel": "error"
       }
     }
   },
