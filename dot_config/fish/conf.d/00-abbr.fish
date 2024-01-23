@@ -8,12 +8,12 @@ set -l arch (uname -m)
 # arm64
 
 if test $os = Darwin
-    abbr rm --set-cursor "rm % -i"
+    abbr rm "rm -i"
 else
-    abbr --add rm --set-cursor "rm % --interactive=once"
+    abbr --add rm "rm --interactive=once"
 end
-abbr --add cp --set-cursor "cp % -i"
-abbr --add mv --set-cursor "mv % -i"
+abbr --add cp "cp -i"
+abbr --add mv "mv -i"
 abbr --add ipecho -- curl --silent ipecho.net/plain
 abbr --add cu chezmoi update
 abbr --add za zellij attach
