@@ -1,6 +1,8 @@
 {{ if and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "ubuntu") .docker -}}
 #!/bin/sh
 
+set -eufx
+
 # https://docs.docker.com/engine/install/ubuntu/
 
 for pkg in docker.io docker-doc docker-compose podman-docker containerd runc; do

@@ -230,6 +230,7 @@ url = "https://api.github.com/repos/estin/simple-completion-language-server/comm
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/YS-L/csvlens/commits/main"
+
 {{ end }}
 
 # GitHub release cache
@@ -245,6 +246,11 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/PowerShell/PowerShellEditorServices/releases/latest"
 {{ end }}
+
+[".cache/chezmoi-releases/git-credential-manager.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/git-ecosystem/git-credential-manager/releases/latest"
 
 [".cache/chezmoi-releases/golangci-lint-langserver.json"]
 type = "file"

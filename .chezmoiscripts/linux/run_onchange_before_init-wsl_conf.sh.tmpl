@@ -1,6 +1,8 @@
 {{ if and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "ubuntu") .wsl -}}
 #!/bin/sh
 
+set -eufx
+
 echo {{ dict | setValueAtPath "interop.appendWindowsPath" false | setValueAtPath "network.generateResolvConf" false | setValueAtPath "automount.options" "metadata" | setValueAtPath "boot.systemd" .wsl_systemd | toToml | quote}} | sudo tee /etc/wsl.conf
 
 {{ end -}}

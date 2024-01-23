@@ -1,0 +1,33 @@
+{{ if and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "ubuntu") -}}
+#!/usr/bin/env bash
+
+set -eufx -o pipefail -o posix
+
+sudo apt update
+
+# https://docs.brew.sh/Homebrew-on-Linux
+sudo apt install -y \
+	build-essential \
+	curl \
+	file \
+	git \
+	procps
+
+# https://github.com/pyenv/pyenv/wiki#suggested-build-environment
+sudo apt install -y \
+	build-essential \
+	curl \
+	libbz2-dev \
+	libffi-dev \
+	liblzma-dev \
+	libncursesw5-dev \
+	libreadline-dev \
+	libsqlite3-dev \
+	libssl-dev \
+	libxml2-dev \
+	libxmlsec1-dev \
+	tk-dev \
+	xz-utils \
+	zlib1g-dev
+
+{{ end -}}
