@@ -1,1 +1,1 @@
-complete -f -c gitignore -a "(curl -sL https://www.gitignore.io/api/list | string split ',')"
+complete --command gitignore --exclusive --arguments (curl -sL https://www.gitignore.io/api/list | string join ',' | string replace -a ',' ' ')
