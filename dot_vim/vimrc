@@ -195,9 +195,9 @@ endif
 nnoremap -  <Cmd>edit %:p:h<CR>
 
 # w!! で readonly なファイルを保存する
-# https://stackoverflow.com/a/7078429
+# https://stackoverflow.com/a/48237738
 if executable('tee')
-  cnoremap w!!  w !sudo tee > /dev/null %
+  cnoremap w!!  execute 'silent! write !sudo tee % > /dev/null' <bar> edit!
 endif
 
 # c_CTRL-o で現在の画面を示すパターンを埋め込む {{{2
