@@ -81,9 +81,9 @@
         "rangeStart": 49169,
         "categories": ["modifier", "dualuse", "rgui"]
       },
-      {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
-      {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
       {"code": 53, "label": {"base": "`", "shifted": "~"}},
+      {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
+      {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
       {
         "code": 224,
         "label": {"base": {"full": "Control", "1u": "Ctrl"}},
@@ -129,9 +129,9 @@
         "location": "right",
         "categories": ["modifier"]
       },
-      {"code": 46, "label": {"base": "=", "shifted": "+"}},
+      {"code": 45, "label": {"base": "-", "shifted": "_"}},
       {"code": 52, "label": {"base": "'", "shifted": "\""}},
-      {"code": 45, "label": {"base": "-", "shifted": "_"}}
+      {"code": 46, "label": {"base": "=", "shifted": "+"}}
     ],
     [
       {
@@ -236,8 +236,13 @@
       {"code": 65, "label": {"base": "F8"}},
       {"code": 66, "label": {"base": "F9"}},
       {"code": 67, "label": {"base": "F10"}},
-      {"code": 77, "label": {"base": "End"}},
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
       {"code": 74, "label": {"base": "Home"}},
+      {"code": 77, "label": {"base": "End"}},
       {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
@@ -249,23 +254,18 @@
         "categories": ["blanks"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 17453,
-        "label": {"hint": "ShiftTo", "base": "#3"},
+        "code": 17411,
+        "label": {"hint": "LockTo", "base": "#3"},
         "target": 3,
-        "rangeStart": 17450,
-        "categories": ["layer", "shifttolayer"]
+        "rangeStart": 17408,
+        "categories": ["layer", "locktolayer"]
       },
       {
-        "code": 17453,
-        "label": {"hint": "ShiftTo", "base": "#3"},
+        "code": 17411,
+        "label": {"hint": "LockTo", "base": "#3"},
         "target": 3,
-        "rangeStart": 17450,
-        "categories": ["layer", "shifttolayer"]
+        "rangeStart": 17408,
+        "categories": ["layer", "locktolayer"]
       },
       {
         "code": 65535,
@@ -287,29 +287,38 @@
     ],
     [
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 20552,
+        "label": {
+          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
+          "base": "Back"
+        },
+        "categories": ["mousekeys"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 20481,
+        "label": {"hint": "Mouse", "base": "Up"},
+        "categories": ["mousekeys"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 20560,
+        "label": {
+          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
+          "base": "Forward"
+        },
+        "categories": ["mousekeys"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 20546,
+        "label": {
+          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
+          "base": "Right"
+        },
+        "categories": ["mousekeys"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 20497,
+        "label": {"hint": {"full": "Mouse Wheel", "1u": "M.Whl"}, "base": "Up"},
+        "categories": ["mousekeys"]
       },
       {
         "code": 0,
@@ -341,14 +350,36 @@
       {"code": 47, "label": {"base": "[", "shifted": "{"}},
       {"code": 48, "label": {"base": "]", "shifted": "}"}},
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 20484,
+        "label": {"hint": "Mouse", "base": "Left"},
+        "categories": ["mousekeys"]
       },
-      {"code": 70, "label": {"base": {"full": "Print Screen", "1u": "PrSc"}}},
-      {"code": 71, "label": {"base": {"full": "Scroll Lock", "1u": "ScLk"}}},
-      {"code": 72, "label": {"base": {"full": "Pause / Break", "1u": "Brk"}}},
-      {"code": 73, "label": {"base": {"full": "Insert", "1u": "Ins"}}},
+      {
+        "code": 20482,
+        "label": {"hint": "Mouse", "base": "Down"},
+        "categories": ["mousekeys"]
+      },
+      {
+        "code": 20488,
+        "label": {"hint": "Mouse", "base": "Right"},
+        "categories": ["mousekeys"]
+      },
+      {
+        "code": 20545,
+        "label": {
+          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
+          "base": "Left"
+        },
+        "categories": ["mousekeys"]
+      },
+      {
+        "code": 20498,
+        "label": {
+          "hint": {"full": "Mouse Wheel", "1u": "M.Whl"},
+          "base": "Down"
+        },
+        "categories": ["mousekeys"]
+      },
       {
         "code": 0,
         "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
@@ -364,90 +395,63 @@
       {"code": 82, "label": {"base": {"full": "Up Arrow", "1u": "↑"}}},
       {"code": 79, "label": {"base": {"full": "Right Arrow", "1u": "→"}}},
       {
+        "code": 565,
+        "label": {"hint": {"full": "Alt+", "1u": "A+"}, "base": "`"},
+        "categories": ["with-modifiers", "alt"],
+        "baseCode": 53
+      },
+      {"code": 70, "label": {"base": {"full": "Print Screen", "1u": "PrSc"}}},
+      {"code": 73, "label": {"base": {"full": "Insert", "1u": "Ins"}}},
+      {"code": 72, "label": {"base": {"full": "Pause / Break", "1u": "Brk"}}},
+      {
+        "code": 20548,
+        "label": {
+          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
+          "base": "Middle"
+        },
+        "categories": ["mousekeys"]
+      },
+      {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
       },
-      {
-        "code": 4432,
-        "label": {
-          "hint": {"full": "Ctrl+Windows+", "1u": "C+W+"},
-          "base": {"full": "Left Arrow", "1u": "←"}
-        },
-        "categories": ["with-modifiers", "ctrl", "gui"],
-        "baseCode": 80
-      },
-      {
-        "code": 4431,
-        "label": {
-          "hint": {"full": "Ctrl+Windows+", "1u": "C+W+"},
-          "base": {"full": "Right Arrow", "1u": "→"}
-        },
-        "categories": ["with-modifiers", "ctrl", "gui"],
-        "baseCode": 79
-      },
-      {
-        "code": 145,
-        "label": {"base": {"full": "Lang2"}},
-        "categories": ["lang_intl"]
-      },
-      {
-        "code": 144,
-        "label": {"base": {"full": "Lang1"}},
-        "categories": ["lang_intl"]
-      },
-      {"code": 76, "label": {"base": {"full": "Delete", "1u": "Del"}}},
       {"code": 41, "label": {"base": "Esc"}},
       {"code": 101, "label": {"base": "Menu"}},
-      {
-        "code": 20552,
-        "label": {
-          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Back"
-        },
-        "categories": ["mousekeys"]
-      },
+      {"code": 74, "label": {"base": "Home"}},
       {"code": 78, "label": {"base": {"full": "Page Down", "1u": "PgDn"}}},
       {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
-      {
-        "code": 20560,
-        "label": {
-          "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Forward"
-        },
-        "categories": ["mousekeys"]
-      },
-      {"code": 49, "label": {"base": "\\", "shifted": "|"}},
       {"code": 77, "label": {"base": "End"}},
+      {"code": 49, "label": {"base": "\\", "shifted": "|"}},
+      {"code": 43, "label": {"base": "Tab"}},
       {"code": 74, "label": {"base": "Home"}},
+      {"code": 77, "label": {"base": "End"}},
       {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 49501,
+        "baseCode": 76,
+        "label": {"hint": "Shift/", "base": {"full": "Delete", "1u": "Del"}},
+        "modifier": "Shift",
+        "rangeStart": 49169,
+        "categories": ["modifier", "dualuse", "shift"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 17453,
-        "label": {"hint": "ShiftTo", "base": "#3"},
+        "code": 17411,
+        "label": {"hint": "LockTo", "base": "#3"},
         "target": 3,
-        "rangeStart": 17450,
-        "categories": ["layer", "shifttolayer"]
+        "rangeStart": 17408,
+        "categories": ["layer", "locktolayer"]
       },
       {
-        "code": 17453,
-        "label": {"hint": "ShiftTo", "base": "#3"},
+        "code": 17411,
+        "label": {"hint": "LockTo", "base": "#3"},
         "target": 3,
-        "rangeStart": 17450,
-        "categories": ["layer", "shifttolayer"]
+        "rangeStart": 17408,
+        "categories": ["layer", "locktolayer"]
       },
       {
         "code": 65535,
@@ -499,10 +503,10 @@
         "categories": ["mousekeys"]
       },
       {
-        "code": 20548,
+        "code": 20546,
         "label": {
           "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Middle"
+          "base": "Right"
         },
         "categories": ["mousekeys"]
       },
@@ -601,10 +605,10 @@
         "categories": ["blanks"]
       },
       {
-        "code": 20546,
+        "code": 20548,
         "label": {
           "hint": {"full": "Mouse Button", "1u": "M.Btn"},
-          "base": "Right"
+          "base": "Middle"
         },
         "categories": ["mousekeys"]
       },
@@ -637,6 +641,16 @@
         "location": "numpad"
       },
       {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 20497,
+        "label": {"hint": {"full": "Mouse Wheel", "1u": "M.Whl"}, "base": "Up"},
+        "categories": ["mousekeys"]
+      },
+      {
         "code": 20498,
         "label": {
           "hint": {"full": "Mouse Wheel", "1u": "M.Whl"},
@@ -645,11 +659,6 @@
         "categories": ["mousekeys"]
       },
       {
-        "code": 20497,
-        "label": {"hint": {"full": "Mouse Wheel", "1u": "M.Whl"}, "base": "Up"},
-        "categories": ["mousekeys"]
-      },
-      {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
@@ -660,19 +669,18 @@
         "categories": ["blanks"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 17411,
+        "label": {"hint": "LockTo", "base": "#3"},
+        "target": 3,
+        "rangeStart": 17408,
+        "categories": ["layer", "locktolayer"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 17411,
+        "label": {"hint": "LockTo", "base": "#3"},
+        "target": 3,
+        "rangeStart": 17408,
+        "categories": ["layer", "locktolayer"]
       },
       {
         "code": 65535,
