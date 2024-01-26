@@ -212,6 +212,8 @@ function! s:init() abort "{{{
 
   " Syntax {{{2
 
+  call minpac#add('fourjay/vim-hurl')
+
   call minpac#add('imsnif/kdl.vim')
 
   call minpac#add('evanleck/vim-svelte')
