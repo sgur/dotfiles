@@ -7,6 +7,7 @@ gui:
 {{ include $themefile | trim -}}
 {{- end }}
 git:
+  autofetch: false
 {{- if lookPath "difft" }}
   paging:
     externalDiffCommand: difft --color=always --display=inline
