@@ -24,7 +24,13 @@
 # A popular flag is the `g` one which displays git related info.
 #
 # default_flags:
-default_flags: g
+# D: Don't show the last modified date
+# F: Show folders and files alike
+# H: Don't show hidden files
+# I: Don't show git ignored files
+# P: Don't show permissions
+# S: Don't show sizes
+default_flags: gDFHIPS
 
 ###############################################################
 # Date/Time format
