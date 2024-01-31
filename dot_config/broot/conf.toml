@@ -30,7 +30,7 @@
 # I: Don't show git ignored files
 # P: Don't show permissions
 # S: Don't show sizes
-default_flags: gDFHIPS
+default_flags = "-gDFHIPS"
 
 ###############################################################
 # Date/Time format
@@ -38,7 +38,7 @@ default_flags: gDFHIPS
 # following line and change it according to
 # https://docs.rs/chrono/0.4.11/chrono/format/strftime/index.html
 #
-# date_time_format: %Y/%m/%d %R
+# date_time_format = "%Y/%m/%d %R"
 
 ###############################################################
 # uncomment to activate modal mode
@@ -46,12 +46,12 @@ default_flags: gDFHIPS
 # (you really should read https://dystroy.org/broot/modal/
 # before as it may not suit everybody even among vim users)
 #
-# modal: true
+# modal = true
 
 ###############################################################
 # Whether to mark the selected line with a triangle
 #
-show_selection_mark: true
+show_selection_mark = true
 
 ###############################################################
 # Column order
@@ -59,15 +59,15 @@ show_selection_mark: true
 # array. You should keep the name column at the end as it has a
 # variable length.
 #
-# cols_order: [
-#     mark
-#     git
-#     size
-#     permission
-#     date
-#     count
-#     branch
-#     name
+# cols_order = [
+#     "mark",
+#     "git",
+#     "size",
+#     "permission",
+#     "date",
+#     "count",
+#     "branch",
+#     "name"
 # ]
 
 ###############################################################
@@ -78,8 +78,8 @@ show_selection_mark: true
 # and set it to false or true if you notice the colors in
 # previewed images are too off.
 #
-# true_colors: false
-true_colors: true
+# true_colors = false
+true_colors = true
 
 ###############################################################
 # Icons
@@ -87,19 +87,7 @@ true_colors: true
 # (see https://dystroy.org/broot/icons for installation and
 # troubleshooting)
 #
-# icon_theme: vscode
-
-###############################################################
-# Special paths
-# If some paths must be handled specially, uncomment (and change
-# this section as per the examples)
-#
-special_paths: {
-    "/media" : "no-enter" // comment it if desired
-    # "/media/slow-backup-disk"    : no-enter
-    # "/home/dys/useless"    : hide
-    # "/home/dys/my-link-I-want-to-explore"    : enter
-}
+# icon_theme = vscode
 
 ###############################################################
 # Quit on last cancel
@@ -107,8 +95,44 @@ special_paths: {
 # If you want the escape key to quit broot when there's nothing
 # to cancel (for example when you just opened broot), uncomment
 # this parameter
-# 
-# quit_on_last_cancel: true
+#
+# quit_on_last_cancel = true
+
+###############################################################
+# Max file size for content search
+#
+# Bigger files are ignored when searching their content. You
+# can specify this size either in ISO units (eg 5GB) or in
+# the old binary units (eg 44Kib)
+content_search_max_file_size = "10MB"
+
+###############################################################
+# Max Panels Count
+#
+# Change this if you sometimes want to have more than 2 panels
+# open
+# max_panels_count: 2
+
+###############################################################
+# Syntax Theme
+# You can choose any of the following syntaxic coloring themes for previewed files:
+# - base16-ocean.dark
+# - base16-eighties.dark
+# - base16-mocha.dark
+# - base16-ocean.light
+# - InspiredGitHub
+# - Solarized (dark)
+# - Solarized (light)
+# - GitHub
+# - SolarizedDark
+# - SolarizedLight
+# - EightiesDark
+# - MochaDark
+# - OceanDark
+# - OceanLight
+#
+# syntax_theme: GitHub
+syntax_theme = "InspiredGitHub"
 
 ###############################################################
 # Search modes
@@ -133,10 +157,9 @@ special_paths: {
 # More information on
 #  https://dystroy.org/broot/input/#the-filtering-pattern
 #
-# search_modes: {
-#     <empty>: fuzzy name
-#     /: regex name
-# }
+# [search_modes]
+# "<empty>" = "fuzzy name"
+# "/" = "regex name"
 
 ###############################################################
 # File Extension Colors
@@ -144,25 +167,20 @@ special_paths: {
 # uncomment and modify the next section if you want to color
 # file name depending on their extension
 #
-# ext_colors: {
-#     png: rgb(255, 128, 75)
-#     rs: yellow
-# }
+# [ext_colors]
+# png = "rgb(255, 128, 75)"
+# rs = "yellow"
 
 ###############################################################
-# Max file size for content search
+# Special paths
+# If some paths must be handled specially, uncomment (and change
+# this section as per the examples)
 #
-# Bigger files are ignored when searching their content. You
-# can specify this size either in ISO units (eg 5GB) or in
-# the old binary units (eg 44Kib)
-content_search_max_file_size: 10MB
-
-###############################################################
-# Max Panels Count
-#
-# Change this if you sometimes want to have more than 2 panels
-# open
-# max_panels_count: 2
+[special_paths]
+"/media" = "no-enter"
+# "/media/slow-backup-disk" = "no-enter"
+# "/home/dys/useless" = "hide"
+# "/home/dys/my-link-I-want-to-explore" = "enter"
 
 ###############################################################
 # Imports
@@ -170,61 +188,31 @@ content_search_max_file_size: 10MB
 # While it's possible to have all configuration in one file,
 # it's more convenient to split it in several ones.
 # Importing also allows to set a condition on the terminal's
-# color, which makes it possible to have a different skin 
+# color, which makes it possible to have a different skin
 # chosen when your terminal has a light background and when
 # it has a light one.
-imports: [
+[[imports]]
+# Verbs are better configured in verbs.hjson. But you
+# can also add another files for your personal verbs
+file = "verbs.toml"
 
-    # Verbs are better configured in verbs.hjson. But you
-    # can also add another files for your personal verbs
-    verbs.hjson
+# This file contains the skin to use when the terminal
+# is dark (or when this couldn't be determined)
+[[imports]]
+luma= [ "dark", "unknown" ]
+# (un)comment to choose your preferred skin
+# file = "skins/dark-blue.hjson"
+# file = "skins/catppuccin-frappe.hsjon"
+# file = "skins/catppuccin-macchiato.hjson"
+file = "skins/catppuccin-mocha.hjson"
+# file = "skins/dark-gruvbox.hjson"
+# file = "skins/dark-orange.hjson"
+# file = "skins/solarized-dark.hjson"
 
-    # This file contains the skin to use when the terminal
-    # is dark (or when this couldn't be determined)
-    {
-        luma: [
-            dark
-            unknown
-        ]
-        # (un)comment to choose your preferred skin
-        # file: skins/dark-blue.hjson
-        # file: skins/catppuccin-frappe.hsjon
-        # file: skins/catppuccin-macchiato.hjson
-        file: skins/catppuccin-mocha.hjson
-        # file: skins/dark-gruvbox.hjson
-        # file: skins/dark-orange.hjson
-        # file: skins/solarized-dark.hjson
-    }
-
-    # This skin is imported when your terminal is light
-    {
-        luma: light
-        # (un)comment to choose your preferred skin
-        # file: skins/solarized-light.hjson
-        # file: skins/white.hjson
-        file: skins/catppuccin-latte.hsjon
-    }
-
-]
-
-
-###############################################################
-# Syntax Theme
-# You can choose any of the following syntaxic coloring themes for previewed files:
-# - base16-ocean.dark
-# - base16-eighties.dark
-# - base16-mocha.dark
-# - base16-ocean.light
-# - InspiredGitHub
-# - Solarized (dark)
-# - Solarized (light)
-# - GitHub
-# - SolarizedDark
-# - SolarizedLight
-# - EightiesDark
-# - MochaDark
-# - OceanDark
-# - OceanLight
-#
-# syntax_theme: GitHub
-syntax_theme: InspiredGitHub
+# This skin is imported when your terminal is light
+[[imports]]
+luma = "light"
+# (un)comment to choose your preferred skin
+# file = "skins/solarized-light.hjson"
+# file = "skins/white.hjson"
+file = "skins/catppuccin-latte.hsjon"
