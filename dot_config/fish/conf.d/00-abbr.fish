@@ -15,10 +15,15 @@ end
 abbr --add cp "cp -i"
 abbr --add mv "mv -i"
 abbr --add ipecho -- curl --silent ipecho.net/plain
-abbr --add cu chezmoi update
+
 abbr --add za zellij attach
-abbr --add zc -- zellij attach --create
+abbr --add za-c -- zellij attach --create
 abbr --add zl zellij list-sessions
+
+abbr --add ce-a -- chezmoi edit --apply
+abbr --add cu -- chezmoi update
+abbr --add ca -- chezmoi apply
+abbr --add cra -- chezmoi re-add
 
 # abbr --add CC --position anywhere --set-cursor "% | fish_clipboard_copy"
 abbr --add aws.e --set-cursor "aws-vault exec % -- "
