@@ -7,3 +7,8 @@
 processors={{- div .cpuThreads 2 }}
 localhostForwarding=true
 guiApplications={{- eq .chezmoi.windowsVersion.currentMajorVersionNumber 11 }} # Windows11 only
+
+[experimental]
+# autoMemoryReclaim = gradual (cgroup v2) で問題があったら dropcache へ戻す
+autoMemoryReclaim=gradual
+# autoMemoryReclaim=dropcache
