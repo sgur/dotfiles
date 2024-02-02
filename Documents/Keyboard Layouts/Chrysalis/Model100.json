@@ -99,11 +99,11 @@
         "categories": ["modifier"]
       },
       {
-        "code": 17451,
-        "label": {"hint": "ShiftTo", "base": "#1"},
-        "target": 1,
-        "rangeStart": 17450,
-        "categories": ["layer", "shifttolayer"]
+        "code": 49164,
+        "label": {"hint": {"full": "OneShot", "1u": "OSL"}, "base": "#3"},
+        "target": 3,
+        "rangeStart": 49161,
+        "categories": ["layer", "oneshot"]
       },
       {"code": 11, "label": {"base": "h", "shifted": "H"}},
       {"code": 13, "label": {"base": "j", "shifted": "J"}},
@@ -247,9 +247,10 @@
         "categories": ["blanks"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 565,
+        "label": {"hint": {"full": "Alt+", "1u": "A+"}, "base": "`"},
+        "categories": ["with-modifiers", "alt"],
+        "baseCode": 53
       },
       {
         "code": 20552,
@@ -513,7 +514,11 @@
       {"code": 66, "label": {"base": "F9"}},
       {"code": 67, "label": {"base": "F10"}},
       {"code": 68, "label": {"base": "F11"}},
-      {"code": 43, "label": {"base": "Tab"}},
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
       {
         "code": 20552,
         "label": {
@@ -644,15 +649,14 @@
       {"code": 82, "label": {"base": {"full": "Up Arrow", "1u": "↑"}}},
       {"code": 79, "label": {"base": {"full": "Right Arrow", "1u": "→"}}},
       {
-        "code": 565,
-        "label": {"hint": {"full": "Alt+", "1u": "A+"}, "base": "`"},
-        "categories": ["with-modifiers", "alt"],
-        "baseCode": 53
+        "code": 144,
+        "label": {"base": {"full": "Lang1"}},
+        "categories": ["lang_intl"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 145,
+        "label": {"base": {"full": "Lang2"}},
+        "categories": ["lang_intl"]
       },
       {"code": 77, "label": {"base": "End"}},
       {"code": 70, "label": {"base": {"full": "Print Screen", "1u": "PrSc"}}},
@@ -788,9 +792,43 @@
         "categories": ["blanks"]
       },
       {
+        "code": 6197,
+        "label": {
+          "hint": {"full": "Shift+Windows+", "1u": "S+W+"},
+          "base": "`"
+        },
+        "categories": ["with-modifiers", "shift", "gui"],
+        "baseCode": 53
+      },
+      {
         "code": 65535,
         "label": {"base": {"full": "Transparent", "1u": " "}},
         "categories": ["blanks"]
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 6167,
+        "label": {
+          "hint": {"full": "Shift+Windows+", "1u": "S+W+"},
+          "base": "t"
+        },
+        "categories": ["with-modifiers", "shift", "gui"],
+        "baseCode": 23
+      },
+      {
+        "code": 65535,
+        "label": {"base": {"full": "Transparent", "1u": " "}},
+        "categories": ["blanks"]
+      },
+      {
+        "code": 4375,
+        "label": {"hint": {"full": "Ctrl+Windows+", "1u": "C+W+"}, "base": "t"},
+        "categories": ["with-modifiers", "ctrl", "gui"],
+        "baseCode": 23
       },
       {
         "code": 65535,
@@ -928,9 +966,37 @@
         "categories": ["blanks"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 4432,
+        "label": {
+          "hint": {"full": "Ctrl+Windows+", "1u": "C+W+"},
+          "base": {"full": "Left Arrow", "1u": "←"}
+        },
+        "categories": ["with-modifiers", "ctrl", "gui"],
+        "baseCode": 80
+      },
+      {
+        "code": 4431,
+        "label": {
+          "hint": {"full": "Ctrl+Windows+", "1u": "C+W+"},
+          "base": {"full": "Right Arrow", "1u": "→"}
+        },
+        "categories": ["with-modifiers", "ctrl", "gui"],
+        "baseCode": 79
+      },
+      {
+        "code": 6150,
+        "label": {
+          "hint": {"full": "Shift+Windows+", "1u": "S+W+"},
+          "base": "c"
+        },
+        "categories": ["with-modifiers", "shift", "gui"],
+        "baseCode": 6
+      },
+      {
+        "code": 4377,
+        "label": {"hint": {"full": "Ctrl+Windows+", "1u": "C+W+"}, "base": "v"},
+        "categories": ["with-modifiers", "ctrl", "gui"],
+        "baseCode": 25
       },
       {
         "code": 65535,
@@ -978,49 +1044,13 @@
         "categories": ["blanks"]
       },
       {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
-      },
-      {
-        "code": 65535,
-        "label": {"base": {"full": "Transparent", "1u": " "}},
-        "categories": ["blanks"]
+        "code": 6200,
+        "label": {
+          "hint": {"full": "Shift+Windows+", "1u": "S+W+"},
+          "base": "/"
+        },
+        "categories": ["with-modifiers", "shift", "gui"],
+        "baseCode": 56
       },
       {
         "code": 65535,
