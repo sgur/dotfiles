@@ -395,10 +395,9 @@
       {"code": 82, "label": {"base": {"full": "Up Arrow", "1u": "↑"}}},
       {"code": 79, "label": {"base": {"full": "Right Arrow", "1u": "→"}}},
       {
-        "code": 565,
-        "label": {"hint": {"full": "Alt+", "1u": "A+"}, "base": "`"},
-        "categories": ["with-modifiers", "alt"],
-        "baseCode": 53
+        "code": 144,
+        "label": {"base": {"full": "Lang1"}},
+        "categories": ["lang_intl"]
       },
       {"code": 70, "label": {"base": {"full": "Print Screen", "1u": "PrSc"}}},
       {"code": 73, "label": {"base": {"full": "Insert", "1u": "Ins"}}},
@@ -423,7 +422,12 @@
       {"code": 75, "label": {"base": {"full": "Page Up", "1u": "PgUp"}}},
       {"code": 77, "label": {"base": "End"}},
       {"code": 49, "label": {"base": "\\", "shifted": "|"}},
-      {"code": 43, "label": {"base": "Tab"}},
+      {
+        "code": 565,
+        "label": {"hint": {"full": "Alt+", "1u": "A+"}, "base": "`"},
+        "categories": ["with-modifiers", "alt"],
+        "baseCode": 53
+      },
       {"code": 74, "label": {"base": "Home"}},
       {"code": 77, "label": {"base": "End"}},
       {
@@ -590,14 +594,22 @@
       {"code": 94, "label": {"base": "6"}, "location": "numpad"},
       {"code": 87, "label": {"base": "+"}, "location": "numpad"},
       {
-        "code": 0,
-        "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
-        "categories": ["blanks"]
+        "code": 4432,
+        "label": {
+          "hint": {"full": "Ctrl+Windows+", "1u": "C+W+"},
+          "base": {"full": "Left Arrow", "1u": "←"}
+        },
+        "categories": ["with-modifiers", "ctrl", "gui"],
+        "baseCode": 80
       },
       {
-        "code": 0,
-        "label": {"base": {"full": "Blocked", "1u": "Blkd"}},
-        "categories": ["blanks"]
+        "code": 4431,
+        "label": {
+          "hint": {"full": "Ctrl+Windows+", "1u": "C+W+"},
+          "base": {"full": "Right Arrow", "1u": "→"}
+        },
+        "categories": ["with-modifiers", "ctrl", "gui"],
+        "baseCode": 79
       },
       {
         "code": 0,
