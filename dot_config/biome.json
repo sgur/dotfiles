@@ -28,7 +28,7 @@
     "enabled": true
   },
   "javascript": {
-    "globals": ["afterAll", "afterEach", "beforeAll", "beforeEach", "describe", "test"],
+    "globals": ["afterAll", "afterEach", "beforeAll", "beforeEach", "describe", "test", "React"],
     "formatter": {
       "trailingComma": "es5"
     }
