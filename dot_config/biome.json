@@ -15,7 +15,8 @@
       "style": {
         "noNamespace": "error",
         "noUnusedTemplateLiteral": "warn",
-        "noUselessElse": "warn"
+        "noUselessElse": "warn",
+        "noNonNullAssertion": "warn"
       },
       "nursery": {
       }
