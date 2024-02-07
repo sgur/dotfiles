@@ -15,3 +15,13 @@ linker = {{ lookPath "clang" | quote }}
 {{ if lookPath "mold" -}}
 rustflags = ["-C", "link-arg=--ld-path={{- lookPath "mold" -}}"]
 {{- end }}
+
+# build.rsを高速化する https://zenn.dev/dalance/articles/7a0a7969ccb453
+
+## デバッグモード時のbuild.rsのオプション
+[profile.dev.build-override]
+opt-level = 3
+
+## リリースモード時のbuild.rsのオプション
+[profile.release.build-override]
+opt-level = 3
