@@ -10,7 +10,7 @@ rustc-wrapper = {{ lookPath "sccache" | quote }}
 
 [target.x86_64-unknown-linux-gnu]
 {{ if lookPath "clang" -}}
-linker = {{ lookPath "clang" }}
+linker = {{ lookPath "clang" | quote }}
 {{- end }}
 {{ if lookPath "mold" -}}
 rustflags = ["-C", "link-arg=--ld-path={{- lookPath "mold" -}}"]
