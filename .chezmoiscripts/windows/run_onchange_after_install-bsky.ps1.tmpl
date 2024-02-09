@@ -1,0 +1,12 @@
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "bsky.json" -}}
+{{- $jqQuery := printf ".assets[] | select(.name | test(\"bsky-%s-.*$\"))" .chezmoi.os -}}
+{{- $info := $release | include | fromJson | jq $jqQuery | first -}}
+{{- $url := $info.browser_download_url -}}
+{{- $asset := $info.name -}}
+{{- $ext := osExt $asset }}
+
+Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset }}
+Expand-Archive -Force -Path {{ $asset }}
+
+Move-Item -Force -Path 'bsky-windows-*/bsky.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
+Remove-Item -Force -Recurse -Path {{ $asset | quote }}, {{ trimSuffix $ext $asset | quote }}
