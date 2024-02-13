@@ -18,8 +18,6 @@ language-servers = ["vscode-css-language-server", "stylelint-lsp", "efm-langserv
 
 [[language]]
 name = "fish"
-formatter = { command = "fish_indent" }
-auto-format = true
 language-servers = ["efm-langserver", "buffer-ls"]
 
 {{ if eq .chezmoi.os "windows" -}}
