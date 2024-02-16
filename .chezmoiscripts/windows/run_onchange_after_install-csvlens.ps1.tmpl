@@ -1,0 +1,6 @@
+# Latest commit hash:
+# {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "csvlens.json" | include | fromJson | jq ".sha" }}
+
+{{ if and (env "OneDrive") (lookPath "cargo") -}}
+& cargo install --root "$Env:OneDrive/shared/" --force --git "https://github.com/YS-L/csvlens"
+{{- end }}
