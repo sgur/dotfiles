@@ -230,8 +230,6 @@ function! s:init() abort "{{{
 
   call minpac#add('tyru/skkdict.vim')
 
-  call minpac#add('vim-jp/syntax-vim-ex')
-
   call minpac#add('rhysd/vim-gfm-syntax')
 
   " Omnifunc, etc. {{{2
