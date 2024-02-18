@@ -87,13 +87,13 @@
             "colorScheme": "Catppuccin Macchiato",
             "font": 
             {
-                "cellHeight": "1.2",
                 "face": "PlemolJP Console NF",
                 "weight": "medium"
             },
-            "opacity": 86,
+            "opacity": 65,
             "padding": "16,8",
-            "startingDirectory": "%USERPROFILE%"
+            "startingDirectory": "%USERPROFILE%",
+            "useAcrylic": true
         },
         "list": 
         [
