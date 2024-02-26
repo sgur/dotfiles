@@ -127,7 +127,7 @@ if !has('win32') && !has('win64')
   endif
   source <sfile>:h/macros/vimrc.bracket_paste
   # fish shell 利用時も Vim では (ba)sh を利用 {{{
-  if $SHELL =~ '\<fish\>'
+  if $SHELL =~# '\<fish$'
     $SHELL = has('osx') ? exepath('zsh') : exepath('bash')
     &shell = $SHELL
   endif #}}}
@@ -729,7 +729,7 @@ command! -nargs=0 PackClean  packages#clean()
 command! -nargs=0 PackInstall  packages#install()
 
 # polyglot {{{2
-g:polyglot_disabled = ['sensible', 'svelte', 'vue']
+g:polyglot_disabled = ['sensible']
 g:loaded_sensible = 1
 
 # markdown {{{3

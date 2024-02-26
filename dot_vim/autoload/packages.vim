@@ -216,10 +216,6 @@ function! s:init() abort "{{{
 
   call minpac#add('imsnif/kdl.vim')
 
-  call minpac#add('evanleck/vim-svelte')
-
-  call minpac#add('kevinoid/vim-jsonc')
-
   call minpac#add('sheerun/vim-polyglot')
 
   call minpac#add('thosakwe/vim-flutter', #{
