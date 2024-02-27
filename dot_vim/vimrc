@@ -560,7 +560,22 @@ endif
 pack.Add('vim-gitgutter')
 
 # lexima (opt) {{{2
-pack.Add('lexima.vim')
+def InitLexima()
+  # https://vim-jp.slack.com/archives/CLKR04BEF/p1709007397546169
+  # Don't automatically add a closing parenthesis or a quotation when inserting just before an existing text.
+  # See also: https://github.com/cohama/lexima.vim/issues/51
+  lexima#add_rule({char: '(', at: '\%#[^])} \t,]'})
+  lexima#add_rule({char: '{', at: '\%#[^])} \t,]'})
+  lexima#add_rule({char: '[', at: '\%#[^])} \t,]'})
+  lexima#add_rule({char: '"', at: '\%#[^])} \t,"]'})
+  lexima#add_rule({char: "'", at: '\%#[^])} \t,'']'})
+  lexima#add_rule({char: '`', at: '\%#[^])} \t,`]'})
+  # Don't automatically add one more quotation if the quotations in the line before the cursor is not closed.
+  lexima#add_rule({char: '"', at: '^[^"]*\%("[^"]*"[^"]*\)*"[^"]*\%#"\@!', priority: 1})
+  lexima#add_rule({char: "'", at: "^[^']*\\%('[^']*'[^']*\\)*'[^']*\\%#'\\@!)", priority: 1})
+  lexima#add_rule({char: '`', at: '^[^`]*\%(`[^`]*`[^`]*\)*`[^`]*\%#`\@!', priority: 1})
+enddef
+pack.Add('lexima.vim', InitLexima)
 
 # lightline {{{2
 import autoload 'lightline_status.vim' as lightline
