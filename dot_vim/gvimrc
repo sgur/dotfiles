@@ -74,5 +74,22 @@ if has('patch-8.0.1609')
   set guioptions+=!
 endif
 
+if has('patch-9.1.0133')
+  def SetGuiLigatures()
+    const GuiLigatures = (font: string): string => {
+      if font =~# 'Sarasa_\(Term\|Mono\)' || font =~# '更紗等幅ゴシック'
+        return '!\()*+-./:<=>[]_{}\|~'
+      endif
+      return '!\"#$%&()*+-./:<=>?@[]^_{}\|~'
+    }
+    &guiligatures = GuiLigatures(&guifont)
+  enddef
+  augroup gvimrc_guiligatures
+    autocmd!
+    autocmd GUIEnter *  SetGuiLigatures()
+    autocmd OptionSet guifont  SetGuiLigatures()
+  augroup END
+endif
+
 
 # vim:set filetype=vim:
