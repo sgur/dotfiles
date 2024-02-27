@@ -649,9 +649,9 @@ function Invoke-AwsVault
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name carapace)
 {
 	$Ext.carapace = $true
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Carapace.ps1')
 	Set-PSReadLineOption -Colors @{ "Selection" = "`e[7m" }
 	Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
-	carapace _carapace | Out-String | Invoke-Expression
 } else
 {
 	$Ext.carapace = $false
