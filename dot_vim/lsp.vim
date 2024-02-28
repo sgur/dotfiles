@@ -53,6 +53,8 @@ let g:lsp_diagnostics_virtual_text_prefix = "── "
 
 let g:lsp_inlay_hints_enabled = has('textprop') && has('patch-9.0.0167')
 
+let g:lsp_code_action_ui = 'float'
+
 " vim-lsp {{{1
 
 function! s:on_bufwinenter_lsp() abort "{{{
