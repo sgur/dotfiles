@@ -1,4 +1,4 @@
-theme = "boo_berry"
+theme = "catppuccin_mocha"
 
 [keys.normal]
 "*" = [
