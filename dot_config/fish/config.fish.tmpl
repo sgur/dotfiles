@@ -60,3 +60,5 @@ set -gx LESS --incsearch --quit-if-one-screen --raw-control-chars
 {{ if .wsl -}}
 set -gx fish_help_browser (which xdg-open)
 {{- end }}
+
+fish_config theme choose 'Catppuccin Mocha'
