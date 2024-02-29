@@ -14,7 +14,8 @@ else
 end
 abbr --add cp "cp -i"
 abbr --add mv "mv -i"
-abbr --add ipecho -- curl --silent ipecho.net/plain
+abbr --add curl /usr/bin/curl
+abbr --add ipecho -- /usr/bin/curl --silent ipecho.net/plain
 
 abbr --add za zellij attach
 abbr --add za-c -- zellij attach --create
