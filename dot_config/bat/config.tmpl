@@ -1,4 +1,4 @@
---italic-text=always
+--italic-text "always"
 
 --map-syntax "*.conf:INI"
 --map-syntax "*.json*.tmpl:JSON"
@@ -7,6 +7,8 @@
 --map-syntax "*.wslconfig:INI"
 --map-syntax "*.yaml.tmpl:YAML"
 
---style="numbers,changes,header"
+--style "numbers,changes,header"
 
---theme={{ if eq .chezmoi.os "windows" -}} "Catppuccin-macchiato" {{- else -}} "Catppuccin-mocha" {{- end }}
+--theme {{ if eq .chezmoi.os "windows" -}} "Catppuccin-macchiato" {{- else -}} "Catppuccin-mocha" {{- end }}
+
+--nonprintable-notation "unicode"
