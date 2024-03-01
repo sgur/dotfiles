@@ -29,8 +29,6 @@ var lsp_options = {
 
 var lsp_servers: list<dict<any>> = []
 
-const lsp_default_ignore = ['.local/share/chezmoi/', '/tmp/']
-
 def GetLspServerPath(name: string): string
   return expand(name)->exepath()
 enddef
@@ -132,7 +130,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'biome-lsp',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
-  path: exepath('pnpm'),
+  path: GetLspServerPath('pnpm'),
   args: ['--silent', 'dlx', '@biomejs/biome', 'lsp-proxy']
 }]
 
@@ -151,7 +149,7 @@ var schemas = filereadable(catalog_file)
 
 lsp_servers += [{
   name: 'vscode-json-language-server',
-  filetype: ['json'],
+  filetype: ['json', 'jsonc'],
   path: GetLspServerPath('pnpm'),
   args: ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-json-language-server", "--stdio"],
   initializationOptions: {
@@ -164,8 +162,7 @@ lsp_servers += [{
       },
       schemas: schemas
     }
-  },
-  runUnlessSearch: lsp_default_ignore
+  }
 }]
 
 ## markdown
@@ -308,8 +305,7 @@ lsp_servers += [{
   initializationOptions: taplo_lsp_options,
   workspaceConfig: {
     evenBetterToml: taplo_lsp_options
-  },
-  runUnlessSearch: lsp_default_ignore
+  }
 }]
 
 ## vim
@@ -357,8 +353,7 @@ lsp_servers += [{
       },
       schemas: SchemasMap()
     }
-  },
-  runUnlessSearch: lsp_default_ignore
+  }
 }]
 
 ## efm-langserver
@@ -372,7 +367,7 @@ lsp_servers += [{
     hover: v:false,
     documentSymbol: v:true,
     codeAction: v:true,
-    completion: v:true
+    completion: v:false
   },
 }]
 
