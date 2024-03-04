@@ -15,6 +15,6 @@ winget install --no-upgrade --id Mozilla.Firefox.DeveloperEdition
 winget install --no-upgrade --id nathancorvussolis.corvusskk
 
 # From msstore
-winget install --no-upgrade DevToys
-winget install --no-upgrade Ubuntu
-
+winget install --no-upgrade --name DevToys
+winget install --no-upgrade --name --exact Ubuntu
+winget install --no-upgrade --name 'Microsoft PC Manager'
