@@ -72,21 +72,6 @@ auto-format = true
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "markdown"] }
 
 [[language]]
-name = "PowerShell"
-language-id = "powershell"
-scope = "source.ps1"
-file-types = ["ps1", "psm1", "psd1"]
-shebangs = ["pwsh"]
-roots = []
-comment-token = "#"
-indent = { tab-width = 4, unit = "    " }
-language-servers = ["powershell-langserver", "buffer-ls"]
-
-[[grammar]]
-name = "PowerShell"
-source = { git = "https://github.com/kiennq/tree-sitter-PowerShell", rev = "ecb861958a94d5e228af02fe702f076b8bcc8d3e" }
-
-[[language]]
 name = "python"
 language-servers = ["pylsp", "pyright-langserver", "ruff-lsp", "efm-langserver", "buffer-ls"]
 formatter = { command = "black", args = ["--quiet", "-"] }
@@ -123,8 +108,9 @@ injection-regex = "(pwsh|powershell)"
 file-types = [ "ps1", "psm1", "psd1", "pscc", "psrc" ]
 shebangs = [ "pwsh", "powershell" ]
 comment-token = '#'
-block-comment-tokens = { start = "<#", end = "#>" }
+# block-comment-tokens = { start = "<#", end = "#>" }
 indent = { tab-width = 4, unit = "    " }
+roots = []
 
 [[grammar]]
 name = "powershell"
