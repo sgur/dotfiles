@@ -68,17 +68,20 @@ tools:
       --stdin-filepath ${INPUT}
     format-stdin: true
 {{- if false }}
+    requireMarker: true
     root-markers:
       - .prettierrc
-      - .prettierrc.json
-      - .prettierrc.yml
-      - .prettierrc.yaml
-      - .prettierrc.json5
-      - .prettierrc.js
       - .prettierrc.cjs
-      - prettier.config.js
-      - prettier.config.cjs
+      - .prettierrc.js
+      - .prettierrc.json
+      - .prettierrc.json5
+      - .prettierrc.mjs
       - .prettierrc.toml
+      - .prettierrc.yaml
+      - .prettierrc.yml
+      - prettier.config.cjs
+      - prettier.config.js
+      - prettier.config.mjs
 {{- end }}
 
   markdown-markdownlint-cli2: &markdown-markdownlint-cli2
