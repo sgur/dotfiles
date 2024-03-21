@@ -226,11 +226,6 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/metafates/buffer-language-server/commits/main"
 
-[".cache/chezmoi-commits/csvlens.json"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/YS-L/csvlens/commits/main"
-
 {{ end }}
 
 # GitHub release cache
@@ -250,6 +245,12 @@ url = "https://api.github.com/repos/PowerShell/PowerShellEditorServices/releases
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/CoreyHayward/PowerToys-Run-ClipboardManager/releases/latest"
+
+[".cache/chezmoi-releases/csvlens.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/YS-L/csvlens/releases/latest"
+
 {{ end }}
 
 [".cache/chezmoi-releases/git-credential-manager.json"]

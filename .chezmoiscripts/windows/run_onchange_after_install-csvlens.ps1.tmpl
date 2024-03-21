@@ -1,6 +1,12 @@
-# Latest commit hash:
-# {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "csvlens.json" | include | fromJson | jq ".sha" }}
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "csvlens.json" -}}
+{{- $jqQuery := .assets[] | select(.name | test("csvlens-x86_64-pc-windows-msvc.zip")) -}}
+{{- $info := $release | include | fromJson | jq $jqQuery | first -}}
+{{- $url := $info.browser_download_url -}}
+{{- $asset := $info.name -}}
+{{- $ext := osExt $asset }}
 
-{{ if and (env "OneDrive") (lookPath "cargo") -}}
-& cargo install --root "$Env:OneDrive/shared/" --force --git "https://github.com/YS-L/csvlens"
-{{- end }}
+Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset }}
+Expand-Archive -Force -Path {{ $asset }}
+
+Move-Item -Force -Path 'csvlens.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
+Remove-Item -Force -Recurse -Path {{ $asset | quote }}, {{ trimSuffix $ext $asset | quote }}
