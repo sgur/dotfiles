@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+# Latest commit hash:
+# {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "simple-completion-language-server.json" | include | fromJson | jq ".sha" }}
+
+{{ if lookPath "cargo" -}}
+cargo install --force --git "https://github.com/estin/simple-completion-language-server"
+{{- end }}
