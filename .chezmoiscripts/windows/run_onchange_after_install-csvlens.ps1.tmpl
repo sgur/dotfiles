@@ -1,5 +1,5 @@
 {{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "csvlens.json" -}}
-{{- $jqQuery := .assets[] | select(.name | test("csvlens-x86_64-pc-windows-msvc.zip")) -}}
+{{- $jqQuery := ".assets[] | select(.name | test(\"csvlens-x86_64-pc-windows-msvc.zip\"))" -}}
 {{- $info := $release | include | fromJson | jq $jqQuery | first -}}
 {{- $url := $info.browser_download_url -}}
 {{- $asset := $info.name -}}
@@ -8,5 +8,5 @@
 Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset }}
 Expand-Archive -Force -Path {{ $asset }}
 
-Move-Item -Force -Path 'csvlens.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
+Move-Item -Force -Path 'csvlens-x86_64-pc-windows-msvc/csvlens.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
 Remove-Item -Force -Recurse -Path {{ $asset | quote }}, {{ trimSuffix $ext $asset | quote }}
