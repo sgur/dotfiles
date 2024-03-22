@@ -1,9 +1,11 @@
-{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "csvlens.json" -}}
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "csvlens.json" | include | fromJson -}}
 {{- $jqQuery := ".assets[] | select(.name | test(\"csvlens-x86_64-pc-windows-msvc.zip\"))" -}}
-{{- $info := $release | include | fromJson | jq $jqQuery | first -}}
+{{- $info := $release | jq $jqQuery | first -}}
 {{- $url := $info.browser_download_url -}}
 {{- $asset := $info.name -}}
-{{- $ext := osExt $asset }}
+{{- $ext := osExt $asset -}}
+# Version: {{ $release.name }}
+# Updated-at: {{ $info.updated_at }}
 
 Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset }}
 Expand-Archive -Force -Path {{ $asset }}
