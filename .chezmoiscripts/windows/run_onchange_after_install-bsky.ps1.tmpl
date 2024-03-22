@@ -1,9 +1,11 @@
-{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "bsky.json" -}}
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "bsky.json" | include | fromJson -}}
 {{- $jqQuery := printf ".assets[] | select(.name | test(\"bsky-%s-.*$\"))" .chezmoi.os -}}
-{{- $info := $release | include | fromJson | jq $jqQuery | first -}}
+{{- $info := $release | jq $jqQuery | first -}}
 {{- $url := $info.browser_download_url -}}
 {{- $asset := $info.name -}}
-{{- $ext := osExt $asset }}
+{{- $ext := osExt $asset -}}
+# Version: {{ $release.tag_name }}
+# Updated-at: {{ $info.updated_at }}
 
 Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset }}
 Expand-Archive -Force -Path {{ $asset }}
