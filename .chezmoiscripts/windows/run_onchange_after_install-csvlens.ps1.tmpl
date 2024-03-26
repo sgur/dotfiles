@@ -10,5 +10,6 @@
 Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset }}
 Expand-Archive -Force -Path {{ $asset }}
 
+Stop-Process -ErrorAction SilentlyContinue -Name csvlens
 Move-Item -Force -Path 'csvlens-x86_64-pc-windows-msvc/csvlens.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
 Remove-Item -Force -Recurse -Path {{ $asset | quote }}, {{ trimSuffix $ext $asset | quote }}

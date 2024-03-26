@@ -7,6 +7,7 @@ Invoke-WebRequest {{ $cliUrl | quote }} -OutFile {{ $cliAsset }}
 
 Expand-Archive -Force -Path {{ $cliAsset }}
 {{ $cliDir := trimSuffix ".zip" $cliAsset }}
+Stop-Process -ErrorAction SilentlyContinue -Name golangci-lint
 Move-Item -Force -Path '{{- $cliDir -}}\{{ $cliDir -}}\golangci-lint.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
 
 Remove-Item -Force -Recurse -Path {{ $cliAsset | quote }}, {{ $cliDir | quote }}
@@ -20,6 +21,7 @@ Invoke-WebRequest {{ $lsUrl | quote }} -OutFile {{ $lsAsset }}
 
 Expand-Archive -Force -Path {{ $lsAsset }}
 {{ $lsDir := trimSuffix ".zip" $lsAsset }}
+Stop-Process -ErrorAction SilentlyContinue -Name golangci-lint-langserver
 Move-Item -Force -Path '{{- $lsDir -}}\golangci-lint-langserver.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
 
 Remove-Item -Force -Recurse -Path {{ $lsAsset | quote }}, {{ $lsDir | quote }}

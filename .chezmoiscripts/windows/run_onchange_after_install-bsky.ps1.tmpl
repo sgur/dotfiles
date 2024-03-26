@@ -10,5 +10,6 @@
 Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset }}
 Expand-Archive -Force -Path {{ $asset }}
 
+Stop-Process -ErrorAction SilentlyContinue -Name bsky
 Move-Item -Force -Path 'bsky-windows-*/bsky.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
 Remove-Item -Force -Recurse -Path {{ $asset | quote }}, {{ trimSuffix $ext $asset | quote }}
