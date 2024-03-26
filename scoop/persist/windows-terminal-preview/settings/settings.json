@@ -88,7 +88,7 @@
             "font": 
             {
                 "face": "PlemolJP Console NF",
-                "weight": "medium"
+                "weight": 450
             },
             "opacity": 92,
             "padding": "16,8",
