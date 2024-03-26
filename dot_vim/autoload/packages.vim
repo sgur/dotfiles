@@ -73,6 +73,10 @@ function! s:init() abort "{{{
 
   " Generic {{{2
 
+  call minpac#add('machakann/vim-sandwich', #{
+        \ type: 'opt'
+        \ })
+
   call minpac#add('editorconfig/editorconfig-vim', #{
         \ type: 'opt',
         \ })
@@ -134,10 +138,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('kana/vim-operator-replace', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('kana/vim-operator-siege', #{
         \ type: 'opt'
         \ })
 

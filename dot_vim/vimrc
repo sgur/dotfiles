@@ -710,19 +710,6 @@ def InitOperatorReplace() # {{{
 enddef # }}}
 pack.Add('vim-operator-replace', InitOperatorReplace)
 
-# operator-siege (opt) {{{3
-def InitOperatorSiege() # {{{
-  nnoremap ys  <Plug>(operator-siege-add)
-  vnoremap S  <Plug>(operator-siege-add)
-  # onoremap ys  <Plug>(operator-siege-add)
-  nnoremap yS <Plug>(operator-siege-add-with-indent)
-  # vnoremap yS <Plug>(operator-siege-add-with-indent)
-  # onoremap yS <Plug>(operator-siege-add-with-indent)
-  nnoremap cs  <Plug>(operator-siege-change)
-  nnoremap ds  <Plug>(operator-siege-delete)
-enddef # }}}
-pack.Add('vim-operator-siege', InitOperatorSiege)
-
 # {{{3 misc
 # put markers with one whitespace prefix
 nmap <expr> zf  custom_operator#define('n', 'better-zf', 'custom_operator#zf')
@@ -798,6 +785,24 @@ def InitQuickrun() # {{{
   vnoremap <Leader>r  <Plug>(quickrun)
 enddef # }}}
 pack.Add('vim-quickrun', InitQuickrun)
+
+# sandwich (opt) {{{2
+def InitSandwich() # {{{
+  nnoremap ys  <Plug>(sandwich-add)
+  xnoremap ys  <Plug>(sandwich-add)
+  onoremap ys  <Plug>(sandwich-add)
+  vnoremap S  <Plug>(sandwich-add)
+  nnoremap cs  <Plug>(sandwich-replace)
+  xnoremap cs  <Plug>(sandwich-replace)
+  onoremap cs  <Plug>(sandwich-replace)
+  nnoremap csb  <Plug>(sandwich-replace-auto)
+  nnoremap ds  <Plug>(sandwich-delete)
+  xnoremap ds  <Plug>(sandwich-delete)
+  onoremap ds  <Plug>(sandwich-delete)
+  nnoremap dsb  <Plug>(sandwich-delete-auto)
+enddef # }}}
+g:sandwich_no_default_key_mappings = 1
+pack.Add('vim-sandwich', InitSandwich)
 
 # sonictemplate (opt) {{{2
 pack.Add('vim-sonictemplate')
