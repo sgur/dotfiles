@@ -34,6 +34,7 @@ csrf
 csslintrc
 ctags
 curlrc
+cwd
 deno
 devtool
 difft
@@ -82,6 +83,7 @@ newermt
 nflg
 noconsole
 nord
+nodir
 ntuser
 omnisharp
 openpyxl
