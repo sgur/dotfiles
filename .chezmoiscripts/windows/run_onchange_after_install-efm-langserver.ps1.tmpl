@@ -13,4 +13,4 @@ Expand-Archive -Force -Path {{ $asset }}
 
 Stop-Process -ErrorAction SilentlyContinue -Name efm-langserver
 Move-Item -Force -Path 'efm-langserver_*/efm-langserver_*/efm-langserver.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
-# Remove-Item -Force -Recurse -Path {{ $asset | quote }}, {{ trimSuffix $ext $asset | quote }}
+Remove-Item -Force -Recurse -Path {{ $asset | quote }}, {{ trimSuffix $ext $asset | quote }}

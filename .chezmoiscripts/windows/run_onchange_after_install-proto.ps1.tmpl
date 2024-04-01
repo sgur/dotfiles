@@ -1,0 +1,9 @@
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "proto.json" | include | fromJson -}}
+# Version: {{ $release.tag_name }}
+# Updated-at: {{ $release.published_at }}
+
+{{ if lookPath "proto" -}}
+& proto upgrade
+{{- else -}}
+Invoke-RestMethod https://moonrepo.dev/install/proto.ps1 | Invoke-Expression
+{{- end }}
