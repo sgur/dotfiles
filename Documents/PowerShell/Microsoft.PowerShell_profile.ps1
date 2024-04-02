@@ -19,7 +19,7 @@ $Env:LC_ALL = "ja_JP.utf-8"
 $LocalBinDir = Join-Path -Path $Env:USERPROFILE -ChildPath ".local" -AdditionalChildPath "bin"
 if (Test-Path $LocalBinDir)
 {
-	$Env:PATH = ($LocalBinDir, $Env:PATH) -join ";"
+	$Env:PATH = @($LocalBinDir, $Env:PATH) -join [IO.PATH]::PathSeparator
 }
 
 # Scoop Dir
@@ -367,7 +367,7 @@ function Initialize-Curl
 	$CurlBin = Join-Path -Path $ScoopDir -ChildPath "apps" -AdditionalChildPath "curl", "current", "bin"
 	if (Test-Path (Join-Path -Path $CurlBin -ChildPath "curl.exe"))
 	{
-		$Env:PATH = $CurlBin + ";" + $Env:PATH
+		$Env:PATH = @($CurlBin, $Env:PATH) -join [IO.PATH]::PathSeparator
 	}
 }
 Initialize-Curl
