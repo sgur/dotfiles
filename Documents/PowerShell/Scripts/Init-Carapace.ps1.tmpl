@@ -1,3 +1,3 @@
 {{ if lookPath "carapace" -}}
-{{- output "carapace" "_carapace" "powershell" -}}
+carapace _carapace powershell | Out-String | Invoke-Expression
 {{- end }}
