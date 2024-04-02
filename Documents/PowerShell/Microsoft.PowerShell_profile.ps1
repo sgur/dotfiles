@@ -39,8 +39,8 @@ if ($NonInteractive)
 $CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
 # $CurrentUserScripts = $PSGetPath.CurrentUserScripts
 
-# $EDITOR を gVim にする
-$Env:EDITOR = ((Get-Command gvim.exe).Source -replace '\\', '\\') + ' --remote-tab-silent-wait'
+# $EDITOR を Helix にする
+$Env:EDITOR = ((Get-Command hx.exe).Source -replace '\\', '\\')
 $Env:GIT_EDITOR = ((Get-Command vim.exe).Source -replace '\\', '\\')
 
 # VSCode 上の Integrated Terminal から起動した場合
