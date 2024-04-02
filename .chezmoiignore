@@ -4,6 +4,7 @@ README.md
 .vim/pack/chezmoi/*/*/doc/tags
 Tools/**/*.exe
 Tools/**/*.bat
+scoopfile.json
 
 {{ if ne .chezmoi.os "darwin" }}
 # Ignoring on non-macOS
@@ -24,7 +25,6 @@ Library/
 **/*.ps1
 .chezmoiscripts/windows/**
 .wslconfig
-.scoopfile.json
 _curlrc
 AppData/
 AppData/Local/
