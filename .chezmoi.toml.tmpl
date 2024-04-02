@@ -31,11 +31,8 @@ progress = true
 format = "yaml"
 
 [edit]
-{{- if eq .chezmoi.os "windows" }}
-command = "gvim.exe"
-args = ["--remote-tab-wait-silent"]
-{{- else }}
-command = "vim"
+{{- if lookPath "vim" }}
+command = {{ lookPath "vim" | quote }}
 {{- end }}
 
 [git]
