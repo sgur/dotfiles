@@ -20,7 +20,7 @@ language-servers = ["vscode-css-language-server", "stylelint-lsp", "efm-langserv
 name = "fish"
 language-servers = ["efm-langserver", "buffer-ls"]
 
-{{ if eq .chezmoi.os "windows" -}}
+{{- if eq .chezmoi.os "windows" }}
 [[grammar]]
 name = "gemini"
 source = { git = "https://git.sr.ht/~nbsp/tree-sitter-gemini", rev = "3cc5e4bdf572d5df4277fc2e54d6299bd59a54b3" }
@@ -177,7 +177,7 @@ pylint = { enabled = false }
 rope_autoimport = { enabled = true }
 rope_completion = { enabled = true }
 yapf = { enabled = false }
-{{ if eq .chezmoi.os "windows" -}}
+{{- if eq .chezmoi.os "windows" }}
 ruff = { enabled = true }
 {{- end }}
 
