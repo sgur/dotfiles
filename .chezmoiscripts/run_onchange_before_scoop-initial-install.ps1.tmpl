@@ -1,3 +1,5 @@
+{{- if lookPath "scoop" }}
+$Scoop = @'
 {
     "buckets": [
         {
@@ -538,3 +540,12 @@
         }
     ]
 }
+'@
+
+$TempFile =  New-TemporaryFile
+Out-File -FilePath $TempFile -Encoding utf8 -InputObject $Scoop
+
+& scoop import (Convert-Path $TempFile)
+
+Remove-Item -Path $TempFile
+{{- end }}
