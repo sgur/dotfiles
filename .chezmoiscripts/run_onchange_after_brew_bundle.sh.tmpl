@@ -1,9 +1,0 @@
-{{ if and (eq .chezmoi.os "darwin" "linux") (lookPath "brew") -}}
-#!/usr/bin/env bash
-
-{{ $brewfile := joinPath .chezmoi.homeDir ".Brewfile" -}}
-# Brewfile hash: {{ printf "%s.%s" $brewfile .chezmoi.os | include | sha256sum }}
-
-brew bundle --file {{ $brewfile }}
-
-{{ end -}}
