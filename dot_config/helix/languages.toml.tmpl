@@ -117,7 +117,11 @@ language-servers = ["powershell-langserver", "buffer-ls"]
 [language-server]
 deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
-powershell-langserver = { command = {{ findExecutable "powershell-editor-services" (list (joinPath .chezmoi.homeDir ".local" "share" "powershell-editor-services")) | quote }} }
+{{- $powershell_editor_service := findExecutable "powershell-editor-services" (list (joinPath .chezmoi.homeDir ".local" "share"
+"powershell-editor-services")) -}}
+{{- if $powershell_editor_service }}
+powershell-langserver = { command = {{ $powershell_editor_service | quote }} }
+{{- end }}
 
 [language-server.tailwindcss-ls]
 command = {{ lookPath "pnpm" | quote }}
