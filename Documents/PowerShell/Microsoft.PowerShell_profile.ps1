@@ -657,6 +657,22 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name carapace)
 	$Ext.carapace = $false
 }
 
+# proto
+$env:PROTO_HOME = Join-Path $HOME ".proto"
+$env:PATH = @(
+  (Join-Path $env:PROTO_HOME "shims"),
+  (Join-Path $env:PROTO_HOME "bin"),
+  $env:PATH
+) -join [IO.PATH]::PathSeparator
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name proto)
+{
+	$Ext.proto = $true
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Proto.ps1')
+} else
+{
+	$Ext.proto = $false
+}
+
 $Buffer = New-Object System.Text.StringBuilder
 $Ext.GetEnumerator() | Sort-Object -Property Key | ForEach-Object {
 	[void] $Buffer.Append(" ")
@@ -679,10 +695,3 @@ Write-Host $Buffer.ToString()
 
 Remove-Variable -Name NonInteractive, Buffer, Ext, IsEmojiSupported
 
-# proto
-$env:PROTO_HOME = Join-Path $HOME ".proto"
-$env:PATH = @(
-  (Join-Path $env:PROTO_HOME "shims"),
-  (Join-Path $env:PROTO_HOME "bin"),
-  $env:PATH
-) -join [IO.PATH]::PathSeparator
