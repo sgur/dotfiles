@@ -58,17 +58,17 @@ lsp_servers += [{
 }]
 
 lsp_servers += [{
+  name: 'tailwindcss-language-server',
+  filetype: ['css'],
+  path: GetLspServerPath('pnpm'),
+  args: ['--silent', 'dlx', '@tailwindcss/language-server', '--stdio'],
+}]
+
+lsp_servers += [{
   name: 'stylelint-lsp',
   filetype: ['css', 'less', 'sass', 'scss'],
   path: GetLspServerPath('pnpm'),
   args: ["--silent", "--package=stylelint-lsp", "--package=stylelint-config-standard-scss", "dlx", "stylelint-lsp", "--stdio"]
-}]
-
-lsp_servers += [{
-  name: 'tailwindcss-language-server',
-  filetype: ['css', 'html', 'javascriptreact', 'typescriptreact'],
-  path: GetLspServerPath('pnpm'),
-  args: ['--silent', 'dlx', '@tailwindcss/language-server', '--stdio'],
 }]
 
 ## dockefile
@@ -108,6 +108,13 @@ lsp_servers += [{
   args: ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-html-language-server", "--stdio"]
 }]
 
+lsp_servers += [{
+  name: 'tailwindcss-language-server',
+  filetype: ['html'],
+  path: GetLspServerPath('pnpm'),
+  args: ['--silent', 'dlx', '@tailwindcss/language-server', '--stdio'],
+}]
+
 ## javascript / typescript
 lsp_servers += [{
   name: 'typescript-language-server',
@@ -125,6 +132,13 @@ lsp_servers += [{
       includeInlayFunctionLikeReturnTypeHints: v:true
     }
   }
+}]
+
+lsp_servers += [{
+  name: 'tailwindcss-language-server',
+  filetype: ['javascriptreact', 'typescriptreact'],
+  path: GetLspServerPath('pnpm'),
+  args: ['--silent', 'dlx', '@tailwindcss/language-server', '--stdio'],
 }]
 
 lsp_servers += [{
@@ -161,6 +175,55 @@ lsp_servers += [{
         enable: v:true
       },
       schemas: schemas
+    }
+  }
+}]
+
+## lua
+
+lsp_servers += [{
+  name: 'lua-language-server',
+  filetype: ['lua'],
+  path: exepath('lua-language-server'),
+  workspaceConfig: {
+    Lua: {
+      color: {
+        mode: 'Semantic'
+      },
+      completion: {
+        callSnippet: 'Disable',
+        enable: v:true,
+        keywordSnippet: 'Replace'
+      },
+      develop: {
+        debuggerPort: 11412,
+        debuggerWait: v:false,
+        enable: v:false
+      },
+      diagnostics: {
+        enable: v:true,
+        globals: '',
+        severity: {}
+      },
+      hover: {
+        enable: v:true,
+        viewNumber: v:true,
+        viewString: v:true,
+        viewStringMax: 1000
+      },
+      runtime: {
+        path: ['?.lua', '?/init.lua', '?/?.lua'],
+        version: 'Lua 5.4'
+      },
+      signatureHelp: {
+        enable: v:true
+      },
+      workspace: {
+        ignoreDir: [],
+        maxPreload: 1000,
+        preloadFileSize: 100,
+        useGitIgnore: v:true
+      }
     }
   }
 }]
@@ -313,7 +376,7 @@ lsp_servers += [{
   name: 'vim-language-server',
   filetype: ['vim'],
   path: GetLspServerPath('pnpm'),
-  args: ['--silent', 'dlx', 'vim-language-server', '--stdio'],
+  args: ['--silent', '-c', 'dlx', 'vim-language-server', '--stdio'],
   initializationOptions: {
     isNeovim: v:false,
     vimruntime: $VIMRUNTIME,
