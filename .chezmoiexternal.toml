@@ -173,6 +173,12 @@ url = "https://raw.githubusercontent.com/xPMo/OSC-52/main/bash/paste"
 executable = true
 {{     end}}
 
+[".config/yazi/flavors"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+stripComponents = 1
+url = "https://github.com/yazi-rs/flavors/archive/refs/heads/main.zip"
+
 {{   end }}
 
 [".config/fish"]
