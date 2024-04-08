@@ -426,52 +426,6 @@ def AsteriskInit()
 enddef
 pack.Add('vim-asterisk', AsteriskInit)
 
-# asyncomplete  {{{2
-if stridx(&runtimepath, 'vim-lsp') > -1
-  def OnBufwinenterAsyncomplete()
-    b:asyncomplete_enable = !&readonly
-  enddef
-  inoremap <C-Space> <Plug>(asyncomplete_force_refresh)
-  augroup vimrc_plugin_asyncomplete
-    autocmd!
-    autocmd FuncUndefined asyncomplete#sources#buffer#*  packadd! asyncomplete-buffer.vim
-    autocmd FuncUndefined asyncomplete#sources#file#*  packadd! asyncomplete-file.vim
-    autocmd BufWinEnter *  OnBufwinenterAsyncomplete()
-    autocmd OptionSet readonly  OnBufwinenterAsyncomplete()
-  augroup END
-# buffer source
-  if !executable('simple-completion-language-server')
-    autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-          \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
-          \   name: 'asyncomplete_buffer',
-          \   allowlist: ['*'],
-          \   completor: function('asyncomplete#sources#buffer#completor')
-          \}))
-  endif
-# file source
-  autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-        \ asyncomplete#register_source(asyncomplete#sources#file#get_source_options({
-        \   name: 'asyncomplete_file',
-        \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'markdown'],
-        \   completor: function('asyncomplete#sources#file#completor')
-        \}))
-# # dictionary source
-# autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-#       \ asyncomplete#register_source(asyncomplete#sources#dictionary#get_source_options({
-#       \   name: 'asyncomplete_dictionary',
-#       \   allowlist: ['*'],
-#       \   completor: function('asyncomplete#sources#dictionary#completor'),
-#       \   config: {
-#       \     dictionary_file: expand('~/.local/share/dict/words'),
-#       \     complete_min_chars: 6,
-#       \   }
-#       \}))
-
-  if argc(-1) > 0
-    autocmd vimrc_plugin_asyncomplete VimEnter *  asyncomplete#enable_for_buffer()
-  endif
-endif
-
 # autofmt (opt) {{{2
 augroup vimrc_plugin_autofmt
   autocmd!
@@ -504,46 +458,6 @@ def CopilotInit()
   inoremap <LocalLeader>cp  <Plug>(copilot-previous)
 enddef
 pack.Add('copilot.vim', CopilotInit)
-
-# ctrlp.vim (opt) {{{2
-g:ctrlp_root_markers = ['.git']
-g:ctrlp_use_caching = has('win32')
-g:ctrlp_working_path_mode = 'w'
-def InitCtrlp() # {{{
-  nnoremap <silent> <C-n>  <Cmd>CtrlPZoxide<CR>
-
-  packadd ctrlp-ghq
-  g:ctrlp_ghq_cache_enabled = 1
-  g:ctrlp_extensions = ['ghq']
-
-  g:ctrlp_user_command = {
-      \ types: {
-      \   1: ['.git', 'git ls-files --cached --exclude-standard'],
-      \ }}
-  if executable('fd')
-    g:ctrlp_user_command.fallback =
-          \ 'fd --no-ignore-vcs --hidden --follow --type file --color never --max-results 1000'
-  elseif executable('rg')
-    g:ctrlp_user_command.fallback =
-          \ 'rg --files --no-ignore --no-messages --hidden --follow --max-count 1000'
-          \ .. ' --glob="!{.git,.hg,node_modules,.mypy_cache,.pytest_cache,.settings}/"'
-          \ .. ' --glob="!{*.exe,*.dll,*.bmp,*.gif,*.png,*.jpg,*.jpeg,*.tif,*.ico,*.woff,*.ttf,*.pdf,package-lock.json,yarn.lock}"'
-          \ .. ' --glob="!{' .. escape(&wildignore, '''"') .. '}"'
-  endif
-  if !has('patch-8.2.1665')
-    return
-  endif
-  packadd! ctrlp-matchfuzzy
-  g:ctrlp_match_func = {match: 'ctrlp_matchfuzzy#matcher'}
-enddef # }}}
-pack.Add('ctrlp.vim', InitCtrlp)
-if executable('zoxide')
-  g:ctrlp_zoxide_default_action = 'CtrlP'
-  augroup vimrc_ctrlp_zoxide
-    autocmd!
-    autocmd DirChanged *  call system('zoxide add ' .. shellescape(expand('<afile>')))
-  augroup END
-endif
 
 # editorconfig (opt) {{{2
 pack.Add('editorconfig-vim')
@@ -803,6 +717,32 @@ enddef # }}}
 g:sandwich_no_default_key_mappings = 1
 pack.Add('vim-sandwich', InitSandwich)
 
+# autosuggest (opt) {{{
+pack.Add('autosuggest.vim')
+
+# scope (opt) {{{2
+packadd! scope.vim
+import autoload 'scope/fuzzy.vim'
+if executable('fd')
+  nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File('fd -tf --follow --exclude "*.swp" --exclude "node_modules" --exclude "go/pkg', 100000)<CR>
+else
+  nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File()<CR>
+endif
+if executable('rg')
+  nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep('rg --vimgrep --no-heading --smart-case')<CR>
+else
+  nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep()<CR>
+endif
+nnoremap <silent> <Leader>b  <ScriptCmd>fuzzy.Buffer()<CR>
+
+if executable('zoxide')
+  g:ctrlp_zoxide_default_action = 'CtrlP'
+  augroup vimrc_ctrlp_zoxide
+    autocmd!
+    autocmd DirChanged *  call system('zoxide add ' .. shellescape(expand('<afile>')))
+  augroup END
+endif
+
 # sonictemplate (opt) {{{2
 pack.Add('vim-sonictemplate')
 g:sonictemplate_vim_template_dir = expand(rc_dir .. '/template')
@@ -826,6 +766,7 @@ command! -n=0 -bar UndotreeToggle  undotree#UndotreeToggle()
 
 # vsnip (opt) {{{2
 def InitVsnip() # {{{
+  packadd! vim-vsnip-integ
   g:vsnip_snippet_dir = expand(fnamemodify(rc_dir, ':h') .. '/vsnip')
   g:vsnip_snippet_dirs = [has('win32')
         \   ? expand('$AppData/Code/User/snippets')

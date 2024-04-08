@@ -23,7 +23,9 @@ let s:rc_dir = expand('<sfile>:p:h:gs?\?/?')
 let s:temp_dir = fnamemodify(tempname(), ':p:h')
 
 try
-  packadd! vim-vsnip-integ
+  packadd! asyncomplete.vim
+  packadd! asyncomplete-buffer.vim
+  packadd! asyncomplete-file.vim
   packadd! asyncomplete-lsp.vim
   packadd! vim-lsp-settings
   packadd! vim-lsp
@@ -32,6 +34,28 @@ catch /^Vim\%((\a\+)\)\=:E919/
   echomsg v:errmsg
   finish
 endtry
+
+" asyncomplete  {{{2
+function! s:on_bufwinenter_asyncomplete() abort "{{{
+  let b:asyncomplete_enable = !&readonly
+endfunction "}}}
+inoremap <C-Space> <Plug>(asyncomplete_force_refresh)
+augroup vimrc_plugin_asyncomplete
+  autocmd!
+  autocmd BufWinEnter *  call s:on_bufwinenter_asyncomplete()
+  autocmd OptionSet readonly  call s:on_bufwinenter_asyncomplete()
+augroup END
+" file source
+autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+      \ call asyncomplete#register_source(asyncomplete#sources#file#get_source_options(#{
+      \   name: 'asyncomplete_file',
+      \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'markdown'],
+      \   completor: function('asyncomplete#sources#file#completor')
+      \}))
+
+if argc(-1) > 0
+  autocmd vimrc_plugin_asyncomplete VimEnter *  call asyncomplete#enable_for_buffer()
+endif
 
 " 2}}}
 
@@ -163,6 +187,14 @@ augroup vimrc_plugin_lsp_buffer
           \ blocklist: [],
           \ cmd: {server_info -> [lsp_settings#exec_path('buffer-language-server')]}
           \})
+  else
+    " buffer source
+    autocmd User asyncomplete_setup
+          \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+          \   name: 'asyncomplete_buffer',
+          \   allowlist: ['*'],
+          \   completor: function('asyncomplete#sources#buffer#completor')
+          \}))
   endif
 augroup END
 

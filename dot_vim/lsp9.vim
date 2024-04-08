@@ -6,10 +6,24 @@ endif
 
 try
   packadd! lsp
+  packadd vimcomplete
 catch /^Vim\%((\a\+)\)\=:E919/
   echomsg v:errmsg
   finish
 endtry
+
+# vimcomplete options
+var options = {
+  completor: { shuffleEqualPriority: true, postfixHighlight: true },
+  buffer: { enable: true, priority: 10, urlComplete: true, envComplete: true },
+  lsp: { enable: true, priority: 10 },
+  vsnip: { enable: true, priority: 11 },
+  vimscript: { enable: true, priority: 11 },
+}
+augroup vimrc_plugin_vimcomplete
+  autocmd!
+  autocmd VimEnter * g:VimCompleteOptionsSet(options)
+augroup END
 
 # options
 var lsp_options = {
@@ -21,7 +35,7 @@ var lsp_options = {
   omniComplete: v:true,
   showDiagWithVirtualText: has('patch-9.0.1157') != 0,
   showInlayHints: has('patch-9.0.0178') != 0,
-  useBufferCompletion: v:true,
+  useBufferCompletion: v:false,
   vsnipSupport: v:true,
 }
 

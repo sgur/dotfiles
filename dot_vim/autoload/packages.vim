@@ -73,6 +73,18 @@ function! s:init() abort "{{{
 
   " Generic {{{2
 
+  call minpac#add('girishji/vimcomplete', #{
+        \ type: 'opt'
+        \ })
+
+  call minpac#add('girishji/scope.vim', #{
+        \ type: 'opt'
+        \ })
+
+  call minpac#add('girishji/autosuggest.vim', #{
+        \ type: 'opt'
+        \ })
+
   call minpac#add('machakann/vim-sandwich', #{
         \ type: 'opt'
         \ })
@@ -94,18 +106,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('mattn/vim-molder-operations', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('ctrlpvim/ctrlp.vim', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('mattn/ctrlp-matchfuzzy', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('mattn/ctrlp-ghq', #{
         \ type: 'opt'
         \ })
 
@@ -248,7 +248,9 @@ function! s:init() abort "{{{
         \ type: 'opt',
         \ })
 
-  call minpac#add('prabirshrestha/asyncomplete.vim')
+  call minpac#add('prabirshrestha/asyncomplete.vim', #{
+        \ type: 'opt',
+        \ })
 
   call minpac#add('prabirshrestha/asyncomplete-lsp.vim', #{
         \ type: 'opt',
