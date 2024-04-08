@@ -19,7 +19,7 @@ end
 # fzf --fish | FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= source
 set FZF_CTRL_T_COMMAND
 set FZF_ALT_C_COMMAND
-set -x FZF_CTRL_R_OPTS --prompt="history> " --query="$argv"
+set -x FZF_CTRL_R_OPTS '--prompt="history> " --query="$argv"'
 {{ output "fzf" "--fish" }}
 set -e FZF_CTRL_T_COMMAND
 set -e FZF_ALT_C_COMMAND
