@@ -45,9 +45,10 @@ bind \cq 'fzf_ghq_repository_select (commandline -b)'
 # https://zenn.dev/yamo/articles/5c90852c9c64ab
 # fzf を使って git のブランチを選択して git switch する fish 関数
 function fzf_git_branch_select -d "Branch selection with fzf"
+    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
     set -l selected_branch (git branch --all --format='%(refname:short)' \
         | grep -v -e '^origin$' \
-        | $FZF_CMD \
+        | $FZF_CMD --height $FZF_TMUX_HEIGHT \
             --no-multi \
             --prompt="branches> " --query "$argv" \
             --preview-window="right,65%" \
@@ -60,8 +61,9 @@ end
 bind \cg 'fzf_git_branch_select (commandline -b)'
 
 function fzf_zoxide_select
+    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
     set -l dir (zoxide query --list \
-        | $FZF_CMD \
+        | $FZF_CMD --height $FZF_TMUX_HEIGHT \
         --no-multi \
         --prompt="zoxide> " --query "$argv" \
         --scheme=path \
