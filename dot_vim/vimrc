@@ -789,17 +789,16 @@ pack.Add('vim-quickrun', InitQuickrun)
 # sandwich (opt) {{{2
 def InitSandwich() # {{{
   nnoremap ys  <Plug>(sandwich-add)
-  xnoremap ys  <Plug>(sandwich-add)
-  onoremap ys  <Plug>(sandwich-add)
-  vnoremap S  <Plug>(sandwich-add)
+  xnoremap S  <Plug>(sandwich-add)
+  # onoremap S  <Plug>(sandwich-add)
   nnoremap cs  <Plug>(sandwich-replace)
-  xnoremap cs  <Plug>(sandwich-replace)
-  onoremap cs  <Plug>(sandwich-replace)
   nnoremap csb  <Plug>(sandwich-replace-auto)
+  xnoremap C  <Plug>(sandwich-replace)
+  # onoremap C  <Plug>(sandwich-replace)
   nnoremap ds  <Plug>(sandwich-delete)
-  xnoremap ds  <Plug>(sandwich-delete)
-  onoremap ds  <Plug>(sandwich-delete)
   nnoremap dsb  <Plug>(sandwich-delete-auto)
+  xnoremap D  <Plug>(sandwich-delete)
+  # onoremap D  <Plug>(sandwich-delete)
 enddef # }}}
 g:sandwich_no_default_key_mappings = 1
 pack.Add('vim-sandwich', InitSandwich)
