@@ -23,11 +23,51 @@ set FZF_ALT_C_COMMAND
 set -e FZF_CTRL_T_COMMAND
 set -e FZF_ALT_C_COMMAND
 
-# https://github.com/decors/fish-ghq
+function fzf_ghq_repository_select -d "Reposity selection with fzf/ghq"
+    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
+    set -l selected_repo (ghq list \
+        | $FZF_CMD --height $FZF_TMUX_HEIGHT \
+            --scheme=path \
+            --bind=ctrl-z:ignore \
+            --no-multi \
+            --prompt="repository> " --query "$argv" \
+            --preview-window="right,60%" \
+            --preview="git -C (ghq list --exact --full-path {}) log -5 --graph --decorate --abbrev-commit --color=always")
+    if test -n "$selected_repo"
+        cd (ghq list --full-path --exact $selected_repo)
+    end
+    commandline --function repaint
+end
 bind \cq 'fzf_ghq_repository_select (commandline -b)'
 
+# https://zenn.dev/yamo/articles/5c90852c9c64ab
+# fzf を使って git のブランチを選択して git switch する fish 関数
+function fzf_git_branch_select -d "Branch selection with fzf"
+    set -l selected_branch (git branch --all --format='%(refname:short)' \
+        | grep -v -e '^origin$' \
+        | $FZF_CMD \
+            --no-multi \
+            --prompt="branches> " --query "$argv" \
+            --preview-window="right,65%" \
+            --preview="git log -5 --graph --decorate --abbrev-commit --color=always {}")
+    if test -n "$selected_branch"
+        git switch (string replace --regex '^origin/' '' (string trim $selected_branch))
+    end
+    commandline --function repaint
+end
 bind \cg 'fzf_git_branch_select (commandline -b)'
 
+function fzf_zoxide_select
+    set -l dir (zoxide query --list \
+        | $FZF_CMD --reverse --no-multi --prompt="zoxide> " --query "$argv" \
+        --scheme=path \
+        --preview-window="right,40%" \
+        --preview='ls -1 {}')
+    if test -n "$dir"
+        cd "$dir"
+    end
+    commandline --function repaint
+end
 bind \co 'fzf_zoxide_select (commandline -b)'
 
 
