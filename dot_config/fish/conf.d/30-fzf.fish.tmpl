@@ -17,12 +17,7 @@ end
 
 # https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
 # fzf --fish | FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= source
-set FZF_CTRL_T_COMMAND
-set FZF_ALT_C_COMMAND
 {{ output "fzf" "--fish" }}
-set -e FZF_ALT_C_COMMAND
-set -e FZF_CTRL_T_COMMAND
-
 set FZF_CTRL_R_OPTS '--prompt="history> " --query="$argv"'
 
 function fzf_ghq_repository_select -d "Reposity selection with fzf/ghq"
