@@ -106,13 +106,6 @@
             "Name": "dark"
         },
         {
-            "Source": "extras",
-            "Info": "",
-            "Updated": "2024-04-02T15:09:39.1505366+09:00",
-            "Version": "4.6.1",
-            "Name": "darktable"
-        },
-        {
             "Source": "main",
             "Info": "",
             "Updated": "2024-03-07T00:08:20.8972299+09:00",
