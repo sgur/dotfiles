@@ -194,32 +194,8 @@ else
 	$Ext.zoxide = $false
 }
 
-# fnm
-if (Get-Command -ErrorAction SilentlyContinue fnm | Out-Null)
-{
-	$Ext.fnm = $true
-	fnm env --shell power-shell | Out-String | Invoke-Expression
-	function __fnm_hook
-	{
-		# spell-checker: disable-next-line
-		If ((Test-Path .nvmrc) -Or (Test-Path .node-version))
-		{
-			& fnm use --silent-if-unchanged
-		}
-	}
-	__fnm_hook
-	fnm completions --shell power-shell | Out-String | Invoke-Expression
-} else
-{
-	$Ext.fnm = $false
-}
-
 # Set-Location Hook
 $ExecutionContext.InvokeCommand.LocationChangedAction = {
-	if (Get-Command -ErrorAction SilentlyContinue -Type Function __fnm_hook)
-	{
-		__fnm_hook
-	}
 	if (Get-Command -ErrorAction SilentlyContinue -Type Function __zoxide_hook)
 	{
 		__zoxide_hook
