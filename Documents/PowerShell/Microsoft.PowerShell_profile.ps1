@@ -249,7 +249,7 @@ function Select-Repository
 {
 	try
 	{
-		$selected = $(ghq list | fzf --prompt="repository> " --reverse)
+		$selected = $(ghq list | fzf --prompt="repository> ")
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
@@ -279,7 +279,7 @@ function Select-History
 		[Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
 		$history = [Microsoft.PowerShell.PSConsoleReadLine]::GetHistoryItems() | ForEach-Object CommandLine
 		[System.Collections.Generic.HashSet[String]] $historySet = $history
-		$result = $historySet | fzf --prompt="history> " --reverse --scheme=history --tiebreak=index --tac --query="$line"
+		$result = $historySet | fzf --prompt="history> " --scheme=history --tiebreak=index --tac --query="$line"
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
@@ -304,7 +304,7 @@ function Select-Branch
 {
 	try
 	{
-		$targetBranch = $(git branch --all --format="%(refname:short)" | fzf --prompt="branch> " --reverse --preview-window="right,65%" --preview="git log --max-count=10 --graph --decorate --color=always --abbrev-commit --pretty {}")
+		$targetBranch = $(git branch --all --format="%(refname:short)" | fzf --prompt="branch> " --preview-window="right,65%" --preview="git log --max-count=10 --graph --decorate --color=always --abbrev-commit --pretty {}")
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
@@ -327,7 +327,7 @@ Set-PSReadLineKeyHandler -Chord Ctrl+g -ScriptBlock {
 function Select-ZoxideHistory
 {
 	try {
-		$Path = $(zoxide query --list | fzf --prompt="zoxide> " --reverse)
+		$Path = $(zoxide query --list | fzf --prompt="zoxide> ")
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
