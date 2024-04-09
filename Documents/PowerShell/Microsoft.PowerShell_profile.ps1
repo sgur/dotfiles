@@ -169,6 +169,13 @@ $ENV:FZF_DEFAULT_OPTS=@"
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
 "@
 
+# hgrep
+if (Get-Command -ErrorAction SilentlyContinue hgrep)
+{
+	$Env:HGREP_DEFAULT_OPTS = '--theme Nord'
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Hgrep.ps1')
+}
+
 # Starship
 if ($IsEmojiSupported)
 {
