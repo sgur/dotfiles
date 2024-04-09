@@ -721,8 +721,11 @@ pack.Add('vim-sandwich', InitSandwich)
 pack.Add('autosuggest.vim')
 
 # scope (opt) {{{2
-packadd! scope.vim
-import autoload 'scope/fuzzy.vim'
+try
+  packadd! scope.vim
+  import autoload 'scope/fuzzy.vim'
+catch /^Vim\%((\a\+)\)\=:E919:/
+endtry
 if executable('fd')
   nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File('fd -tf --follow --exclude "*.swp" --exclude "node_modules" --exclude "go/pkg', 100000)<CR>
 else
