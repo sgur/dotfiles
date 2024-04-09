@@ -7,6 +7,7 @@
 
 brew bundle --file=- << EOS
 tap "bloznelis/tap"
+tap "charmbracelet/tap"
 tap "homebrew/bundle"
 {{- if eq .chezmoi.os "darwin" }}
 tap "homebrew/cask-fonts"
@@ -73,6 +74,7 @@ brew "yq"
 brew "zellij"
 brew "zoxide"
 brew "bloznelis/tap/typioca"
+brew "charmbracelet/tap/freeze"
 brew "rhysd/hgrep/hgrep"
 brew "rsteube/tap/carapace"
 brew "ynqa/tap/jnv"
