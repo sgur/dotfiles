@@ -1,0 +1,15 @@
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "hgrep.json" | include | fromJson -}}
+{{- $jqQuery := printf ".assets[] | select(.name | test(\"hgrep-%s-x86_64-pc-windows-msvc.zip$\"))" $release.tag_name -}}
+{{- $info := $release | jq $jqQuery | first -}}
+{{- $url := $info.browser_download_url -}}
+{{- $asset := $info.name -}}
+{{- $ext := osExt $asset -}}
+# Version: {{ $release.tag_name }}
+# Updated-at: {{ $info.updated_at }}
+
+Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset }}
+Expand-Archive -Force -Path {{ $asset }}
+
+Stop-Process -ErrorAction SilentlyContinue -Name hgrep
+Move-Item -Force -Path 'hgrep-*/hgrep-*/hgrep.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
+Remove-Item -Force -Recurse -Path {{ $asset | quote }}, {{ trimSuffix $ext $asset | quote }}
