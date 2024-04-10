@@ -731,12 +731,14 @@ if executable('fd')
 else
   nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File()<CR>
 endif
+nnoremap <silent> <Leader>b  <ScriptCmd>fuzzy.Buffer()<CR>
+nnoremap <silent> <Leader>j  <ScriptCmd>fuzzy.Jumplist()<CR>
+nnoremap <silent> <Leader>s  <ScriptCmd>fuzzy.LspDocumentSymbol()<CR>
 if executable('rg')
   nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep('rg --vimgrep --no-heading --smart-case')<CR>
 else
   nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep()<CR>
 endif
-nnoremap <silent> <Leader>b  <ScriptCmd>fuzzy.Buffer()<CR>
 
 if executable('zoxide')
   g:ctrlp_zoxide_default_action = 'CtrlP'
