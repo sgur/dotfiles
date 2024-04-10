@@ -727,7 +727,9 @@ try
 catch /^Vim\%((\a\+)\)\=:E919:/
 endtry
 if executable('fd')
-  nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File('fd --type file --hidden --follow --exclude "*.swp" --exclude "node_modules" --exclude "go/pkg', 100000)<CR>
+  nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File('fd --type file --hidden --follow
+        \ --exclude "*.swp" --exclude "node_modules" --exclude "go/pkg"',
+        \ 100000)<CR>
 else
   nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File()<CR>
 endif
