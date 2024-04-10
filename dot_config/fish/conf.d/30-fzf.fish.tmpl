@@ -18,7 +18,22 @@ end
 # https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
 # fzf --fish | FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= source
 {{ output "fzf" "--fish" }}
-set FZF_CTRL_R_OPTS '--prompt="history> " --query="$argv"'
+set FZF_CTRL_T_OPTS "
+--walker-skip .git,node_modules,target
+--preview 'bat -n --color=always {}'
+--bind 'ctrl-/:change-preview-window(down|hidden|)'"
+
+set FZF_CTRL_R_OPTS "
+--prompt='history> '
+--query='$argv'
+--preview 'echo {}'
+--preview-window up:3:hidden:wrap
+--bind 'ctrl-/:toggle-preview'"
+
+set FZF_ALT_C_OPTS "
+--walker-skip .git,node_modules,target
+--preview 'tree -C {}'
+--bind 'ctrl-/:toggle-preview'"
 
 function fzf_ghq_repository_select -d "Reposity selection with fzf/ghq"
     test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
@@ -29,13 +44,14 @@ function fzf_ghq_repository_select -d "Reposity selection with fzf/ghq"
             --no-multi \
             --prompt="repository> " --query "$argv" \
             --preview-window="right,60%" \
-            --preview="git -C (ghq list --exact --full-path {}) log -5 --graph --decorate --abbrev-commit --color=always")
+            --preview="git -C (ghq list --exact --full-path {}) log -5 --graph --decorate --abbrev-commit --color=always" \
+            --bind 'ctrl-/:toggle-preview')
     if test -n "$selected_repo"
         cd (ghq list --full-path --exact $selected_repo)
     end
     commandline --function repaint
 end
-bind \cq 'fzf_ghq_repository_select (commandline -b)'
+bind \eq 'fzf_ghq_repository_select (commandline -b)'
 
 # https://zenn.dev/yamo/articles/5c90852c9c64ab
 # fzf を使って git のブランチを選択して git switch する fish 関数
@@ -47,13 +63,14 @@ function fzf_git_branch_select -d "Branch selection with fzf"
             --no-multi \
             --prompt="branches> " --query "$argv" \
             --preview-window="right,65%" \
-            --preview="git log -5 --graph --decorate --abbrev-commit --color=always {}")
+            --preview="git log -5 --graph --decorate --abbrev-commit --color=always {}" \
+            --bind 'ctrl-/:toggle-preview')
     if test -n "$selected_branch"
         git switch (string replace --regex '^origin/' '' (string trim $selected_branch))
     end
     commandline --function repaint
 end
-bind \cg 'fzf_git_branch_select (commandline -b)'
+bind \eb 'fzf_git_branch_select (commandline -b)'
 
 function fzf_zoxide_select
     test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
@@ -63,13 +80,14 @@ function fzf_zoxide_select
         --prompt="zoxide> " --query "$argv" \
         --scheme=path \
         --preview-window="right,40%" \
-        --preview='ls -1 {}')
+        --preview='tree -C {}' \
+        --bind 'ctrl-/:toggle-preview')
     if test -n "$dir"
         cd "$dir"
     end
     commandline --function repaint
 end
-bind \co 'fzf_zoxide_select (commandline -b)'
+bind \ez 'fzf_zoxide_select (commandline -b)'
 
 
 # catppuccin/latte
