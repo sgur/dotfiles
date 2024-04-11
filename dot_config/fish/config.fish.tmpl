@@ -18,6 +18,9 @@ if status is-interactive
     {{ if and (lookPath "ghq") (stat $gistPath) -}}
     source {{ $gistPath }}
     {{- end }}
+
+    # \el -> \ei へ移設
+    bind --user \ei __fish_list_current_token
 end
 
 emit fish_ready
@@ -64,3 +67,4 @@ set -gx fish_help_browser (which xdg-open)
 fish_config theme choose 'Catppuccin Mocha'
 
 set -gx HGREP_DEFAULT_OPTS --theme Nord
+
