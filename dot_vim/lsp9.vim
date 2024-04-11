@@ -335,6 +335,16 @@ lsp_servers += [{
   }
 }]
 
+## rust
+
+lsp_servers += [{
+  name: 'rust-analyzer',
+  filetype: ['rust'],
+  path: GetLspServerPath('rust-analyzer'),
+  args: [],
+  syncInit: v:true
+}]
+
 ## toml
 var taplo_lsp_options = {
   activationStatus: v:true,
