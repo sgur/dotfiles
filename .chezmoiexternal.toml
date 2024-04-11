@@ -157,21 +157,19 @@ url = "https://github.com/shunsambongi/clink-zoxide/archive/refs/heads/master.zi
 
 {{   if lookPath "base64" }}
 
-[".local/bin/copy"]
+[".local/bin/pbcopy"]
 type = "file"
 refreshPeriod = "168h" # 1-wee
 url = "https://raw.githubusercontent.com/xPMo/OSC-52/main/bash/copy"
 executable = true
 
-{{     if false }}
 # Windows Terminal は paste はサポートしていない模様
 # https://github.com/microsoft/terminal/issues/9479
-[".local/bin/paste"]
+[".local/bin/pbpaste"]
 type = "file"
 refreshPeriod = "168h" # 1-wee
 url = "https://raw.githubusercontent.com/xPMo/OSC-52/main/bash/paste"
 executable = true
-{{     end}}
 
 [".config/yazi/flavors"]
 type = "archive"
