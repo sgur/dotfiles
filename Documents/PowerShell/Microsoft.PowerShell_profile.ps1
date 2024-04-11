@@ -249,7 +249,7 @@ function Select-Repository
 
 Set-Alias -Name fzf-ghq -Value Select-Repository
 
-Set-PSReadLineKeyHandler -Chord Ctrl+q -ScriptBlock {
+Set-PSReadLineKeyHandler -Chord Alt+q -ScriptBlock {
 	Select-Repository
 }
 
@@ -303,7 +303,7 @@ function Select-Branch
 
 Set-Alias -Name fzf-git-branch -Value Select-Branch
 
-Set-PSReadLineKeyHandler -Chord Ctrl+g -ScriptBlock {
+Set-PSReadLineKeyHandler -Chord Alt+a -ScriptBlock {
 	Select-Branch
 }
 
@@ -326,7 +326,7 @@ function Select-ZoxideHistory
 
 Set-Alias -Name fzf-zoxide -Value Select-ZoxideHistory
 
-Set-PSReadLineKeyHandler -Chord Ctrl+o -ScriptBlock {
+Set-PSReadLineKeyHandler -Chord Alt+z -ScriptBlock {
 	Select-ZoxideHistory
 }
 # AWS CLI のコマンド補完
