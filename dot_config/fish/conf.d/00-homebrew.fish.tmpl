@@ -52,8 +52,4 @@ fish_add_path -g {{ joinPath $prefix "bin" }}
 set -gx DOTNET_ROOT {{ joinPath $prefix "libexec" }}
 {{- end }}
 
-{{ if get (expandenv "$HOMEBREW_PREFIX/opt/fzf" | stat) "isDir" -}}
-    source {{ expandenv "$HOMEBREW_PREFIX/opt/fzf/shell/key-bindings.fish" }}
-{{- end }}
-
 {{- end }}
