@@ -1,26 +1,13 @@
-## Microsoft.PowerShell_profile.ps1
-#
-# 1. Edit $PROFILE.CurrentUserCurrentHost
-# 2. Put the line bellow
-#   ```
-#   . ~/.config/powershell/Microsoft.PowerShell_profile.ps1
-#   ```
+# PowerShell Console
+
+# $Env:CHEZMOI_GITHUB_ACCESS_TOKEN が定義されていなかったらWarningを出す
+if (-not $Env:CHEZMOI_GITHUB_ACCESS_TOKEN)
+{
+	Write-Warning "Environment variable 'CHEZMOI_GITHUB_ACCESS_TOKEN' is not defined."
+}
 
 $Ext = @{}
 $IsEmojiSupported = $Env:WT_SESSION -Or $Env:ALACRITTY_LOG
-
-# 文字化け対策
-# https://smdn.jp/programming/netfx/tips/unicode_encoding_bom/
-$OutputEncoding = [System.Text.Encoding]::Default
-[System.Console]::OutputEncoding = [System.Text.Encoding]::Default
-$Env:LC_ALL = "ja_JP.utf-8"
-
-# ~/.local/bin を有効にする
-$LocalBinDir = Join-Path -Path $Env:USERPROFILE -ChildPath ".local" -AdditionalChildPath "bin"
-if (Test-Path $LocalBinDir)
-{
-	$Env:PATH = @($LocalBinDir, $Env:PATH) -join [IO.PATH]::PathSeparator
-}
 
 # Scoop Dir
 $ScoopDir = Join-Path -Path $Env:USERPROFILE -ChildPath "scoop"
@@ -142,9 +129,6 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
 
 # bat
 $Env:BAT_CONFIG_PATH = (Resolve-Path "~/.config/bat/config").Path
-
-# docker
-$Env:DOCKER_HOST = "tcp://localhost:2375"
 
 # fzf catppuccin theme
 # https://github.com/catppuccin/fzf
