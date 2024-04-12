@@ -4,13 +4,20 @@
 [user]
 	useConfigOnly = true
 
-{{ if eq .chezmoi.os "windows" -}}
 [core]
+	autocrlf = input
+	safecrlf = warn
+{{- if eq .chezmoi.os "windows" }}
 	quotepath = false
 	fscache = true
 	preloadindex = true
-	autocrlf = false
+{{- end }}
 
+[commit]
+	template = {{ joinPath .chezmoi.homeDir ".config/git/commit_msg-copilot_prompt.txt" | quote }}
+	verbose = true
+
+{{ if eq .chezmoi.os "windows" -}}
 [http]
 	sslBackend = schannel
 {{- end }}
@@ -22,9 +29,6 @@
 	clean = git-lfs clean -- %f
 	smudge = git-lfs smudge -- %f
 {{- end }}
-
-[commit]
-	template = {{ joinPath .chezmoi.homeDir ".config/git/commit_msg-copilot_prompt.txt" | quote }}
 
 {{ if or (lookPath "git-credential-manager") (and (eq .chezmoi.os "windows") (lookPath "git")) -}}
 [credential]
@@ -63,16 +67,26 @@
 	conflictstyle = diff3
 	ff = only
 
-{{ if lookPath "diffsitter" -}}
+{{ if (lookPath "delta") -}}
+[core]
+	pager = delta --diff-so-fancy
+[interactive]
+	diffFilter = delta --color-only
+[delta]
+	# use n and N to move between diff sections
+	navigate = true
+	# set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
+	light = false
+[diff]
+	colorMoved = default
+{{- else if lookPath "diffsitter" -}}
 [diff]
 	tool = diffsitter
 [difftool]
 	prompt = false
 [difftool "diffsitter"]
 	cmd = diffsitter "$LOCAL" "$REMOTE"
-{{- end }}
-
-{{ if (lookPath "difft") -}}
+{{- else if (lookPath "difft") -}}
 [diff]
 	external = difft
 	tool = difftastic
@@ -80,22 +94,6 @@
 	prompt = false
 [difftool "difftastic"]
 	cmd = difft "$LOCAL" "$REMOTE"
-
-{{- else if (lookPath "delta") -}}
-[core]
-	pager = delta --diff-so-fancy
-
-[interactive]
-	diffFilter = delta --color-only
-
-[delta]
-	# use n and N to move between diff sections
-	navigate = true
-	# set to true if you're in a terminal w/ a light background color (e.g. the default macOS terminal)
-	light = false
-
-[diff]
-	colorMoved = default
 {{- end }}
 
 [difftool]
@@ -177,6 +175,3 @@
 	cmd = gvim --servername GIT_GUI --remote-tab-silent $FILENAME
 	noconsole = yes
 	needsfile = yes
-
-[commit]
-	verbose = true
