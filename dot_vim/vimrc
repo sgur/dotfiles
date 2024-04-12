@@ -717,9 +717,6 @@ enddef # }}}
 g:sandwich_no_default_key_mappings = 1
 pack.Add('vim-sandwich', InitSandwich)
 
-# autosuggest (opt) {{{
-pack.Add('autosuggest.vim')
-
 # scope (opt) {{{2
 try
   packadd! scope.vim

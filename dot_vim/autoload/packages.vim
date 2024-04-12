@@ -81,10 +81,6 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
-  call minpac#add('girishji/autosuggest.vim', #{
-        \ type: 'opt'
-        \ })
-
   call minpac#add('machakann/vim-sandwich', #{
         \ type: 'opt'
         \ })
