@@ -42,7 +42,7 @@ autoPush = false
 [cd]
 {{- if eq .chezmoi.os "windows" }}
 command='pwsh'
-args=['-NoLogo']
+args=['-NoLogo', "-NoProfile"]
 {{- end }}
 
 [data]

@@ -75,6 +75,14 @@ Set-PSReadLineKeyHandler -Key Ctrl+p -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key Ctrl+n -Function HistorySearchForward
 Set-PSReadLineKeyHandler -Key Ctrl+w -Function BackwardKillWord
 
+try
+{
+	Set-PSReadLineOption -TerminateOrphanedConsoleApps
+} catch
+{
+	Write-Warning "Updates needed: pwsh -NoProfile -Command ""Update-Module PSReadLine -Force -AllowPrerelease"""
+}
+
 ## Prediction
 try
 {
