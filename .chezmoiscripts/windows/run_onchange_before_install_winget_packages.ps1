@@ -3,6 +3,7 @@ winget pin add --id Microsoft.Edge
 winget pin add --id Microsoft.EdgeWebView2Runtime
 winget pin add --id Microsoft.Office
 winget pin add --id Microsoft.OneDrive
+winget pin add --id Microsoft.Teams.Classic
 winget pin add --id SlackTechnologies.Slack
 
 # From winget source
