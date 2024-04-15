@@ -70,6 +70,24 @@ try
 	Write-Warning "Updates needed: pwsh -NoProfile -Command ""Update-Module PSReadLine -Force -AllowPrerelease"""
 }
 
+Set-PSReadLineOption -CommandValidationHandler {
+    param([System.Management.Automation.Language.CommandAst] $CommandAst)
+
+    switch ($CommandAst.GetCommandName()) {
+        'scoop' {
+            $scoopCmd = $CommandAst.CommandElements[1].Extent
+            switch ($scoopCmd.Text) {
+                'up' {
+                    [Microsoft.PowerShell.PSConsoleReadLine]::Replace(
+                        $scoopCmd.StartOffset, $scoopCmd.EndOffset - $scoopCmd.StartOffset, 'update -q && scoop status')
+                }
+            }
+        }
+    }
+}
+# This checks the validation script when you hit enter
+Set-PSReadLineKeyHandler -Chord Enter -Function ValidateAndAcceptLine
+
 ## Prediction
 try
 {
