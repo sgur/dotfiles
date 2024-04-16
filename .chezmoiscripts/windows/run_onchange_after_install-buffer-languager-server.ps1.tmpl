@@ -1,7 +1,7 @@
 # Latest commit hash:
 # {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "buffer-language-server.json" | include | fromJson | jq ".sha" }}
 
-{{ if and (env "OneDrive") (lookPath "cargo") -}}
+{{ if and (env "OneDrive") (lookPath "cargo") .buildOnUpdate -}}
 Stop-Process -ErrorAction SilentlyContinue -Name buffer-language-server
 & cargo install --root "$Env:OneDrive/shared/" --force --git "https://github.com/metafates/buffer-language-server"
 {{- end }}
