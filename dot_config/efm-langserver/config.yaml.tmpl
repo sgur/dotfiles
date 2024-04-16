@@ -51,16 +51,16 @@ tools:
       - "%f:%l:%c: %m"
     require-marker: true
     root-markers:
+      - .stylelint.config.cjs
       - .stylelint.config.js
       - .stylelint.config.mjs
-      - .stylelint.config.cjs
-      - .stylelintrc.js
-      - .stylelintrc.mjs
-      - .stylelintrc.cjs
-      - .stylelintrc.json
-      - .stylelintrc.yml
-      - .stylelintrc.yaml
       - .stylelintrc
+      - .stylelintrc.cjs
+      - .stylelintrc.js
+      - .stylelintrc.json
+      - .stylelintrc.mjs
+      - .stylelintrc.yaml
+      - .stylelintrc.yml
 
   any-prettier: &any-prettier
     prefix: prettier
@@ -69,7 +69,6 @@ tools:
       prettier
       --stdin-filepath ${INPUT}
     format-stdin: true
-{{- if false }}
     require-marker: true
     root-markers:
       - .prettierrc
@@ -84,7 +83,6 @@ tools:
       - prettier.config.cjs
       - prettier.config.js
       - prettier.config.mjs
-{{- end }}
 
   markdown-markdownlint-cli2: &markdown-markdownlint-cli2
     prefix: markdownlint-cli2
