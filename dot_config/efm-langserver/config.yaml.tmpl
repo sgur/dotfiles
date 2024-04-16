@@ -29,9 +29,7 @@ tools:
   any-secretlint: &any-secretlint
     prefix: secretlint
     lint-command: >-
-      {{ lookPath "pnpm" }}
-      --silent
-      dlx
+      {{ lookPath "bunx" }}
       @secretlint/quick-start@latest
       --format unix
     lint-stdin: false
@@ -43,32 +41,36 @@ tools:
   css-stylelint: &css-stylelint
     prefix: stylelint
     lint-command: >-
-      {{ lookPath "pnpm" }}
-      --silent
-      --package=stylelint
-      --package=stylelint-config-standard
-      dlx
+      {{ lookPath "bunx" }}
       stylelint
       --formatter unix
-      --config
-      {{ joinPath .chezmoi.homeDir ".config" "stylelintrc.yaml" }}
       --stdin
       --stdin-filename ${INPUT}
     lint-stdin: true
     lint-formats:
       - "%f:%l:%c: %m"
+    require-marker: true
+    root-markers:
+      - .stylelint.config.js
+      - .stylelint.config.mjs
+      - .stylelint.config.cjs
+      - .stylelintrc.js
+      - .stylelintrc.mjs
+      - .stylelintrc.cjs
+      - .stylelintrc.json
+      - .stylelintrc.yml
+      - .stylelintrc.yaml
+      - .stylelintrc
 
   any-prettier: &any-prettier
     prefix: prettier
     format-command: >-
-      {{ lookPath "pnpm" }}
-      --silent
-      dlx
+      {{ lookPath "bunx" }}
       prettier
       --stdin-filepath ${INPUT}
     format-stdin: true
 {{- if false }}
-    requireMarker: true
+    require-marker: true
     root-markers:
       - .prettierrc
       - .prettierrc.cjs
@@ -87,12 +89,9 @@ tools:
   markdown-markdownlint-cli2: &markdown-markdownlint-cli2
     prefix: markdownlint-cli2
     lint-command: >-
-      {{ lookPath "pnpm" }}
-      --silent
-      --package=markdownlint-cli2
-      dlx
-      markdownlint-cli2-config
-      {{ joinPath .chezmoi.homeDir ".config" "config.markdownlint-cli2.yaml" }}
+      {{ lookPath "bunx" }}
+      markdownlint-cli2
+      --config {{ joinPath .chezmoi.homeDir ".config" "config.markdownlint-cli2.yaml" }}
     lint-stdin: false
     lint-formats:
       - "%f:%l:%c %m"
@@ -103,11 +102,8 @@ tools:
   markdown-markdownlint: &markdown-markdownlint
     prefix: markdownlint
     lint-command: >-
-      {{ lookPath "pnpm" }}
-      --silent
-      --package=markdownlint-cli
-      dlx
-      markdownlint
+      {{ lookPath "bunx" }}
+      markdownlint-cli
       --config {{ joinPath .chezmoi.homeDir ".config" "markdownlint.yaml" }}
       --stdin
     lint-stdin: true
@@ -118,9 +114,7 @@ tools:
   html-markuplint: &html-markuplint
     prefix: markuplint
     lint-command: >-
-      {{ lookPath "pnpm" }}
-      --silent
-      dlx
+      {{ lookPath "bunx" }}
       markuplint
       --no-color
       --format Default
@@ -131,10 +125,8 @@ tools:
       - "%-G%.%#"
     commands:
       - title: 'markuplint fix'
-        command: {{ lookPath "pnpm" }}
+        command: {{ lookPath "bunx" }}
         arguments:
-          - '--silent'
-          - 'dlx'
           - 'markuplint'
           - '--no-color'
           - '--fix'
@@ -182,9 +174,7 @@ tools:
   any-cspell: &any-cspell
     prefix: cspell
     lint-command: >-
-      {{ lookPath "pnpm" }}
-      --silent
-      dlx
+      {{ lookPath "bunx" }}
       cspell
       lint
       --no-gitignore
@@ -202,9 +192,7 @@ tools:
     lint-severity: 3
 {{- if false -}}
     completion-command: >-
-      {{ lookPath "pnpm" }}
-      --silent
-      dlx
+      {{ lookPath "bunx" }}
       cspell
       suggestions
       --no-progress
@@ -216,11 +204,8 @@ tools:
   any-commitlint: &any-commitlint
     prefix: commitlint
     lint-command: >-
-      {{ lookPath "pnpm" }}
-      --silent
-      --package=@commitlint/cli
-      dlx
-      commitlint
+      {{ lookPath "bunx" }}
+      @commitlint/cli
       --config
       {{ joinPath .chezmoi.homeDir ".config" "commitlintrc.yaml" }}
     lint-stdin: true
@@ -234,6 +219,7 @@ tools:
   any-textlint: &any-textlint
     prefix: textlint
     lint-command: >-
+{{- if lookPath "pnpm" }}
       {{ lookPath "pnpm" }}
       --silent
       --package=textlint
@@ -241,6 +227,17 @@ tools:
       --package=textlint-rule-preset-ja-spacing
       --package=textlint-rule-preset-japanese
       dlx
+{{- else }}
+      {{ lookPath "npm" }}
+      exec
+      --silent
+      --package=textlint
+      --package=textlint-rule-preset-ja-technical-writing
+      --package=textlint-rule-preset-ja-spacing
+      --package=textlint-rule-preset-japanese
+      --yes
+      --
+{{- end }}
       textlint
       --config {{ joinPath .chezmoi.homeDir ".config" "textlintrc.yaml" }}
       -f unix
