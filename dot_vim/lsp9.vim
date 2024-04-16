@@ -51,46 +51,46 @@ enddef
 lsp_servers += [{
   name: 'astro-ls',
   filetype: ['astro'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent", "dlx", "@astrojs/language-server", "--stdio"]
+  path: GetLspServerPath('bunx'),
+  args: ["@astrojs/language-server", "--stdio"]
 }]
 
 ## bash
 lsp_servers += [{
   name: 'bash-language-server',
   filetype: ['sh', 'bash'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent", "dlx", "bash-language-server", "start"]
+  path: GetLspServerPath('bunx'),
+  args: ["bash-language-server", "start"]
 }]
 
 ## css
 lsp_servers += [{
   name: 'vscode-css-language-server',
   filetype: ['css', 'less', 'sass', 'scss'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-css-language-server", "--stdio"]
+  path: GetLspServerPath('bunx'),
+  args: ["vscode-langservers-extracted", "vscode-css-language-server", "--stdio"]
 }]
 
 lsp_servers += [{
   name: 'tailwindcss-language-server',
   filetype: ['css'],
-  path: GetLspServerPath('pnpm'),
-  args: ['--silent', 'dlx', '@tailwindcss/language-server', '--stdio'],
+  path: GetLspServerPath('bunx'),
+  args: ['@tailwindcss/language-server', '--stdio'],
 }]
 
 lsp_servers += [{
   name: 'stylelint-lsp',
   filetype: ['css', 'less', 'sass', 'scss'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent", "--package=stylelint-lsp", "--package=stylelint-config-standard-scss", "dlx", "stylelint-lsp", "--stdio"]
+  path: GetLspServerPath('bunx'),
+  args: ["stylelint-lsp", "--stdio"]
 }]
 
 ## dockefile
 lsp_servers += [{
   name: 'docker-langserver',
   filetype: ['dockerfile'],
-  path: GetLspServerPath('pnpm'),
-  args: ['--silent', 'dlx', 'dockerfile-language-server-nodejs', '--stdio']
+  path: GetLspServerPath('bunx'),
+  args: ['dockerfile-language-server-nodejs', '--stdio']
 }]
 
 ## go
@@ -118,32 +118,32 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'vscode-html-language-server',
   filetype: ['html'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-html-language-server", "--stdio"]
+  path: GetLspServerPath('bunx'),
+  args: ["vscode-langservers-extracted", "vscode-html-language-server", "--stdio"]
 }]
 
 lsp_servers += [{
   name: 'tailwindcss-language-server',
   filetype: ['html'],
-  path: GetLspServerPath('pnpm'),
-  args: ['--silent', 'dlx', '@tailwindcss/language-server', '--stdio'],
+  path: GetLspServerPath('bunx'),
+  args: ['@tailwindcss/language-server', '--stdio'],
 }]
 
 ## javascript / typescript
 lsp_servers += [{
   name: 'typescript-language-server',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent", "dlx", "typescript-language-server", "--stdio"],
+  path: GetLspServerPath('bunx'),
+  args: ["typescript-language-server", "--stdio"],
   initializationOptions: {
     preferences: {
-      includeInlayParameterNameHintsWhenArgumentMatchesName: v:true,
-      includeInlayParameterNameHints: 'all',
-      includeInlayVariableTypeHints: v:true,
-      includeInlayPropertyDeclarationTypeHints: v:true,
-      includeInlayFunctionParameterTypeHints: v:true,
       includeInlayEnumMemberValueHints: v:true,
-      includeInlayFunctionLikeReturnTypeHints: v:true
+      includeInlayFunctionLikeReturnTypeHints: v:true,
+      includeInlayFunctionParameterTypeHints: v:true,
+      includeInlayParameterNameHints: 'all',
+      includeInlayParameterNameHintsWhenArgumentMatchesName: v:true,
+      includeInlayPropertyDeclarationTypeHints: v:true,
+      includeInlayVariableTypeHints: v:true,
     }
   }
 }]
@@ -151,22 +151,22 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'tailwindcss-language-server',
   filetype: ['javascriptreact', 'typescriptreact'],
-  path: GetLspServerPath('pnpm'),
-  args: ['--silent', 'dlx', '@tailwindcss/language-server', '--stdio'],
+  path: GetLspServerPath('bunx'),
+  args: ['@tailwindcss/language-server', '--stdio'],
 }]
 
 lsp_servers += [{
   name: 'biome-lsp',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
-  path: GetLspServerPath('pnpm'),
-  args: ['--silent', 'dlx', '@biomejs/biome', 'lsp-proxy']
+  path: GetLspServerPath('bunx'),
+  args: ['@biomejs/biome', 'lsp-proxy']
 }]
 
 lsp_servers += [{
   name: 'vscode-eslint-language-server',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-eslint-language-server", "--stdio"]
+  path: GetLspServerPath('bunx'),
+  args: ["vscode-langservers-extracted", "vscode-eslint-language-server", "--stdio"]
 }]
 
 ## json
@@ -178,8 +178,8 @@ var schemas = filereadable(catalog_file)
 lsp_servers += [{
   name: 'vscode-json-language-server',
   filetype: ['json', 'jsonc'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-json-language-server", "--stdio"],
+  path: GetLspServerPath('bunx'),
+  args: ["vscode-langservers-extracted", "vscode-json-language-server", "--stdio"],
   initializationOptions: {
     provideFormatter: v:true
   },
@@ -255,16 +255,16 @@ if marksman_bin->empty()
   lsp_servers += [{
     name: 'vscode-markdown-language-server',
     filetype: ['markdown'],
-    path: exepath('pnpm'),
-    args: ['--silent', '--package=vscode-langservers-extracted', 'dlx', 'vscode-markdown-language-server', '--stdio']
+    path: exepath('bunx'),
+    args: ['vscode-langservers-extracted', 'vscode-markdown-language-server', '--stdio']
   }]
 endif
 
 lsp_servers += [{
   name: 'obsidian-lsp',
   filetype: ['markdown'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent", "dlx", "obsidian-lsp", "--stdio"],
+  path: GetLspServerPath('bunx'),
+  args: ["obsidian-lsp", "--stdio"],
   rootSearch: ['.obsidian/'],
   runIfSearch: ['.obsidian/']
 }]
@@ -307,8 +307,8 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'pyright-langserver',
   filetype: ['python'],
-  path: GetLspServerPath('pnpm'),
-  args: ["--silent", "--package=pyright", "dlx", "pyright-langserver", "--stdio"],
+  path: GetLspServerPath('bunx'),
+  args: ["pyright", "pyright-langserver", "--stdio"],
   workspaceConfig: {
     python: {
       analysis: {
@@ -399,8 +399,8 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'vim-language-server',
   filetype: ['vim'],
-  path: GetLspServerPath('pnpm'),
-  args: ['--silent', '-c', 'dlx', 'vim-language-server', '--stdio'],
+  path: GetLspServerPath('bunx'),
+  args: ['vim-language-server', '--stdio'],
   initializationOptions: {
     isNeovim: v:false,
     vimruntime: $VIMRUNTIME,
@@ -431,8 +431,8 @@ enddef
 lsp_servers += [{
   name: 'yaml-language-server',
   filetype: ['yaml'],
-  path: GetLspServerPath('pnpm'),
-  args: ['--silent', 'dlx', 'yaml-language-server', '--stdio'],
+  path: GetLspServerPath('bunx'),
+  args: ['yaml-language-server', '--stdio'],
   workspaceConfig: {
     yaml: {
       format: {
