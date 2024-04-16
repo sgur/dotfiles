@@ -70,6 +70,8 @@ try
 	Write-Warning "Updates needed: pwsh -NoProfile -Command ""Update-Module PSReadLine -Force -AllowPrerelease"""
 }
 
+Set-Alias -Name chz -Value chezmoi
+
 Set-PSReadLineOption -CommandValidationHandler {
     param([System.Management.Automation.Language.CommandAst] $CommandAst)
 

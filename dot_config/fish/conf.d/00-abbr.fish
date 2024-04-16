@@ -21,10 +21,7 @@ abbr --add za zellij attach
 abbr --add za-c -- zellij attach --create
 abbr --add zl zellij list-sessions
 
-abbr --add ce-a -- chezmoi edit --apply
-abbr --add cu -- chezmoi update
-abbr --add ca -- chezmoi apply
-abbr --add cra -- chezmoi re-add
+abbr --add chz -- chezmoi
 
 # abbr --add CC --position anywhere --set-cursor "% | fish_clipboard_copy"
 abbr --add aws.e --set-cursor "aws-vault exec % -- "
