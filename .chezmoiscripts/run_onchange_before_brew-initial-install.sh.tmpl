@@ -16,6 +16,7 @@ tap "microsoft/git"
 {{- end }}
 tap "rhysd/hgrep", "https://github.com/rhysd/hgrep"
 tap "rsteube/tap"
+tap "static-web-server/static-web-server"
 tap "ynqa/tap"
 brew "act"
 brew "actionlint"
@@ -81,6 +82,7 @@ brew "charmbracelet/tap/freeze"
 brew "rhysd/hgrep/hgrep"
 brew "rsteube/tap/carapace"
 brew "ynqa/tap/jnv"
+brew "static-web-server/static-web-server/static-web-server-bin"
 {{- if eq .chezmoi.os "linux" }}
 brew "vim"
 {{- else if eq .chezmoi.os "darwin" }}
