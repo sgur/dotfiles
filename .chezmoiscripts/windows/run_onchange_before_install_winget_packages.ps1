@@ -20,4 +20,5 @@ winget install --no-upgrade --source winget --id nathancorvussolis.corvusskk
 # From msstore
 winget install --no-upgrade --source msstore --name 'Microsoft PC Manager'
 winget install --no-upgrade --source msstore --name 'Microsoft To Do'
+winget install --no-upgrade --source msstore --name --exact Ubuntu
 winget install --no-upgrade --source msstore --name DevToys
