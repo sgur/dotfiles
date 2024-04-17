@@ -178,10 +178,11 @@ syntax_theme = "InspiredGitHub"
 # this section as per the examples)
 #
 [special_paths]
-"/media" = "no-enter"
+# "/media" = "no-enter"
 # "/media/slow-backup-disk" = "no-enter"
 # "/home/dys/useless" = "hide"
 # "/home/dys/my-link-I-want-to-explore" = "enter"
+".git" = "no-enter"
 
 ###############################################################
 # Imports
