@@ -26,11 +26,12 @@
 # default_flags:
 # D: Don't show the last modified date
 # F: Show folders and files alike
-# H: Don't show hidden files
+# g: Show git statuses on files and stats on repo
+# h: Show hidden files
 # I: Don't show git ignored files
 # P: Don't show permissions
 # S: Don't show sizes
-default_flags = "-gDFHIPS"
+default_flags = "-DFghIPS"
 
 ###############################################################
 # Date/Time format
