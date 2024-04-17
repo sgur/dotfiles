@@ -1,9 +1,6 @@
 +SENDWININICHANGE
 +SETDESKWALLPAPER
 +UPDATEINIFILE
-MQTT
-SPIF_+
-SPI_+
 adhoc
 alacritty
 antd
@@ -73,6 +70,7 @@ ldflags
 macchiato
 markdownlint
 mccabe
+MQTT
 msvs
 mswin
 msys
@@ -82,8 +80,8 @@ napi
 newermt
 nflg
 noconsole
-nord
 nodir
+nord
 ntuser
 omnisharp
 openpyxl
@@ -124,6 +122,8 @@ sider
 signin
 signup
 smush
+SPI_+
+SPIF_+
 statefull
 streetsidesoftware
 stylelintrc
@@ -137,6 +137,7 @@ typioca
 udev
 ulid
 unmarshall
+unoptimized
 uutils
 vcsh
 venv
