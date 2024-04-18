@@ -137,6 +137,12 @@ try
 	Write-Warning "Update PsReadline: pwsh -NoProfile -Command ""Install-Module PSReadLine -Force -AllowPrerelease"""
 }
 
+# chezmoi completions
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
+{
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Chezmoi.ps1')
+}
+
 # xh completions
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
 {
