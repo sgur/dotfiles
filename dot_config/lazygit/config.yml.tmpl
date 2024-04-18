@@ -2,7 +2,14 @@ gui:
   language: "en"
   expandFocusedSidePanel: true
   nerdFontsVersion: "3"
-{{ $themefile := joinPath .chezmoi.homeDir ".config" "lazygit" "themes" "macchiato" "macchiato-blue.yml" -}}
+
+{{- $themefile := "" -}}
+{{- if eq .chezmoi.os "windows" }}
+{{- $themefile = joinPath .chezmoi.homeDir ".config" "lazygit" "themes" "macchiato" "macchiato-blue.yml" -}}
+{{- else }}
+{{- $themefile = joinPath .chezmoi.homeDir ".config" "lazygit" "themes" "mocha" "mocha-blue.yml" -}}
+{{- end }}
+
 {{ if stat $themefile -}}
 {{ include $themefile | trim -}}
 {{- end }}
