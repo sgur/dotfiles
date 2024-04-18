@@ -11,6 +11,7 @@ winget pin add --id SlackTechnologies.Slack
 winget install --no-upgrade --source winget --id GnuPG.Gpg4win
 winget install --no-upgrade --source winget --id HermannSchinagl.LinkShellExtension
 winget install --no-upgrade --source winget --id Microsoft.PowerShell
+winget install --no-upgrade --source winget --id Microsoft.WindowsTerminal.Preview
 winget install --no-upgrade --source winget --id Microsoft.PowerToys
 winget install --no-upgrade --source winget --id Microsoft.VisualStudio.2022.Professional
 winget install --no-upgrade --source winget --id Microsoft.VisualStudioCode

@@ -531,13 +531,6 @@
     },
     {
       "Info": "",
-      "Version": "1.20.10822.0",
-      "Name": "windows-terminal-preview",
-      "Source": "versions",
-      "Updated": "2024-03-26T09:06:20.8234312+09:00"
-    },
-    {
-      "Info": "",
       "Version": "0.22.0",
       "Name": "xh",
       "Source": "main",

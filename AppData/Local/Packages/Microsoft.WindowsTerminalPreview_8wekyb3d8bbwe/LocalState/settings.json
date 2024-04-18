@@ -6,37 +6,9 @@
         {
             "command": 
             {
-                "action": "splitPane",
-                "split": "right"
-            },
-            "keys": "alt+shift+5"
-        },
-        {
-            "command": 
-            {
                 "action": "prevTab"
             },
             "keys": "ctrl+pgup"
-        },
-        {
-            "command": 
-            {
-                "action": "moveFocus",
-                "direction": "nextInOrder"
-            },
-            "keys": "alt+shift+o"
-        },
-        {
-            "command": 
-            {
-                "action": "splitPane",
-                "split": "down"
-            },
-            "keys": "alt+shift+'"
-        },
-        {
-            "command": "unbound",
-            "keys": "alt+enter"
         },
         {
             "command": 
@@ -55,24 +27,47 @@
         {
             "command": 
             {
-                "action": "moveTab",
-                "window": "new"
+                "action": "moveFocus",
+                "direction": "nextInOrder"
             },
-            "keys": "ctrl+alt+d"
+            "keys": "alt+shift+o"
+        },
+        {
+            "command": 
+            {
+                "action": "copy",
+                "singleLine": false
+            },
+            "keys": "ctrl+c"
+        },
+        {
+            "command": "paste",
+            "keys": "ctrl+v"
+        },
+        {
+            "command": "find",
+            "keys": "ctrl+shift+f"
+        },
+        {
+            "command": 
+            {
+                "action": "splitPane",
+                "split": "auto",
+                "splitMode": "duplicate"
+            },
+            "keys": "alt+shift+d"
         }
     ],
-    "copyFormatting": "html",
+    "copyFormatting": "none",
     "copyOnSelect": false,
     "defaultProfile": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
     "disabledProfileSources": 
     [
         "Windows.Terminal.Azure"
     ],
-    "experimental.rendering.forceFullRepaint": false,
     "initialCols": 136,
     "initialRows": 40,
     "language": "en-US",
-    "minimizeToNotificationArea": false,
     "newTabMenu": 
     [
         {
@@ -98,33 +93,25 @@
         "list": 
         [
             {
+                "commandline": "%SystemRoot%\\System32\\WindowsPowerShell\\v1.0\\powershell.exe",
                 "guid": "{61c54bbd-c2c6-5271-96e7-009a87ff44bf}",
                 "hidden": true,
                 "name": "Windows PowerShell"
             },
             {
+                "commandline": "%SystemRoot%\\System32\\cmd.exe",
                 "guid": "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}",
-                "hidden": true,
-                "name": "Command Prompt"
+                "hidden": false,
+                "name": "\u30b3\u30de\u30f3\u30c9 \u30d7\u30ed\u30f3\u30d7\u30c8"
             },
             {
-                "commandline": "%SystemRoot%\\System32\\cmd.exe /k clink inject",
-                "guid": "{1397cd8a-99e8-45c6-845a-6f48304e8c78}",
-                "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "Command Prompt w/ clink"
-            },
-            {
+                "colorScheme": "Catppuccin Macchiato",
                 "guid": "{574e775e-4f2a-5b96-ac1e-a2962a402336}",
                 "hidden": false,
-                "icon": "ms-appx:///ProfileIcons/pwsh.png",
-                "name": "PowerShell Core",
+                "name": "PowerShell",
                 "source": "Windows.Terminal.PowershellCore"
             },
             {
-                "colorScheme": 
-                {
-                    "light": "Catppuccin Mocha"
-                },
                 "commandline": "C:\\Windows\\system32\\wsl.exe --cd ~ -d Ubuntu --shell-type login",
                 "guid": "{2c4de342-38b7-51cf-b940-2309a097f518}",
                 "hidden": false,
@@ -132,49 +119,22 @@
                 "source": "Windows.Terminal.Wsl"
             },
             {
-                "colorScheme": "Ubuntu-ColorScheme",
-                "font": 
-                {
-                    "cellHeight": "1.1",
-                    "face": "Pending Mono HWNF",
-                    "size": 12.0
-                },
+                "guid": "{8448e079-efac-5a4e-a768-cb6848ba093f}",
+                "hidden": false,
+                "name": "Developer Command Prompt for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
+                "guid": "{0b08c41b-28d9-506f-8c1d-d90f6e4d74ca}",
+                "hidden": false,
+                "name": "Developer PowerShell for VS 2022",
+                "source": "Windows.Terminal.VisualStudio"
+            },
+            {
                 "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
                 "hidden": false,
                 "name": "Ubuntu",
                 "source": "CanonicalGroupLimited.Ubuntu_79rhkp1fndgsc"
-            },
-            {
-                "commandline": "pwsh.exe -NoExit -NoLogo -Command Enter-VsDevShell2019",
-                "guid": "{397c0622-21de-4e1a-bf9e-4321d92fa74b}",
-                "hidden": false,
-                "icon": "%ProgramFiles(x86)%\\Microsoft Visual Studio\\2019\\Professional\\Common7\\IDE\\Assets\\VisualStudio.70x70.contrast-standard_scale-180.png",
-                "name": "Developer PowerShell for VS 2019",
-                "startingDirectory": "%USERPROFILE%",
-                "suppressApplicationTitle": true
-            },
-            {
-                "commandline": "pwsh.exe -NoExit -NoLogo -Command Enter-VsDevShell2022",
-                "guid": "{c8411038-c4da-4acd-a899-3fb2c25aea53}",
-                "hidden": false,
-                "icon": "%ProgramFiles%\\Microsoft Visual Studio\\2022\\Professional\\Common7\\IDE\\Assets\\VisualStudio.70x70.contrast-standard_scale-180.png",
-                "name": "Developer PowerShell for VS 2022",
-                "startingDirectory": "%USERPROFILE%",
-                "suppressApplicationTitle": true
-            },
-            {
-                "closeOnExit": "always",
-                "commandline": "wsl -u root -- sh -c 'docker logs --follow --tail 30 cntlm'",
-                "guid": "{bc8c78c4-c8d4-4f7a-92a3-001ded7e2829}",
-                "name": "cntlm log (Docker)"
-            },
-            {
-                "commandline": "nu.exe",
-                "guid": "{bd1798dd-07aa-4319-ae8e-d400b4a02fd5}",
-                "hidden": false,
-                "icon": "ms-appx:///ProfileIcons/{0caa0dad-35be-5f56-a8ff-afceeeaa6101}.png",
-                "name": "nushell",
-                "startingDirectory": "%USERPROFILE%"
             }
         ]
     },
@@ -429,7 +389,7 @@
             "name": "One Half Light",
             "purple": "#A626A4",
             "red": "#E45649",
-            "selectionBackground": "#FFFFFF",
+            "selectionBackground": "#4F525D",
             "white": "#FAFAFA",
             "yellow": "#C18301"
         },
@@ -475,32 +435,9 @@
             "name": "Solarized Light",
             "purple": "#D33682",
             "red": "#DC322F",
-            "selectionBackground": "#FFFFFF",
+            "selectionBackground": "#073642",
             "white": "#EEE8D5",
             "yellow": "#B58900"
-        },
-        {
-            "background": "#241B30",
-            "black": "#241B30",
-            "blue": "#6E29AD",
-            "brightBlack": "#7F7094",
-            "brightBlue": "#AA54F9",
-            "brightCyan": "#00FBFD",
-            "brightGreen": "#0AE4A4",
-            "brightPurple": "#FF00F6",
-            "brightRed": "#E60A70",
-            "brightWhite": "#F2F2E3",
-            "brightYellow": "#F9F972",
-            "cursorColor": "#F2F2E3",
-            "cyan": "#00B0B1",
-            "foreground": "#F2F2E3",
-            "green": "#00986C",
-            "name": "SynthwaveAlpha",
-            "purple": "#B300AD",
-            "red": "#E60A70",
-            "selectionBackground": "#6E29AD",
-            "white": "#B9B1BC",
-            "yellow": "#ADAD3E"
         },
         {
             "background": "#000000",
@@ -544,32 +481,32 @@
             "name": "Tango Light",
             "purple": "#75507B",
             "red": "#CC0000",
-            "selectionBackground": "#FFFFFF",
+            "selectionBackground": "#555753",
             "white": "#D3D7CF",
             "yellow": "#C4A000"
         },
         {
-            "background": "#300A24",
-            "black": "#171421",
-            "blue": "#0037DA",
-            "brightBlack": "#767676",
-            "brightBlue": "#08458F",
-            "brightCyan": "#2C9FB3",
-            "brightGreen": "#26A269",
-            "brightPurple": "#A347BA",
-            "brightRed": "#C01C28",
-            "brightWhite": "#F2F2F2",
-            "brightYellow": "#A2734C",
-            "cursorColor": "#FFFFFF",
-            "cyan": "#3A96DD",
-            "foreground": "#FFFFFF",
-            "green": "#26A269",
-            "name": "Ubuntu-22.04-ColorScheme",
-            "purple": "#881798",
-            "red": "#C21A23",
-            "selectionBackground": "#FFFFFF",
-            "white": "#CCCCCC",
-            "yellow": "#A2734C"
+            "background": "#1A1B26",
+            "black": "#15161E",
+            "blue": "#7AA2F7",
+            "brightBlack": "#414868",
+            "brightBlue": "#7AA2F7",
+            "brightCyan": "#7DCFFF",
+            "brightGreen": "#9ECE6A",
+            "brightPurple": "#BB9AF7",
+            "brightRed": "#F7768E",
+            "brightWhite": "#C0CAF5",
+            "brightYellow": "#E0AF68",
+            "cursorColor": "#C0CAF5",
+            "cyan": "#7DCFFF",
+            "foreground": "#C0CAF5",
+            "green": "#9ECE6A",
+            "name": "Tokyo Night",
+            "purple": "#BB9AF7",
+            "red": "#F7768E",
+            "selectionBackground": "#33467C",
+            "white": "#A9B1D6",
+            "yellow": "#E0AF68"
         },
         {
             "background": "#300A24",
@@ -616,130 +553,8 @@
             "selectionBackground": "#FFFFFF",
             "white": "#C0C0C0",
             "yellow": "#808000"
-        },
-        {
-            "background": "#1A1B26",
-            "black": "#15161E",
-            "blue": "#7AA2F7",
-            "brightBlack": "#414868",
-            "brightBlue": "#7AA2F7",
-            "brightCyan": "#7DCFFF",
-            "brightGreen": "#9ECE6A",
-            "brightPurple": "#BB9AF7",
-            "brightRed": "#F7768E",
-            "brightWhite": "#C0CAF5",
-            "brightYellow": "#E0AF68",
-            "cursorColor": "#C0CAF5",
-            "cyan": "#7DCFFF",
-            "foreground": "#C0CAF5",
-            "green": "#9ECE6A",
-            "name": "tokyonight",
-            "purple": "#BB9AF7",
-            "red": "#F7768E",
-            "selectionBackground": "#33467C",
-            "white": "#A9B1D6",
-            "yellow": "#E0AF68"
         }
     ],
-    "showTerminalTitleInTitlebar": false,
-    "startOnUserLogin": false,
-    "tabWidthMode": "equal",
-    "theme": "system",
-    "themes": 
-    [
-        {
-            "name": "Catppuccin Frappe",
-            "tab": 
-            {
-                "background": "#303446FF",
-                "iconStyle": "default",
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "tabRow": 
-            {
-                "background": "#292C3CFF",
-                "unfocusedBackground": "#232634FF"
-            },
-            "window": 
-            {
-                "applicationTheme": "dark",
-                "experimental.rainbowFrame": false,
-                "frame": null,
-                "unfocusedFrame": null,
-                "useMica": false
-            }
-        },
-        {
-            "name": "Catppuccin Latte",
-            "tab": 
-            {
-                "background": "#EFF1F5FF",
-                "iconStyle": "default",
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "tabRow": 
-            {
-                "background": "#E6E9EFFF",
-                "unfocusedBackground": "#DCE0E8FF"
-            },
-            "window": 
-            {
-                "applicationTheme": "light",
-                "experimental.rainbowFrame": false,
-                "frame": null,
-                "unfocusedFrame": null,
-                "useMica": false
-            }
-        },
-        {
-            "name": "Catppuccin Macchiato",
-            "tab": 
-            {
-                "background": "#24273AFF",
-                "iconStyle": "default",
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "tabRow": 
-            {
-                "background": "#1E2030FF",
-                "unfocusedBackground": "#181926FF"
-            },
-            "window": 
-            {
-                "applicationTheme": "dark",
-                "experimental.rainbowFrame": false,
-                "frame": null,
-                "unfocusedFrame": null,
-                "useMica": false
-            }
-        },
-        {
-            "name": "Catppuccin Mocha",
-            "tab": 
-            {
-                "background": "#1E1E2EFF",
-                "iconStyle": "default",
-                "showCloseButton": "always",
-                "unfocusedBackground": null
-            },
-            "tabRow": 
-            {
-                "background": "#181825FF",
-                "unfocusedBackground": "#11111BFF"
-            },
-            "window": 
-            {
-                "applicationTheme": "dark",
-                "experimental.rainbowFrame": false,
-                "frame": null,
-                "unfocusedFrame": null,
-                "useMica": false
-            }
-        }
-    ],
-    "useAcrylicInTabRow": true,
-    "windowingBehavior": "useExisting"
+    "themes": [],
+    "useAcrylicInTabRow": true
 }
