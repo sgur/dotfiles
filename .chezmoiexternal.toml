@@ -17,6 +17,27 @@ type = "archive-file"
 url = "https://sourceforge.net/projects/wordlist/files/speller/2020.12.07/wordlist-en_US-2020.12.07.zip/download"
 path = "en_US.txt"
 
+{{ if eq .chezmoi.os "windows" }}
+["AppData/Roaming/helix/themes/catppuccin_frappe.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://raw.githubusercontent.com/catppuccin/helix/main/themes/default/catppuccin_frappe.toml"
+
+["AppData/Roaming/helix/themes/catppuccin_latte.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://raw.githubusercontent.com/catppuccin/helix/main/themes/default/catppuccin_latte.toml"
+
+["AppData/Roaming/helix/themes/catppuccin_macchiato.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://raw.githubusercontent.com/catppuccin/helix/main/themes/default/catppuccin_macchiato.toml"
+
+["AppData/Roaming/helix/themes/catppuccin_mocha.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://raw.githubusercontent.com/catppuccin/helix/main/themes/default/catppuccin_mocha.toml"
+{{ else }}
 [".config/helix/themes/catppuccin_frappe.toml"]
 type = "file"
 refreshPeriod = "168h" # 1-week
@@ -36,6 +57,7 @@ url = "https://raw.githubusercontent.com/catppuccin/helix/main/themes/default/ca
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://raw.githubusercontent.com/catppuccin/helix/main/themes/default/catppuccin_mocha.toml"
+{{ end }}
 
 [".config/gitui/themes"]
 type = "archive"

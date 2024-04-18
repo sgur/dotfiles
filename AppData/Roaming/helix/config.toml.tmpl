@@ -1,0 +1,2 @@
+{{- $config := joinPath .chezmoi.homeDir ".config" "helix" "config.toml" | include | fromToml -}}
+{{- set $config "theme" "catppuccin_macchiato" | toToml -}}
