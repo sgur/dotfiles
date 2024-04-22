@@ -9,14 +9,6 @@ if (-not $Env:CHEZMOI_GITHUB_ACCESS_TOKEN)
 $Ext = @{}
 $IsEmojiSupported = $Env:WT_SESSION -Or $Env:ALACRITTY_LOG
 
-# Scoop Dir
-$ScoopDir = Join-Path -Path $Env:USERPROFILE -ChildPath "scoop"
-if ($Env:SCOOP)
-{
-	$ScoopDir = $Env:SCOOP
-}
-$ScoopShimsDir = Join-Path -Path $ScoopDir -ChildPath "shims"
-
 $NonInteractive = ([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).Length -gt 0
 if ($NonInteractive)
 {
@@ -26,9 +18,8 @@ if ($NonInteractive)
 $CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
 # $CurrentUserScripts = $PSGetPath.CurrentUserScripts
 
-# $EDITOR を Helix にする
-$Env:EDITOR = ((Get-Command hx.exe).Source -replace '\\', '\\')
-$Env:GIT_EDITOR = ((Get-Command vim.exe).Source -replace '\\', '\\')
+$Env:PATH = @([IO.PATH]::Combine($Env:ProgramFiles, "Vim", "vim91"), $Env:PATH) -join [IO.PATH]::PathSeparator
+$Env:EDITOR = "gvim.exe"
 
 # VSCode 上の Integrated Terminal から起動した場合
 if ($Env:TERM_PROGRAM -eq "vscode")
@@ -71,24 +62,6 @@ try
 }
 
 Set-Alias -Name chz -Value chezmoi
-
-Set-PSReadLineOption -CommandValidationHandler {
-    param([System.Management.Automation.Language.CommandAst] $CommandAst)
-
-    switch ($CommandAst.GetCommandName()) {
-        'scoop' {
-            $scoopCmd = $CommandAst.CommandElements[1].Extent
-            switch ($scoopCmd.Text) {
-                'up' {
-                    [Microsoft.PowerShell.PSConsoleReadLine]::Replace(
-                        $scoopCmd.StartOffset, $scoopCmd.EndOffset - $scoopCmd.StartOffset, 'update -q && scoop status')
-                }
-            }
-        }
-    }
-}
-# This checks the validation script when you hit enter
-Set-PSReadLineKeyHandler -Chord Enter -Function ValidateAndAcceptLine
 
 ## Prediction
 try
@@ -141,16 +114,6 @@ try
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 {
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Chezmoi.ps1')
-}
-
-# xh completions
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
-{
-	$Ext.xh = $true
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Xh.ps1')
-} else
-{
-	$Ext.xh = $false
 }
 
 # bat
@@ -347,31 +310,6 @@ Set-Alias -Name fzf-zoxide -Value Select-ZoxideHistory
 Set-PSReadLineKeyHandler -Chord Alt+z -ScriptBlock {
 	Select-ZoxideHistory
 }
-# AWS CLI のコマンド補完
-if (Test-Path -ErrorAction Stop -Path (Join-Path -Path $ScoopShimsDir -ChildPath 'aws_completer.exe'))
-{
-	Register-ArgumentCompleter -Native -CommandName aws -ScriptBlock {
-		param($commandName, $wordToComplete, $cursorPosition)
-		$Env:COMP_LINE=$wordToComplete
-		$Env:COMP_POINT=$cursorPosition
-		aws_completer.exe | ForEach-Object {
-			[System.Management.Automation.CompletionResult]::new($_, $_, 'ParameterValue', $_)
-		}
-		Remove-Item Env:\COMP_LINE
-		Remove-Item Env:\COMP_POINT
-	}
-}
-
-# Windows デフォルトの curl を利用しない
-function Initialize-Curl
-{
-	$CurlBin = Join-Path -Path $ScoopDir -ChildPath "apps" -AdditionalChildPath "curl", "current", "bin"
-	if (Test-Path (Join-Path -Path $CurlBin -ChildPath "curl.exe"))
-	{
-		$Env:PATH = @($CurlBin, $Env:PATH) -join [IO.PATH]::PathSeparator
-	}
-}
-Initialize-Curl
 
 # aliases
 
@@ -380,7 +318,7 @@ Set-Alias -Name open -Value Start-Process
 # spell-checker: disable
 $CoreutilsBin = @("basename", "cat", "chmod", "comm", "cp", "cut", "cygpath",
 	"date", "diff", "dirname", "echo", "env", "expr", "false", "fold", "grep",
-	"head", "id", "install", "join", "ln", "ls", "md5sum", "mkdir", "mv", "od",
+	"head", "id", "install", "join", "ln", "md5sum", "mkdir", "mv", "od",
 	"paste", "printf", "ps", "pwd", "rm", "rmdir", "sleep", "sort", "split", "stty",
 	"tail", "tee", "touch", "tr", "true", "uname", "uniq", "wc", "iconv")
 # "msysmnt" is excluded from coreutils
@@ -400,32 +338,10 @@ $CoreutilsBin | ForEach-Object {
 	}
 }
 
-function Unregister-GitCoreutilsShims
-{
-	& scoop shim rm ($CoreutilsBin -Join " ")
-}
-
-function Register-GitCoreutilsShims
-{
-	$ScoopGitBinDir = Join-Path -Path $ScoopDir -ChildPath "apps" -AdditionalChildPath "git", "current", "usr", "bin"
-	$CoreutilsBin | ForEach-Object {
-		$BinPath = Join-Path -Path $ScoopGitBinDir -ChildPath "$_.exe"
-		if ($_ -eq "rm")
-		{
-			& scoop shim add $_ $BinPath '--' --interactive=once
-		} elseif ($ConfirmationRequiredBin.Contains($_))
-		{
-			& scoop shim add $_ $BinPath '--' --interactive
-		} else
-		{
-			& scoop shim add $_ $BinPath
-		}
-	}
-}
-
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 {
 	$Ext.eza = $true
+	Remove-Item -Force -Path Alias:ls
 	$IconOption = $IsEmojiSupported ? "--icons" : $null
 	function global:ls
 	{
@@ -435,10 +351,6 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 } else
 {
 	$Ext.eza = $false
-	function global:ls
-	{
-		& ls.exe --classify --color=auto --human-readable --dereference-command-line-symlink-to-dir --hide=_* --hide=.* --ignore=NTUSER.* --ignore=ntuser.* --ignore='Application Data' --ignore='Local Settings' --ignore='My Documents' --ignore='Start Menu' --ignore='スタート メニュー' --hide='*scoopappsyarncurrent*' $args
-	}
 }
 
 # gsudo

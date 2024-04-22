@@ -1,6 +1,0 @@
-{{- if lookPath "scoop" }}
-{{- $scoopJson := joinPath .chezmoi.sourceDir "scoopfile.json" -}}
-# scoopfile.json hash: {{ $scoopJson | include | sha256sum }}
-
-& scoop import {{ $scoopJson }}
-{{- end }}

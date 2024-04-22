@@ -1,1 +1,2 @@
-{{- joinPath .chezmoi.homeDir "scoop" "apps" "chezmoi" "current" "completions" "chezmoi.ps1" -}}
+{{- joinPath (lookPath "chezmoi" | osDir | osDir) "Packages" "twpayne.chezmoi_Microsoft.Winget.Source_8wekyb3d8bbwe" "completions" "chezmoi.ps1" -}}
+

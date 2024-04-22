@@ -252,6 +252,11 @@ url = "https://api.github.com/repos/metafates/buffer-language-server/commits/mai
 # GitHub release cache
 
 {{ if eq .chezmoi.os "windows" }}
+[".cache/chezmoi-releases/ghq.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/x-motemen/ghq/releases/latest"
+
 [".cache/chezmoi-releases/hgrep.json"]
 type = "file"
 refreshPeriod = "168h" # 1-week
