@@ -28,10 +28,15 @@ winget install --no-upgrade --source winget --id vim.vim.nightly
 
 winget install --no-upgrade --source winget --id BurntSushi.ripgrep.MSVC
 winget install --no-upgrade --source winget --id Dystroy.broot
+winget install --no-upgrade --source winget --id Helix.Helix
+winget install --no-upgrade --source winget --id JesseDuffield.lazygit
 winget install --no-upgrade --source winget --id Rustlang.Rustup
 winget install --no-upgrade --source winget --id ajeetdsouza.zoxide
+winget install --no-upgrade --source winget --id ducaale.xh
 winget install --no-upgrade --source winget --id eza-community.eza
 winget install --no-upgrade --source winget --id junegunn.fzf
+winget install --no-upgrade --source winget --id pnpm.pnpm
+winget install --no-upgrade --source winget --id sharkdp.bat
 
 # From msstore
 winget install --no-upgrade --source msstore --name 'Microsoft PC Manager'

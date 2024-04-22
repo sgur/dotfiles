@@ -135,6 +135,11 @@ if !has('win32') && !has('win64')
   if $XMODIFIERS is '@im=fcitx'
     source <sfile>:h/macros/vimrc.fcitx
   endif #}}}
+else
+  if isdirectory(expand('~/.proto')) && !executable('node')
+    $PROTO_HOME = expand('~/.proto')
+    $PATH = [expand($PROTO_HOME .. '/shims'), expand($PROTO_HOME .. '/bin'), $PATH]->join(';')
+  endif
 endif
 
 
