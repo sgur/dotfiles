@@ -116,6 +116,17 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Chezmoi.ps1')
 }
 
+# xh completions
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
+{
+	$Ext.xh = $true
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Xh.ps1')
+} else
+{
+	$Ext.xh = $false
+}
+
+
 # bat
 $Env:BAT_CONFIG_PATH = (Resolve-Path "~/.config/bat/config").Path
 
