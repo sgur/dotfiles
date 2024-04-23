@@ -460,32 +460,19 @@ lsp_servers += [{
 
 # initialize
 
-## ファイルの先頭に "vim9script" があったら Diag を無効化する
-def DisableDiagOnFileType()
-  if getline(1, 5)->join()->match('^vim9script') > -1
-    LspDiag highlight disable
-
-    echohl WarningMsg
-    echomsg expand('<afile>') ':LspDiag highlight disable'
-    echohl None
+def DisableDiag(condition: bool = true)
+  if !condition
     return
   endif
-enddef
-
-def DisableDiagOnChezmoiTemplate()
   LspDiag highlight disable
-
-  echohl WarningMsg
-  echomsg expand('<afile>') ':LspDiag highlight disable'
-  echohl None
-  return
 enddef
 
 lsp_servers->filter((_, v) => !empty(v.path))
 augroup vimrc_lsp_init
   autocmd!
-  autocmd FileType vim  DisableDiagOnFileType()
-  autocmd BufReadPost *.tmpl  DisableDiagOnChezmoiTemplate()
+  # ファイルの先頭に "vim9script" があったら Diag を無効化する
+  autocmd FileType vim  DisableDiag(getline(1, 5)->join()->match('^vim9script') > -1)
+  autocmd BufReadPost *.tmpl  DisableDiag()
   autocmd VimEnter * ++once g:LspOptionsSet(lsp_options) | g:LspAddServer(lsp_servers)
   # Multiple python LSP servers configured but only the first is running
   # https://github.com/yegappan/lsp/issues/384
