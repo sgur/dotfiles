@@ -16,7 +16,7 @@ winget install --no-upgrade --source winget --id Microsoft.VisualStudioCode
 
 winget install --no-upgrade --source winget --id 7zip.7zip
 winget install --no-upgrade --source winget --id Ditto.Ditto
-winget install --no-upgrade --source winget --id Git.Git
+winget install --no-upgrade --source winget --id Git.MinGit.Busybox
 winget install --no-upgrade --source winget --id GnuPG.Gpg4win
 winget install --no-upgrade --source winget --id Greenshot.Greenshot
 winget install --no-upgrade --source winget --id HermannSchinagl.LinkShellExtension

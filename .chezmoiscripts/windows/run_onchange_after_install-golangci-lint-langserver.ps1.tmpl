@@ -3,6 +3,8 @@
 {{ $cliAsset := printf "golangci-lint-%s-%s-%s.zip" (trimPrefix "v" $cliTagName) .chezmoi.os .chezmoi.arch -}}
 {{ $cliUrl := printf "https://github.com/golangci/golangci-lint/releases/download/%s/%s" $cliTagName $cliAsset }}
 
+Resolve-Path {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }} | New-Item -ItemType Directory -ErrorAction SilentlyContinue
+
 Invoke-WebRequest {{ $cliUrl | quote }} -OutFile {{ $cliAsset }}
 
 Expand-Archive -Force -Path {{ $cliAsset }}

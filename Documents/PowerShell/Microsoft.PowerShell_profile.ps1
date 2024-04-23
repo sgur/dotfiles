@@ -20,6 +20,7 @@ $CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
 
 $Env:PATH = @([IO.PATH]::Combine($Env:ProgramFiles, "Vim", "vim91"), $Env:PATH) -join [IO.PATH]::PathSeparator
 $Env:EDITOR = "gvim.exe"
+$Env:GIT_EDITOR = "vim.exe"
 
 # VSCode 上の Integrated Terminal から起動した場合
 if ($Env:TERM_PROGRAM -eq "vscode")
@@ -336,17 +337,64 @@ $CoreutilsBin = @("basename", "cat", "chmod", "comm", "cp", "cut", "cygpath",
 $ReadonlyBin = @("tee", "diff", "ls", "sleep", "sort")
 $ConfirmationRequiredBin = @("cp", "mv")
 # spell-checker: enable
-$CoreutilsBin | ForEach-Object {
-	if (Test-Path Alias:$_)
-	{
-		if ($ReadonlyBin.Contains($_))
+try {
+	$GitBinDir = Get-Command -Type Application -Name git
+	$CoreutilsBin | ForEach-Object {
+		if (Test-Path Alias:$_)
 		{
-			Remove-Item -Force -Path Alias:$_
-		} else
-		{
-			Remove-Item -Path Alias:$_
+			if ($ReadonlyBin.Contains($_))
+			{
+				Remove-Item -Force -Path Alias:$_
+			} else
+			{
+				Remove-Item -Path Alias:$_
+			}
 		}
 	}
+	if ($GitBinDir.Source -like '*\Microsoft\WinGet\*') {
+		$GitDir = $GitBinDir | Split-Path -Parent | Split-Path -Parent
+		$BusyBoxPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe" "mingw64" "bin" "busybox.exe"
+		Set-Alias -Name busybox -Value $BusyBoxPath
+		$CoreutilsBin | ForEach-Object {
+			$Flag = @("cp", "mv", "rm").contains($_) ? "-i" : ""
+			@"
+			function global:$_
+			{
+				& $BusyBoxPath $_ $Flag
+			}
+"@ | Invoke-Expression
+		}
+	} else
+	{
+		$GitDir = $GitBinDir | Split-Path -Parent | Split-Path -Parent
+		$CoreutilsBin | ForEach-Object {
+			$BinPath = Join-Path -Path $GitDir -ChildPath "usr" "bin" "$_.exe"
+			if (@("cp", "mv").contains($_))
+			{
+				@"
+				function global:$_
+				{
+					& $_.exe --interactive
+				}
+"@ | Invoke-Expression
+			}
+			elseif ($_ -eq "rm")
+			{
+				@"
+				function global:rm
+				{
+					& rm.exe --interactive=once
+				}
+"@ | Invoke-Expression
+			} else
+			{
+				Set-Alias -Name $_ -Value $BinPath
+			}
+		}
+	}
+}
+finally {
+	Remove-Variable -Name GitBinDir, GitDir
 }
 
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
@@ -567,18 +615,6 @@ function Invoke-AwsVault
 		$Env:AWS_SESSION_TOKEN = $Sessiontoken
 		$Env:AWS_CREDENTIAL_EXPIRATION=$Expiration
 	}
-}
-
-# carapace
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name carapace)
-{
-	$Ext.carapace = $true
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Carapace.ps1')
-	Set-PSReadLineOption -Colors @{ "Selection" = "`e[7m" }
-	Set-PSReadlineKeyHandler -Key Tab -Function MenuComplete
-} else
-{
-	$Ext.carapace = $false
 }
 
 # proto
