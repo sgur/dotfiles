@@ -19,8 +19,7 @@ $CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
 # $CurrentUserScripts = $PSGetPath.CurrentUserScripts
 
 $Env:PATH = @([IO.PATH]::Combine($Env:ProgramFiles, "Vim", "vim91"), $Env:PATH) -join [IO.PATH]::PathSeparator
-$Env:EDITOR = "gvim.exe"
-$Env:GIT_EDITOR = "vim.exe"
+$Env:EDITOR = "gvim.exe -f --remote-tab-wait-silent"
 
 # VSCode 上の Integrated Terminal から起動した場合
 if ($Env:TERM_PROGRAM -eq "vscode")
