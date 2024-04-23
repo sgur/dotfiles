@@ -360,7 +360,7 @@ try {
 			@"
 			function global:$_
 			{
-				& $BusyBoxPath $_ $Flag
+				& $BusyBoxPath $_ $Flag `$args
 			}
 "@ | Invoke-Expression
 		}
@@ -374,7 +374,7 @@ try {
 				@"
 				function global:$_
 				{
-					& $_.exe --interactive
+					& $_.exe --interactive `$args
 				}
 "@ | Invoke-Expression
 			}
@@ -383,7 +383,7 @@ try {
 				@"
 				function global:rm
 				{
-					& rm.exe --interactive=once
+					& rm.exe --interactive=once `$args
 				}
 "@ | Invoke-Expression
 			} else
