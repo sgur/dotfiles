@@ -190,7 +190,7 @@ augroup vimrc_plugin_lsp_buffer
   else
     " buffer source
     autocmd User asyncomplete_setup
-          \  asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options({
+          \  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options(#{
           \   name: 'asyncomplete_buffer',
           \   allowlist: ['*'],
           \   completor: function('asyncomplete#sources#buffer#completor')
@@ -246,6 +246,7 @@ endif
 if !has('vim_starting')
   runtime! plugin/lsp.vim
   runtime! plugin/asyncomplete-lsp.vim
+  runtime! plugin/asyncomplete.vim
   runtime! plugin/lsp_settings.vim
   runtime! plugin/vsnip_integ.vim
   call lsp#enable()
