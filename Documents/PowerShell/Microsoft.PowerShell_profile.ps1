@@ -373,7 +373,7 @@ try {
 				@"
 				function global:$_
 				{
-					& $_.exe --interactive `$args
+					& "$BinPath" --interactive `$args
 				}
 "@ | Invoke-Expression
 			}
@@ -382,7 +382,7 @@ try {
 				@"
 				function global:rm
 				{
-					& rm.exe --interactive=once `$args
+					& "$BinPath" --interactive=once `$args
 				}
 "@ | Invoke-Expression
 			} else
