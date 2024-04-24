@@ -61,6 +61,20 @@ try
 	Write-Warning "Updates needed: pwsh -NoProfile -Command ""Update-Module PSReadLine -Force -AllowPrerelease"""
 }
 
+Set-PSReadLineOption -CommandValidationHandler {
+    param([System.Management.Automation.Language.CommandAst] $CommandAst)
+
+    foreach($Element in $CommandAst.CommandElements) {
+        $Token = $Element.Extent
+        if ($Token.Text.Contains('~') && [IO.PATH]::Exists($Token.Text)) {
+            [Microsoft.PowerShell.PSConsoleReadLine]::Replace(
+                    $Token.StartOffset, $Token.EndOffset - $Token.StartOffset, $Token.Text.Replace('~', $Env:USERPROFILE))
+        }
+    }
+}
+# This checks the validation script when you hit enter
+Set-PSReadLineKeyHandler -Chord Enter -Function ValidateAndAcceptLine
+
 Set-Alias -Name chz -Value chezmoi
 
 ## Prediction
