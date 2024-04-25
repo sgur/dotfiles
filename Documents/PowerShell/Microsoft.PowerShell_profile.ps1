@@ -451,7 +451,7 @@ if (Get-Command -ErrorAction SilentlyContinue "br")
 
 # WinGet completion
 # https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md#powershell
-if (Get-Command -ErrorAction SilentlyContinue winget.exe | Out-Null)
+if (Get-Command -ErrorAction SilentlyContinue -Name winget)
 {
 	Register-ArgumentCompleter -Native -CommandName winget -ScriptBlock {
 		param($wordToComplete, $commandAst, $cursorPosition)

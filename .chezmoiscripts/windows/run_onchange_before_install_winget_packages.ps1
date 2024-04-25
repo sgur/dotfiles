@@ -37,6 +37,7 @@ winget install --no-upgrade --source winget --id eza-community.eza
 winget install --no-upgrade --source winget --id junegunn.fzf
 winget install --no-upgrade --source winget --id pnpm.pnpm
 winget install --no-upgrade --source winget --id sharkdp.bat
+winget install --no-upgrade --source winget --id Orange-OpenSource.Hurl
 
 # From msstore
 winget install --no-upgrade --source msstore --name 'Microsoft PC Manager'
