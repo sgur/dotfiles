@@ -163,7 +163,15 @@ if has('vim_starting') && !has('gui_running')
     set t_8b=[48;2;%lu;%lu;%lum
   endif #}}}
   if !has('gui_running')
-    vnoremap <RightMouse>  "*y
+    if has('win32')
+      vnoremap <RightMouse>  "*y
+    elseif executable('pbcopy')
+      def YankVisualToClipboard()
+        const visual_region = getregion(getpos('v'), getpos('.'), {type: mode()})
+        system('pbcopy', visual_region)
+      enddef
+      vnoremap <RightMouse>   <ScriptCmd>YankVisualToClipboard()<CR>
+    endif
   endif
 endif
 
@@ -378,8 +386,8 @@ augroup END
 
 # Openable {{{2
 command! -complete=file -nargs=1 Open  openable#start(<q-args>)
-nnoremap <silent> gx  <Cmd>call openable#parse('n')<CR>
-vnoremap <silent> gx  <Cmd>call openable#parse('v')<CR>
+nnoremap <silent> gx  <Cmd>openable#parse('n')<CR>
+vnoremap <silent> gx  <Cmd>openable#parse('v')<CR>
 
 # FoldMiss (http://vim.wikia.com/wiki/Folding_for_Quickfix) {{{2
 import autoload 'foldmiss.vim'
