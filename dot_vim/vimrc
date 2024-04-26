@@ -450,6 +450,21 @@ augroup vimrc_plugin_autofmt
 augroup END
 g:autofmt_allow_over_tw = 1 # 全角文字ぶら下がりで1カラムはみ出すのを許可
 
+# catppuccin (opt) {{{2
+augroup vimrc_colorscheme_catppuccin
+  autocmd!
+  autocmd ColorScheme catppuccin_macchiato
+        \   hi SpellBad guifg=black guibg=#ED8796 ctermfg=black ctermbg=9 gui=underline
+        \ | hi SpellCap guifg=black guibg=#EED49F ctermfg=black ctermbg=12 gui=underline
+        \ | hi SpellRare guifg=black guibg=#A6DA95 ctermfg=black ctermbg=13 gui=underline
+        \ | hi SpellLocal guifg=black guibg=#8AADF4 ctermfg=black ctermbg=14 gui=underline
+  autocmd ColorScheme catppuccin_mocha
+        \   hi SpellBad guifg=black guibg=#F38BA8 ctermfg=black ctermbg=9 gui=underline
+        \ | hi SpellCap guifg=black guibg=#F9E2AF ctermfg=black ctermbg=12 gui=underline
+        \ | hi SpellRare guifg=black guibg=#A6E3A1 ctermfg=black ctermbg=13 gui=underline
+        \ | hi SpellLocal guifg=black guibg=#89B4FA ctermfg=black ctermbg=14 gui=underline
+augroup END
+
 # commentary (opt) {{{2
 pack.Add('vim-commentary')
 
