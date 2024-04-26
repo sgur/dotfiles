@@ -130,18 +130,6 @@
                 "source": "Windows.Terminal.Wsl"
             },
             {
-                "guid": "{8448e079-efac-5a4e-a768-cb6848ba093f}",
-                "hidden": false,
-                "name": "Developer Command Prompt for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
-                "guid": "{0b08c41b-28d9-506f-8c1d-d90f6e4d74ca}",
-                "hidden": false,
-                "name": "Developer PowerShell for VS 2022",
-                "source": "Windows.Terminal.VisualStudio"
-            },
-            {
                 "colorScheme": "Ubuntu-ColorScheme",
                 "guid": "{51855cb2-8cce-5362-8f54-464b92b32386}",
                 "hidden": false,
@@ -568,5 +556,5 @@
         }
     ],
     "themes": [],
-    "useAcrylicInTabRow": true
+    "useAcrylicInTabRow": false
 }
