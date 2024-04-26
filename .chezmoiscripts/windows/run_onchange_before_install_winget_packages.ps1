@@ -39,6 +39,7 @@ winget install --no-upgrade --source winget --id Wilfred.difftastic
 winget install --no-upgrade --source winget --id ajeetdsouza.zoxide
 winget install --no-upgrade --source winget --id ducaale.xh
 winget install --no-upgrade --source winget --id eza-community.eza
+winget install --no-upgrade --source winget --id jftuga.less
 winget install --no-upgrade --source winget --id junegunn.fzf
 winget install --no-upgrade --source winget --id pnpm.pnpm
 winget install --no-upgrade --source winget --id sharkdp.bat
