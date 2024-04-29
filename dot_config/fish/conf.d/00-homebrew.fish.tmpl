@@ -34,7 +34,11 @@ if not contains $HOMEBREW_PREFIX/share/fish/vendor_completions.d $fish_complete_
     set -gx fish_complete_path $HOMEBREW_PREFIX/share/fish/vendor_completions.d $fish_complete_path
 end
 
-set -gx HOMEBREW_CURLRC 1
+if test -f ~/.curlrc
+    set -gx HOMEBREW_CURLRC 1
+endif
+# 30 min.
+set -gx HOMEBREW_AUTO_UPDATE_SECS 1800
 
 {{ range (list "openssl@3" "openssl@1.1") -}}
 {{   if get (joinPath (env "HOMEBREW_PREFIX") "opt" . | stat) "isDir" -}}
