@@ -1,0 +1,15 @@
+{{- $wingetJson := joinPath .chezmoi.sourceDir "winget.json"  -}}
+# Pin system apps
+@("Microsoft.Edge",
+	"Microsoft.EdgeWebView2Runtime",
+	"Microsoft.Office",
+	"Microsoft.OneDrive",
+	"Microsoft.Teams",
+	"Microsoft.Teams.Classic",
+	"SlackTechnologies.Slack"
+) | ForEach-Object {
+	& winget pin add --exact --id $_
+}
+
+# winget packages hash: {{ $wingetJson | include | sha256sum }}
+winget import --no-upgrade --accept-package-agreements --accept-source-agreements --import-file {{ $wingetJson | quote }}
