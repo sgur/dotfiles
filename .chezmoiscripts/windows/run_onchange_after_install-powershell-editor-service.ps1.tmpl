@@ -4,7 +4,7 @@
 {{ $url := printf "https://github.com/powershell/PowerShellEditorServices/releases/download/%s/%s" $tagName $asset }}
 
 {{- $psEditorServicesDir := joinPath .chezmoi.homeDir ".local" "share" "powershell-editor-services" }}
-Remove-Item -Forc -Recurse -Path {{ $psEditorServicesDir | quote}}
+Remove-Item -Force -Recurse -Path {{ $psEditorServicesDir | quote}}
 New-Item -ItemType Directory -Path {{ $psEditorServicesDir | quote}}
 Push-Location {{ $psEditorServicesDir | quote}}
 
@@ -18,7 +18,7 @@ $Batch = @'
 setlocal
 set PSES_BUNDLE_PATH=%~dp0PowerShellEditorServices
 set SESSION_TEMP_PATH=%~dp0session
-pwsh.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command "%PSES_BUNDLE_PATH: =` %\PowerShellEditorServices\Start-EditorServices.ps1" -BundledModulesPath '%PSES_BUNDLE_PATH%' -LogPath '%SESSION_TEMP_PATH%\logs.log' -SessionDetailsPath '%SESSION_TEMP_PATH%\session.json' -FeatureFlags @() -AdditionalModules @() -HostName 'My Client' -HostProfileId 'myclient' -HostVersion 1.0.0 -Stdio -LogLevel Normal
+pwsh.exe -NoLogo -NoProfile -ExecutionPolicy RemoteSigned -Command "%PSES_BUNDLE_PATH: =` %\PowerShellEditorServices\Start-EditorServices.ps1" -BundledModulesPath '%PSES_BUNDLE_PATH%' -LogPath '%SESSION_TEMP_PATH%\logs.log' -SessionDetailsPath '%SESSION_TEMP_PATH%\session.json' -HostName 'vim' -HostProfileId 'vim' -HostVersion 1.0.0 -Stdio -LogLevel Diagnostic
 '@
 
 Set-Content -Path {{ joinPath .chezmoi.homeDir ".local" "share" "powershell-editor-services" "powershell-editor-services.cmd" | quote }} -Value $Batch
