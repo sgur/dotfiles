@@ -20,6 +20,7 @@ else
 	export HELIX_DEFAULT_RUNTIME=$(ghq list -p helix-editor/helix)/runtime
 	cargo install --profile opt --locked --path helix-term
 fi
+install -m 644 contrib/completion/hx.fish --target-directory ~/.local/share/fish/vender_completion.d/ -D 
 git reset --hard
 git clean -f
 popd
