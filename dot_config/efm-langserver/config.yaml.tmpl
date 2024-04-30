@@ -3,15 +3,10 @@
 version: 2
 root-markers:
   - .git/
+lint-debounce: 1s
 log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
 {{ if false -}}
 log-level: 3
-{{- end }}
-
-{{- if false -}}
-commands:
-  - title: reload
-    command: :reload-config
 {{- end }}
 
 tools:
@@ -25,6 +20,7 @@ tools:
     lint-stdin: false
     lint-formats:
       - '%f (line %l): %m'
+    lint-after-open: true
 
   any-secretlint: &any-secretlint
     prefix: secretlint
@@ -37,6 +33,7 @@ tools:
       - "%f:%l:%c: %m"
       - "%-G%.%#"
     lint-ignore-exit-code: true
+    lint-after-open: true
 
   css-stylelint: &css-stylelint
     prefix: stylelint
@@ -49,6 +46,7 @@ tools:
     lint-stdin: true
     lint-formats:
       - "%f:%l:%c: %m"
+    lint-after-open: true
     require-marker: true
     root-markers:
       - .stylelint.config.cjs
@@ -96,6 +94,7 @@ tools:
       - "%f:%l %m"
       - "%-G%.%#"
     lint-ignore-exit-code: true
+    lint-after-open: true
 
   markdown-markdownlint: &markdown-markdownlint
     prefix: markdownlint
@@ -108,6 +107,7 @@ tools:
     lint-formats:
       - "%f:%l:%c %m"
       - "%f:%l %m"
+    lint-after-open: true
 
   html-markuplint: &html-markuplint
     prefix: markuplint
@@ -121,6 +121,7 @@ tools:
       - "%E<markuplint> error: %m %f:%l:%c"
       - "%C%.%#"
       - "%-G%.%#"
+    lint-after-open: true
     commands:
       - title: 'markuplint fix'
         command: {{ lookPath "bunx" }}
@@ -148,6 +149,7 @@ tools:
     lint-command: hadolint
     lint-formats:
       - "%f:%l %m"
+    lint-after-open: true
 
 # scoop or brew install actionlint
   yaml-actionlint: &yaml-actionlint
@@ -166,6 +168,7 @@ tools:
     lint-stdin: true
     lint-formats:
       - '%f:%l:%c: %m'
+    lint-after-open: true
     root-markers:
       - .github/
 
@@ -188,6 +191,7 @@ tools:
       - "%Z"
     lint-ignore-exit-code: true
     lint-severity: 3
+    lint-after-open: true
 {{- if false -}}
     completion-command: >-
       {{ lookPath "bunx" }}
@@ -213,6 +217,7 @@ tools:
       - "%Z%W⚠   %m"
       - "%I     %m"
       - "%Z%-G%.%#"
+    lint-after-open: true
 
   any-textlint: &any-textlint
     prefix: textlint
@@ -250,6 +255,7 @@ tools:
       - "%Z%m [%trror/%r]"
       - "%C%m"
     lint-ignore-exit-code: true
+    lint-after-open: true
 
 languages:
   css:
