@@ -78,8 +78,6 @@ Set-PSReadLineOption -CommandValidationHandler {
 # This checks the validation script when you hit enter
 Set-PSReadLineKeyHandler -Chord Enter -Function ValidateAndAcceptLine
 
-Set-Alias -Name chz -Value chezmoi
-
 ## Prediction
 try
 {
@@ -130,6 +128,7 @@ try
 # chezmoi completions
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 {
+	Set-Alias -Name chz -Value chezmoi
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Chezmoi.ps1')
 }
 
@@ -448,11 +447,10 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 }
 
 # gsudo
-try
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name gsudo)
 {
-	Import-Module -ErrorAction SilentlyContinue "gsudoModule.psd1"
-} catch
-{
+	Set-Alias -Name sudo -Value gsudo
+	Import-Module gsudoModule
 }
 
 # broot
