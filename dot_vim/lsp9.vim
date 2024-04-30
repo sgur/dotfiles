@@ -20,26 +20,9 @@ var options = {
   vsnip: { enable: true, priority: 11 },
   vimscript: { enable: true, priority: 11 },
 }
-def LspSetupBufferLocal()
-  nnoremap <buffer> <Leader>s <Cmd>LspDocumentSymbol<CR>
-  nnoremap <buffer> <Leader>S <Cmd>LspSymbolSearch<CR>
-  nnoremap <buffer> <Leader>d <Cmd>LspDiag show<CR>
-  nnoremap <buffer> <Leader>a <Cmd>LspCodeAction<CR>
-  nnoremap <buffer> <Leader>k <Cmd>LspHover<CR>
-  nnoremap <buffer> <Leader>r <Cmd>LspRename<CR>
-  nnoremap <buffer> <Leader>h <Cmd>LspPeekReferences<CR>
-  nnoremap <buffer> <Leader>H <Cmd>LspShowReferences<CR>
-  nnoremap <buffer> gd <Cmd>LspGotoDefinition<CR>
-  nnoremap <buffer> gD <Cmd>LspGotoDeclaration<CR>
-  if &filetype != 'vim'
-    nnoremap <buffer> gy <Cmd>LspGotoTypeDef<CR>
-  endif
-  nnoremap <buffer> gI <Cmd>LspGotoImpl<CR>
-enddef
 augroup vimrc_plugin_vimcomplete
   autocmd!
   autocmd VimEnter * g:VimCompleteOptionsSet(options)
-  autocmd User LspAttached LspSetupBufferLocal()
 augroup END
 
 # options
@@ -58,7 +41,7 @@ var lsp_options = {
 var lsp_servers: list<dict<any>> = []
 
 def GetLspServerPath(name: string): string
-  return expand(name)->exepath()
+  return expand(name, v:true)->exepath()
 enddef
 
 ## astro
@@ -287,9 +270,8 @@ lsp_servers += [{
 
 lsp_servers += [{
   name: 'powershell-editor-services',
-  filetype: ['powershell', 'ps1'],
+  filetype: ['ps1'],
   path: GetLspServerPath('~/.local/share/powershell-editor-services/powershell-editor-services'),
-  args: []
 }]
 
 ## python
@@ -481,13 +463,32 @@ def DisableDiag(condition: bool = true)
   LspDiag highlight disable
 enddef
 
+def LspSetupBufferLocal()
+  nnoremap <buffer> <Leader>s  <Cmd>LspDocumentSymbol<CR>
+  nnoremap <buffer> <Leader>S  <Cmd>LspSymbolSearch<CR>
+  nnoremap <buffer> <Leader>d  <Cmd>LspDiag show<CR>
+  nnoremap <buffer> <Leader>a  <Cmd>LspCodeAction<CR>
+  nnoremap <buffer> <Leader>k  <Cmd>LspHover<CR>
+  nnoremap <buffer> <Leader>r  <Cmd>LspRename<CR>
+  nnoremap <buffer> <Leader>h  <Cmd>LspPeekReferences<CR>
+  nnoremap <buffer> <Leader>H  <Cmd>LspShowReferences<CR>
+  nnoremap <buffer> gd  <Cmd>LspGotoDefinition<CR>
+  nnoremap <buffer> gD  <Cmd>LspGotoDeclaration<CR>
+  if &filetype != 'vim'
+    nnoremap <buffer> gy  <Cmd>LspGotoTypeDef<CR>
+  endif
+  nnoremap <buffer> gI  <Cmd>LspGotoImpl<CR>
+enddef
+
 lsp_servers->filter((_, v) => !empty(v.path))
 augroup vimrc_lsp_init
   autocmd!
+  autocmd User LspAttached LspSetupBufferLocal()
   # ファイルの先頭に "vim9script" があったら Diag を無効化する
   autocmd FileType vim  DisableDiag(getline(1, 5)->join()->match('^vim9script') > -1)
   autocmd BufReadPost *.tmpl  DisableDiag()
-  autocmd VimEnter * ++once g:LspOptionsSet(lsp_options) | g:LspAddServer(lsp_servers)
+  autocmd VimEnter * ++once g:LspOptionsSet(lsp_options)
+  autocmd VimEnter * ++once g:LspAddServer(lsp_servers)
   # Multiple python LSP servers configured but only the first is running
   # https://github.com/yegappan/lsp/issues/384
   autocmd VimEnter * ++once if argc() > 0
