@@ -66,9 +66,12 @@ Set-PSReadLineOption -CommandValidationHandler {
 
     foreach($Element in $CommandAst.CommandElements) {
         $Token = $Element.Extent
-        if ($Token.Text.Contains('~') && [IO.PATH]::Exists($Token.Text)) {
-            [Microsoft.PowerShell.PSConsoleReadLine]::Replace(
-                    $Token.StartOffset, $Token.EndOffset - $Token.StartOffset, $Token.Text.Replace('~', $Env:USERPROFILE))
+        if ($Token.Text.Contains('~')) {
+			$Expanded = Convert-Path $Token.Text.Replace('~', $Env:USERPROFILE)
+			if ([IO.PATH]::Exists($Expanded)) {
+				[Microsoft.PowerShell.PSConsoleReadLine]::Replace(
+						$Token.StartOffset, $Token.EndOffset - $Token.StartOffset, $Expanded)
+			}
         }
     }
 }
@@ -432,7 +435,7 @@ finally {
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 {
 	$Ext.eza = $true
-	Remove-Item -Force -Path Alias:ls
+	Remove-Item -Force -Path Alias:ls -ErrorAction SilentlyContinue
 	$IconOption = $IsEmojiSupported ? "--icons" : $null
 	function global:ls
 	{
