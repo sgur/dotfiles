@@ -130,6 +130,16 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Chezmoi.ps1')
 }
 
+# ripgrep completions
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name rg)
+{
+	$Ext.ripgrep = $true
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Ripgrep.ps1')
+} else
+{
+	$Ext.ripgrep = $false
+}
+
 # xh completions
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
 {
@@ -140,9 +150,18 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
 	$Ext.xh = $false
 }
 
-
 # bat
 $Env:BAT_CONFIG_PATH = (Resolve-Path "~/.config/bat/config").Path
+
+## bat completions
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name bat)
+{
+	$Ext.bat = $true
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Bat.ps1')
+} else
+{
+	$Ext.bat = $false
+}
 
 # fzf catppuccin theme
 # https://github.com/catppuccin/fzf

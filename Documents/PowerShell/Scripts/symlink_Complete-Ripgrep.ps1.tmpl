@@ -1,0 +1,2 @@
+{{- $baseDir := glob (joinPath (lookPath "rg" | osDir | osDir) "Packages" "BurntSushi.ripgrep.MSVC_Microsoft.Winget.Source_8wekyb3d8bbwe" "ripgrep-*-x86_64-pc-windows-msvc") | first -}}
+{{- joinPath $baseDir "complete" "_rg.ps1" -}}
