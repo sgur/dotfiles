@@ -1,4 +1,3 @@
-{{- $wingetJson := joinPath .chezmoi.sourceDir "winget.json"  -}}
 # Pin system apps
 @("Microsoft.Edge",
 	"Microsoft.EdgeWebView2Runtime",
@@ -11,5 +10,155 @@
 	& winget pin add --exact --id $_
 }
 
-# winget packages hash: {{ $wingetJson | include | sha256sum }}
-winget import --no-upgrade --accept-package-agreements --accept-source-agreements --import-file {{ $wingetJson | quote }}
+$JsonStr = @'
+{
+	"$schema": "https://aka.ms/winget-packages.schema.2.0.json",
+	"CreationDate": "2024-04-30T10:41:00.197-00:00",
+	"Sources": [
+		{
+			"Packages": [
+				{
+					"PackageIdentifier": "Microsoft.VisualStudio.2022.Professional"
+				},
+				{
+					"PackageIdentifier": "BurntSushi.ripgrep.MSVC"
+				},
+				{
+					"PackageIdentifier": "Canonical.Ubuntu.2204"
+				},
+				{
+					"PackageIdentifier": "Ditto.Ditto"
+				},
+				{
+					"PackageIdentifier": "Dystroy.broot"
+				},
+				{
+					"PackageIdentifier": "Mozilla.Firefox.DeveloperEdition"
+				},
+				{
+					"PackageIdentifier": "Git.MinGit.BusyBox"
+				},
+				{
+					"PackageIdentifier": "GnuPG.GnuPG"
+				},
+				{
+					"PackageIdentifier": "GnuPG.Gpg4win"
+				},
+				{
+					"PackageIdentifier": "Greenshot.Greenshot"
+				},
+				{
+					"PackageIdentifier": "HermannSchinagl.LinkShellExtension"
+				},
+				{
+					"PackageIdentifier": "Helix.Helix"
+				},
+				{
+					"PackageIdentifier": "Orange-OpenSource.Hurl"
+				},
+				{
+					"PackageIdentifier": "JesseDuffield.lazygit"
+				},
+				{
+					"PackageIdentifier": "Microsoft.WindowsTerminal.Preview"
+				},
+				{
+					"PackageIdentifier": "Rustlang.Rustup"
+				},
+				{
+					"PackageIdentifier": "vim.vim.nightly"
+				},
+				{
+					"PackageIdentifier": "Wilfred.difftastic"
+				},
+				{
+					"PackageIdentifier": "ajeetdsouza.zoxide"
+				},
+				{
+					"PackageIdentifier": "Obsidian.Obsidian"
+				},
+				{
+					"PackageIdentifier": "ducaale.xh"
+				},
+				{
+					"PackageIdentifier": "eza-community.eza"
+				},
+				{
+					"PackageIdentifier": "jftuga.less"
+				},
+				{
+					"PackageIdentifier": "junegunn.fzf"
+				},
+				{
+					"PackageIdentifier": "pnpm.pnpm"
+				},
+				{
+					"PackageIdentifier": "sharkdp.bat"
+				},
+				{
+					"PackageIdentifier": "twpayne.chezmoi"
+				},
+				{
+					"PackageIdentifier": "7zip.7zip"
+				},
+				{
+					"PackageIdentifier": "appmakes.Typora"
+				},
+				{
+					"PackageIdentifier": "nathancorvussolis.corvusskk"
+				},
+				{
+					"PackageIdentifier": "Starship.Starship"
+				},
+				{
+					"PackageIdentifier": "gerardog.gsudo"
+				},
+				{
+					"PackageIdentifier": "Microsoft.PowerToys"
+				},
+				{
+					"PackageIdentifier": "Microsoft.VisualStudioCode"
+				},
+				{
+					"PackageIdentifier": "WerWolv.ImHex"
+				},
+				{
+					"PackageIdentifier": "Microsoft.PowerShell"
+				}
+			],
+			"SourceDetails": {
+				"Argument": "https://cdn.winget.microsoft.com/cache",
+				"Identifier": "Microsoft.Winget.Source_8wekyb3d8bbwe",
+				"Name": "winget",
+				"Type": "Microsoft.PreIndexed.Package"
+			}
+		},
+		{
+			"Packages": [
+				{
+					"PackageIdentifier": "9PGCV4V3BK4W"
+				},
+				{
+					"PackageIdentifier": "9PM860492SZD"
+				}
+			],
+			"SourceDetails": {
+				"Argument": "https://storeedgefd.dsx.mp.microsoft.com/v9.0",
+				"Identifier": "StoreEdgeFD",
+				"Name": "msstore",
+				"Type": "Microsoft.Rest"
+			}
+		}
+	],
+	"WinGetVersion": "1.7.11132"
+}
+'@
+
+try {
+	$Winget = ConvertFrom-Json $JsonStr
+	$Winget.CreationDate = Get-Date -AsUTC -Format "yyyy-MM-ddTHH:mm:ss.fffzzz"
+	ConvertTo-Json -Depth 4 $Winget | Out-File -FilePath "winget.json" -Encoding utf8
+	winget import --no-upgrade --accept-package-agreements --accept-source-agreements --import-file winget.json
+} finally {
+	Remove-Item -Path "winget.json"
+}

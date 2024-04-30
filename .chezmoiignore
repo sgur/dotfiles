@@ -4,7 +4,6 @@ README.md
 .vim/pack/chezmoi/*/*/doc/tags
 Tools/**/*.exe
 Tools/**/*.bat
-winget.json
 
 {{ if ne .chezmoi.os "darwin" }}
 # Ignoring on non-macOS
