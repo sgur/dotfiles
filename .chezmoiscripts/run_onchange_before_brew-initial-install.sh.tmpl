@@ -45,7 +45,9 @@ brew "gitu"
 brew "gnupg"
 brew "go"
 brew "grex"
+{{- if eq .chezmoi.os "darwin" }}
 brew "helix"
+{{- end }}
 brew "hexyl"
 brew "hurl"
 brew "hyperfine"
