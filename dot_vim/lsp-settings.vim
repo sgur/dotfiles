@@ -25,7 +25,7 @@ let g:lsp_settings['efm-langserver'] = #{
       \ allowlist:  ['*'],
       \ initialization_options: #{
       \   documentFormatting: v:true,
-      \   hover: v:false,
+      \   hover: v:true,
       \   documentSymbol: v:true,
       \   codeAction: v:true,
       \   completion: v:true

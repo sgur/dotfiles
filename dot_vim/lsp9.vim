@@ -20,20 +20,34 @@ var options = {
   vsnip: { enable: true, priority: 11 },
   vimscript: { enable: true, priority: 11 },
 }
+def LspSetupBufferLocal()
+  nnoremap <buffer> <Leader>s <Cmd>LspDocumentSymbol<CR>
+  nnoremap <buffer> <Leader>S <Cmd>LspSymbolSearch<CR>
+  nnoremap <buffer> <Leader>d <Cmd>LspDiag show<CR>
+  nnoremap <buffer> <Leader>a <Cmd>LspCodeAction<CR>
+  nnoremap <buffer> <Leader>k <Cmd>LspHover<CR>
+  nnoremap <buffer> <Leader>r <Cmd>LspRename<CR>
+  nnoremap <buffer> <Leader>h <Cmd>LspPeekReferences<CR>
+  nnoremap <buffer> <Leader>H <Cmd>LspShowReferences<CR>
+  nnoremap <buffer> gd <Cmd>LspGotoDefinition<CR>
+  nnoremap <buffer> gD <Cmd>LspGotoDeclaration<CR>
+  if &filetype != 'vim'
+    nnoremap <buffer> gy <Cmd>LspGotoTypeDef<CR>
+  endif
+  nnoremap <buffer> gI <Cmd>LspGotoImpl<CR>
+enddef
 augroup vimrc_plugin_vimcomplete
   autocmd!
   autocmd VimEnter * g:VimCompleteOptionsSet(options)
+  autocmd User LspAttached LspSetupBufferLocal()
 augroup END
 
 # options
 var lsp_options = {
   completionMatcher: 'fuzzy',
-  diagSignErrorText: 'E>',
-  diagSignHintText: 'H>',
-  diagSignInfoText: 'I>',
-  diagSignWarningText: 'W>',
   omniComplete: v:true,
   showDiagWithVirtualText: has('patch-9.0.1157') != 0,
+  diagVirtualTextAlign: 'below',
   showInlayHints: has('patch-9.0.0178') != 0,
   useBufferCompletion: v:false,
   vsnipSupport: v:true,
@@ -454,7 +468,7 @@ lsp_servers += [{
     hover: v:false,
     documentSymbol: v:true,
     codeAction: v:true,
-    completion: v:false
+    completion: v:true,
   },
 }]
 

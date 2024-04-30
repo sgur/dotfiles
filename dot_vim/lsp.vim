@@ -23,13 +23,11 @@ let s:rc_dir = expand('<sfile>:p:h:gs?\?/?')
 let s:temp_dir = fnamemodify(tempname(), ':p:h')
 
 try
-  packadd! asyncomplete.vim
-  packadd! asyncomplete-buffer.vim
-  packadd! asyncomplete-file.vim
-  packadd! asyncomplete-lsp.vim
-  packadd! vim-lsp-settings
-  packadd! vim-lsp
   source <sfile>:h/lsp-settings.vim
+  packadd vim-lsp
+  packadd vim-lsp-settings
+  packadd asyncomplete.vim
+  packadd asyncomplete-lsp.vim
 catch /^Vim\%((\a\+)\)\=:E919/
   echomsg v:errmsg
   finish
@@ -46,6 +44,7 @@ augroup vimrc_plugin_asyncomplete
   autocmd OptionSet readonly  call s:on_bufwinenter_asyncomplete()
 augroup END
 " file source
+autocmd vimrc_plugin_asyncomplete FuncUndefined asyncomplete#sources#file#* packadd asyncomplete-file.vim
 autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
       \ call asyncomplete#register_source(asyncomplete#sources#file#get_source_options(#{
       \   name: 'asyncomplete_file',
@@ -189,6 +188,7 @@ augroup vimrc_plugin_lsp_buffer
           \})
   else
     " buffer source
+    autocmd FuncUndefined asyncomplete#sources#buffer#* packadd asyncomplete-buffer.vim
     autocmd User asyncomplete_setup
           \  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options(#{
           \   name: 'asyncomplete_buffer',
@@ -243,13 +243,4 @@ if executable('pnpm')
   augroup END
 endif
 
-if !has('vim_starting')
-  runtime! plugin/lsp.vim
-  runtime! plugin/asyncomplete-lsp.vim
-  runtime! plugin/asyncomplete.vim
-  runtime! plugin/lsp_settings.vim
-  runtime! plugin/vsnip_integ.vim
-  call lsp#enable()
-  execute 'doautocmd' 'BufReadPost' expand('%')
-endif
 " vim:set filetype=vim:

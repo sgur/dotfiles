@@ -764,6 +764,7 @@ endif
 nnoremap <silent> <Leader>b  <ScriptCmd>fuzzy.Buffer()<CR>
 nnoremap <silent> <Leader>j  <ScriptCmd>fuzzy.Jumplist()<CR>
 nnoremap <silent> <Leader>s  <ScriptCmd>fuzzy.LspDocumentSymbol()<CR>
+nnoremap <silent> <Leader>w  <ScriptCmd>fuzzy.Window()<CR>
 if executable('rg')
   nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep('rg --vimgrep --no-heading --smart-case')<CR>
 else
