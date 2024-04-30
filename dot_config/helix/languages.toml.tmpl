@@ -90,11 +90,11 @@ formatter = { command = "taplo-lsp", args = ["format", "-"]}
 
 [[language]]
 name = "tsx"
-language-servers = ["typescript-language-server", "tailwindcss-ls", "biome-ls", "efm-langserver", "buffer-ls"]
+language-servers = [{name = "typescript-language-server", except-features = ["format"]}, "tailwindcss-ls", "biome-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "typescript"
-language-servers = ["typescript-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
+language-servers = [{name = "typescript-language-server", except-features = ["format"]}, "biome-ls", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "yaml"
