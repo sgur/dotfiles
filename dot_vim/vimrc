@@ -106,6 +106,7 @@ endif
 # wildignore には中間生成物だけ書いておくのが混乱が少ない
 # spell-checker: disable
 set wildignore+=*.o,*.obj,*.so,*.out,*.jar,*.war,*.ser,*.py?,*.luac,*.sw?,*.tmp,*.db,cscope*.out,*.pak
+set wildignore+=*.jp?g,*.png,*.ico
 if has('win32') || has('win64')
   set wildignore+=desktop.ini,NTUSER*,ntuser*,*.sys,*.pdb,*.pch,*.dcu
 elseif has('mac') || has('osx')
@@ -754,9 +755,9 @@ try
 catch /^Vim\%((\a\+)\)\=:E919:/
 endtry
 if executable('fd')
-  nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File('fd --type file --hidden --follow
-        \ --exclude "*.swp" --exclude "node_modules" --exclude "go/pkg"',
-        \ 100000)<CR>
+  const exclude_args = map(split(&wildignore, ',') + ["node_modules", "go/pkg", "site-packages"], (k, v) => printf('--exclude "%s"', v))->join(' ')
+  const fd_cmd = 'fd --type file --hidden --follow ' .. exclude_args
+  execute 'nnoremap' '<silent>' '<Leader>f' '<ScriptCmd>fuzzy.File("' .. escape(fd_cmd, '"') .. '", 100000)<CR>'
 else
   nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File()<CR>
 endif
