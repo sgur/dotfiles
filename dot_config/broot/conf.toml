@@ -117,23 +117,16 @@ content_search_max_file_size = "10MB"
 ###############################################################
 # Syntax Theme
 # You can choose any of the following syntaxic coloring themes for previewed files:
-# - base16-ocean.dark
-# - base16-eighties.dark
-# - base16-mocha.dark
-# - base16-ocean.light
-# - InspiredGitHub
-# - Solarized (dark)
-# - Solarized (light)
-# - GitHub
-# - SolarizedDark
-# - SolarizedLight
-# - EightiesDark
-# - MochaDark
-# - OceanDark
-# - OceanLight
+# - GitHub: InspiredGitHub
+# - SolarizedDark: Solarized (dark)
+# - SolarizedLight: Solarized (light)
+# - EightiesDark: base16-eighties.dark
+# - MochaDark: base16-mocha.dark
+# - OceanDark: base16-ocean.dark
+# - OceanLight: base16-ocean.light
 #
-# syntax_theme: GitHub
-syntax_theme = "InspiredGitHub"
+# syntax_theme: SolarizedDark
+syntax_theme = "SolarizedDark"
 
 ###############################################################
 # Search modes
