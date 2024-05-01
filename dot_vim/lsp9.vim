@@ -30,7 +30,6 @@ var lsp_options = {
   completionMatcher: 'fuzzy',
   omniComplete: v:true,
   showDiagWithVirtualText: has('patch-9.0.1157') != 0,
-  diagVirtualTextAlign: 'below',
   showInlayHints: has('patch-9.0.0178') != 0,
   useBufferCompletion: v:false,
   vsnipSupport: v:true,
@@ -472,6 +471,7 @@ def LspSetupBufferLocal()
   nnoremap <buffer> <Leader>r  <Cmd>LspRename<CR>
   nnoremap <buffer> <Leader>h  <Cmd>LspPeekReferences<CR>
   nnoremap <buffer> <Leader>H  <Cmd>LspShowReferences<CR>
+  nnoremap <buffer> gy  <Cmd>LspGotoTypeDef<CR>
   nnoremap <buffer> gd  <Cmd>LspGotoDefinition<CR>
   nnoremap <buffer> gD  <Cmd>LspGotoDeclaration<CR>
   if &filetype != 'vim'

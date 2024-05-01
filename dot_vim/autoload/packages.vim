@@ -51,27 +51,16 @@ function! s:init() abort "{{{
 
   " Self-made {{{2
 
-  " call minpac#add('sgur/minpac-toml', #{
-  "       \ type: 'opt',
-  "       \ depth: 9999
-  "       \ })
-
-  " call minpac#add('sgur/vim-editorconfig', #{
-  "       \ type: 'opt',
-  "       \ depth: 9999
-  "       \ })
-
-  call minpac#add('sgur/vim-lsp-settings-bridge', #{
-        \ type: 'opt',
-        \ depth: 9999
-        \ })
-
   call minpac#add('sgur/vim-textobj-parameter', #{
         \ type: 'opt',
         \ depth: 9999
         \ })
 
   " Generic {{{2
+
+  call minpac#add('LunarWatcher/auto-pairs', #{
+        \ type: 'opt'
+        \ })
 
   call minpac#add('girishji/vimcomplete', #{
         \ type: 'opt'

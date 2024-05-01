@@ -264,10 +264,6 @@ nnoremap [F  <Cmd>lpfile<CR>
 
 # user-commands {{{1
 
-# Use br(broot) in terminal
-const broot_configs = ['~/.vim/etc/broot/verbs.hjson', '~/.config/broot/conf.hjson']->map((k, v) => expand(v))->filter((k, v) => filereadable(v))->join(';')
-command! -nargs=? -complete=dir Br botright call term_start(['broot', '--conf', broot_configs, <f-args>], {term_rows: 20, term_finish: 'close'})
-
 # synstack {{{2
 command! -nargs=0 SynNameStack
       \ echo '<' .. matchstr(getline('.'), '.', col('.') - 1) .. '>'
@@ -429,6 +425,9 @@ def AltrInit()
 enddef
 pack.Add('vim-altr', AltrInit)
 
+# auto-pairs (opt) {{{2
+pack.Add('auto-pairs')
+
 # asterisk (opt) {{{2
 def AsteriskInit()
   noremap *   <Plug>(asterisk-*)
@@ -520,7 +519,7 @@ def InitLexima()
   lexima#add_rule({char: "'", at: "^[^']*\\%('[^']*'[^']*\\)*'[^']*\\%#'\\@!)", priority: 1})
   lexima#add_rule({char: '`', at: '^[^`]*\%(`[^`]*`[^`]*\)*`[^`]*\%#`\@!', priority: 1})
 enddef
-pack.Add('lexima.vim', InitLexima)
+# pack.Add('lexima.vim', InitLexima)
 
 # lightline {{{2
 import autoload 'lightline_status.vim' as lightline
@@ -661,8 +660,8 @@ nmap <expr> zf  custom_operator#define('n', 'better-zf', 'custom_operator#zf')
 xmap <expr> zf  custom_operator#define('x', 'better-zf', 'custom_operator#zf')
 
 # eval vim variables
-nmap <expr> gy  custom_operator#define('n', 'eval', 'custom_operator#eval')
-xmap <expr> gy  custom_operator#define('x', 'eval', 'custom_operator#eval')
+nmap <expr> g.  custom_operator#define('n', 'eval', 'custom_operator#eval')
+xmap <expr> g.  custom_operator#define('x', 'eval', 'custom_operator#eval')
 
 nmap <expr> g:  custom_operator#define('n', 'excmd', 'custom_operator#excmd')
 xmap <expr> g:  custom_operator#define('x', 'excmd', 'custom_operator#excmd')
@@ -772,10 +771,9 @@ else
 endif
 
 if executable('zoxide')
-  g:ctrlp_zoxide_default_action = 'CtrlP'
-  augroup vimrc_ctrlp_zoxide
+  augroup vimrc_zoxide
     autocmd!
-    autocmd DirChanged *  call system('zoxide add ' .. shellescape(expand('<afile>')))
+    autocmd DirChanged *  silent system('zoxide add ' .. shellescape(expand('<afile>')))
   augroup END
 endif
 
