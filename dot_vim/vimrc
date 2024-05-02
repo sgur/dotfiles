@@ -137,10 +137,22 @@ if !has('win32') && !has('win64')
     source <sfile>:h/macros/vimrc.fcitx
   endif #}}}
 else
-  if isdirectory(expand('~/.proto')) && !executable('node')
+  if isdirectory(expand('~/.proto')) && !executable('proto')
     $PROTO_HOME = expand('~/.proto')
     $PATH = [expand($PROTO_HOME .. '/shims'), expand($PROTO_HOME .. '/bin'), $PATH]->join(';')
   endif
+
+  final new_path = []
+  final system_path = []
+  var paths = expand('$PATH')->split(';')
+  for path in paths
+    if stridx(expand(path), expand('C:\Windows')) == 0
+      system_path += [path]
+      continue
+    endif
+    new_path +=  [path]
+  endfor
+  $PATH = join(new_path + system_path, ';')
 endif
 
 
@@ -752,29 +764,32 @@ pack.Add('vim-sandwich', InitSandwich)
 try
   packadd! scope.vim
   import autoload 'scope/fuzzy.vim'
+  if executable('fd')
+    const exclude_args = map(split(&wildignore, ',') + ["node_modules", "go/pkg", "site-packages"], (k, v) => printf('--exclude "%s"', v))->join(' ')
+    const fd_cmd = 'fd --type file --hidden --follow ' .. exclude_args
+    execute 'nnoremap' '<silent>' '<Leader>f' '<ScriptCmd>fuzzy.File("' .. escape(fd_cmd, '"') .. '", 100000)<CR>'
+  else
+    nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File()<CR>
+  endif
+  nnoremap <silent> <Leader>b  <ScriptCmd>fuzzy.Buffer()<CR>
+  nnoremap <silent> <Leader>j  <ScriptCmd>fuzzy.Jumplist()<CR>
+  nnoremap <silent> <Leader>s  <ScriptCmd>fuzzy.LspDocumentSymbol()<CR>
+  nnoremap <silent> <Leader>w  <ScriptCmd>fuzzy.Window()<CR>
+  if executable('rg')
+    nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep('rg --vimgrep --no-heading --smart-case')<CR>
+  else
+    nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep()<CR>
+  endif
+
+  import autoload 'scope/zoxide.vim'
+  nnoremap <silent> <Leader>z <ScriptCmd>zoxide.Zoxide()<CR>
 catch /^Vim\%((\a\+)\)\=:E919:/
 endtry
-if executable('fd')
-  const exclude_args = map(split(&wildignore, ',') + ["node_modules", "go/pkg", "site-packages"], (k, v) => printf('--exclude "%s"', v))->join(' ')
-  const fd_cmd = 'fd --type file --hidden --follow ' .. exclude_args
-  execute 'nnoremap' '<silent>' '<Leader>f' '<ScriptCmd>fuzzy.File("' .. escape(fd_cmd, '"') .. '", 100000)<CR>'
-else
-  nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File()<CR>
-endif
-nnoremap <silent> <Leader>b  <ScriptCmd>fuzzy.Buffer()<CR>
-nnoremap <silent> <Leader>j  <ScriptCmd>fuzzy.Jumplist()<CR>
-nnoremap <silent> <Leader>s  <ScriptCmd>fuzzy.LspDocumentSymbol()<CR>
-nnoremap <silent> <Leader>w  <ScriptCmd>fuzzy.Window()<CR>
-if executable('rg')
-  nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep('rg --vimgrep --no-heading --smart-case')<CR>
-else
-  nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep()<CR>
-endif
 
 if executable('zoxide')
   augroup vimrc_zoxide
     autocmd!
-    autocmd DirChanged *  silent system('zoxide add ' .. shellescape(expand('<afile>')))
+    autocmd DirChanged *  system('zoxide add ' .. shellescape(expand('<afile>')))
   augroup END
 endif
 
