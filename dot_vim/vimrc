@@ -153,6 +153,11 @@ else
     new_path +=  [path]
   endfor
   $PATH = join(new_path + system_path, ';')
+
+  const vimBinDir = expand(expand('<sfile>:p:h') .. '/etc/bin')
+  if isdirectory(vimBinDir)
+    $PATH = vimBinDir .. ';' .. $PATH
+  endif
 endif
 
 
