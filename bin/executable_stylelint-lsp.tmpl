@@ -1,0 +1,9 @@
+{{- if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+set -eu
+
+{{- if lookPath "pnpm" }}
+pnpm dlx stylelint-lsp $@
+{{- end }}
+{{- end }}
+

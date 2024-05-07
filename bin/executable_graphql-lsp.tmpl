@@ -1,0 +1,10 @@
+{{- if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+set -eu
+
+{{- if lookPath "pnpm" }}
+pnpm dlx graphql-language-service-cli $@
+{{- end }}
+{{- end }}
+
+

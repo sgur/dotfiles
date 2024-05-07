@@ -1,0 +1,8 @@
+{{- if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+set -eu -o pipefail -o posix
+
+{{- if lookPath "pnpm" }}
+pnpm --package=vscode-langservers-extracted dlx vscode-json-language-server $@
+{{- end }}
+{{- end }}

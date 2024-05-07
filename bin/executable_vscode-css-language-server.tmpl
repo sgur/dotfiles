@@ -1,0 +1,8 @@
+{{- if ne .chezmoi.os "windows" -}}
+#!/bin/sh
+set -eu
+
+{{- if lookPath "pnpm" }}
+pnpm --package=vscode-langservers-extracted dlx vscode-css-language-server $@
+{{- end }}
+{{- end }}

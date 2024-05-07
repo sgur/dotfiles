@@ -51,15 +51,15 @@ language-servers = ["vscode-html-language-server", "tailwindcss-ls", "efm-langse
 
 [[language]]
 name = "javascript"
-language-servers = ["typescript-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
+language-servers = ["typescript-language-server", "biome-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "json"
-language-servers = ["vscode-json-language-server", "biome-ls", "efm-langserver", "buffer-ls"]
+language-servers = ["vscode-json-language-server", "biome-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "jsx"
-language-servers = ["typescript-language-server", "tailwindcss-ls", "biome-ls", "efm-langserver", "buffer-ls"]
+language-servers = ["typescript-language-server", "tailwindcss-ls", "biome-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "kdl"
@@ -90,11 +90,11 @@ formatter = { command = "taplo-lsp", args = ["format", "-"]}
 
 [[language]]
 name = "tsx"
-language-servers = [{name = "typescript-language-server", except-features = ["format"]}, "tailwindcss-ls", "biome-ls", "efm-langserver", "buffer-ls"]
+language-servers = [{name = "typescript-language-server", except-features = ["format"]}, "tailwindcss-ls", "biome-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "typescript"
-language-servers = [{name = "typescript-language-server", except-features = ["format"]}, "biome-ls", "efm-langserver", "buffer-ls"]
+language-servers = [{name = "typescript-language-server", except-features = ["format"]}, "biome-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "yaml"
@@ -123,10 +123,6 @@ efm-langserver = { command = "efm-langserver" }
 powershell-langserver = { command = {{ $powershell_editor_service | quote }} }
 {{- end }}
 
-[language-server.tailwindcss-ls]
-command = {{ lookPath "pnpm" | quote }}
-args =["--silent", "dlx", "@tailwindcss/language-server", "--stdio"]
-
 [language-server.buffer-ls]
 {{ if lookPath "simple-completion-language-server" -}}
 # https://github.com/estin/simple-completion-language-server
@@ -140,28 +136,15 @@ command = "buffer-language-server"
 {{- end }}
 
 [language-server.astro-ls]
-command = {{ lookPath "pnpm" | quote }}
-args =["--silent", "dlx", "@astrojs/language-server", "--stdio"]
+command = "astro-ls"
+args =["--stdio"]
 
-[language-server.bash-language-server]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "dlx", "bash-language-server", "start"]
-
-[language-server.biome-ls]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "dlx", "@biomejs/biome", "lsp-proxy"]
-
-[language-server.docker-langserver]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "dlx", "dockerfile-language-server-nodejs", "--stdio"]
-
-[language-server.graphql-language-service]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "dlx", "graphql-language-service-cli", "server", "-m", "stream"]
+[language-server.biome-lsp]
+command = "biome-lsp"
 
 [language-server.obsidian-lsp]
-command = {{ lookPath "pnpm" | quote }}
-args =["--silent", "dlx", "obsidian-lsp", "--stdio"]
+command = "obsidian-lsp"
+args =["--stdio"]
 
 [language-server.pylsp]
 command = {{ joinPath .chezmoi.homeDir ".local" "share" "python-lsp-server" "pylsp" | quote }}
@@ -182,8 +165,8 @@ ruff = { enabled = true }
 {{- end }}
 
 [language-server.pyright-langserver]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "--package=pyright", "dlx","pyright-langserver", "--stdio"]
+command = "pyright-langserver"
+args = ["--stdio"]
 
 [language-server.pyright-langserver.config.python.analysis]
 autoImportCompletions = true
@@ -197,12 +180,12 @@ command = "ruff-lsp"
 config = { settings = { run = "onSave" } }
 
 [language-server.stylelint-lsp]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "dlx", "stylelint-lsp", "--stdio"]
+command = "stylelint-lsp"
+args = ["--stdio"]
 
 [language-server.stylelint-lsp-scss]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "--package=stylelint-lsp", "--package=stylelint-config-standard-scss", "dlx", "stylelint-lsp", "--stdio"]
+command = "stylelint-lsp-scss"
+args = ["--stdio"]
 
 [language-server.taplo-lsp]
 command = "taplo"
@@ -246,33 +229,13 @@ crlf = false
 ignoreDepracatedAssociations = false
 
 [language-server.typescript-language-server]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "dlx", "typescript-language-server", "--stdio"]
-
-[language-server.vscode-css-language-server]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-css-language-server", "--stdio"]
-
-[language-server.vscode-eslint-language-server]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-eslint-language-server", "--stdio"]
-
-[language-server.vscode-html-language-server]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-html-language-server", "--stdio"]
-
-[language-server.vscode-json-language-server]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent",  "--package=vscode-langservers-extracted", "dlx", "vscode-json-language-server", "--stdio"]
+command = "typescript-language-server"
+args = ["--stdio"]
 
 [language-server.vscode-json-language-server.config.json]
 format = { enable = true }
 
 {{ slice ( $catalog | jq "[.schemas[] | select(.fileMatch | any(endswith(\"json\")))?] | {\"language-server\": {\"vscode-json-language-server\": {config: {json: {schemas: .}}}}}" | toToml | splitList "\n") 5 | join "\n" -}}
-
-[language-server.yaml-language-server]
-command = {{ lookPath "pnpm" | quote }}
-args = ["--silent", "dlx", "yaml-language-server", "--stdio"]
 
 [language-server.yaml-language-server.config.yaml]
 format = { enable = true }

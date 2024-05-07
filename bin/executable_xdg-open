@@ -1,4 +1,5 @@
 #!/bin/sh
+set -eu -o pipefail -o posix
 # pseudo open command for WSL
 # https://zenn.dev/ys/books/6e3f3bc6e3cf741484df/viewer/af1079468fc71320314f#windows%E3%81%AE%E9%96%A2%E9%80%A3%E4%BB%98%E3%81%91%E3%81%A7%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E9%96%8B%E3%81%8F
 
