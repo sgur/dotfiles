@@ -20,15 +20,24 @@ if status is-interactive
     # x86_64
     # arm64
 
+    if test $os = Darwin
+        function rm --wraps 'rm' --description 'rm with -i option by default'
+            command rm -i
+        end
+    else
+        function rm --wraps 'rm' --description 'rm with --interactive option by default'
+            command rm --interactive=once
+        end
+    end
+    function cp --wraps='cp' --description 'cp with -i option by default'
+        command cp -i $argv
+    end
+    function mv --wraps='mv' --description 'mv with -i option by default'
+        command mv -i $argv
+    end
+
     # gazorby/fish-abbreviation-tip が conf.d のロード中に初期化されるので
     # config.fish 内で abbr を設定する
-    if test $os = Darwin
-        abbr rm "rm -i"
-    else
-        abbr --add rm "rm --interactive=once"
-    end
-    abbr --add cp "cp -i"
-    abbr --add mv "mv -i"
     abbr --add curl /usr/bin/curl
     abbr --add ipecho -- /usr/bin/curl --silent ipecho.net/plain
 
