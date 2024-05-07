@@ -1,29 +1,33 @@
 #!/usr/bin/env bash
-set -eu -o pipefail -o posix
+set -eux -o pipefail -o posix
 # Choose pinentry depending on PINENTRY_USER_DATA
 # https://a3nm.net/git/mybin/file/my-pinentry.html
 
-case $PINENTRY_USER_DATA in
-  code)
-{{- if .wsl }}
-{{- $pinentryGpg4win := joinPath "/mnt" "c" "Program Files (x86)" "Gpg4win" "bin" "pinentry.exe" -}}
-{{- $pinentryMsysGit := joinPath .wsl_userprofile "scoop" "apps" "git" "current" "usr" "bin" "pinentry.exe" -}}
-{{-  if lookPath $pinentryGpg4win }}
-    exec {{ $pinentryGpg4win | quote }} "$@"
-{{-  else if lookPath $pinentryMsysGit }}
-    exec {{ $pinentryMsysGit | quote }} "$@"
-{{-  end }}
-{{- end }}
-    ;;
-  none)
-    exit 1 # Do not ask for passphrase
-    ;;
-  *)
-  {{- $pinentryPath := lookPath "pinentry-curses" -}}
-  {{- if $pinentryPath }}
-    exec {{ $pinentryPath }} "$@"
-  {{- else }}
-    exit 1
+if [ -z "${PINENTRY_USER_DATA:+defined}" ]; then
+  exit 1 # Do not ask for passphrase
+else
+  case $PINENTRY_USER_DATA in
+    none)
+      exit 1 # Do not ask for passphrase
+      ;;
+    code)
+  {{- if .wsl }}
+  {{- $pinentryGpg4win := joinPath "/mnt" "c" "Program Files (x86)" "Gpg4win" "bin" "pinentry.exe" -}}
+  {{- $pinentryMsysGit := joinPath .wsl_userprofile "scoop" "apps" "git" "current" "usr" "bin" "pinentry.exe" -}}
+  {{-  if lookPath $pinentryGpg4win }}
+      exec {{ $pinentryGpg4win | quote }} "$@"
+  {{-  else if lookPath $pinentryMsysGit }}
+      exec {{ $pinentryMsysGit | quote }} "$@"
+  {{-  end }}
   {{- end }}
-    ;;
-esac
+      ;;
+    *)
+    {{- $pinentryPath := lookPath "pinentry-curses" -}}
+    {{- if $pinentryPath }}
+      exec {{ $pinentryPath }} "$@"
+    {{- else }}
+      exit 1
+    {{- end }}
+      ;;
+  esac
+fi
