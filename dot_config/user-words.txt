@@ -46,6 +46,7 @@ ecmascript
 electron
 esbenp
 esbuild
+esac
 esdoc
 expandenv
 fcitx
@@ -94,6 +95,7 @@ pipenv
 plantuml
 plemoljp
 polyfill
+posix
 privs
 psirt
 pulumi
