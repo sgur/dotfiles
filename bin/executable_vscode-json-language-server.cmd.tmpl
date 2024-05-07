@@ -1,0 +1,7 @@
+{{- if eq .chezmoi.os "windows" -}}
+@echo off
+
+{{- if lookPath "pnpm" }}
+pnpm --package=vscode-langservers-extracted dlx vscode-json-language-server %1 %2 %3 %4 %5 %6 %7 %8 %9
+{{- end }}
+{{- end }}
