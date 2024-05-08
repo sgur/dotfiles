@@ -1,4 +1,4 @@
 node = "lts"
 npm = "latest"
-pnpm = "9.0.6"
+pnpm = "latest"
 yarn = "latest"
