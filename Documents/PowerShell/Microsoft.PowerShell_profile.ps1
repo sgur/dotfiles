@@ -688,3 +688,44 @@ Write-Host $Buffer.ToString()
 
 Remove-Variable -Name NonInteractive, Buffer, Ext, IsEmojiSupported
 
+function Start-SshClient
+{
+	$SshClientBin = Join-Path $Env:LocalAppData Microsoft WinGet Packages Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe usr bin ssh.exe
+	& $SshClientBin $args
+}
+Set-Alias -Name ssh -Value Start-SshClient
+
+function Start-SshAdd
+{
+	if ($Null -eq $Env:SSH_AGENT_PID)
+	{
+		Write-Warning "SSH Agent is not running."
+		Start-SshAgent
+	}
+	$SshAddBin = Join-Path $Env:LocalAppData Microsoft WinGet Packages Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe usr bin ssh-add.exe
+	& $SshAddBin
+}
+Set-Alias -Name ssh-add -Value Start-SshAdd
+
+function Start-SshAgent
+{
+	$SshAgentBin = Join-Path $Env:LocalAppData Microsoft WinGet Packages Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe usr bin ssh-agent.exe
+	$Output = & $SshAgentBin -c
+	foreach ($Line in $Output.Split("`n")[0..1])
+	{
+		($_Dummy, $Var, $Val) = $Line.TrimEnd(";").Split(" ")
+		[Environment]::SetEnvironmentVariable($Var, $Val, [EnvironmentVariableTarget]::User)
+		[Environment]::SetEnvironmentVariable($Var, $Val, [EnvironmentVariableTarget]::Process)
+	}
+}
+
+
+function Stop-SshAgent
+{
+	$SshAgentBin = Join-Path $Env:LocalAppData Microsoft WinGet Packages Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe usr bin ssh-agent.exe
+	& $SshAgentBin -k
+	[System.Environment]::SetEnvironmentVariable("SSH_AUTH_SOCK", $Null, [System.EnvironmentVariableTarget]::User)
+	[System.Environment]::SetEnvironmentVariable("SSH_AUTH_SOCK", $Null, [System.EnvironmentVariableTarget]::Process)
+	[System.Environment]::SetEnvironmentVariable("SSH_AGENT_PID", $Null, [System.EnvironmentVariableTarget]::User)
+	[System.Environment]::SetEnvironmentVariable("SSH_AGENT_PID", $Null, [System.EnvironmentVariableTarget]::Process)
+}
