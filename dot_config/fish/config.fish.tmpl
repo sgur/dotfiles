@@ -69,10 +69,7 @@ if status is-interactive
     abbr --add na ni add
     abbr --add nrm ni remove
 
-    function git_show_toplevel
-        git rev-parse --show-toplevel
-    end
-    abbr --add git-top-level --position anywhere --function git_show_toplevel
+    abbr --add git-toplevel --position anywhere '(git rev-parse --show-toplevel)'
 
     # \el -> \ei へ移設
     bind --user \ei __fish_list_current_token
