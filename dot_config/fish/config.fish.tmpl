@@ -22,11 +22,11 @@ if status is-interactive
 
     if test $os = Darwin
         function rm --wraps 'rm' --description 'rm with -i option by default'
-            command rm -i
+            command rm -i $argv
         end
     else
         function rm --wraps 'rm' --description 'rm with --interactive option by default'
-            command rm --interactive=once
+            command rm --interactive=once $argv
         end
     end
     function cp --wraps='cp' --description 'cp with -i option by default'
