@@ -144,7 +144,7 @@ else
 
   final new_path = []
   final system_path = []
-  var paths = expand('$PATH')->split(';')
+  var paths = $PATH->split(';')
   for path in paths
     if stridx(expand(path), expand('C:\Windows')) == 0
       system_path += [path]
@@ -152,11 +152,11 @@ else
     endif
     new_path +=  [path]
   endfor
-  $PATH = join(new_path + system_path, ';')
+  $PATH = (new_path + system_path)->join(';')
 
-  const vimBinDir = expand(expand('<sfile>:p:h') .. '/etc/bin')
-  if isdirectory(vimBinDir)
-    $PATH = vimBinDir .. ';' .. $PATH
+  const mingit_busybox_bin = expand(expand('$LocalAppData') .. '/Microsoft/WinGet/Packages/Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin')
+  if isdirectory(mingit_busybox_bin)
+    $PATH = [$PATH, mingit_busybox_bin]->join(';')
   endif
 endif
 
@@ -769,13 +769,17 @@ pack.Add('vim-sandwich', InitSandwich)
 try
   packadd! scope.vim
   import autoload 'scope/fuzzy.vim'
-  if executable('fd')
+  g:scope_find_cmd = ''
+  if executable('fd') 
     const exclude_args = map(split(&wildignore, ',') + ["node_modules", "go/pkg", "site-packages"], (k, v) => printf('--exclude "%s"', v))->join(' ')
-    const fd_cmd = 'fd --type file --hidden --follow ' .. exclude_args
-    execute 'nnoremap' '<silent>' '<Leader>f' '<ScriptCmd>fuzzy.File("' .. escape(fd_cmd, '"') .. '", 100000)<CR>'
-  else
-    nnoremap <silent> <Leader>f  <ScriptCmd>fuzzy.File()<CR>
+    g:scope_find_cmd = 'fd --type file --hidden --follow ' .. exclude_args
+  elseif executable('busybox')
+    const exclude_names = map(split(&wildignore, ','), (k, v) => printf("! -name '%s'", v))
+    const exclude_paths = map(["node_modules", "go/pkg", "site-packages"], (k, v) => printf("! -path '*/%s/*'", v))
+    const exclude_args = '-a ' .. join(exclude_names, ' -a ') .. join(exclude_paths, ' -a ')
+    g:scope_find_cmd = 'busybox find ( -type f ' .. exclude_args .. ' ) -print -follow'
   endif
+  execute 'nnoremap' '<silent>' '<Leader>f' '<ScriptCmd>fuzzy.File("' .. escape(g:scope_find_cmd, '"') .. '", 100000)<CR>'
   nnoremap <silent> <Leader>b  <ScriptCmd>fuzzy.Buffer()<CR>
   nnoremap <silent> <Leader>j  <ScriptCmd>fuzzy.Jumplist()<CR>
   nnoremap <silent> <Leader>s  <ScriptCmd>fuzzy.LspDocumentSymbol()<CR>
