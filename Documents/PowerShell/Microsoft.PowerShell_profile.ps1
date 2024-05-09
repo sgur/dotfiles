@@ -139,6 +139,9 @@ try
 	Write-Warning "Update PsReadline: pwsh -NoProfile -Command ""Install-Module PSReadLine -Force -AllowPrerelease"""
 }
 
+# ripgrep config file
+$env:RIPGREP_CONFIG_PATH = Join-Path $Env:USERPROFILE .config ripgrep ripgreprc
+
 # chezmoi completions
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 {
