@@ -8,6 +8,8 @@ end
 {{- end }}
 
 if status is-interactive
+    set -gx EDITOR vim
+    set -gx GIT_EDITOR hx
     # vscode の integrated terminal からは vscode のエディターを開く
     if test "$TERM_PROGRAM" = vscode
         set -gx EDITOR 'code -w'
@@ -88,13 +90,6 @@ fish_add_path ~/bin ~/.local/bin
 # meaningful-ooo/sponge
 set sponge_purge_only_on_exit true
 set sponge_delay 5
-
-set -gx EDITOR vim
-# git commit では copilot を使いたいので vim を利用する
-set -gx GIT_EDITOR vim
-if type -q hx
-    set -gx EDITOR hx
-end
 
 {{ if eq .chezmoi.os "darwin" -}}
 if test "$TERM" = "screen-256color"
