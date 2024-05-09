@@ -1,3 +1,4 @@
+{{ if lookPath "cargo" -}}
 [net]
 git-fetch-with-cli = true
 
@@ -27,3 +28,4 @@ opt-level = 3
 ## リリースモード時のbuild.rsのオプション
 [profile.release.build-override]
 opt-level = 3
+{{- end }}
