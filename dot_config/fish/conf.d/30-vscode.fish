@@ -3,19 +3,15 @@ status is-interactive || exit
 # https://code.visualstudio.com/docs/terminal/shell-integration
 # code --locate-shell-integration-path fish
 
-if string match -q "$TERM_PROGRAM" "vscode"
+string match -q "$TERM_PROGRAM" "vscode" || exit
 
-{{- $vscodeServer := glob (joinPath .chezmoi.homeDir ".vscode-server/bin/*/bin/remote-cli") | first -}}
-{{ if $vscodeServer -}}
-{{- $vscodeBase := joinPath ($vscodeServer | trimSuffix "/bin/remote-cli") "out" "vs" "workbench" "contrib" "terminal" "browser" "media" -}}
-{{- $oldFishRc := joinPath $vscodeBase "shellIntegration.fish" -}}
-{{   if stat $oldFishRc -}}
-    source {{ $oldFishRc }}
-{{-  end }}
-{{- $newFishRc := joinPath $vscodeBase "fish_xdg_data" "fish" "vendor_conf.d" "shellIntegration.fish" -}}
-{{   if stat $newFishRc }}
-    source {{ $newFishRc }}
-{{-   end }}
-{{- end }}
+set -l $shell_integration ~/.vscode-server/bin/*/out/vs/workbench/contrib/terminal/browser/media/fish_xdg_data/fish/vendor_conf.d/shellIntegration.fish
+if test -f $shell_integration
+    source $shell_integration
+    exit
+end
 
+set -l $old_shell_integration ~/.vscode-server/bin/*/out/vs/workbench/contrib/terminal/browser/media/shellIntegration.fish
+if test -f $old_shell_integration
+    source $old_shell_integration
 end
