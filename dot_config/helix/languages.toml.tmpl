@@ -51,7 +51,7 @@ language-servers = ["vscode-html-language-server", "tailwindcss-ls", "efm-langse
 
 [[language]]
 name = "javascript"
-language-servers = ["typescript-language-server", "biome-lsp", "efm-langserver", "buffer-ls"]
+language-servers = ["vtsls", "biome-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "json"
@@ -59,7 +59,7 @@ language-servers = ["vscode-json-language-server", "biome-lsp", "efm-langserver"
 
 [[language]]
 name = "jsx"
-language-servers = ["typescript-language-server", "tailwindcss-ls", "biome-lsp", "efm-langserver", "buffer-ls"]
+language-servers = ["vtsls", "tailwindcss-ls", "biome-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "kdl"
@@ -90,11 +90,11 @@ formatter = { command = "taplo-lsp", args = ["format", "-"]}
 
 [[language]]
 name = "tsx"
-language-servers = [{name = "typescript-language-server", except-features = ["format"]}, "tailwindcss-ls", "biome-lsp", "efm-langserver", "buffer-ls"]
+language-servers = [{name = "vtsls", except-features = ["format"]}, "tailwindcss-ls", "biome-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "typescript"
-language-servers = [{name = "typescript-language-server", except-features = ["format"]}, "biome-lsp", "efm-langserver", "buffer-ls"]
+language-servers = [{name = "vtsls", except-features = ["format"]}, "biome-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
 name = "yaml"
@@ -227,6 +227,10 @@ crlf = false
 
 [language-server.taplo-lsp.config.evenBetterToml.actions]
 ignoreDepracatedAssociations = false
+
+[language-server.vtsls]
+command = "vtsls"
+args = ["--stdio"]
 
 [language-server.typescript-language-server]
 command = "typescript-language-server"

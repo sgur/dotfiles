@@ -133,23 +133,40 @@ lsp_servers += [{
 }]
 
 ## javascript / typescript
-lsp_servers += [{
-  name: 'typescript-language-server',
-  filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
-  path: GetLspServerPath('typescript-language-server'),
-  args: ["--stdio"],
-  initializationOptions: {
-    preferences: {
-      includeInlayEnumMemberValueHints: v:true,
-      includeInlayFunctionLikeReturnTypeHints: v:true,
-      includeInlayFunctionParameterTypeHints: v:true,
-      includeInlayParameterNameHints: 'all',
-      includeInlayParameterNameHintsWhenArgumentMatchesName: v:true,
-      includeInlayPropertyDeclarationTypeHints: v:true,
-      includeInlayVariableTypeHints: v:true,
+if v:false
+  lsp_servers += [{
+    name: 'vtsls',
+    filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
+    path: GetLspServerPath('vtsls'),
+    args: ["--stdio"],
+    debug: v:true,
+    rootSearch: ['tsconfig.json', 'package.json', 'jsconfig.json', '.git'],
+    # https://github.com/yioneko/vtsls/blob/main/packages/service/configuration.schema.json
+    workspaceConfig: {
+      vtsls: {
+        autoUseWorkspaceTsdk: v:true
+      }
     }
-  }
-}]
+  }]
+else
+  lsp_servers += [{
+    name: 'typescript-language-server',
+    filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
+    path: GetLspServerPath('typescript-language-server'),
+    args: ["--stdio"],
+    initializationOptions: {
+      preferences: {
+        includeInlayEnumMemberValueHints: v:true,
+        includeInlayFunctionLikeReturnTypeHints: v:true,
+        includeInlayFunctionParameterTypeHints: v:true,
+        includeInlayParameterNameHints: 'all',
+        includeInlayParameterNameHintsWhenArgumentMatchesName: v:true,
+        includeInlayPropertyDeclarationTypeHints: v:true,
+        includeInlayVariableTypeHints: v:true,
+      }
+    }
+  }]
+endif
 
 lsp_servers += [{
   name: 'tailwindcss-language-server',
