@@ -50,6 +50,8 @@ if status is-interactive
     abbr --add chz -- chezmoi
 
     abbr --add CC --position anywhere --set-cursor "%| fish_clipboard_copy"
+    abbr --add ST --position anywhere '(git rev-parse --show-toplevel)'
+
     abbr --add aws.e --set-cursor "aws-vault exec % -- "
     abbr --add aws.l --set-cursor "aws-vault login % --stdout | fish_clipboard_copy"
 
@@ -68,8 +70,6 @@ if status is-interactive
     abbr --add nr ni run
     abbr --add na ni add
     abbr --add nrm ni remove
-
-    abbr --add git-toplevel --position anywhere '(git rev-parse --show-toplevel)'
 
     # \el -> \ei へ移設
     bind --user \ei __fish_list_current_token
