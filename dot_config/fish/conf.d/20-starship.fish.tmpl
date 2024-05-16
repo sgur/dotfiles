@@ -1,6 +1,6 @@
-status is-interactive || exit
+{{ if lookPath "starship" -}}
 
-{{ if lookPath "starship" }}
+status is-interactive || exit
 
 function starship_transient_prompt_func
   starship module directory
@@ -22,6 +22,4 @@ function enable_transience_handler --on-event fish_ready
 end
 
 enable_transience
-{{ end }}
-
-
+{{- end }}

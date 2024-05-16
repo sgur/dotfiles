@@ -1,6 +1,6 @@
+{{ if lookPath "bat" -}}
 status is-interactive || exit
 
-{{ if lookPath "bat" -}}
 function bat_theme_preview_with
     if test (count $argv) -eq 0
         echo 'no args'
@@ -15,4 +15,4 @@ complete --command bat_theme_preview_with --require-parameter
 # https://github.com/sharkdp/bat/issues/1433
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 {{   end -}}
-{{ end -}}
+{{- end }}

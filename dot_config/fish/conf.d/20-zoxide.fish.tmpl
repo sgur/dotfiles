@@ -1,5 +1,5 @@
+{{ if lookPath "zoxide" -}}
 status is-interactive || exit
 
-{{ if lookPath "zoxide" }}
-{{ output "zoxide" "init" "fish"  | trim }}
-{{ end }}
+{{ output "zoxide" "init" "fish" | trim }}
+{{- end }}

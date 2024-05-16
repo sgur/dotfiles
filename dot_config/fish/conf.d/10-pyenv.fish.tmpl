@@ -1,6 +1,5 @@
+{{ if lookPath "pyenv" -}}
 status is-interactive || exit
 
-{{ if lookPath "pyenv" }}
 {{ output "pyenv" "init" "-" "fish" | trim }}
-{{ end }}
-
+{{- end }}

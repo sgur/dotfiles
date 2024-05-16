@@ -1,3 +1,4 @@
+{{ if lookPath "mise" -}}
 status is-interactive || exit
 
 {{ if or (lookPath "fnm") (lookPath "pyenv") (lookPath "rbenv") -}}
@@ -8,6 +9,5 @@ if test \( -n "$HOMEBREW_PREFIX" \) -a \( "$MISE_FISH_AUTO_ACTIVATE" != "0" \)
 	exit 0
 end
 
-{{ if lookPath "mise" }}
 {{ output "mise" "activate" "fish" | trim }}
-{{ end }}
+{{- end }}

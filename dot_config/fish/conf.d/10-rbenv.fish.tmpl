@@ -1,5 +1,5 @@
+{{ if lookPath "rbenv" -}}
 status is-interactive || exit
 
-{{ if lookPath "rbenv" }}
 {{ output "rbenv" "init" "-" "fish" | trim }}
-{{ end }}
+{{- end }}
