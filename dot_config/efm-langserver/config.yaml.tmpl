@@ -222,11 +222,33 @@ tools:
   any-textlint: &any-textlint
     prefix: textlint
     lint-command: >-
+      {{ lookPath "bunx" }}
+      textlint
+      -f unix
+      --no-color
+      --stdin
+      --stdin-filename ${INPUT}
+    root-markers:
+      - .textlintrc.json
+      - .textlintrc.yaml
+      - .textlintrc.yml
+    lint-stdin: true
+    lint-formats:
+      - "%f:%l:%c: %m [%trror/%r]"
+      - "%f:%l:%c: 【%r】 %m"
+      - "%E%f:%l:%c: %m"
+      - "%Z%m [%trror/%r]"
+      - "%C%m"
+    lint-ignore-exit-code: true
+    lint-after-open: true
+
+  any-textlint-fallback: &any-textlint-fallback
+    prefix: textlint-fallback
+    lint-command: >-
 {{- if lookPath "pnpm" }}
       {{ lookPath "pnpm" }}
       --silent
       --package=textlint
-      --package=textlint-rule-preset-ja-technical-writing
       --package=textlint-rule-preset-ja-spacing
       --package=textlint-rule-preset-japanese
       dlx
@@ -235,7 +257,6 @@ tools:
       exec
       --silent
       --package=textlint
-      --package=textlint-rule-preset-ja-technical-writing
       --package=textlint-rule-preset-ja-spacing
       --package=textlint-rule-preset-japanese
       --yes
@@ -292,6 +313,7 @@ languages:
   markdown:
     - <<: *markdown-markdownlint-cli2
     - <<: *any-textlint
+    - <<: *any-textlint-fallback
     - <<: *any-prettier
 
   ps1:
