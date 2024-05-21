@@ -1,4 +1,8 @@
 {{/* true if this machine should have Docker installed */}}
+{{- $fullProvisioning := false}}
+{{- if eq .chezmoi.os "windows" -}}
+{{- $fullProvisioning = promptBoolOnce . "winget" "Install optional packages" }}
+{{- end }}
 {{- $docker := false -}}
 {{- $docker = promptBoolOnce . "docker" "Install docker" -}}
 
@@ -61,6 +65,7 @@ distribution = {{ get .chezmoi.osRelease "id" | quote }}
 cpuCores = {{ $cpuCores }}
 cpuThreads = {{ $cpuThreads }}
 buildOnUpdate = {{ $buildOnUpdate }}
+fullProvisioning = {{ $fullProvisioning }}
 
 [interpreters.ps1]
 {{- if eq .chezmoi.os "windows" }}
