@@ -1,15 +1,6 @@
 ---
 filters: {}
 rules:
-  preset-ja-technical-writing:
-    sentence-length:
-      # 「君はなぜソースコードのカラム数を132桁にしてるの？」「B4ラインプリンタの桁数が136桁だから」
-      # -- <https://twitter.com/kazuho/status/1034647937119219712>
-      max: 132
-    max-kanji-continuous-len:
-      max: 8
-      allow: []
-    no-exclamation-question-mark: false
   preset-ja-spacing:
     ja-space-between-half-and-full-width:
       space: "always"
@@ -22,4 +13,6 @@ rules:
       allowEmojiAtEnd: true
   preset-japanese:
     sentence-length:
+      # 「君はなぜソースコードのカラム数を132桁にしてるの？」「B4ラインプリンタの桁数が136桁だから」
+      # -- <https://twitter.com/kazuho/status/1034647937119219712>
       max: 132
