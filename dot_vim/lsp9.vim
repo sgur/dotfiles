@@ -178,14 +178,16 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'biome-lsp',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
-  path: GetLspServerPath('biome-lsp')
+  path: GetLspServerPath('biome-lsp'),
+  runIfSearch: ['biome.json', 'biome.jsonc'],
 }]
 
 lsp_servers += [{
   name: 'vscode-eslint-language-server',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
   path: GetLspServerPath('vscode-eslint-language-server'),
-  args: ["--stdio"]
+  args: ["--stdio"],
+  runIfSearch: ['.eslint.config.js', '.eslint.config.mjs', '.eslint.config.cjs'],
 }]
 
 ## json
@@ -284,7 +286,6 @@ lsp_servers += [{
   filetype: ['markdown'],
   path: GetLspServerPath('obsidian-lsp'),
   args: ["--stdio"],
-  rootSearch: ['.obsidian/'],
   runIfSearch: ['.obsidian/']
 }]
 
