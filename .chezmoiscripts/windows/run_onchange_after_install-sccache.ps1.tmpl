@@ -1,6 +1,22 @@
-{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "sccache.json" | include | fromJson }}
-# Latest release version: {{ $release.tag_name }}
-
 {{ if and (lookPath "cargo") .buildOnUpdate -}}
-& cargo install sccache --version {{ $release.tag_name | trimPrefix "v" }} --locked
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "sccache.json" | include | fromJson }}
+{{- $jqQuery := printf ".assets[] | select(.name | test(\"sccache-%s-x86_64-pc-windows-msvc.zip$\"))" $release.tag_name -}}
+{{- $info := $release | jq $jqQuery | first -}}
+{{- $url := $info.browser_download_url -}}
+{{- $asset := $info.name -}}
+{{- $ext := osExt $asset -}}
+# Version: {{ $release.tag_name }}
+# Updated-at: {{ $info.updated_at }}
+
+Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset }}
+Expand-Archive -Force -Path {{ $asset }}
+
+{{- if lookPath "sccache" }}
+& sccache --stop-server 2> $null
+{{- end }}
+
+Resolve-Path {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }} | New-Item -ItemType Directory -ErrorAction SilentlyContinue
+Move-Item -Force -Path 'sccache-*/sccache-*/sccache.exe' -Destination {{ joinPath .chezmoi.homeDir ".local" "bin" | quote }}
+Remove-Item -Force -Recurse -Path {{ $asset | quote }}, {{ trimSuffix $ext $asset | quote }}
+
 {{- end }}
