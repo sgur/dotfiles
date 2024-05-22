@@ -842,7 +842,7 @@ def InitVsnip() # {{{
 
   # Expand or jump
   inoremap <expr> <C-x>l   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-x>l'
-  snoremap <expr> <C-x>l   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C->l'
+  snoremap <expr> <C-x>l   vsnip#available(1)  ? '<Plug>(vsnip-expand-or-jump)' : '<C-x>l'
 
   # Jump forward or backward
   inoremap <expr> <C-x><Tab>   vsnip#jumpable(1)   ? '<Plug>(vsnip-jump-next)'      : '<C-x><Tab>'
