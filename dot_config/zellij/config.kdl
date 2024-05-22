@@ -217,8 +217,6 @@ plugins {
 //
 // default_shell "fish"
 
-default_shell "fish"
-
 // Choose the path to override cwd that zellij will use for opening new panes
 //
 // default_cwd ""
@@ -229,8 +227,6 @@ default_shell "fish"
 //   - false
 //
 // pane_frames true
-
-pane_frames false
 
 // Toggle between having Zellij lay out panes according to a predefined set of layouts whenever possible
 // Options:
@@ -270,6 +266,8 @@ theme "catppuccin-mocha"
 // Default: "default"
 //
 // default_layout "compact"
+
+default_layout "compact"
 
 // Choose the mode that zellij uses when starting up.
 // Default: normal
@@ -339,4 +337,14 @@ theme "catppuccin-mocha"
 
 env {
     TERM "screen-256color"
+}
+
+ui {
+    pane_frames {
+        // Set whether the pane frames (if visible) should have rounded corners.
+        // This config variable is set differently than others:
+        rounded_corners true
+        // Hides the session name (randomly generated or otherwise) from the UI
+        hide_session_name true
+    }
 }
