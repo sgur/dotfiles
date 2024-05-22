@@ -833,6 +833,7 @@ def InitVsnip() # {{{
         \     ? expand('~/Library/Application Support/Code/User')
         \     : expand('~/.config/Code/User')
         \ ]
+        \ + globpath(expand('~/.local/share/friendly-snippets/snippets'), '*', 1, 1)->filter((k, v) => isdirectory(v))
         \ + globpath(expand('~/.vscode/extensions'), '*/snippets', 1, 1)
 
   # Expand
