@@ -67,9 +67,9 @@ if status is-interactive
         end
     end
 
-    abbr --add nr ni run
-    abbr --add na ni add
-    abbr --add nrm ni remove
+    if type -q _na
+        abbr --add n --function _na
+    end
 
     # \el -> \ei へ移設
     bind --user \ei __fish_list_current_token
