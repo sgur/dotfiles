@@ -1,8 +1,4 @@
 {{/* true if this machine should have Docker installed */}}
-{{- $fullProvisioning := false}}
-{{- if eq .chezmoi.os "windows" -}}
-{{- $fullProvisioning = promptBoolOnce . "winget" "Install optional packages" }}
-{{- end }}
 {{- $docker := false -}}
 {{- $docker = promptBoolOnce . "docker" "Install docker" -}}
 
@@ -31,9 +27,11 @@
 {{-   $cpuThreads = (output "powershell.exe" "-NoProfile" "-NonInteractive" "-Command" "(Get-CimInstance -ClassName 'Win32_Processor').NumberOfLogicalProcessors") | trim | atoi -}}
 {{- end -}}
 
+{{- $fullProvisioning := false -}}
 {{- $buildOnUpdate := false -}}
 {{- if eq .chezmoi.os "windows" -}}
-{{- $buildOnUpdate = promptBoolOnce . "rust tools" "Build tools on update" -}}
+{{-   $fullProvisioning = promptBoolOnce . "winget" "Install optional packages" -}}
+{{-   $buildOnUpdate = promptBoolOnce . "rust tools" "Build tools on update" -}}
 {{- end -}}
 
 progress = true
@@ -64,8 +62,8 @@ wsl_userprofile = {{ $wsl_userprofile | quote }}
 distribution = {{ get .chezmoi.osRelease "id" | quote }}
 cpuCores = {{ $cpuCores }}
 cpuThreads = {{ $cpuThreads }}
-buildOnUpdate = {{ $buildOnUpdate }}
 fullProvisioning = {{ $fullProvisioning }}
+buildOnUpdate = {{ $buildOnUpdate }}
 
 [interpreters.ps1]
 {{- if eq .chezmoi.os "windows" }}
