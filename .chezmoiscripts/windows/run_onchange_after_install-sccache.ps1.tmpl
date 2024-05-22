@@ -1,0 +1,6 @@
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "sccache.json" | include | fromJson }}
+# Latest release version: {{ $release.tag_name }}
+
+{{ if and (lookPath "cargo") .buildOnUpdate -}}
+& cargo install sccache --version {{ $release.tag_name | trimPrefix "v" }} --locked
+{{- end }}
