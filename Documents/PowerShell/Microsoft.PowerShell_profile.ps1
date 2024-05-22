@@ -6,11 +6,7 @@ if (-not $Env:CHEZMOI_GITHUB_ACCESS_TOKEN)
 	Write-Warning "Environment variable 'CHEZMOI_GITHUB_ACCESS_TOKEN' is not defined."
 }
 
-$Ext = @{}
-$IsEmojiSupported = $Env:WT_SESSION -Or $Env:ALACRITTY_LOG
-
-$NonInteractive = ([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).Length -gt 0
-if ($NonInteractive)
+if (([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).Length -gt 0)
 {
 	return
 }
@@ -152,21 +148,13 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 # ripgrep completions
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name rg)
 {
-	$Ext.ripgrep = $true
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Ripgrep.ps1')
-} else
-{
-	$Ext.ripgrep = $false
 }
 
 # xh completions
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
 {
-	$Ext.xh = $true
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Xh.ps1')
-} else
-{
-	$Ext.xh = $false
 }
 
 # bat
@@ -175,11 +163,7 @@ $Env:BAT_CONFIG_PATH = (Resolve-Path "~/.config/bat/config").Path
 ## bat completions
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name bat)
 {
-	$Ext.bat = $true
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Bat.ps1')
-} else
-{
-	$Ext.bat = $false
 }
 
 # fzf catppuccin theme
@@ -221,28 +205,15 @@ if (Get-Command -ErrorAction SilentlyContinue hgrep)
 }
 
 # Starship
-if ($IsEmojiSupported)
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name starship)
 {
-	if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name starship)
-	{
-		$Ext.starship = $true
-		. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
-	}
-	else
-	{
-		$Ext.starship = $false
-	}
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
 }
 
 # zoxide
 if (Get-Command -ErrorAction SilentlyContinue zoxide)
 {
-	$Ext.zoxide = $true
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Zoxide.ps1')
-}
-else
-{
-	$Ext.zoxide = $false
 }
 
 # Set-Location Hook
@@ -450,7 +421,6 @@ finally {
 
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 {
-	$Ext.eza = $true
 	Remove-Item -Force -Path Alias:ls -ErrorAction SilentlyContinue
 	$IconOption = $IsEmojiSupported ? "--icons" : $null
 	function global:ls
@@ -458,9 +428,6 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 		& eza.exe --classify --color=auto --color-scale=size $IconOption --no-quotes --group-directories-first `
 			--ignore-glob='NTUSER.*|ntuser.*|Application Data|Local Settings|My Documents|Start Menu|スタート メニュー' $args
 	}
-} else
-{
-	$Ext.eza = $false
 }
 
 # gsudo
@@ -477,12 +444,7 @@ if (Get-Command -ErrorAction SilentlyContinue "br")
 {
 	if (Get-Command -ErrorAction SilentlyContinue "broot")
 	{
-		$Ext.broot = $true
 		. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Broot.ps1')
-	}
-	else
-	{
-		$Ext.broot = $false
 	}
 }
 
@@ -676,35 +638,10 @@ $env:PATH = @(
 ) -join [IO.PATH]::PathSeparator
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name proto)
 {
-	$Ext.proto = $true
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Proto.ps1')
-} else
-{
-	$Ext.proto = $false
 }
 
-$Buffer = New-Object System.Text.StringBuilder
-$Ext.GetEnumerator() | Sort-Object -Property Key | ForEach-Object {
-	[void] $Buffer.Append(" ")
-	if ($IsEmojiSupported) {
-		if ($_.Value)
-		{
-			[void] $Buffer.Append("✔ ")
-		}
-	}
-	else
-	{
-		if (!$_.Value)
-		{
-			[void] $Buffer.Append("[N/A]")
-		}
-	}
-	[void] $Buffer.Append($_.Key)
-}
-Write-Host $Buffer.ToString()
-
-Remove-Variable -Name NonInteractive, Buffer, Ext, IsEmojiSupported
-
+# ssh-agent
 function Start-SshClient
 {
 	$SshClientBin = Join-Path $Env:LocalAppData Microsoft WinGet Packages Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe usr bin ssh.exe
@@ -735,7 +672,6 @@ function Start-SshAgent
 		[Environment]::SetEnvironmentVariable($Var, $Val, [EnvironmentVariableTarget]::Process)
 	}
 }
-
 
 function Stop-SshAgent
 {
