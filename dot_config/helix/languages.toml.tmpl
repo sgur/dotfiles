@@ -17,6 +17,14 @@ formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser
 language-servers = ["vscode-css-language-server", "stylelint-lsp", "efm-langserver", "buffer-ls"]
 
 [[language]]
+name = "dockerfile"
+language-servers = [ "docker-langserver", "buffer-ls" ]
+
+[[language]]
+name = "docker-compose"
+language-servers = [ "docker-compose-langserver", "yaml-language-server", "buffer-ls" ]
+
+[[language]]
 name = "fish"
 language-servers = ["efm-langserver", "buffer-ls"]
 
@@ -77,6 +85,10 @@ language-servers = ["pylsp", "pyright-langserver", "ruff-lsp", "efm-langserver",
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 roots = ["pyproject.toml"]
+
+[[language]]
+name = "rust"
+language-servers = [ "rust-analyzer", "buffer-ls" ]
 
 [[language]]
 name = "scss"
