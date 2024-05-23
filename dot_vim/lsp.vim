@@ -167,9 +167,10 @@ augroup vimrc_plugin_lsp_buffer
           \ blocklist: [],
           \ cmd: {server_info -> [lsp_settings#exec_path('simple-completion-language-server')]},
           \ workspace_config: #{
-          \   max_completion_items: 20,
-          \   snippets_first: v:false,
+          \   max_completion_items: 10,
+          \   snippets_first: v:true,
           \   feature_words: v:true,
+          \   feature_snippets: v:true,
           \   feature_unicode_input: v:true,
           \   feature_paths: v:true
           \ }
