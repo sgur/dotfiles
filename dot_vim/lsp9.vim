@@ -498,10 +498,10 @@ def LspSetupBufferLocal()
   nnoremap <buffer> gy  <Cmd>LspGotoTypeDef<CR>
   nnoremap <buffer> gd  <Cmd>LspGotoDefinition<CR>
   nnoremap <buffer> gD  <Cmd>LspGotoDeclaration<CR>
-  if &filetype != 'vim'
-    nnoremap <buffer> gy  <Cmd>LspGotoTypeDef<CR>
-  endif
   nnoremap <buffer> gI  <Cmd>LspGotoImpl<CR>
+
+  nmap <buffer> [d  <Cmd>LspDiag prev<CR>
+  nmap <buffer> ]d  <Cmd>LspDiag next<CR>
 enddef
 
 lsp_servers->filter((_, v) => !empty(v.path))
