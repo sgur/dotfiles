@@ -10,6 +10,4 @@ autocmd BufNewFile,BufRead .csslintrc  setfiletype json
 autocmd BufNewFile,BufRead .babelrc  setfiletype jsonc
 autocmd BufNewFile,BufRead .Brewfile  setfiletype brewfile
 autocmd BufNewFile,BufRead ~/.ssh/conf.d/*.conf setfiletype sshconfig
-" autocmd BufNewFile,BufRead *.js{,x}  if join(getline(1, 3)) =~# '@flow'
-"      \ |   setfiletype flow
-"      \ | endif
+autocmd BufNewFile,BufRead .prototools setfiletype toml
