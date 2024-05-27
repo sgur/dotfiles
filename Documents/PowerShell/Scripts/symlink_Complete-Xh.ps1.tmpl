@@ -1,2 +1,4 @@
+{{- if lookPath "xh" }}
 {{- $baseDir := glob (joinPath (lookPath "xh" | osDir | osDir) "Packages" "ducaale.xh_Microsoft.Winget.Source_8wekyb3d8bbwe" "xh-*-x86_64-pc-windows-msvc") | first -}}
 {{- joinPath $baseDir "completions" "_xh.ps1" -}}
+{{- end }}
