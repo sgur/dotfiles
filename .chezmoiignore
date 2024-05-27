@@ -5,6 +5,10 @@ README.md
 Tools/**/*.exe
 Tools/**/*.bat
 
+{{ if (not (or (lookPath "vim") (lookPath "gvim") (lookPath "mvim"))) }}
+.vim/
+{{ end  }}
+
 {{ if ne .chezmoi.os "darwin" }}
 # Ignoring on non-macOS
 .chezmoiscripts/darwin/**
