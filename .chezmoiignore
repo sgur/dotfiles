@@ -5,8 +5,8 @@ README.md
 Tools/**/*.exe
 Tools/**/*.bat
 
-{{ if (not (or (lookPath "vim") (lookPath "gvim") (lookPath "mvim"))) }}
-.vim/
+{{ if not (or (lookPath "vim") (lookPath "gvim") (lookPath "mvim")) }}
+.vim/**
 {{ end  }}
 
 {{ if ne .chezmoi.os "darwin" }}
