@@ -42,6 +42,11 @@ $JsonStr = @'
 					"PackageIdentifier": "ajeetdsouza.zoxide"
 				}
 {{- if .fullProvisioning }}
+{{-   if gt (atoi .chezmoi.windowsVersion.currentBuild) 22000 }}
+				,{
+					"PackageIdentifier": "Microsoft.DevHome"
+				}
+{{-   end }}
 				,{
 					"PackageIdentifier": "vim.vim.nightly"
 				}

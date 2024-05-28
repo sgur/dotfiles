@@ -179,7 +179,7 @@ lsp_servers += [{
   name: 'biome-lsp',
   filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'json', 'jsonc'],
   path: GetLspServerPath('biome'),
-  args: ['lsp-proxy']
+  args: ['lsp-proxy'],
   runIfSearch: ['biome.json', 'biome.jsonc'],
 }]
 
