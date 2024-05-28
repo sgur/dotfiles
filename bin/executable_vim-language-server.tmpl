@@ -1,10 +1,8 @@
-{{- if ne .chezmoi.os "windows" -}}
+{{- if and (ne .chezmoi.os "windows") (lookPath "pnpm") -}}
 #!/bin/sh
 set -eu
 
-{{- if lookPath "pnpm" }}
 pnpm dlx vim-language-server $@
-{{- end }}
 {{- end }}
 
 

@@ -1,8 +1,6 @@
-{{- if ne .chezmoi.os "windows" -}}
+{{- if and (ne .chezmoi.os "windows") (lookPath "pnpm") -}}
 #!/bin/sh
 set -eu
 
-{{- if lookPath "pnpm" }}
 pnpm --package=vscode-langservers-extracted dlx vscode-markdown-language-server $@
-{{- end }}
 {{- end }}
