@@ -12,7 +12,6 @@ Tools/**/*.bat
 {{ if ne .chezmoi.os "darwin" }}
 # Ignoring on non-macOS
 .chezmoiscripts/darwin/**
-.Brewfile.darwin
 .config/kitty/
 Library/
 {{ end }}
@@ -20,7 +19,6 @@ Library/
 {{ if ne .chezmoi.os "linux" }}
 # Ignoring on non-Linux
 .chezmoiscripts/linux/**
-.Brewfile.linux
 {{ end }}
 
 {{ if ne .chezmoi.os "windows" }}
@@ -40,7 +38,6 @@ Tools/
 {{ else }}
 # Ignoring on Windows
 **/*.*sh
-.Brewfile*
 .actrc
 .bashrc
 .curlrc
