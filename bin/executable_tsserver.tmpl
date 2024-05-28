@@ -1,0 +1,7 @@
+{{- if and (ne .chezmoi.os "windows") (lookPath "pnpm") -}}
+#!/bin/sh
+set -eu
+
+pnpm --package=typescript dlx tsserver $@
+{{- end }}
+
