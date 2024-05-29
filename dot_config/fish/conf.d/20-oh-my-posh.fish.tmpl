@@ -1,0 +1,8 @@
+{{ if and (lookPath "starship" | not) (lookPath "oh-my-posh") -}}
+
+status is-interactive || exit
+
+{{ $brewPrefix := output "brew" "--prefix" "oh-my-posh" | trim -}}
+{{ output "oh-my-posh" "init" "fish" "--config" (joinPath $brewPrefix "themes" "pure.omp.json") }}
+
+{{- end }}
