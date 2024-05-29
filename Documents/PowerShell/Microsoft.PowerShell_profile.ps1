@@ -247,7 +247,7 @@ function Select-Repository
 {
 	try
 	{
-		$selected = $(ghq list | fzf --prompt="repository> ")
+		$selected = $(ghq list | fzf --prompt="repository> " --preview="git -C $(ghq list --exact --full-path {}) log -5 --graph --decorate --abbrev-commit --color=always")
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
@@ -335,7 +335,7 @@ function Select-ZoxideHistory
 		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
 	} catch
 	{
-		Write-Warning "fzf, ghq: executables not installed"
+		Write-Warning "fzf, zoxide: executables not installed"
 	}
 }
 
