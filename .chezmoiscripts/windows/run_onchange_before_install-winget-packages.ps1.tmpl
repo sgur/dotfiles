@@ -48,6 +48,12 @@ $JsonStr = @'
 				}
 {{-   end }}
 				,{
+					"PackageIdentifier": "Perforce.P4Merge"
+				}
+				,{
+					"PackageIdentifier": "Docker.DockerCLI"
+				}
+				,{
 					"PackageIdentifier": "vim.vim.nightly"
 				}
 				,{
@@ -151,7 +157,7 @@ $JsonStr = @'
 				{
 					"PackageIdentifier": "9PM860492SZD"
 				}
-{{- if eq .chezmoi.windowsVersion.currentMajorVersionNumber 10 -}}
+{{-   if lt (atoi .chezmoi.windowsVersion.currentBuild) 22000 }}
 				,
 				{
 					"PackageIdentifier": "9WZDNCRFJ3PT"
