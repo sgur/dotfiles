@@ -245,9 +245,26 @@ ignoreDepracatedAssociations = false
 command = "vtsls"
 args = ["--stdio"]
 
-[language-server.typescript-language-server]
-command = "typescript-language-server"
-args = ["--stdio"]
+[language-server.vtsls.config]
+
+[language-server.vtsls.config.vtsls]
+autoUseWorkspaceTsdk = true
+
+[language-server.vtsls.config.javascript.inlayHints]
+parameterNames = { enabled = 'all' }
+parameterTypes = { enabled = true }
+variableTypes = { enabled = true }
+propertyDeclarationTypes = { enabled = true }
+functionLikeReturnTypes = { enabled = true }
+enumMemberValues = { enabled = true }
+
+[language-server.vtsls.config.typescript.inlayHints]
+parameterNames = { enabled = 'all' }
+parameterTypes = { enabled = true }
+variableTypes = { enabled = true }
+propertyDeclarationTypes = { enabled = true }
+functionLikeReturnTypes = { enabled = true }
+enumMemberValues = { enabled = true }
 
 [language-server.vscode-json-language-server.config.json]
 format = { enable = true }

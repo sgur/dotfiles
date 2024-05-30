@@ -133,7 +133,7 @@ lsp_servers += [{
 }]
 
 ## javascript / typescript
-if v:false
+if v:true
   lsp_servers += [{
     name: 'vtsls',
     filetype: ['javascript', 'javascriptreact', 'typescript', 'typescriptreact'],
@@ -145,6 +145,50 @@ if v:false
     workspaceConfig: {
       vtsls: {
         autoUseWorkspaceTsdk: v:true
+      },
+      typescript: {
+        inlayHints: {
+          parameterNames: {
+            enabled: 'all',
+          },
+          parameterTypes: {
+            enabled: v:true,
+          },
+          variableTypes: {
+            enabled: v:true,
+          },
+          propertyDeclarationTypes: {
+            enabled: v:true,
+          },
+          functionLikeReturnTypes: {
+            enabled: v:true,
+          },
+          enumMemberValues: {
+            enabled: v:true,
+          }
+        }
+      },
+      javascript: {
+        inlayHints: {
+          parameterNames: {
+            enabled: 'all',
+          },
+          parameterTypes: {
+            enabled: v:true,
+          },
+          variableTypes: {
+            enabled: v:true,
+          },
+          propertyDeclarationTypes: {
+            enabled: v:true,
+          },
+          functionLikeReturnTypes: {
+            enabled: v:true,
+          },
+          enumMemberValues: {
+            enabled: v:true,
+          }
+        }
       }
     }
   }]
