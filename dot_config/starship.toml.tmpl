@@ -46,11 +46,21 @@ format = '🕙 [$duration]($style) '
 [conda]
 disabled = true
 
+{{- if eq .chezmoi.os "windows" }}
+[container]
+disabled = true
+{{- end }}
+
 [crystal]
 disabled = true
 
 [daml]
 disabled = true
+
+{{- if eq .chezmoi.os "windows" }}
+[dart]
+disabled = true
+{{- end }}
 
 [deno]
 disabled = true
@@ -101,6 +111,11 @@ disabled = false
 [git_status]
 disabled = false
 
+{{- if eq .chezmoi.os "windows" }} 
+[golang]
+disabled = true
+{{- end }}
+
 [guix_shell]
 disabled = true
 
@@ -116,8 +131,21 @@ disabled = true
 [helm]
 disabled = true
 
+{{- if eq .chezmoi.os "windows" }} 
+[java]
+disabled = true
+{{- end }}
+
 [julia]
 disabled = true
+
+[kotlin]
+disabled = true
+
+{{- if eq .chezmoi.os "windows" }} 
+[lua]
+disabled = true
+{{- end }}
 
 [meson]
 disabled = true
@@ -137,6 +165,9 @@ disabled = true
 {{- end }}
 
 [ocaml]
+disabled = true
+
+[opa]
 disabled = true
 
 [openstack]
@@ -159,6 +190,9 @@ disabled = true
 disabled = true
 {{- end }}
 
+[quarto]
+disabled = true
+
 [rlang]
 disabled = true
 
@@ -166,6 +200,9 @@ disabled = true
 disabled = true
 
 [red]
+disabled = true
+
+[ruby]
 disabled = true
 
 [scala]
@@ -203,6 +240,9 @@ disabled = true
 
 [time]
 disabled = false
+
+[typst]
+disabled = true
 
 [vagrant]
 disabled = true
