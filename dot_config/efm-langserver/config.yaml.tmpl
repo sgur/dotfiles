@@ -11,15 +11,17 @@ log-level: 3
 
 tools:
   fish-fish_indent: &fish-fish_indent
-    prefix: fix_indent
+    prefix: fish-indent
     format-command: fish_indent
     format-stdin: true
 
   fish-lint: &fish-lint
-    lint-command: fish --no-execute
-    lint-stdin: false
+    prefix: fish-lint
+    lint-command: "fish --no-execute ${INPUT}"
+    lint-stdin: true
+    lint-ignore-exit-code: true
     lint-formats:
-      - '%f (line %l): %m'
+      - '%.%#(line %l): %m'
     lint-after-open: true
 
   any-secretlint: &any-secretlint
