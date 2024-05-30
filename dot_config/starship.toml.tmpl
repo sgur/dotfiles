@@ -6,8 +6,10 @@ scan_timeout = 100
 command_timeout = 3000
 {{- end }}
 
+{{- if ne .chezmoi.os "windows" }}
 [aws]
 force_display = true
+{{- end }}
 
 [aws.region_aliases]
 us-east-1 = 'N.Virginia'
@@ -24,11 +26,13 @@ disabled = true
 [buf]
 disabled = true
 
+{{- if eq .chezmoi.os "windows" }}
 [bun]
 disabled = true
 
 [c]
 disabled = true
+{{- end }}
 
 [cmake]
 disabled = true
@@ -63,13 +67,13 @@ disabled = true
 [elm]
 disabled = true
 
-{{ if eq .chezmoi.os "windows" -}}
+{{- if eq .chezmoi.os "windows" }}
 [env_var.VisualStudioVersion]
 format = "$symbol[VS$env_value]($style) "
 symbol = "﬏ " #  ﬏
 style = "purple dimmed"
+{{- end }}
 
-{{ end -}}
 [env_var.CHEZMOI]
 format = "[$symbol]($style) "
 symbol = "chezmoi"
@@ -78,17 +82,21 @@ style = "blue"
 [erlang]
 disabled = true
 
+{{- if eq .chezmoi.os "windows" }}
 [fill]
 disabled = true
+{{- end }}
 
 [gcloud]
 disabled = true
 
+{{- if ne .chezmoi.os "windows" }}
 [git_commit]
 tag_disabled = false
 
 [git_metrics]
-disabled = {{- if eq .chezmoi.os "windows" }} true {{- else }} false {{- end }}
+disabled = false
+{{- end }}
 
 [git_status]
 disabled = false
@@ -123,8 +131,10 @@ disabled = true
 [nix_shell]
 disabled = true
 
+{{- if eq .chezmoi.os "windows" }} 
 [nodejs]
-disabled = {{- if eq .chezmoi.os "windows" }} true {{- else }} false {{- end }}
+disabled = true
+{{- end }}
 
 [ocaml]
 disabled = true
@@ -144,8 +154,10 @@ disabled = true
 [purescript]
 disabled = true
 
+{{- if eq .chezmoi.os "windows" }}
 [python]
-disabled = {{- if eq .chezmoi.os "windows" }} true {{- else }} false {{- end }}
+disabled = true
+{{- end }}
 
 [rlang]
 disabled = true
