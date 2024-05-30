@@ -21,7 +21,7 @@ if (!(Get-Command -Type Application -ErrorAction SilentlyContinue -Name gvim))
 $Env:EDITOR = "gvim.exe -f --remote-tab-wait-silent"
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name hx)
 {
-	$Env:GIT_EDITOR = "hx"
+	$Env:EDITOR = "hx.exe"
 }
 function Edit-File {
 	param(
