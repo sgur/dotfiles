@@ -1,7 +1,7 @@
 {{ if lookPath "starship" }}
 
 function Invoke-Starship-TransientFunction {
-  "$(starship module time)$(starship module character)"
+  "$(starship module time)$(starship module status)$(starship module character)"
 }
 
 {{ output "starship" "init" "powershell" | comment "# "}}
