@@ -23,6 +23,18 @@ refreshPeriod = "168h" # 1-week
 stripComponents = 1
 url = "https://github.com/rafamadriz/friendly-snippets/archive/refs/heads/main.zip"
 
+{{ if ne .chezmoi.os "windows" }}
+[".tmux/plugins/tpm"]
+type = "git-repo"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/tmux-plugins/tpm"
+
+[".tmux/plugins/tmux-sensible"]
+type = "git-repo"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/tmux-plugins/tmux-sensible"
+{{ end }}
+
 {{ if eq .chezmoi.os "windows" }}
 ["AppData/Roaming/helix/themes/catppuccin_frappe.toml"]
 type = "file"
