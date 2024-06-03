@@ -682,3 +682,6 @@ function Stop-SshAgent
 	[System.Environment]::SetEnvironmentVariable("SSH_AGENT_PID", $Null, [System.EnvironmentVariableTarget]::User)
 	[System.Environment]::SetEnvironmentVariable("SSH_AGENT_PID", $Null, [System.EnvironmentVariableTarget]::Process)
 }
+
+# ripgrep
+$Env:RIPGREP_CONFIG_PATH = Join-Path $Env:USERPROFILE .config ripgrep ripgreprc
