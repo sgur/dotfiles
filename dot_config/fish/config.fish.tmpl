@@ -119,3 +119,11 @@ fish_config theme choose 'Catppuccin Mocha'
 set -gx HGREP_DEFAULT_OPTS --theme Nord
 
 set -gx RIPGREP_CONFIG_PATH ~/.config/ripgrep/ripgreprc
+
+if not contains /usr/share/fish/vendor_completions.d $fish_complete_path
+    set -gx fish_complete_path $fish_complete_path /usr/share/fish/vendor_completions.d
+end
+if not contains /usr/share/fish/completions $fish_complete_path
+    set -gx fish_complete_path $fish_complete_path /usr/share/fish/completions
+end
+
