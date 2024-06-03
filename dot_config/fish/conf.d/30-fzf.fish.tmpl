@@ -7,9 +7,12 @@ if test -n "$TMUX"
     # tmux 3.2 以降で popup が利用可能
     if test (string match --regex '\d(?:\.\d+)?' (tmux -V)) -ge 3.2
         set -gx FZF_CMD fzf-tmux -p 90%,40%
+        set -gx FZF_TMUX_OPTS -p 90%,40%
     else
         set -gx FZF_CMD fzf-tmux -d 40%
+        set -gx FZF_TMUX_OPTS -d 40%
     end
+    set -gx FZF_TMUX 1
 {{- end }}
 else
     set -gx FZF_CMD fzf --height=60%
