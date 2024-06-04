@@ -135,6 +135,7 @@ taplo
 textlintrc
 toastify
 tolower
+tput
 typioca
 udev
 ulid
