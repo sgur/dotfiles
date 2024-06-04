@@ -1,3 +1,6 @@
+{{- $isWindows10 := lt (atoi .chezmoi.windowsVersion.currentBuild) 22000}}
+{{- $isWindows11 := gt (atoi .chezmoi.windowsVersion.currentBuild) 22000}}
+
 # Pin system apps
 @("Microsoft.Edge",
 	"Microsoft.EdgeWebView2Runtime",
@@ -41,8 +44,13 @@ $JsonStr = @'
 				,{
 					"PackageIdentifier": "ajeetdsouza.zoxide"
 				}
+{{- if $isWindows10 }}
+				,{
+					"PackageIdentifier": "7zip.7zip"
+				}
+{{- end }}
 {{- if .fullProvisioning }}
-{{-   if gt (atoi .chezmoi.windowsVersion.currentBuild) 22000 }}
+{{-   if $isWindows11 }}
 				,{
 					"PackageIdentifier": "Microsoft.DevHome"
 				}
@@ -64,9 +72,6 @@ $JsonStr = @'
 				}
 				,{
 					"PackageIdentifier": "sharkdp.fd"
-				}
-				,{
-					"PackageIdentifier": "7zip.7zip"
 				}
 				,{
 					"PackageIdentifier": "Microsoft.VisualStudioCode"
