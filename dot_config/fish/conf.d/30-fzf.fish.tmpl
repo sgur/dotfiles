@@ -75,6 +75,7 @@ function fzf_git_branch_select -d "Branch selection with fzf"
     commandline --function repaint
 end
 bind \ea 'fzf_git_branch_select (commandline -b)'
+bind \e\; 'fzf_git_branch_select (commandline -b)'
 
 function fzf_zoxide_select
     test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
