@@ -2,6 +2,10 @@
 
 chezmoi
 
+## Prerequisits
+
+- git
+
 ## Setup
 
 ```shell
