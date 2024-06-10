@@ -2,4 +2,6 @@
 status is-interactive || exit
 
 {{ output "zoxide" "init" "fish" | trim }}
+
+set -gx _ZO_EXCLUDE_DIRS '$HOME/.config/chezmoi:$HOME/.cache/*'
 {{- end }}
