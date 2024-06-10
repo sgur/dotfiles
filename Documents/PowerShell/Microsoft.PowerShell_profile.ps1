@@ -142,10 +142,17 @@ try
 # ripgrep config file
 $env:RIPGREP_CONFIG_PATH = Join-Path $Env:USERPROFILE .config ripgrep ripgreprc
 
-# chezmoi completions
+# chezmoi
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 {
+    ## Aliases
 	Set-Alias -Name chz -Value chezmoi
+	function Set-ChezmoiLocation
+	{
+		Set-Location (chezmoi source-path)
+	}
+	Set-Alias -Name chz-cd -Value Set-ChezmoiLocation
+	## completions
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Chezmoi.ps1')
 }
 
