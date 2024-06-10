@@ -1,4 +1,5 @@
 {{ $baseDir := expandenv "$APPDATA\\Mozilla\\Firefox" -}}
+{{- if stat (joinPath $baseDir "profile.ini") -}}
 {{ $profiles := joinPath $baseDir "profiles.ini" | include | fromIni -}}
 {{ range $profiles -}}
 {{   if and (hasKey . "Name") (eq .Name "dev-edition-default") -}}
@@ -58,3 +59,4 @@ tab{
 Out-File -FilePath {{ $userChromePath | quote }} -InputObject $Css
 {{   end -}}
 {{ end -}}
+{{- end -}}
