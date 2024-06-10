@@ -23,7 +23,8 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name hx)
 {
 	$Env:EDITOR = "hx.exe"
 }
-function Edit-File {
+function Edit-File
+{
 	param(
 		[Parameter(Mandatory = $true)]
 		[string] $Path
@@ -72,18 +73,21 @@ try
 }
 
 Set-PSReadLineOption -CommandValidationHandler {
-    param([System.Management.Automation.Language.CommandAst] $CommandAst)
+	param([System.Management.Automation.Language.CommandAst] $CommandAst)
 
-    foreach($Element in $CommandAst.CommandElements) {
-        $Token = $Element.Extent
-        if ($Token.Text.Contains('~')) {
+	foreach($Element in $CommandAst.CommandElements)
+	{
+		$Token = $Element.Extent
+		if ($Token.Text.Contains('~'))
+		{
 			$Expanded = Convert-Path $Token.Text.Replace('~', $Env:USERPROFILE)
-			if ([IO.PATH]::Exists($Expanded)) {
+			if ([IO.PATH]::Exists($Expanded))
+			{
 				[Microsoft.PowerShell.PSConsoleReadLine]::Replace(
-						$Token.StartOffset, $Token.EndOffset - $Token.StartOffset, $Expanded)
+					$Token.StartOffset, $Token.EndOffset - $Token.StartOffset, $Expanded)
 			}
-        }
-    }
+		}
+	}
 }
 # This checks the validation script when you hit enter
 Set-PSReadLineKeyHandler -Chord Enter -Function ValidateAndAcceptLine
@@ -247,7 +251,7 @@ function Select-Repository
 {
 	try
 	{
-		$selected = $(ghq list | fzf --prompt="repository> " --preview="git -C $(ghq list --exact --full-path {}) log -5 --graph --decorate --abbrev-commit --color=always")
+		$selected = $(ghq list | fzf --prompt='repository> ' --preview="git -C $(ghq list --exact --full-path {}) log -5 --graph --decorate --abbrev-commit --color=always")
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
@@ -277,7 +281,7 @@ function Select-History
 		[Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
 		$history = [Microsoft.PowerShell.PSConsoleReadLine]::GetHistoryItems() | ForEach-Object CommandLine
 		[System.Collections.Generic.HashSet[String]] $historySet = $history
-		$result = $historySet | fzf --prompt="history> " --scheme=history --tiebreak=index --tac --query="$line"
+		$result = $historySet | fzf --prompt='history> ' --scheme=history --tiebreak=index --tac --query="$line"
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
@@ -302,7 +306,7 @@ function Select-Branch
 {
 	try
 	{
-		$targetBranch = $(git branch --all --format="%(refname:short)" | fzf --prompt="branch> " --preview-window="right,65%" --preview="git log --max-count=10 --graph --decorate --color=always --abbrev-commit --pretty {}")
+		$targetBranch = $(git branch --all --format='%(refname:short)' | fzf --prompt='branch> ' --preview-window='right,65%' --preview='git log --max-count=10 --graph --decorate --color=always --abbrev-commit --pretty {}')
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
@@ -324,8 +328,9 @@ Set-PSReadLineKeyHandler -Chord Alt+a -ScriptBlock {
 
 function Select-ZoxideHistory
 {
-	try {
-		$Path = $(zoxide query --list | fzf --prompt="zoxide> ")
+	try
+	{
+		$Path = $(zoxide query --list | fzf --prompt='zoxide> ')
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
@@ -357,9 +362,9 @@ $CoreutilsBin = @("basename", "cat", "chmod", "comm", "cp", "cut", "cygpath",
 	"tail", "tee", "touch", "tr", "true", "uname", "uniq", "wc", "iconv")
 # "msysmnt" is excluded from coreutils
 $ReadonlyBin = @("tee", "diff", "ls", "sleep", "sort")
-$ConfirmationRequiredBin = @("cp", "mv")
 # spell-checker: enable
-try {
+try
+{
 	$GitBinDir = Get-Command -Type Application -Name git
 	$CoreutilsBin | ForEach-Object {
 		if (Test-Path Alias:$_)
@@ -373,7 +378,8 @@ try {
 			}
 		}
 	}
-	if ($GitBinDir.Source -like '*\Microsoft\WinGet\*') {
+	if ($GitBinDir.Source -like '*\Microsoft\WinGet\*')
+	{
 		$GitDir = $GitBinDir | Split-Path -Parent | Split-Path -Parent
 		$BusyBoxPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe" "mingw64" "bin" "busybox.exe"
 		Set-Alias -Name busybox -Value $BusyBoxPath
@@ -398,9 +404,8 @@ try {
 				{
 					& "$BinPath" --interactive `$args
 				}
-"@ | Invoke-Expression
-			}
-			elseif ($_ -eq "rm")
+"@ | Invoke-Expression 
+   } elseif ($_ -eq "rm")
 			{
 				@"
 				function global:rm
@@ -414,8 +419,8 @@ try {
 			}
 		}
 	}
-}
-finally {
+} finally
+{
 	Remove-Variable -Name GitBinDir, GitDir
 }
 
@@ -632,9 +637,9 @@ function Invoke-AwsVault
 # proto
 $env:PROTO_HOME = Join-Path $HOME ".proto"
 $env:PATH = @(
-  (Join-Path $env:PROTO_HOME "shims"),
-  (Join-Path $env:PROTO_HOME "bin"),
-  $env:PATH
+	(Join-Path $env:PROTO_HOME "shims"),
+	(Join-Path $env:PROTO_HOME "bin"),
+	$env:PATH
 ) -join [IO.PATH]::PathSeparator
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name proto)
 {
