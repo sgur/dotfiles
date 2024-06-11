@@ -134,17 +134,10 @@ efm-langserver = { command = "efm-langserver" }
 {{- if $powershell_editor_service }}
 powershell-langserver = { command = {{ $powershell_editor_service | quote }} }
 {{- end }}
-
-[language-server.buffer-ls]
-{{ if lookPath "simple-completion-language-server" -}}
+{{- if lookPath "simple-completion-language-server" }}
 # https://github.com/estin/simple-completion-language-server
 # $ cargo install --git https://github.com/estin/simple-completion-language-server.git
-command = "simple-completion-language-server"
-config = { max_completion_items = 20, snippets_first = false }
-{{- else -}}
-# https://github.com/metafates/buffer-language-server
-# cargo install buffer-language-server
-command = "buffer-language-server"
+buffer-ls = {command = "simple-completion-language-server", config = { max_completion_items = 20, snippets_first = false }}
 {{- end }}
 
 [language-server.astro-ls]
