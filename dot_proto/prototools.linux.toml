@@ -1,3 +1,4 @@
+bun = "latest"
 node = "lts"
 npm = "latest"
 pnpm = "latest"
