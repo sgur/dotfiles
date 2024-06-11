@@ -1,6 +1,6 @@
-{{- if and (ne .chezmoi.os "windows") (lookPath "pnpm") -}}
+{{- if and (ne .chezmoi.os "windows") (lookPath "bunx") -}}
 #!/bin/sh
 set -eu
 
-pnpm dlx yaml-language-server $@
+bunx yaml-language-server $@
 {{- end }}

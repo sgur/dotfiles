@@ -1,5 +1,5 @@
-{{- if and (eq .chezmoi.os "windows") (lookPath "pnpm") -}}
+{{- if and (eq .chezmoi.os "windows") (lookPath "bunx") -}}
 @echo off
 
-pnpm dlx yaml-language-server %1 %2 %3 %4 %5 %6 %7 %8 %9
+bunx yaml-language-server %1 %2 %3 %4 %5 %6 %7 %8 %9
 {{- end }}

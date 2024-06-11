@@ -1,6 +1,6 @@
-{{- if and (eq .chezmoi.os "windows") (lookPath "pnpm") -}}
+{{- if and (eq .chezmoi.os "windows") (lookPath "bunx") -}}
 @echo off
 
-pnpm dlx dockerfile-language-server-nodejs %1 %2 %3 %4 %5 %6 %7 %8 %9
+bunx dockerfile-language-server-nodejs %1 %2 %3 %4 %5 %6 %7 %8 %9
 {{- end }}
 

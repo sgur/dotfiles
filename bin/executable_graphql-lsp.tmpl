@@ -1,8 +1,8 @@
-{{- if and (ne .chezmoi.os "windows") (lookPath "pnpm") -}}
+{{- if and (ne .chezmoi.os "windows") (lookPath "bunx") -}}
 #!/bin/sh
 set -eu
 
-pnpm dlx graphql-language-service-cli $@
+bunx graphql-language-service-cli $@
 {{- end }}
 
 
