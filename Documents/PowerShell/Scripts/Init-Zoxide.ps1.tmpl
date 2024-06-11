@@ -2,4 +2,6 @@
 {{ output "zoxide" "init" "--hook" "pwd" "powershell" }}
 
 $Env:_ZO_EXCLUDE_DIRS = "$(Join-Path $Env:USERPROFILE .config chezmoi);$(Join-Path $Env:USERPROFILE .cache '*')"
+{{ else }}
+Write-Output "zoxide not installed."
 {{ end }}

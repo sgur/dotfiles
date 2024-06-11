@@ -14,6 +14,9 @@ if (([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).L
 $CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
 # $CurrentUserScripts = $PSGetPath.CurrentUserScripts
 
+$Env:PATH = @((Join-Path -Path $Env:OneDrive -ChildPath "shared" "bin"),
+	$Env:PATH) -Join [IO.PATH]::PathSeparator
+
 if (!(Get-Command -Type Application -ErrorAction SilentlyContinue -Name gvim))
 {
 	$Env:PATH = @([IO.PATH]::Combine($Env:ProgramFiles, "Vim", "vim91"), $Env:PATH) -join [IO.PATH]::PathSeparator
@@ -145,7 +148,7 @@ $env:RIPGREP_CONFIG_PATH = Join-Path $Env:USERPROFILE .config ripgrep ripgreprc
 # chezmoi
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 {
-    ## Aliases
+	## Aliases
 	Set-Alias -Name chz -Value chezmoi
 	function Set-ChezmoiLocation
 	{
@@ -216,16 +219,11 @@ if (Get-Command -ErrorAction SilentlyContinue hgrep)
 }
 
 # Starship
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name starship)
-{
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
-}
+. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
+
 
 # zoxide
-if (Get-Command -ErrorAction SilentlyContinue zoxide)
-{
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Zoxide.ps1')
-}
+. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Zoxide.ps1')
 
 # Set-Location Hook
 $ExecutionContext.InvokeCommand.LocationChangedAction = {
@@ -454,10 +452,7 @@ if (Get-Command -ErrorAction SilentlyContinue "br")
 {
 } else
 {
-	if (Get-Command -ErrorAction SilentlyContinue "broot")
-	{
-		. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Broot.ps1')
-	}
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Broot.ps1')
 }
 
 # WinGet completion
