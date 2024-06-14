@@ -14,9 +14,6 @@ if (([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).L
 $CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
 # $CurrentUserScripts = $PSGetPath.CurrentUserScripts
 
-$Env:PATH = @((Join-Path -Path $Env:OneDrive -ChildPath "shared" "bin"),
-	$Env:PATH) -Join [IO.PATH]::PathSeparator
-
 if (!(Get-Command -Type Application -ErrorAction SilentlyContinue -Name gvim))
 {
 	$Env:PATH = @([IO.PATH]::Combine($Env:ProgramFiles, "Vim", "vim91"), $Env:PATH) -join [IO.PATH]::PathSeparator
@@ -92,6 +89,7 @@ Set-PSReadLineOption -CommandValidationHandler {
 		}
 	}
 }
+
 # This checks the validation script when you hit enter
 Set-PSReadLineKeyHandler -Chord Enter -Function ValidateAndAcceptLine
 
@@ -219,11 +217,16 @@ if (Get-Command -ErrorAction SilentlyContinue hgrep)
 }
 
 # Starship
-. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
-
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name starship)
+{
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
+}
 
 # zoxide
-. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Zoxide.ps1')
+if (Get-Command -ErrorAction SilentlyContinue zoxide)
+{
+	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Zoxide.ps1')
+}
 
 # Set-Location Hook
 $ExecutionContext.InvokeCommand.LocationChangedAction = {
@@ -271,10 +274,12 @@ function Select-Repository
 	}
 }
 
-Set-Alias -Name fzf-ghq -Value Select-Repository
-
-Set-PSReadLineKeyHandler -Chord Alt+q -ScriptBlock {
-	Select-Repository
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
+{
+	Set-Alias -Name fzf-ghq -Value Select-Repository
+	Set-PSReadLineKeyHandler -Chord Alt+q -ScriptBlock {
+		Select-Repository
+	}
 }
 
 function Select-History
@@ -301,10 +306,13 @@ function Select-History
 	}
 }
 
-Set-Alias -Name fzf-history -Value Select-History
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
+{
+	Set-Alias -Name fzf-history -Value Select-History
 
-Set-PSReadLineKeyHandler -Chord Ctrl+r -ScriptBlock {
-	Select-History
+	Set-PSReadLineKeyHandler -Chord Ctrl+r -ScriptBlock {
+		Select-History
+	}
 }
 
 function Select-Branch
@@ -325,10 +333,13 @@ function Select-Branch
 	}
 }
 
-Set-Alias -Name fzf-git-branch -Value Select-Branch
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
+{
+	Set-Alias -Name fzf-git-branch -Value Select-Branch
 
-Set-PSReadLineKeyHandler -Chord Alt+a -ScriptBlock {
-	Select-Branch
+	Set-PSReadLineKeyHandler -Chord Alt+a -ScriptBlock {
+		Select-Branch
+	}
 }
 
 function Select-ZoxideHistory
@@ -349,10 +360,13 @@ function Select-ZoxideHistory
 	}
 }
 
-Set-Alias -Name fzf-zoxide -Value Select-ZoxideHistory
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
+{
+	Set-Alias -Name fzf-zoxide -Value Select-ZoxideHistory
 
-Set-PSReadLineKeyHandler -Chord Alt+z -ScriptBlock {
-	Select-ZoxideHistory
+	Set-PSReadLineKeyHandler -Chord Alt+z -ScriptBlock {
+		Select-ZoxideHistory
+	}
 }
 
 # aliases
@@ -360,10 +374,10 @@ Set-PSReadLineKeyHandler -Chord Alt+z -ScriptBlock {
 Set-Alias -Name open -Value Start-Process
 
 # spell-checker: disable
-$CoreutilsBin = @("basename", "cat", "chmod", "comm", "cp", "cut", "cygpath",
+$CoreutilsBin = @("basename", "cat", "chmod", "comm", "cut", "cygpath",
 	"date", "diff", "dirname", "echo", "env", "expr", "false", "fold", "grep",
-	"head", "id", "install", "join", "ln", "md5sum", "mkdir", "mv", "od",
-	"paste", "printf", "ps", "pwd", "rm", "rmdir", "sleep", "sort", "split", "stty",
+	"head", "id", "install", "join", "ln", "md5sum", "mkdir", "od",
+	"paste", "printf", "ps", "pwd", "rmdir", "sleep", "sort", "split", "stty",
 	"tail", "tee", "touch", "tr", "true", "uname", "uniq", "wc", "iconv")
 # "msysmnt" is excluded from coreutils
 $ReadonlyBin = @("tee", "diff", "ls", "sleep", "sort")
@@ -452,7 +466,10 @@ if (Get-Command -ErrorAction SilentlyContinue "br")
 {
 } else
 {
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Broot.ps1')
+	if (Get-Command -ErrorAction SilentlyContinue "broot")
+	{
+		. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Broot.ps1')
+	}
 }
 
 # WinGet completion
