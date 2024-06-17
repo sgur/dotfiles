@@ -82,8 +82,9 @@ if status is-interactive
         abbr --add n --function _na
     end
 
-    # \el -> \ei へ移設
-    bind --user \ei __fish_list_current_token
+    # \el -> \e, or \co へ移設
+    bind --user \e, __fish_list_current_token
+    bind --user \co __fish_list_current_token
 end
 
 emit fish_ready
