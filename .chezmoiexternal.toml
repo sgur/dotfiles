@@ -18,10 +18,9 @@ url = "https://sourceforge.net/projects/wordlist/files/speller/2020.12.07/wordli
 path = "en_US.txt"
 
 [".local/share/friendly-snippets"]
-type = "archive"
+type = "git-repo"
 refreshPeriod = "168h" # 1-week
-stripComponents = 1
-url = "https://github.com/rafamadriz/friendly-snippets/archive/refs/heads/main.zip"
+url = "https://github.com/rafamadriz/friendly-snippets.git"
 
 {{ if ne .chezmoi.os "windows" }}
 [".config/tmux/plugins/tpm"]
