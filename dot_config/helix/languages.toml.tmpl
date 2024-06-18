@@ -1,6 +1,6 @@
 # Default configuration: https://github.com/helix-editor/helix/blob/master/languages.toml
 
-{{- $catalog := output "curl" "-sJL" "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json" | fromJson }}
+{{- $catalog := joinPath .chezmoi.homeDir ".cache" "schemastore" "catalog.json" | include | fromJson }}
 
 [[language]]
 name = "astro"

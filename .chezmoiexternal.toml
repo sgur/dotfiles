@@ -44,17 +44,6 @@ refreshPeriod = "168h" # 1-week
 url = "https://github.com/catppuccin/tmux"
 {{ end }}
 
-{{ if eq .chezmoi.os "windows" }}
-["AppData/Roaming/helix/themes"]
-{{ else }}
-[".config/helix/themes/"]
-{{ end }}
-type = "archive"
-refreshPeriod = "168h" # 1-week
-stripComponents = 3
-include = ["*/themes/default/**"]
-url = "https://github.com/catppuccin/helix/archive/refs/heads/main.zip"
-
 [".config/gitui/themes"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
@@ -212,8 +201,8 @@ url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
 
 [".cache/schemastore/catalog.json"]
 type = "file"
-refreshPeriod = "168h"
-url = "https://www.schemastore.org/api/json/catalog.json"
+refreshPeriod = "168h" # 1-week
+url = "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/json/catalog.json"
 
 # GitHub commit cache
 
