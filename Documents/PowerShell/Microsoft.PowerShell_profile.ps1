@@ -718,3 +718,11 @@ function Stop-SshAgent
 
 # ripgrep
 $Env:RIPGREP_CONFIG_PATH = Join-Path $Env:USERPROFILE .config ripgrep ripgreprc
+
+# genact
+
+function Invoke-Genact
+{
+	& docker run -it --rm svenstaro/genact $args
+}
+New-Alias -Name genact -Value Invoke-Genact
