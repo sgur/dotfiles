@@ -9,4 +9,8 @@ alias secretlint 'command docker run --rm --tty --interactive --name secretlint 
 {{-  if lookPath "ctop" | not }}
 alias ctop 'command docker run --rm --tty --interactive --name=ctop --volume=/var/run/docker.sock:/var/run/docker.sock:ro quay.io/vektorlab/ctop:latest'
 {{-  end }}
+{{-  if lookPath "genact" | not }}
+# --tty をつけると改行コードが CRLF になる
+alias genact 'docker run --rm --interactive --name=genact svenstaro/genact'
+{{-  end }}
 {{- end }}
