@@ -49,9 +49,10 @@ function Update-Self
 # if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name wt)
 if ($Env:WT_SESSION)
 {
-	function winget {
-		wt new-tab --title "winget $args" --profile "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}" winget $args
+	function Update-WingetPackages {
+		wt new-tab --title "winget upgrade" --profile "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}" winget upgrade $args
 	}
+	New-Alias -Force -Name winget-upgrade -Value Update-WingetPackages
 }
 
 # PSReadLine
