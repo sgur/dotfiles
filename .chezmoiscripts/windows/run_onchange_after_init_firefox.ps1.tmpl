@@ -1,6 +1,7 @@
 {{ $baseDir := expandenv "$APPDATA\\Mozilla\\Firefox" -}}
-{{- if stat (joinPath $baseDir "profile.ini") -}}
+{{- if stat (joinPath $baseDir "profiles.ini") -}}
 {{ $profiles := joinPath $baseDir "profiles.ini" | include | fromIni -}}
+# Hash of profiles.ini: {{ joinPath $baseDir "profiles.ini" | include | sha256sum }}
 {{ range $profiles -}}
 {{   if and (hasKey . "Name") (eq .Name "dev-edition-default") -}}
 {{ $profilePath := joinPath $baseDir .Path "user.js" -}}
