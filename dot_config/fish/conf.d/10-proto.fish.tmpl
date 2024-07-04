@@ -1,8 +1,8 @@
 {{ if lookPath "proto" -}}
 status is-interactive || exit
 
-{{ if or (lookPath "fnm") (lookPath "pyenv") (lookPath "rbenv") -}}
-echo "mise: fnm, pyenv, rbenv is installed."
+{{ if or (lookPath "fnm") (lookPath "pyenv") -}}
+echo "mise: fnm, pyenv is installed."
 {{ end -}}
 
 set -gx PROTO_HOME "$HOME/.proto"
