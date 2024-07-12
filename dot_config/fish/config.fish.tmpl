@@ -107,6 +107,9 @@ end
 if not contains /usr/share/fish/completions $fish_complete_path
     set -g fish_complete_path $fish_complete_path /usr/share/fish/completions
 end
+if not contains ~/.local/share/fish/generated_completions $fish_complete_path
+    set -g fish_complete_path $fish_complete_path ~/.local/share/fish/generated_completions
+end
 
 {{- if .wsl }}
 set -g fish_help_browser (which xdg-open)
