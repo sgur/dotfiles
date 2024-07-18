@@ -1,6 +1,7 @@
 {{ if lookPath "starship" -}}
 
 status is-interactive || exit
+! type -q tide || exit
 
 function starship_transient_prompt_func
   starship module time
