@@ -123,6 +123,9 @@
 	trustExitCode = true
 {{- end }}
 
+[alias]
+	top = rev-parse --show-toplevel
+
 # https://blog.web-apps.tech/gitignore-from-cli/
 [alias]
 	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
