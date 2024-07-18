@@ -6,10 +6,11 @@ scan_timeout = 100
 command_timeout = 3000
 {{- end }}
 
-{{- if ne .chezmoi.os "windows" }}
 [aws]
+{{- if ne .chezmoi.os "windows" }}
 force_display = true
 {{- end }}
+symbol = ' '
 
 [aws.region_aliases]
 us-east-1 = 'N.Virginia'
