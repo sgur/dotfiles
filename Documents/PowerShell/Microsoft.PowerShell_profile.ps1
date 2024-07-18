@@ -81,19 +81,26 @@ try
 	Write-Warning "Updates needed: pwsh -NoProfile -Command ""Update-Module PSReadLine -Force -AllowPrerelease"""
 }
 
-Set-PSReadLineOption -CommandValidationHandler {
-	param([System.Management.Automation.Language.CommandAst] $CommandAst)
+$NativeTildeExpansion = $PSVersionTable.PSVersion.Major -eq 7 -and $PSVersionTable.PSVersion.Minor -ge 5
+if ($NativeTildeExpansion)
+{
+	$PSNativeWindowsTildeExpansion = $NativeTildeExpansion
+} else
+{
+	Set-PSReadLineOption -CommandValidationHandler {
+		param([System.Management.Automation.Language.CommandAst] $CommandAst)
 
-	foreach($Element in $CommandAst.CommandElements)
-	{
-		$Token = $Element.Extent
-		if ($Token.Text.Contains('~'))
+		foreach($Element in $CommandAst.CommandElements)
 		{
-			$Expanded = Convert-Path $Token.Text.Replace('~', $Env:USERPROFILE)
-			if ([IO.PATH]::Exists($Expanded))
+			$Token = $Element.Extent
+			if ($Token.Text.Contains('~'))
 			{
-				[Microsoft.PowerShell.PSConsoleReadLine]::Replace(
-					$Token.StartOffset, $Token.EndOffset - $Token.StartOffset, $Expanded)
+				$Expanded = Convert-Path $Token.Text.Replace('~', $Env:USERPROFILE)
+				if ([IO.PATH]::Exists($Expanded))
+				{
+					[Microsoft.PowerShell.PSConsoleReadLine]::Replace(
+						$Token.StartOffset, $Token.EndOffset - $Token.StartOffset, $Expanded)
+				}
 			}
 		}
 	}
@@ -388,6 +395,10 @@ $CoreutilsBin = @("basename", "cat", "chmod", "comm", "cut", "cygpath",
 	"head", "id", "install", "join", "ln", "md5sum", "mkdir", "od",
 	"paste", "printf", "ps", "pwd", "rmdir", "sleep", "sort", "split", "stty",
 	"tail", "tee", "touch", "tr", "true", "uname", "uniq", "wc", "iconv")
+if ($NativeTildeExpansion)
+{
+	$CoreutilsBin += @("cp", "mv", "rm")
+}
 # "msysmnt" is excluded from coreutils
 $ReadonlyBin = @("tee", "diff", "ls", "sleep", "sort")
 # spell-checker: enable
