@@ -1,7 +1,8 @@
 {{ if lookPath "starship" -}}
-
 status is-interactive || exit
-! type -q tide || exit
+if test \( -z "$fish_prompt_type" \) -o \( "$fish_prompt_type" != starship \)
+    exit 0
+end
 
 function starship_transient_prompt_func
   starship module time
