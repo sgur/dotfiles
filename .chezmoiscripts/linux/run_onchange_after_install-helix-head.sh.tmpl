@@ -1,4 +1,4 @@
-{{ if and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "ubuntu") .wsl -}}
+{{ if and (hasKey .chezmoi.osRelease "id") (eq .chezmoi.osRelease.id "ubuntu") .wsl .buildOnUpdate -}}
 #!/usr/bin/env bash
 
 # Latest commit hash: {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "helix-editor.json" | include | fromJson | jq ".sha" | first }}

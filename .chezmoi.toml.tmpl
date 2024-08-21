@@ -28,10 +28,9 @@
 {{- end -}}
 
 {{- $fullProvisioning := false -}}
-{{- $buildOnUpdate := false -}}
+{{- $buildOnUpdate := promptBoolOnce . "rust tools" "Build tools on update" -}}
 {{- if eq .chezmoi.os "windows" -}}
 {{-   $fullProvisioning = promptBoolOnce . "winget" "Install optional packages" -}}
-{{-   $buildOnUpdate = promptBoolOnce . "rust tools" "Build tools on update" -}}
 {{- end -}}
 
 progress = true
