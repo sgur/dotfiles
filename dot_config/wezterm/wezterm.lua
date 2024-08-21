@@ -92,27 +92,12 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   local is_windows_11 = tonumber(build) >= 22000
   local is_support_mica = tonumber(build) >= 22621
 
-  config.skip_close_confirmation_for_processes_named = {
-    "bash",
-    "sh",
-    "zsh",
-    "fish",
-    "tmux",
-    "nu",
-    "cmd.exe",
-    "pwsh.exe",
-    "powershell.exe",
-    "vmmemWSL",
-    "wsl.exe",
-    "wslhost.exe",
-  }
   config.default_prog = { "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe" }
+  config.exit_behavior = "Hold"
   config.font = wezterm.font("PlemolJP Console NF")
   config.font_size = 13.0
   config.freetype_load_target = "Light"
   config.freetype_load_flags = "NO_HINTING|NO_BITMAP|MONOCHROME"
-  config.line_height = 1.0
-  config.unicode_version = 14
   config.launch_menu = {
     {
       label = "Command Promt with clink",
@@ -135,17 +120,35 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
       args = { "pwsh.exe", "-NoExit", "-NoLogo", "-Command", "Enter-VsDevShell2019" }
     }
   }
+  config.line_height = 1.0
+  config.skip_close_confirmation_for_processes_named = {
+    "bash",
+    "sh",
+    "zsh",
+    "fish",
+    "tmux",
+    "nu",
+    "cmd.exe",
+    "pwsh.exe",
+    "powershell.exe",
+    "wslhost.exe",
+    "wsl.exe",
+    "conhost.exe"
+  }
+  config.unicode_version = 14
+  config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
+  
   local appearance = get_appearance()
   config.color_scheme = "Catppuccin Mocha" -- scheme_for_appearance(appearance)
   if appearance == "Dark" and is_support_mica then
     config.window_background_opacity = 0.00
     config.win32_system_backdrop = "Mica" -- "Tabbed"
+    wezterm.log_info("using Mica")
   else
     config.win32_acrylic_accent_color = "#FFFFFF"
     config.window_background_opacity = 0.80
     config.win32_system_backdrop = "Acrylic"
   end
-  config.window_decorations = "INTEGRATED_BUTTONS|RESIZE"
 end
 if wezterm.target_triple == "aarch64-apple-darwin" then
   config.font = wezterm.font("PlemolJP Console NF")
