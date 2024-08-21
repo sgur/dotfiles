@@ -1,4 +1,4 @@
-local wezterm = require 'wezterm';
+local wezterm = require "wezterm";
 
 local function get_appearance()
   if wezterm.gui then
@@ -87,12 +87,25 @@ config.window_background_opacity = 0.92
 -- x86_64-apple-darwin - macOS
 -- x86_64-unknown-linux-gnu - Linux
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-
-  local success, stdout, stderr = wezterm.run_child_process { 'cmd.exe', 'ver' }
+  local success, stdout, stderr = wezterm.run_child_process { "cmd.exe", "ver" }
   local major, minor, build, rev = stdout:match("Version ([0-9]+)%.([0-9]+)%.([0-9]+)%.([0-9]+)")
   local is_windows_11 = tonumber(build) >= 22000
   local is_support_mica = tonumber(build) >= 22621
 
+  config.skip_close_confirmation_for_processes_named = {
+    "bash",
+    "sh",
+    "zsh",
+    "fish",
+    "tmux",
+    "nu",
+    "cmd.exe",
+    "pwsh.exe",
+    "powershell.exe",
+    "vmmemWSL",
+    "wsl.exe",
+    "wslhost.exe",
+  }
   config.default_prog = { "C:\\Program Files\\PowerShell\\7-preview\\pwsh.exe" }
   config.font = wezterm.font("PlemolJP Console NF")
   config.font_size = 13.0
