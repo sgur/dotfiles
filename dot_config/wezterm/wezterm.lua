@@ -1,5 +1,20 @@
 local wezterm = require 'wezterm';
 
+local function get_appearance()
+  if wezterm.gui then
+    return wezterm.gui.get_appearance()
+  end
+  return "Dark"
+end
+
+local function scheme_for_appearance(appearance)
+  if appearance:find "Dark" then
+    return "Catppuccin Mocha"
+  else
+    return "Catppuccin Latte"
+  end
+end
+
 local function basename(s)
   return s:gsub("(.*[/\\])(.*)", "%2"):match("[^.]*")
 end
@@ -107,9 +122,11 @@ if wezterm.target_triple == "x86_64-pc-windows-msvc" then
       args = { "pwsh.exe", "-NoExit", "-NoLogo", "-Command", "Enter-VsDevShell2019" }
     }
   }
-  if is_support_mica then
+  local appearance = get_appearance()
+  config.color_scheme = "Catppuccin Mocha" -- scheme_for_appearance(appearance)
+  if appearance == "Dark" and is_support_mica then
     config.window_background_opacity = 0.00
-    config.win32_system_backdrop = "Tabbed" -- "Mica"
+    config.win32_system_backdrop = "Mica" -- "Tabbed"
   else
     config.win32_acrylic_accent_color = "#FFFFFF"
     config.window_background_opacity = 0.80
