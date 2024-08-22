@@ -1,0 +1,69 @@
+{{- $defaultConfig := joinPath .chezmoi.homeDir ".config" "kak" "bundle" "kak-tree-sitter" "kak-tree-sitter-config" "default-config.toml" -}}
+{{- if stat $defaultConfig }}
+{{ include $defaultConfig }}
+{{- else }}
+{{ output "curl" "-sL" "https://git.sr.ht/~hadronized/kak-tree-sitter/blob/master/kak-tree-sitter-config/default-config.toml" }}
+{{- end }}
+
+# kdl
+[language.kdl.grammar.source.git]
+url = "https://github.com/Unoqwy/tree-sitter-kdl"
+pin = "e1cd292c6d15df6610484e1d4b5c987ecad52373"
+
+[language.kdl.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "parser.o", "-o", "kdl.so"]
+link_flags = ["-O3"]
+
+[language.kdl.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
+
+[language.kdl.queries]
+path = "runtime/queries/kdl"
+
+# sshclientconfig
+[language.sshclientconfig.grammar.source.git]
+url = "https://github.com/metio/tree-sitter-ssh-client-config"
+pin = "e45c6d5c71657344d4ecaf87dafae7736f776c57"
+
+[language.sshclientconfig.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "parser.o", "-o", "sshclientconfig.so"]
+link_flags = ["-O3"]
+
+[language.sshclientconfig.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
+
+[language.sshclientconfig.queries]
+path = "runtime/queries/sshclientconfig"
+
+# gotmpl
+[language.gotmpl.grammar.source.git]
+url = "https://github.com/dannylongeuay/tree-sitter-go-template"
+pin = "395a33e08e69f4155156f0b90138a6c86764c979"
+
+[language.gotmpl.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "parser.o", "-o", "gotmpl.so"]
+link_flags = ["-O3"]
+
+[language.gotmpl.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
+
+[language.gotmpl.queries]
+path = "runtime/queries/gotmpl"

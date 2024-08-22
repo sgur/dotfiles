@@ -208,8 +208,7 @@ bundle-install-hook kak-tree-sitter %{
         cargo install --locked --force --path .
     )
     # fetch -> compile -> install: KDL syntax
-    ktsctl --fetch --compile --install kdl
-    ktsctl --fetch --compile --install nu
-    ktsctl --fetch --compile --install sshclientconfig
-    ktsctl --fetch --compile --install xml
+    ktsctl sync kdl
+    ktsctl sync sshclientconfig
+    ktsctl sync gotmpl
 }

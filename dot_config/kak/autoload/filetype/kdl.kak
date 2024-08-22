@@ -11,7 +11,7 @@ hook global BufCreate .*\.(kdl) %{
 hook global WinSetOption filetype=kdl %{
     require-module kdl
 
-    # hook window ModeCHange pop:insert:.* -group kdl-trim-indent kdl-trim-indent
+    # hook window ModeChange pop:insert:.* -group kdl-trim-indent kdl-trim-indent
     # hook window InsertChar \n -group kdl-insert kdl-insert-on-new-line
     # hook window InsertChar \n -group kdl-indent kdl-indent-on-new-line
     # hook -once -always window WinSetOption filetype=.* %{ remove-hooks window kdl-.+ }

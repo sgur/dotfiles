@@ -11,7 +11,7 @@ hook global BufCreate .*\.(nu) %{
 hook global WinSetOption filetype=nu %{
     require-module nu
 
-    # hook window ModeCHange pop:insert:.* -group nu-trim-indent nu-trim-indent
+    # hook window ModeChange pop:insert:.* -group nu-trim-indent nu-trim-indent
     # hook window InsertChar \n -group nu-insert nu-insert-on-new-line
     # hook window InsertChar \n -group nu-indent nu-indent-on-new-line
     # hook -once -always window WinSetOption filetype=.* %{ remove-hooks window nu-.+ }
