@@ -17,7 +17,7 @@
         "noUnusedTemplateLiteral": "warn",
         "noUselessElse": "warn",
         "noNonNullAssertion": "warn",
-        "useImportType": "warn"
+        "useImportType": "off"
       },
       "nursery": {}
     }
