@@ -118,7 +118,11 @@ set -g fish_help_browser (which xdg-open)
 {{- end }}
 
 if test -z "$EDITOR"
+{{- if lookPath "hx"}}
     set -gx EDITOR hx
+{{- else if lookPath "vim"}}
+    set -gx EDITOR vim
+{{- end}}
 end
 set -gx HGREP_DEFAULT_OPTS --theme Nord
 set -gx LANG ja_JP.UTF-8
