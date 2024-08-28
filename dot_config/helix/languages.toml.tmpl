@@ -4,29 +4,29 @@
 
 [[language]]
 name = "astro"
-language-servers = ["astro-ls", "efm-langserver", "buffer-ls"]
+language-servers = ["astro-ls", "efm-langserver", "scls"]
 
 [[language]]
 name = "bash"
 formatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
-language-servers = ["bash-language-server", "efm-langserver", "buffer-ls"]
+language-servers = ["bash-language-server", "efm-langserver", "scls"]
 
 [[language]]
 name = "css"
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "css"] }
-language-servers = ["vscode-css-language-server", "stylelint-lsp", "efm-langserver", "buffer-ls"]
+language-servers = ["vscode-css-language-server", "stylelint-lsp", "efm-langserver", "scls"]
 
 [[language]]
 name = "dockerfile"
-language-servers = [ "docker-langserver", "buffer-ls" ]
+language-servers = [ "docker-langserver", "scls" ]
 
 [[language]]
 name = "docker-compose"
-language-servers = [ "docker-compose-langserver", "yaml-language-server", "buffer-ls" ]
+language-servers = [ "docker-compose-langserver", "yaml-language-server", "scls" ]
 
 [[language]]
 name = "fish"
-language-servers = ["efm-langserver", "buffer-ls"]
+language-servers = ["efm-langserver", "scls"]
 
 {{- if eq .chezmoi.os "windows" }}
 [[grammar]]
@@ -37,7 +37,7 @@ source = { git = "https://git.sr.ht/~nbsp/tree-sitter-gemini", rev = "3cc5e4bdf5
 [[language]]
 name = "go"
 scope = "source.go"
-language-servers = ["gopls", "golangci-lint-langserver", "efm-langserver", "buffer-ls"]
+language-servers = ["gopls", "golangci-lint-langserver", "efm-langserver", "scls"]
 
 [[language]]
 name = "hjson"
@@ -45,7 +45,7 @@ scope = "source.hjson"
 injection-regex = "hson"
 file-types = ["hjson"]
 indent = { tab-width = 4, unit = "  " }
-language-servers = ["buffer-ls"]
+language-servers = ["scls"]
 roots = []
 
 [[grammar]]
@@ -55,19 +55,19 @@ source = { git = "https://github.com/winston0410/tree-sitter-hjson", rev = "02fa
 [[language]]
 name = "html"
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "html"] }
-language-servers = ["vscode-html-language-server", "tailwindcss-ls", "efm-langserver", "buffer-ls"]
+language-servers = ["vscode-html-language-server", "tailwindcss-ls", "efm-langserver", "scls"]
 
 [[language]]
 name = "javascript"
-language-servers = ["vtsls", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "buffer-ls"]
+language-servers = ["vtsls", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "scls"]
 
 [[language]]
 name = "json"
-language-servers = ["vscode-json-language-server", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "buffer-ls"]
+language-servers = ["vscode-json-language-server", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "scls"]
 
 [[language]]
 name = "jsx"
-language-servers = ["vtsls", "tailwindcss-ls", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "buffer-ls"]
+language-servers = ["vtsls", "tailwindcss-ls", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "scls"]
 
 [[language]]
 name = "kdl"
@@ -75,42 +75,42 @@ language-servers = ["efm-langserver"]
 
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "efm-langserver", "buffer-ls", "obsidian-lsp"]
+language-servers = ["marksman", "efm-langserver", "scls", "obsidian-lsp"]
 auto-format = true
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "markdown"] }
 
 [[language]]
 name = "python"
-language-servers = ["pylsp", "pyright-langserver", "ruff-lsp", "efm-langserver", "buffer-ls"]
+language-servers = ["pylsp", "pyright-langserver", "ruff-lsp", "efm-langserver", "scls"]
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 roots = ["pyproject.toml"]
 
 [[language]]
 name = "rust"
-language-servers = [ "rust-analyzer", "buffer-ls" ]
+language-servers = [ "rust-analyzer", "scls" ]
 
 [[language]]
 name = "scss"
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "css"] }
-language-servers = ["vscode-css-language-server", "stylelint-lsp-scss", "efm-langserver", "buffer-ls"]
+language-servers = ["vscode-css-language-server", "stylelint-lsp-scss", "efm-langserver", "scls"]
 
 [[language]]
 name = "toml"
-language-servers = ["taplo-lsp", "efm-langserver", "buffer-ls"]
+language-servers = ["taplo-lsp", "efm-langserver", "scls"]
 formatter = { command = "taplo-lsp", args = ["format", "-"]}
 
 [[language]]
 name = "tsx"
-language-servers = [{name = "vtsls", except-features = ["format"]}, "tailwindcss-ls", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "buffer-ls"]
+language-servers = [{name = "vtsls", except-features = ["format"]}, "tailwindcss-ls", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "scls"]
 
 [[language]]
 name = "typescript"
-language-servers = [{name = "vtsls", except-features = ["format"]}, { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "buffer-ls"]
+language-servers = [{name = "vtsls", except-features = ["format"]}, { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "scls"]
 
 [[language]]
 name = "yaml"
-language-servers = ["yaml-language-server", "efm-langserver", "buffer-ls"]
+language-servers = ["yaml-language-server", "efm-langserver", "scls"]
 
 {{- if eq .chezmoi.os "windows" }}
 [[language]]
@@ -123,7 +123,7 @@ comment-token = '#'
 # block-comment-tokens = { start = "<#", end = "#>" }
 indent = { tab-width = 4, unit = "    " }
 roots = []
-language-servers = ["powershell-langserver", "buffer-ls"]
+language-servers = ["powershell-langserver", "scls"]
 {{- end }}
 
 [language-server]
@@ -133,11 +133,6 @@ efm-langserver = { command = "efm-langserver" }
 "powershell-editor-services")) -}}
 {{- if $powershell_editor_service }}
 powershell-langserver = { command = {{ $powershell_editor_service | quote }} }
-{{- end }}
-{{- if lookPath "simple-completion-language-server" }}
-# https://github.com/estin/simple-completion-language-server
-# $ cargo install --git https://github.com/estin/simple-completion-language-server.git
-buffer-ls = {command = "simple-completion-language-server", config = { max_completion_items = 20, snippets_first = false }}
 {{- end }}
 
 [language-server.astro-ls]
@@ -184,6 +179,22 @@ useLibraryCodeForTypes = true
 [language-server.ruff-lsp]
 command = "ruff-lsp"
 config = { settings = { run = "onSave" } }
+
+{{- if lookPath "simple-completion-language-server" }}
+# https://github.com/estin/simple-completion-language-server
+# $ cargo install --git https://github.com/estin/simple-completion-language-server.git
+[language-server.scls]
+command = "simple-completion-language-server"
+
+[language-server.scls.config]
+max_completion_items = 20     # set max completion results len for each group: words, snippets, unicode-input
+snippets_first = true         # completions will return before snippets by default
+feature_words = true          # enable completion by word
+feature_snippets = true       # enable snippets
+feature_unicode_input = true  # enable "unicode input"
+feature_paths = true          # enable path completion
+feature_citations = false     # enable citation completion (only on `citation` feature enabled)
+{{- end }}
 
 [language-server.stylelint-lsp]
 command = "stylelint-lsp"
