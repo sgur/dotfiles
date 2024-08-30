@@ -43,6 +43,7 @@ Tools/
 .curlrc
 .config/fish/
 .config/kak-lsp/
+.config/kak-tree-sitter/
 .config/kak/
 .config/kitty/
 .config/mise/

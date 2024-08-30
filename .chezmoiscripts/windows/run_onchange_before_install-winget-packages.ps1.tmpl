@@ -36,19 +36,19 @@ $JsonStr = @'
 					"PackageIdentifier": "Microsoft.WindowsTerminal.Preview"
 				}
 				,{
-					"PackageIdentifier": "ajeetdsouza.zoxide"
-				}
-				,{
-					"PackageIdentifier": "nathancorvussolis.corvusskk"
-				}
-				,{
-					"PackageIdentifier": "twpayne.chezmoi"
+					"PackageIdentifier": "Zen-Team.Zen-Browser.Optimized"
 				}
 {{- if $isWindows10 }}
 				,{
 					"PackageIdentifier": "7zip.7zip"
 				}
 {{- end }}
+				,{
+					"PackageIdentifier": "nathancorvussolis.corvusskk"
+				}
+				,{
+					"PackageIdentifier": "twpayne.chezmoi"
+				}
 {{- if .fullProvisioning }}
 				,{
 					"PackageIdentifier": "BurntSushi.ripgrep.MSVC"
@@ -83,9 +83,6 @@ $JsonStr = @'
 				}
 {{-   end }}
 				,{
-					"PackageIdentifier": "Microsoft.VisualStudio.2022.Professional"
-				}
-				,{
 					"PackageIdentifier": "Microsoft.VisualStudioCode"
 				}
 				,{
@@ -107,7 +104,7 @@ $JsonStr = @'
 					"PackageIdentifier": "WinMerge.WinMerge"
 				}
 				,{
-					"PackageIdentifier": "Zen-Team.Zen-Browser.Optimized"
+					"PackageIdentifier": "ajeetdsouza.zoxide"
 				}
 				,{
 					"PackageIdentifier": "appmakes.Typora"
@@ -139,6 +136,14 @@ $JsonStr = @'
 				,{
 					"PackageIdentifier": "vim.vim.nightly"
 				}
+{{-   if .buildOnUpdate }}
+				,{
+					"PackageIdentifier": "Microsoft.VisualStudio.2022.Professional"
+				}
+				,{
+					"PackageIdentifier": "Rustlang.Rustup"
+				}
+{{-   end }}
 {{- end }}
 			],
 			"SourceDetails": {
