@@ -21,7 +21,10 @@ $JsonStr = @'
 		{
 			"Packages": [
 				{
-					"PackageIdentifier": "Microsoft.WindowsTerminal.Preview"
+					"PackageIdentifier": "Git.MinGit.BusyBox"
+				}
+				,{
+					"PackageIdentifier": "Helix.Helix"
 				}
 				,{
 					"PackageIdentifier": "Microsoft.PowerShell"
@@ -30,19 +33,16 @@ $JsonStr = @'
 					"PackageIdentifier": "Microsoft.PowerToys"
 				}
 				,{
-					"PackageIdentifier": "Git.MinGit.BusyBox"
+					"PackageIdentifier": "Microsoft.WindowsTerminal.Preview"
 				}
 				,{
-					"PackageIdentifier": "twpayne.chezmoi"
+					"PackageIdentifier": "ajeetdsouza.zoxide"
 				}
 				,{
 					"PackageIdentifier": "nathancorvussolis.corvusskk"
 				}
 				,{
-					"PackageIdentifier": "Helix.Helix"
-				}
-				,{
-					"PackageIdentifier": "ajeetdsouza.zoxide"
+					"PackageIdentifier": "twpayne.chezmoi"
 				}
 {{- if $isWindows10 }}
 				,{
@@ -50,61 +50,20 @@ $JsonStr = @'
 				}
 {{- end }}
 {{- if .fullProvisioning }}
-{{-   if $isWindows11 }}
-				,{
-					"PackageIdentifier": "Microsoft.DevHome"
-				}
-{{-   end }}
-				,{
-					"PackageIdentifier": "Docker.DockerCLI"
-				}
-				,{
-					"PackageIdentifier": "vim.vim.nightly"
-				}
-				,{
-					"PackageIdentifier": "Ditto.Ditto"
-				}
-				,{
-					"PackageIdentifier": "Wilfred.difftastic"
-				}
-				,{
-					"PackageIdentifier": "sharkdp.fd"
-				}
-				,{
-					"PackageIdentifier": "Microsoft.VisualStudioCode"
-				}
-				,{
-					"PackageIdentifier": "junegunn.fzf"
-				}
-				,{
-					"PackageIdentifier": "eza-community.eza"
-				}
-				,{
-					"PackageIdentifier": "sharkdp.bat"
-				}
-				,{
-					"PackageIdentifier": "jftuga.less"
-				}
-				,{
-					"PackageIdentifier": "HermannSchinagl.LinkShellExtension"
-				}
-				,{
-					"PackageIdentifier": "Greenshot.Greenshot"
-				}
 				,{
 					"PackageIdentifier": "BurntSushi.ripgrep.MSVC"
-				}
-				,{
-					"PackageIdentifier": "Microsoft.VisualStudio.2022.Professional"
 				}
 				,{
 					"PackageIdentifier": "Canonical.Ubuntu.2204"
 				}
 				,{
+					"PackageIdentifier": "Docker.DockerCLI"
+				}
+				,{
 					"PackageIdentifier": "Dystroy.broot"
 				}
 				,{
-					"PackageIdentifier": "Mozilla.Firefox.DeveloperEdition"
+					"PackageIdentifier": "JesseDuffield.lazygit"
 				}
 				,{
 					"PackageIdentifier": "GnuPG.GnuPG"
@@ -113,31 +72,72 @@ $JsonStr = @'
 					"PackageIdentifier": "GnuPG.Gpg4win"
 				}
 				,{
-					"PackageIdentifier": "JesseDuffield.lazygit"
+					"PackageIdentifier": "Greenshot.Greenshot"
+				}
+				,{
+					"PackageIdentifier": "HermannSchinagl.LinkShellExtension"
+				}
+{{-   if $isWindows11 }}
+				,{
+					"PackageIdentifier": "Microsoft.DevHome"
+				}
+{{-   end }}
+				,{
+					"PackageIdentifier": "Microsoft.VisualStudio.2022.Professional"
+				}
+				,{
+					"PackageIdentifier": "Microsoft.VisualStudioCode"
 				}
 				,{
 					"PackageIdentifier": "Obsidian.Obsidian"
 				}
 				,{
-					"PackageIdentifier": "ducaale.xh"
-				}
-				,{
-					"PackageIdentifier": "appmakes.Typora"
-				}
-				,{
 					"PackageIdentifier": "Starship.Starship"
 				}
 				,{
-					"PackageIdentifier": "gerardog.gsudo"
+					"PackageIdentifier": "Vitzo.ClipClip"
 				}
 				,{
 					"PackageIdentifier": "WerWolv.ImHex"
 				}
 				,{
+					"PackageIdentifier": "Wilfred.difftastic"
+				}
+				,{
 					"PackageIdentifier": "WinMerge.WinMerge"
 				}
 				,{
+					"PackageIdentifier": "Zen-Team.Zen-Browser.Optimized"
+				}
+				,{
+					"PackageIdentifier": "appmakes.Typora"
+				}
+				,{
 					"PackageIdentifier": "aria2.aria2"
+				}
+				,{
+					"PackageIdentifier": "ducaale.xh"
+				}
+				,{
+					"PackageIdentifier": "eza-community.eza"
+				}
+				,{
+					"PackageIdentifier": "gerardog.gsudo"
+				}
+				,{
+					"PackageIdentifier": "jftuga.less"
+				}
+				,{
+					"PackageIdentifier": "junegunn.fzf"
+				}
+				,{
+					"PackageIdentifier": "sharkdp.bat"
+				}
+				,{
+					"PackageIdentifier": "sharkdp.fd"
+				}
+				,{
+					"PackageIdentifier": "vim.vim.nightly"
 				}
 {{- end }}
 			],
