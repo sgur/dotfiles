@@ -1,0 +1,5 @@
+{{- joinPath .chezmoi.homeDir ".config" "nushell" "config.nu" | include -}}
+{{- $brootLauncher := joinPath .chezmoi.homeDir "AppData" "Roaming" "dystroy" "broot" "config" "launcher" "nushell" "br" -}}
+{{- if stat $brootLauncher }}
+use {{ $brootLauncher | squote }} *
+{{- end }}
