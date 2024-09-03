@@ -1,0 +1,8 @@
+"$schema" = "https://yazi-rs.github.io/schemas/yazi.json"
+
+[manager]
+sort_by = "natural"
+linemode = "size"
+
+[preview]
+image_filer = "lanczos3"
