@@ -59,15 +59,35 @@ language-servers = ["vscode-html-language-server", "tailwindcss-ls", "efm-langse
 
 [[language]]
 name = "javascript"
-language-servers = ["vtsls", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "scls"]
+roots = ["package.json"]
+language-servers = [
+  "vtsls",
+  { name = "biome-lsp", except-features = [ "format" ] },
+  "vscode-eslint-language-server",
+  "efm-langserver",
+  "scls"
+]
 
 [[language]]
 name = "json"
-language-servers = ["vscode-json-language-server", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "scls"]
+language-servers = [
+  "vscode-json-language-server",
+  { name = "biome-lsp", except-features = [ "format" ] },
+  "efm-langserver",
+  "scls"
+]
 
 [[language]]
 name = "jsx"
-language-servers = ["vtsls", "tailwindcss-ls", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "scls"]
+roots = ["package.json"]
+language-servers = [
+  "vtsls",
+  "tailwindcss-ls",
+  { name = "biome-lsp", except-features = [ "format" ] },
+  "vscode-eslint-language-server",
+  "efm-langserver",
+  "scls"
+]
 
 [[language]]
 name = "kdl"
@@ -102,11 +122,26 @@ formatter = { command = "taplo-lsp", args = ["format", "-"]}
 
 [[language]]
 name = "tsx"
-language-servers = [{name = "vtsls", except-features = ["format"]}, "tailwindcss-ls", { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "scls"]
+roots = ["package.json", "tsconfig.json"]
+language-servers = [
+  { name = "vtsls", except-features = ["format"] },
+  "tailwindcss-ls",
+  { name = "biome-lsp", except-features = [ "format" ] },
+  "vscode-eslint-language-server",
+  "efm-langserver",
+  "scls"
+]
 
 [[language]]
 name = "typescript"
-language-servers = [{name = "vtsls", except-features = ["format"]}, { name = "biome-lsp", except-features = [ "format" ] }, "efm-langserver", "scls"]
+roots = ["package.json", "tsconfig.json"]
+language-servers = [
+  { name = "vtsls", except-features = ["format"]},
+  { name = "biome-lsp", except-features = [ "format" ] },
+  "vscode-eslint-language-server",
+  "efm-langserver",
+  "scls"
+]
 
 [[language]]
 name = "yaml"
@@ -142,6 +177,19 @@ args =["--stdio"]
 [language-server.biome-lsp]
 command = "biome"
 args =["lsp-proxy"]
+required-root-patterns = ["biome.json", "biome.jsonc"]
+
+[language-server.vscode-eslint-language-server]
+required-root-patterns = [
+  ".eslintrc.js",
+  ".eslintrc.cjs",
+  "eslint.config.js",
+  "eslint.config.mjs",
+  "eslint.config.cjs",
+  "eslint.config.ts",
+  "eslint.config.mts",
+  "eslint.config.cts"
+]
 
 [language-server.obsidian-lsp]
 command = "obsidian-lsp"
