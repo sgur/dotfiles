@@ -1,5 +1,5 @@
-{{- python3Path := lookPath "python3" }}
-{{ if and python3Path (contains "WindowsApp" python3Path | not) -}}
+{{- $python3Path := lookPath "python3" }}
+{{ if (and $python3Path (contains "WindowsApp" $python3Path | not)) -}}
 {{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "python-lsp-server.xml" -}}
 # python-lsp-server rss hash: {{ include $release | sha256sum }}
 
