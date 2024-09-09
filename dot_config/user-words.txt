@@ -1,5 +1,5 @@
 +SENDWININICHANGE
-jSETDESKWALLPAPER
++SETDESKWALLPAPER
 +UPDATEINIFILE
 adhoc
 alacritty
@@ -155,7 +155,6 @@ vncpw
 vsdiffmerge
 vssettings
 vswhere
-wafv2
 wslconfig
 wslenv
 wslpath
