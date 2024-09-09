@@ -5,9 +5,7 @@ root-markers:
   - .git/
 lint-debounce: 1s
 log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
-{{ if true -}}
-log-level: 3
-{{- end }}
+log-level: 1
 
 tools:
   javascript-eslint: &javascript-eslint
@@ -248,7 +246,6 @@ tools:
       --no-progress
       --no-color
       --no-summary
-      --config {{ joinPath .chezmoi.homeDir ".config" "cspell.config.yaml" }}
       stdin://${INPUT}
     lint-stdin: true
     lint-formats:
