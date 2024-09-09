@@ -288,3 +288,9 @@ url = "https://api.github.com/repos/golangci/golangci-lint/releases/latest"
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://pypi.org/rss/project/python-lsp-server/releases.xml"
+
+# eslint-language-server
+[".cache/chezmoi-releases/eslint-language-server.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/microsoft/vscode-eslint/releases/latest"

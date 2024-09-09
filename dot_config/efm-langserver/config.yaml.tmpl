@@ -5,11 +5,53 @@ root-markers:
   - .git/
 lint-debounce: 1s
 log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
-{{ if false -}}
+{{ if true -}}
 log-level: 3
 {{- end }}
 
 tools:
+  javascript-eslint: &javascript-eslint
+    lint-command: >-
+      {{ lookPath "bunx" }}
+      eslint
+      --no-color
+      --stdin
+      --stdin-filename ${INPUT}
+    lint-ignore-exit-code: true
+    lint-stdin: true
+    lint-formats:
+      - "%-P%f"
+      - "%#%l:%c %# %trror  %m"
+      - "%#%l:%c %# %tarning  %m"
+      - "%-Q"
+      - "%-G%.%#"
+    lint-after-open: true
+    require-marker: true
+    root-markers:
+      - eslint.config.js
+      - eslint.config.cjs
+      - eslint.config.mjs
+
+  javascript-eslint-8: &javascript-eslint-8
+    lint-command: >-
+      {{ lookPath "bunx" }}
+      eslint@8.57.0
+      -f visualstudio
+      --no-color
+      --stdin
+      --stdin-filename ${INPUT}
+    lint-ignore-exit-code: true
+    lint-stdin: true
+    lint-formats:
+      - "%f(%l,%c): %tarning %m"
+      - "%f(%l,%c): %rror %m"
+    lint-after-open: true
+    require-marker: true
+    root-markers:
+      - .eslintrc
+      - .eslintrc.js
+      - .eslintrc.cjs
+
   fish-fish_indent: &fish-fish_indent
     prefix: fish-indent
     format-command: fish_indent
@@ -181,11 +223,7 @@ tools:
   yaml-actionlint: &yaml-actionlint
     prefix: actionlint
     lint-command: >-
-{{- if ne .chezmoi.os "windows" }}
-      bash -c "[[ '${INPUT}' =~ \\.github/workflows/ ]]" && actionlint
-{{- else }}
       actionlint
-{{- end }}
       -oneline
       -no-color
       -stdin-filename "${INPUT}"
@@ -195,8 +233,9 @@ tools:
     lint-formats:
       - '%f:%l:%c: %m'
     lint-after-open: true
+    require-marker: true
     root-markers:
-      - .github/
+      - .github/workflows/
 
   any-cspell: &any-cspell
     prefix: cspell
@@ -326,11 +365,15 @@ languages:
     - <<: *any-cspell
     - <<: *any-secretlint
     - <<: *any-prettierd
+    - <<: *javascript-eslint
+    - <<: *javascript-eslint-8
 
   javascriptreact:
     - <<: *any-cspell
     - <<: *any-secretlint
     - <<: *any-prettierd
+    - <<: *javascript-eslint
+    - <<: *javascript-eslint-8
 
   json:
     - <<: *any-secretlint
@@ -364,11 +407,15 @@ languages:
     - <<: *any-cspell
     - <<: *any-secretlint
     - <<: *any-prettierd
+    - <<: *javascript-eslint
+    - <<: *javascript-eslint-8
 
   typescriptreact:
     - <<: *any-cspell
     - <<: *any-secretlint
     - <<: *any-prettierd
+    - <<: *javascript-eslint
+    - <<: *javascript-eslint-8
 
   vue:
     - <<: *any-prettier
