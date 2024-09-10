@@ -1,0 +1,6 @@
+{{- if and (ne .chezmoi.os "windows") (lookPath "pnpm") -}}
+#!/bin/sh
+set -eu
+
+pnpm --package=@aws/lsp-yaml dlx yaml-language-server $@
+{{- end }}
