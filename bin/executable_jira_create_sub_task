@@ -6,4 +6,4 @@ parent_project=$1
 parent_task="$parent_project-$2"
 description=$3
 
-echo jira issue create -t Sub-task -p "$parent_project" -P "$parent_task" --no-input -s "$description" -b \"\"
+echo jira issue create -t Sub-task -p "$parent_project" -P "$parent_task" --no-input -s "$description" -b \"\" --no-input
