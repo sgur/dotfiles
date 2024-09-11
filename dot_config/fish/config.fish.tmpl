@@ -84,6 +84,8 @@ if status is-interactive
 
     abbr --add jira:issue:subtask --set-cursor "jira issue create --type Sub-task --parent % --summary --body --no-edit"
 
+    abbr --add tm tmux new-session -A
+
     # \el -> \e, or \co へ移設
     bind --user \e, __fish_list_current_token
     bind --user \co __fish_list_current_token
