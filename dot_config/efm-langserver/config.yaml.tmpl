@@ -7,11 +7,12 @@ lint-debounce: 1s
 log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
 log-level: 1
 
-# commands:
-#   - title: reload-config
-#     command: :reload-config
-
 tools:
+  efm-langservedr-reload: &efm-langserver-reload
+    commands:
+      - title: reload-config
+        command: :reload-config
+
   javascript-eslint: &javascript-eslint
     lint-command: >-
       {{ lookPath "bunx" }}
@@ -398,9 +399,7 @@ languages:
     - <<: *any-prettier
 
   yaml:
-{{- if false -}}
-    - <<: *yaml-yamllint
-{{- end }}
+    - <<: *efm-langserver-reload
     - <<: *yaml-actionlint
     - <<: *any-prettier
     - <<: *any-secretlint
