@@ -105,8 +105,8 @@ tools:
   any-prettier: &any-prettier
     prefix: prettier
     format-command: >-
-      {{ lookPath "bunx" }}
-      prettier
+      ./node_modules/.bin/prettier
+      ${--tab-width:tabWidth}
       --stdin-filepath ${INPUT}
     format-stdin: true
     require-marker: true
@@ -124,30 +124,6 @@ tools:
       - prettier.config.js
       - prettier.config.mjs
 
-  any-prettierd: &any-prettierd
-    prefix: prettierd
-    format-command: >-
-      {{ lookPath "bunx" }}
-      @fsouza/prettierd
-      ${INPUT}
-      ${--range-start=charStart}
-      ${--range-end=charEnd}
-      ${--tab-width=tabSize}
-    format-stdin: true
-    require-marker: true
-    root-markers:
-      - .prettierrc
-      - .prettierrc.cjs
-      - .prettierrc.js
-      - .prettierrc.json
-      - .prettierrc.json5
-      - .prettierrc.mjs
-      - .prettierrc.toml
-      - .prettierrc.yaml
-      - .prettierrc.yml
-      - prettier.config.cjs
-      - prettier.config.js
-      - prettier.config.mjs
   markdown-markdownlint-cli2: &markdown-markdownlint-cli2
     prefix: markdownlint-cli2
     lint-command: >-
@@ -361,14 +337,14 @@ languages:
   javascript:
     - <<: *any-cspell
     - <<: *any-secretlint
-    - <<: *any-prettierd
+    - <<: *any-prettier
     - <<: *javascript-eslint
     - <<: *javascript-eslint-8
 
   javascriptreact:
     - <<: *any-cspell
     - <<: *any-secretlint
-    - <<: *any-prettierd
+    - <<: *any-prettier
     - <<: *javascript-eslint
     - <<: *javascript-eslint-8
 
@@ -403,14 +379,14 @@ languages:
   typescript:
     - <<: *any-cspell
     - <<: *any-secretlint
-    - <<: *any-prettierd
+    - <<: *any-prettier
     - <<: *javascript-eslint
     - <<: *javascript-eslint-8
 
   typescriptreact:
     - <<: *any-cspell
     - <<: *any-secretlint
-    - <<: *any-prettierd
+    - <<: *any-prettier
     - <<: *javascript-eslint
     - <<: *javascript-eslint-8
 
