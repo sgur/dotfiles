@@ -33,7 +33,6 @@ var lsp_options = {
   showInlayHints: has('patch-9.0.0178') != 0,
   useBufferCompletion: v:false,
   vsnipSupport: v:true,
-  diagVirtualTextAlign: 'after',
 }
 
 # servers
