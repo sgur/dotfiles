@@ -129,3 +129,7 @@ fi
 if [ -x "$(which fzf)" ]; then
   eval "$(fzf --bash)"
 fi
+
+if [ -x "$(which starship)" ]; then
+  eval "$(starship init bash)"
+fi
