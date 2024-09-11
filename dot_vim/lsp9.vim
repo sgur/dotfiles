@@ -551,7 +551,7 @@ enddef
 lsp_servers->filter((_, v) => !empty(v.path))
 augroup vimrc_lsp_init
   autocmd!
-  autocmd User LspAttached LspSetupBufferLocal()
+  autocmd User LspAttached  LspSetupBufferLocal()
   # ファイルの先頭に "vim9script" があったら Diag を無効化する
   autocmd FileType vim  DisableDiag(getline(1, 5)->join()->match('^vim9script') > -1)
   autocmd BufReadPost *.tmpl  DisableDiag()
