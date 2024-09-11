@@ -7,6 +7,11 @@ lint-debounce: 1s
 log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
 log-level: 1
 
+commands:
+  - title: reload-config
+    command: :reload-config
+
+
 tools:
   javascript-eslint: &javascript-eslint
     lint-command: >-
