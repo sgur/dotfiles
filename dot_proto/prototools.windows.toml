@@ -1,6 +1,7 @@
 bun = "latest"
 node = "lts"
 pnpm = "latest"
+proto = "0.41.1"
 
 [settings]
 auto-install = true
