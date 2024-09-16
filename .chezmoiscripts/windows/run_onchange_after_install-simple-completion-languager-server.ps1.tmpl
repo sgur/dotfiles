@@ -1,6 +1,5 @@
 {{ if and (env "OneDrive") (lookPath "cargo") .buildOnUpdate -}}
-# Latest commit hash:
-# {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "simple-completion-language-server.json" | include | fromJson | jq ".sha" }}
+# Latest commit hash: {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-commits" "simple-completion-language-server.json" | include | fromJson | jq ".sha" }}
 
 Stop-Process -ErrorAction SilentlyContinue -Name simple-completion-language-server
 & cargo install --root "$Env:OneDrive/shared/" --force --git "https://github.com/estin/simple-completion-language-server"
