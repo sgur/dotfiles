@@ -16,6 +16,9 @@ if [[ -n "$ZELLIJ" ]]; then
 	zellij run --close-on-exit --direction down -- \
 		env HELIX_DEFAULT_RUNTIME=$(ghq list -p helix-editor/helix)/runtime \
 		cargo install --profile opt --locked --path helix-term
+elif [[ -n "$TMUX" ]]; then
+	tmux split-window -d -e HELIX_DEFAULT_RUNTIME=$(ghq list -p helix-editor/helix)/runtime -- \
+		cargo install --profile opt --locked --path helix-term
 else
 	export HELIX_DEFAULT_RUNTIME=$(ghq list -p helix-editor/helix)/runtime
 	cargo install --profile opt --locked --path helix-term

@@ -57,7 +57,7 @@ function! s:init() abort "{{{
         \ })
 
   " Generic {{{2
-
+  "
   call minpac#add('LunarWatcher/auto-pairs', #{
         \ type: 'opt'
         \ })
@@ -91,10 +91,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('mattn/vim-molder-operations', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('cohama/lexima.vim', #{
         \ type: 'opt'
         \ })
 
