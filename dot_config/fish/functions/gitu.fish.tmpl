@@ -1,0 +1,9 @@
+{{- if lookPath "gitu"  }}
+function gitu
+    if test -n "$TMUX"
+        tmux popup -d $PWD -w 90% -h 60% -- gitu
+    else
+        gitu
+    end
+end
+{{- end }}
