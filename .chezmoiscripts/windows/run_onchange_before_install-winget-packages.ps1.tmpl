@@ -8,7 +8,8 @@
 	"Microsoft.OneDrive",
 	"Microsoft.Teams",
 	"Microsoft.Teams.Classic",
-	"SlackTechnologies.Slack"
+	"SlackTechnologies.Slack",
+	"CatoNetworks.CatoClient"
 ) | ForEach-Object {
 	& winget pin add --exact --id $_
 }
