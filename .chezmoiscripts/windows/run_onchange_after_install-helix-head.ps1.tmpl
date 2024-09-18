@@ -10,14 +10,9 @@ $Env:RUSTC_WRAPPER = {{ lookPath "sccache" | quote }}
 ghq get --update helix-editor/helix
 Push-Location (ghq list -p helix-editor/helix)
 curl -sL https://gist.githubusercontent.com/sgur/2f5325e7f134aa5ceeb1efb5c2a0013d/raw/32d7abde2a13f641c0097ee6137b6929e724b1b4/japanese-movements.patch | git apply -p1
-Remove-Item -Recurse -Force -ErrorAction SilentlyContinue target/
-$Env:HELIX_DEFAULT_RUNTIME = "$Env:OneDrive/shared/helix/runtime"
-New-Item -ItemType Directory -Force -ErrorAction SilentlyContinue -Path $Env:HELIX_DEFAULT_RUNTIME/grammars/
-Copy-Item -Force -ErrorAction SilentlyContinue -Path ./runtime/grammars/*.dll -Destination $Env:HELIX_DEFAULT_RUNTIME/grammars/
-New-Item -ItemType Directory -Force -ErrorAction SilentlyContinue -Path $Env:HELIX_DEFAULT_RUNTIME/queries/
-Copy-Item -Force -Recurse -ErrorAction SilentlyContinue -Path ./runtime/queries/* -Destination $Env:HELIX_DEFAULT_RUNTIME/queries/
-New-Item -ItemType Directory -Force -ErrorAction SilentlyContinue -Path $Env:HELIX_DEFAULT_RUNTIME/themes/
-Copy-Item -Force -Recurse -ErrorAction SilentlyContinue -Path ./runtime/themes/* -Destination $Env:HELIX_DEFAULT_RUNTIME/themes/
+# Remove-Item -Recurse -Force -ErrorAction SilentlyContinue target/
+$Env:HELIX_DEFAULT_RUNTIME = "$Env:OneDrive\shared\helix\runtime"
+robocopy .\runtime\ $Env:HELIX_DEFAULT_RUNTIME /S /PURGE /XD sources /XO /NDL
 cargo install --root "$Env:OneDrive/shared/" --force --profile opt --locked --path helix-term
 git reset --hard
 git clean -f

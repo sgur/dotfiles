@@ -11,7 +11,7 @@ export RUSTC_WRAPPER={{- lookPath "sccache"}}
 ghq get --update helix-editor/helix
 pushd $(ghq list -p helix-editor/helix)
 curl -sL https://gist.githubusercontent.com/sgur/2f5325e7f134aa5ceeb1efb5c2a0013d/raw/32d7abde2a13f641c0097ee6137b6929e724b1b4/japanese-movements.patch | patch -p1
-rm -rf target/
+# rm -rf target/
 if [[ -n "$ZELLIJ" ]]; then
 	zellij run --close-on-exit --direction down -- \
 		env HELIX_DEFAULT_RUNTIME=$(ghq list -p helix-editor/helix)/runtime \
