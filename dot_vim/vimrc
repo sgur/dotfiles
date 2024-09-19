@@ -753,11 +753,11 @@ try
   import autoload 'scope/fuzzy.vim'
   g:scope_find_cmd = ''
   if executable('fd') 
-    const exclude_args = map(split(&wildignore, ',') + ["node_modules", "go/pkg", "site-packages"], (k, v) => printf('--exclude "%s"', v))->join(' ')
-    g:scope_find_cmd = 'fd --type file --hidden --follow ' .. exclude_args
+    const exclude_args = map(split(&wildignore, ',') + [".git", "node_modules", "go/pkg", "site-packages"], (k, v) => printf('--exclude "%s"', v))->join(' ')
+    g:scope_find_cmd = 'fd --type file --hidden --follow --max-results 100000 ' .. exclude_args
   elseif executable('busybox')
     const exclude_names = map(split(&wildignore, ','), (k, v) => printf("! -name '%s'", v))
-    const exclude_paths = map(["node_modules", "go/pkg", "site-packages"], (k, v) => printf("! -path '*/%s/*'", v))
+    const exclude_paths = map([".git", "node_modules", "go/pkg", "site-packages"], (k, v) => printf("! -path '*/%s/*'", v))
     const exclude_args = '-a ' .. join(exclude_names, ' -a ') .. join(exclude_paths, ' -a ')
     g:scope_find_cmd = 'busybox find ( -type f ' .. exclude_args .. ' ) -print -follow'
   endif
