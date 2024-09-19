@@ -35,7 +35,9 @@ brew "dive"
 brew "efm-langserver"
 brew "eza"
 brew "fd"
+{{- if eq .chezmoi.os "darwin" }}
 brew "fish"
+{{- end }}
 brew "fzf"
 brew "ghq"
 brew "git"
