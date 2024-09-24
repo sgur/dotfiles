@@ -4,7 +4,7 @@
 {{ $url := printf "https://github.com/powershell/PowerShellEditorServices/releases/download/%s/%s" $tagName $asset }}
 
 {{- $psEditorServicesDir := joinPath .chezmoi.homeDir ".local" "share" "powershell-editor-services" }}
-Remove-Item -Force -Recurse -Path {{ $psEditorServicesDir | quote}}
+Remove-Item -Force -Recurse -ErrorAction SilentlyContinue -Path {{ $psEditorServicesDir | quote}}
 New-Item -ItemType Directory -Path {{ $psEditorServicesDir | quote}}
 Push-Location {{ $psEditorServicesDir | quote}}
 

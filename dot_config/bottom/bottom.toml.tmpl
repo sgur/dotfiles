@@ -1,3 +1,9 @@
-{{- joinPath .chezmoi.homeDir ".config" "bottom" "default_config.toml" | include }}
+{{- $defaultConfig := joinPath .chezmoi.homeDir ".config" "bottom" "default_config.toml" }}
+{{- if stat $defaultConfig }}
+{{- include $defaultConfig }}
+{{- end }}
 
-{{- joinPath .chezmoi.homeDir ".config" "bottom" "themes" "mocha.toml" | include }}
+{{- $theme := joinPath .chezmoi.homeDir ".config" "bottom" "themes" "mocha.toml" }}
+{{- if stat $theme }}
+{{- include $theme }}
+{{- end }}
