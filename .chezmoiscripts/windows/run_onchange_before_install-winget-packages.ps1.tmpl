@@ -9,7 +9,9 @@
 	"Microsoft.Teams",
 	"Microsoft.Teams.Classic",
 	"SlackTechnologies.Slack",
-	"CatoNetworks.CatoClient"
+	"CatoNetworks.CatoClient",
+	"Microsoft.Teams.Free",
+	"KeeWeb.KeeWeb"
 ) | ForEach-Object {
 	& winget pin add --exact --id $_
 }
