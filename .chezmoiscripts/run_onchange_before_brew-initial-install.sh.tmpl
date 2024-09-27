@@ -7,8 +7,6 @@
 
 brew bundle --file=- << EOS
 tap "ankitpokhrel/jira-cli"
-tap "bloznelis/tap"
-tap "charmbracelet/tap"
 tap "homebrew/bundle"
 {{- if eq .chezmoi.os "darwin" }}
 tap "homebrew/cask-fonts"
@@ -17,7 +15,6 @@ tap "microsoft/git"
 {{- end }}
 tap "rhysd/hgrep", "https://github.com/rhysd/hgrep"
 tap "rsteube/tap"
-tap "static-web-server/static-web-server"
 tap "ynqa/tap"
 brew "act"
 brew "actionlint"
@@ -79,12 +76,9 @@ brew "yazi"
 brew "yq"
 brew "zellij"
 brew "zoxide"
-brew "bloznelis/tap/typioca"
-brew "charmbracelet/tap/freeze"
 brew "rhysd/hgrep/hgrep"
 brew "rsteube/tap/carapace"
 brew "ynqa/tap/jnv"
-brew "static-web-server/static-web-server/static-web-server-bin"
 {{- if eq .chezmoi.os "linux" }}
 brew "vim"
 {{- else if eq .chezmoi.os "darwin" }}
