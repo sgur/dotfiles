@@ -11,25 +11,24 @@ status is-login || exit
 
 # Homebrew
 
-{{ $brew := false -}}
+{{- $brew := false -}}
 
-{{ if stat "/usr/local/bin/brew" -}}
+{{- if stat "/usr/local/bin/brew" }}
 {{ output "/usr/local/bin/brew" "shellenv" "fish" }}
 {{- $brew = true -}}
-{{ end -}}
+{{- end }}
 
-{{ if stat "/opt/homebrew/bin/brew" -}}
-{{ output "/opt/homebrew/bin/brew" "shellenv" "fish" }}
+{{- if stat "/opt/homebrew/bin/brew" }}
+{{ output "/usr/local/bin/brew" "shellenv" "fish" }}
 {{- $brew = true -}}
-{{ end -}}
+{{- end }}
 
-{{ if stat "/home/linuxbrew/.linuxbrew/bin/brew" -}}
+{{- if stat "/home/linuxbrew/.linuxbrew/bin/brew" }}
 {{ output "/home/linuxbrew/.linuxbrew/bin/brew" "shellenv" "fish" }}
 {{- $brew = true -}}
-{{ end -}}
+{{- end }}
 
-{{ if $brew -}}
-
+{{- if $brew }}
 if not contains $HOMEBREW_PREFIX/share/fish/vendor_completions.d $fish_complete_path
     set -gx fish_complete_path $HOMEBREW_PREFIX/share/fish/vendor_completions.d $fish_complete_path
 end
