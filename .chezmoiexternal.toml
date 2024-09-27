@@ -211,12 +211,10 @@ type = "file"
 refreshPeriod = "24h" # 1-day
 url = "https://api.github.com/repos/helix-editor/helix/commits/master"
 
-{{ if eq .chezmoi.os "windows" }}
 [".cache/chezmoi-commits/simple-completion-language-server.json"]
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/estin/simple-completion-language-server/commits/main"
-{{ end }}
 
 # GitHub release cache
 
