@@ -101,7 +101,7 @@ formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser
 
 [[language]]
 name = "python"
-language-servers = ["pylsp", "pyright-langserver", "ruff-lsp", "efm-langserver", "scls"]
+language-servers = ["pylsp", "pyright-langserver", "ruff", "efm-langserver", "scls"]
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 roots = ["pyproject.toml"]
@@ -224,9 +224,8 @@ reportMissingImports = true
 typeCheckingMode = "strict"
 useLibraryCodeForTypes = true
 
-[language-server.ruff-lsp]
-command = "ruff-lsp"
-config = { settings = { run = "onSave" } }
+[language-server.ruff.config]
+settings = { run = "onSave" }
 
 {{- if lookPath "simple-completion-language-server" }}
 # https://github.com/estin/simple-completion-language-server
