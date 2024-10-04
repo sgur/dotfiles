@@ -417,20 +417,52 @@ try
 			}
 		}
 	}
+
 	if ($GitBinDir.Source -like '*\Microsoft\WinGet\*')
 	{
 		$GitDir = $GitBinDir | Split-Path -Parent | Split-Path -Parent
 		$BusyBoxPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe" "mingw64" "bin" "busybox.exe"
-		Set-Alias -Name busybox -Value $BusyBoxPath
-		$CoreutilsBin | ForEach-Object {
-			$Flag = @("cp", "mv", "rm").contains($_) ? "-i" : ""
-			@"
-			function global:$_
-			{
-				& $BusyBoxPath $_ $Flag `$args
-			}
+		if (Test-Path $BusyBoxPath)
+		{
+
+			Set-Alias -Name busybox -Value $BusyBoxPath
+			$CoreutilsBin | ForEach-Object {
+				$Flag = @("cp", "mv", "rm").contains($_) ? "-i" : ""
+				@"
+				function global:$_
+				{
+					& $BusyBoxPath $_ $Flag `$args
+				}
 "@ | Invoke-Expression
+			}
+		} else
+		{
+			$CoreutilsBin | ForEach-Object {
+				$BinPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit_Microsoft.Winget.Source_8wekyb3d8bbwe" "usr" "bin" "$_.exe"
+				if (@("cp", "mv").contains($_))
+				{
+					@"
+					function global:$_
+					{
+						& "$BinPath" --interactive `$args
+					}
+"@ | Invoke-Expression
+				} elseif ($_ -eq "rm")
+				{
+					@"
+					function global:rm
+					{
+						& "$BinPath" --interactive=once `$args
+					}
+"@ | Invoke-Expression
+				} else
+				{
+					Set-Alias -Name $_ -Value $BinPath
+				}
+			}
+
 		}
+
 	} else
 	{
 		$GitDir = $GitBinDir | Split-Path -Parent | Split-Path -Parent
@@ -443,7 +475,7 @@ try
 				{
 					& "$BinPath" --interactive `$args
 				}
-"@ | Invoke-Expression 
+"@ | Invoke-Expression
    } elseif ($_ -eq "rm")
 			{
 				@"
