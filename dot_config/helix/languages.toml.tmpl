@@ -224,8 +224,12 @@ reportMissingImports = true
 typeCheckingMode = "strict"
 useLibraryCodeForTypes = true
 
-[language-server.ruff.config]
-settings = { run = "onSave" }
+[language-server.ruff]
+command = "ruff"
+args = ["server"]
+
+[language-server.ruff.config.settings]
+run = "onSave"
 
 {{- if lookPath "simple-completion-language-server" }}
 # https://github.com/estin/simple-completion-language-server
