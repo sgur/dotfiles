@@ -51,8 +51,8 @@
     <key name="compincback" value="0" />
   </section>
   <section name="font">
-    <key name="name" value="UD デジタル 教科書体 NK-R" />
-    <key name="size" value="14" />
+    <key name="name" value="更紗ゴシック UI J" />
+    <key name="size" value="12" />
     <key name="weight" value="400" />
     <key name="italic" value="0" />
   </section>
