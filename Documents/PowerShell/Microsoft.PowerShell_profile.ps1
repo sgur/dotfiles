@@ -84,6 +84,7 @@ try
 $NativeTildeExpansion = $PSVersionTable.PSVersion.Major -eq 7 -and $PSVersionTable.PSVersion.Minor -ge 5
 if ($NativeTildeExpansion)
 {
+	[System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '', Justification='Configuration Variables')]
 	$PSNativeWindowsTildeExpansion = $NativeTildeExpansion
 } else
 {
