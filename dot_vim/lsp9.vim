@@ -405,7 +405,35 @@ lsp_servers += [{
   filetype: ['rust'],
   path: GetLspServerPath('rust-analyzer'),
   args: [],
-  syncInit: v:true
+  syncInit: v:true,
+  workspaceConfig: {
+    inlayHints: {
+      bindingModeHints: {
+        enable: v:false
+      },
+      closingBraceHints: {
+        minLines: 10
+      },
+      closureReturnTypeHints: {
+        enable: "with_block"
+      },
+      discriminantHints: {
+        enable: "fieldless"
+      },
+      lifetimeElisionHints: {
+        enable: "skip_trivial"
+      },
+      typeHints: {
+        hideClosureInitialization: v:false
+      }
+    },
+    check: {
+      command: "clippy"
+    },
+    completion: {
+      autoimport: { enable: v:true },
+    },
+  }
 }]
 
 ## toml
