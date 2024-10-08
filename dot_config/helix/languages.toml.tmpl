@@ -150,15 +150,11 @@ language-servers = ["yaml-language-server", "efm-langserver", "scls"]
 {{- if eq .chezmoi.os "windows" }}
 [[language]]
 name = "powershell"
-scope = "source.powershell"
-injection-regex = "(pwsh|powershell)"
-file-types = [ "ps1", "psm1", "psd1", "pscc", "psrc" ]
-shebangs = [ "pwsh", "powershell" ]
+scope = "source.ps1"
+file-types = [ "ps1", "psm1", "psd1" ]
 comment-token = '#'
-# block-comment-tokens = { start = "<#", end = "#>" }
 indent = { tab-width = 4, unit = "    " }
-roots = []
-language-servers = ["powershell-langserver", "scls"]
+language-servers = ["powershell-editor-services", "scls"]
 {{- end }}
 
 [language-server]
@@ -167,7 +163,7 @@ efm-langserver = { command = "efm-langserver" }
 {{- $powershell_editor_service := findExecutable "powershell-editor-services" (list (joinPath .chezmoi.homeDir ".local" "share"
 "powershell-editor-services")) -}}
 {{- if $powershell_editor_service }}
-powershell-langserver = { command = {{ $powershell_editor_service | quote }} }
+powershell-editor-services = { command = {{ $powershell_editor_service | quote }} }
 {{- end }}
 
 [language-server.astro-ls]
@@ -230,6 +226,14 @@ args = ["server"]
 
 [language-server.ruff.config.settings]
 run = "onSave"
+
+{{- if lookPath "clippy-driver"}}
+[language-server.rust-analyzer.config.check]
+command = "clippy"
+{{- end }}
+
+[language-server.rust-analyzer.config.completion.autoimport]
+enable = true
 
 {{- if lookPath "simple-completion-language-server" }}
 # https://github.com/estin/simple-completion-language-server
