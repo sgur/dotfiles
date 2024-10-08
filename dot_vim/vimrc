@@ -428,21 +428,6 @@ endtry
 
 # plugin config {{{1
 
-# altr (opt) {{{2
-def AltrInit()
-  nnoremap ]a  <Cmd>call altr#forward()<CR>
-  nnoremap [a  <Cmd>call altr#back()<CR>
-  map([
-        \ ['%', '%.rej', '%.orig'],
-        \ ['%.py', '%_test.py'],
-        \ ['%.xaml', '%.xaml.cs'],
-        \ ['.aws/config', '.aws/credentials'],
-        \ ['.ssh/id_%', '.ssh/id_%.pub'],
-        \ ['vimrc', 'gvimrc'],
-        \], 'altr#define(v:val)')
-enddef
-pack.Add('vim-altr', AltrInit)
-
 # auto-pairs (opt) {{{2
 pack.Add('auto-pairs')
 
@@ -509,9 +494,6 @@ pack.Add('copilot.vim', CopilotInit)
 
 # editorconfig (opt) {{{2
 pack.Add('editorconfig-vim')
-
-# flutter (opt) {{{2
-pack.Add('vim-flutter')
 
 # gfm-syntax {{{2
 if has('win32') || has('mac') # 8.0.1343 : Windows でカラー絵文字をサポート
@@ -624,26 +606,19 @@ augroup vimrc_plugin_matchup
 augroup END
 
 # molder (opt) {{{2
-def InitMolder() # {{{
-  augroup vimrc_plugin_molder
-    autocmd!
-    autocmd FileType molder
-          \ nnoremap <silent><buffer> s
-          \   :<C-u>rightbelow<Space>split<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
-    autocmd FileType molder
-          \ nnoremap <silent><buffer> v
-          \   :<C-u>rightbelow<Space>vsplit<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
-    autocmd FileType molder
-          \ nnoremap <silent><buffer> l
-          \   :<C-u>rightbelow<Space>vsplit<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
-  augroup END
-  try
-    packadd! vim-molder-operations
-  catch /^Vim\%((\a\+)\)\=:E919/
-    echomsg v:exception
-endtry
-enddef # }}}
-pack.Add('vim-molder', InitMolder)
+augroup vimrc_plugin_molder
+  autocmd!
+  autocmd FileType molder
+        \ nnoremap <silent><buffer> s
+        \   :<C-u>rightbelow<Space>split<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
+  autocmd FileType molder
+        \ nnoremap <silent><buffer> v
+        \   :<C-u>rightbelow<Space>vsplit<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
+  autocmd FileType molder
+        \ nnoremap <silent><buffer> l
+        \   :<C-u>rightbelow<Space>vsplit<Space><C-r>=b:molder_dir .. getline('.')<CR><CR><C-w>=
+augroup END
+pack.Add('vim-molder')
 
 # operator-user {{{2
 
@@ -703,32 +678,6 @@ command! -nargs=+ -bang -complete=expression PrettyPrint
       \ prettyprint#echo(prettyprint#prettyprint(<args>), <bang>0, <q-args>)
 command! -nargs=+ -bang -complete=expression PP
       \ prettyprint#echo(prettyprint#prettyprint(<args>), <bang>0, <q-args>)
-
-# quickrun (opt) {{{2
-def InitQuickrun() # {{{
-  g:quickrun_config = get(g:, 'quickrun_config', {})
-  g:quickrun_config._ = {
-        \ 'outputter/buffer/close_on_empty': 1,
-        \ 'hook/repeat_last/enable': 1
-        \}
-  if &shelltemp && has('win32')
-    g:quickrun_config._['hook/output_encode/encoding'] = &termencoding .. ':' .. &encoding
-  endif
-  if has('terminal')
-    g:quickrun_config._.runner = 'terminal'
-  endif
-  g:quickrun_config['typescript'] = {
-        \ 'cmdopt': printf('--compiler-options "%s"', escape('{"target": "es2015"}', '"')),
-        \ 'command': 'ts-node',
-        \ 'exec': '%c %o %s'
-        \}
-
-  command! -nargs=+ -complete=command Capture
-        \ QuickRun -outputter buffer -type vim -src <q-args>
-  nnoremap <Leader>r  <Plug>(quickrun)
-  vnoremap <Leader>r  <Plug>(quickrun)
-enddef # }}}
-pack.Add('vim-quickrun', InitQuickrun)
 
 # sandwich (opt) {{{2
 def InitSandwich() # {{{

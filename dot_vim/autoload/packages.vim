@@ -90,23 +90,11 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
-  call minpac#add('mattn/vim-molder-operations', #{
-        \ type: 'opt'
-        \ })
-
   call minpac#add('itchyny/lightline.vim', #{
         \ type: 'opt'
         \ })
 
-  call minpac#add('kana/vim-altr', #{
-        \ type: 'opt'
-        \ })
-
   call minpac#add('mattn/webapi-vim')
-
-  call minpac#add('thinca/vim-quickrun', #{
-        \ type: 'opt'
-        \ })
 
   call minpac#add('tpope/vim-repeat')
 
@@ -198,10 +186,6 @@ function! s:init() abort "{{{
   call minpac#add('imsnif/kdl.vim')
 
   call minpac#add('sheerun/vim-polyglot')
-
-  call minpac#add('thosakwe/vim-flutter', #{
-        \ type: 'opt',
-        \ })
 
   call minpac#add('hail2u/vim-css3-syntax')
 
