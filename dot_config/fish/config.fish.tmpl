@@ -82,7 +82,8 @@ if status is-interactive
         abbr --add n --function _na
     end
 
-    abbr --add jira:issue:subtask --set-cursor "jira issue create --type Sub-task --parent % --summary --body --no-edit"
+    abbr --add jira-create-subtask --set-cursor "jira issue create --type Sub-task --parent % --summary --body --no-edit"
+    abbr --add jira-batch-create-subtask --set-cursor "cat | xargs -i -- jira issue create -t Sub-task -P % --no-input -s {} -b \"\""
 
     abbr --add tm tmux new-session -A
 
