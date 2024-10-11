@@ -74,10 +74,13 @@ tools:
     lint-command: >-
       {{ lookPath "bunx" }}
       @secretlint/quick-start@latest
-      --format unix
+      --format compact
+      --no-color
+      --no-terminalLink
     lint-stdin: false
     lint-formats:
-      - "%f:%l:%c: %m"
+      - "%f: line %l, col %c, %trror - %m"
+      - "%f: line %l, col %c, %tarning - %m"
       - "%-G%.%#"
     lint-ignore-exit-code: true
     lint-after-open: true
