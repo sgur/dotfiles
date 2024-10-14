@@ -41,11 +41,9 @@ $JsonStr = @'
 				,{
 					"PackageIdentifier": "Zen-Team.Zen-Browser.Optimized"
 				}
-{{- if $isWindows10 }}
 				,{
 					"PackageIdentifier": "7zip.7zip"
 				}
-{{- end }}
 				,{
 					"PackageIdentifier": "nathancorvussolis.corvusskk"
 				}
@@ -139,14 +137,14 @@ $JsonStr = @'
 				,{
 					"PackageIdentifier": "vim.vim.nightly"
 				}
-{{-   if .buildOnUpdate }}
+{{- end }}
+{{- if .buildOnUpdate }}
 				,{
 					"PackageIdentifier": "Microsoft.VisualStudio.2022.Professional"
 				}
 				,{
 					"PackageIdentifier": "Rustlang.Rustup"
 				}
-{{-   end }}
 {{- end }}
 			],
 			"SourceDetails": {
