@@ -5,7 +5,7 @@ if &readonly || !&loadplugins
 endif
 
 try
-  packadd! lsp
+  packadd lsp
   packadd vimcomplete
 catch /^Vim\%((\a\+)\)\=:E919/
   echomsg v:errmsg
@@ -585,9 +585,4 @@ augroup vimrc_lsp_init
   autocmd BufReadPost *.tmpl  DisableDiag()
   autocmd VimEnter * ++once g:LspOptionsSet(lsp_options)
   autocmd VimEnter * ++once g:LspAddServer(lsp_servers)
-  # Multiple python LSP servers configured but only the first is running
-  # https://github.com/yegappan/lsp/issues/384
-  autocmd VimEnter * ++once if argc() > 0
-    |   LspServer restart
-    | endif
 augroup END
