@@ -154,8 +154,11 @@ else
   endfor
   $PATH = (new_path + system_path)->join(';')
 
+  const mingit_usr_bin = expand(expand('$LocalAppData') .. '/Microsoft/WinGet/Packages/Git.MinGit_Microsoft.Winget.Source_8wekyb3d8bbwe/usr/bin')
   const mingit_busybox_bin = expand(expand('$LocalAppData') .. '/Microsoft/WinGet/Packages/Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe/mingw64/bin')
-  if isdirectory(mingit_busybox_bin)
+  if isdirectory(mingit_usr_bin)
+    $PATH = [$PATH, mingit_usr_bin]->join(';')
+  elseif isdirectory(mingit_busybox_bin)
     $PATH = [$PATH, mingit_busybox_bin]->join(';')
   endif
 endif
