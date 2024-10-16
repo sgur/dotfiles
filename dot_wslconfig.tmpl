@@ -1,14 +1,21 @@
 # https://docs.microsoft.com/ja-jp/windows/wsl/wsl-config#configure-global-options-with-wslconfig
+{{- $isWindows11 := gt (atoi .chezmoi.windowsVersion.currentBuild) 22000 }}
 
 [wsl2]
 # 50% of total memory on Windows or 8GB, whichever is less
 # ex. memory=8GB
 # 1/2 of logical processors on Windows
 processors={{- div .cpuThreads 2 }}
+{{- if $isWindows11 }}
+guiApplications=true # Windows11 only
+{{- else }}
 localhostForwarding=true
-guiApplications={{- eq .chezmoi.windowsVersion.currentMajorVersionNumber 11 }} # Windows11 only
+{{- end }}
 
 [experimental]
 # autoMemoryReclaim = gradual (cgroup v2) で問題があったら dropcache へ戻す
 autoMemoryReclaim=gradual
 # autoMemoryReclaim=dropcache
+{{- if $isWindows11 }}
+networkingMode=mirrored
+{{- end }}
