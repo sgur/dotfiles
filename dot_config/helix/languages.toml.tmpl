@@ -166,7 +166,7 @@ efm-langserver = { command = "efm-langserver" }
 powershell-editor-services = { command = {{ $powershell_editor_service | quote }} }
 {{- end }}
 {{- if lookPath "harper-ls" }}
-harper-ls = { command = "harper-ls" }
+harper-ls = { command = "harper-ls", args = ["--stdio"] }
 {{- end }}
 
 [language-server.astro-ls]
