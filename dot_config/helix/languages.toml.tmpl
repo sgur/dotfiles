@@ -95,7 +95,7 @@ language-servers = ["efm-langserver"]
 
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "efm-langserver", "scls", "obsidian-lsp"]
+language-servers = ["marksman", "efm-langserver", "scls", "obsidian-lsp", "harper-ls"]
 auto-format = true
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "markdown"] }
 
@@ -164,6 +164,9 @@ efm-langserver = { command = "efm-langserver" }
 "powershell-editor-services")) -}}
 {{- if $powershell_editor_service }}
 powershell-editor-services = { command = {{ $powershell_editor_service | quote }} }
+{{- end }}
+{{- if lookPath "harper-ls" }}
+harper-ls = { command = "harper-ls" }
 {{- end }}
 
 [language-server.astro-ls]
