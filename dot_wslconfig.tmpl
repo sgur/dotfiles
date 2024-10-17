@@ -6,9 +6,8 @@
 # ex. memory=8GB
 # 1/2 of logical processors on Windows
 processors={{- div .cpuThreads 2 }}
-{{- if $isWindows11 }}
-guiApplications=true # Windows11 only
-{{- else }}
+guiApplications=false # Windows11 only but not using anymore 
+{{- if $isWindows11 | not }}
 localhostForwarding=true
 {{- end }}
 
