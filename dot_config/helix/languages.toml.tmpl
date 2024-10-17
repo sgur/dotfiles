@@ -95,7 +95,7 @@ language-servers = ["efm-langserver"]
 
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "efm-langserver", "scls", "obsidian-lsp", "harper-ls"]
+language-servers = ["marksman", "efm-langserver", "scls", "obsidian-lsp"]
 auto-format = true
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "markdown"] }
 
@@ -166,6 +166,8 @@ efm-langserver = { command = "efm-langserver" }
 powershell-editor-services = { command = {{ $powershell_editor_service | quote }} }
 {{- end }}
 {{- if lookPath "harper-ls" }}
+# Harper: An English grammar checker for developers
+# https://writewithharper.com/
 harper-ls = { command = "harper-ls", args = ["--stdio"] }
 {{- end }}
 
