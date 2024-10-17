@@ -1,0 +1,15 @@
+#!/usr/bin/env bash
+
+{{- $arch := eq .chezmoi.arch "amd64" | ternary "x86_64" "aarch64" }}
+{{- $os := eq .chezmoi.os "linux" | ternary "unknown-linux-gnu" "apple-darwin" }}
+
+{{ $cliRelease := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "harper.json" -}}
+{{ $cliTagName := $cliRelease | include | fromJson | jq ".tag_name" | first -}}
+{{ $cliAsset := printf "harper-ls-%s-%s.tar.gz" $arch $os -}}
+{{ $cliUrl := printf "https://github.com/elijah-potter/harper/releases/download/%s/%s" $cliTagName $cliAsset }}
+curl -L {{ $cliUrl | quote }} -o {{ $cliAsset }}
+
+tar zxf {{ $cliAsset }}
+
+mv -f harper-ls {{ joinPath .chezmoi.homeDir ".local" "bin" }}
+rm -rf {{ $cliAsset }}
