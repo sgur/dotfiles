@@ -324,6 +324,28 @@ tools:
     lint-ignore-exit-code: true
     lint-after-open: true
 
+  sh-shellcheck: &sh-shellcheck
+    prefix: shellcheck
+    lint-command: >-
+      shellcheck
+      --format gcc
+      --shell bash
+      --external-sources
+    lint-formats:
+      - '%f:%l:%c: %trror: %m'
+      - '%f:%l:%c: %tarning: %m'
+      - '%f:%l:%c: %tote: %m'
+    lint-after-open: true
+
+  sh-shfmt: &sh-shfmt
+    prefix: shfmt
+    format-command: >-
+      shfmt
+      --case-indent
+      --simplify
+      --binary-next-line
+    format-stdin: true
+
 languages:
   css:
     - <<: *css-stylelint
@@ -413,3 +435,6 @@ languages:
     - <<: *any-commitlint
 {{- end }}
 
+  sh:
+    - <<: *sh-shellcheck
+    - <<: *sh-shfmt
