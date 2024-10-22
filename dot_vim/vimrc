@@ -684,6 +684,9 @@ command! -nargs=+ -bang -complete=expression PP
 
 # sandwich (opt) {{{2
 def InitSandwich() # {{{
+  # ysa( などで空白を含めないようにするやつ
+  operator#sandwich#set('add', 'char', 'skip_space', 1)
+
   nnoremap ys  <Plug>(sandwich-add)
   xnoremap S  <Plug>(sandwich-add)
   # onoremap S  <Plug>(sandwich-add)
