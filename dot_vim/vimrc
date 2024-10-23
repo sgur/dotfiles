@@ -78,6 +78,7 @@ if has('mouse') && !exists("$ZELLIJ")
   &mouse = &term =~ 'xterm' ? 'a' : 'nvi'
 endif
 set nrformats& nrformats-=octal
+set number
 &shelltemp = !(has('win32') || has('win64')) || !has('filterpipe')
 set shiftwidth=0 shiftround softtabstop=-1
 &showbreak = '￫ '
