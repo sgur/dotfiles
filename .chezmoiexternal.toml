@@ -41,31 +41,6 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://raw.githubusercontent.com/nushell/nu_scripts/main/themes/nu-themes/catppuccin-mocha.nu"
 
-[".config/bottom/default_config.toml"]
-type = "file"
-refreshPeriod = "168h" # 1-wee
-url = "https://raw.githubusercontent.com/ClementTsang/bottom/master/sample_configs/default_config.toml"
-
-[".config/bottom/themes/frappe.toml"]
-type = "file"
-refreshPeriod = "168h" # 1-wee
-url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/frappe.toml"
-
-[".config/bottom/themes/latte.toml"]
-type = "file"
-refreshPeriod = "168h" # 1-wee
-url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/latte.toml"
-
-[".config/bottom/themes/macchiato.toml"]
-type = "file"
-refreshPeriod = "168h" # 1-wee
-url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/macchiato.toml"
-
-[".config/bottom/themes/mocha.toml"]
-type = "file"
-refreshPeriod = "168h" # 1-wee
-url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/mocha.toml"
-
 [".config/alacritty/catppuccin"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
@@ -199,6 +174,31 @@ url = "https://github.com/tmux-plugins/tmux-cpu"
 type = "git-repo"
 refreshPeriod = "168h" # 1-week
 url = "https://github.com/catppuccin/tmux"
+
+[".config/bottom/default_config.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-wee
+url = "https://raw.githubusercontent.com/ClementTsang/bottom/master/sample_configs/default_config.toml"
+
+[".config/bottom/themes/frappe.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-wee
+url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/frappe.toml"
+
+[".config/bottom/themes/latte.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-wee
+url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/latte.toml"
+
+[".config/bottom/themes/macchiato.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-wee
+url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/macchiato.toml"
+
+[".config/bottom/themes/mocha.toml"]
+type = "file"
+refreshPeriod = "168h" # 1-wee
+url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/mocha.toml"
 
 {{ end }}
 
