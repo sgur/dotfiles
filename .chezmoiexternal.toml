@@ -22,28 +22,6 @@ type = "git-repo"
 refreshPeriod = "168h" # 1-week
 url = "https://github.com/rafamadriz/friendly-snippets.git"
 
-{{ if ne .chezmoi.os "windows" }}
-[".config/tmux/plugins/tpm"]
-type = "git-repo"
-refreshPeriod = "168h" # 1-week
-url = "https://github.com/tmux-plugins/tpm"
-
-[".config/tmux/plugins/tmux-sensible"]
-type = "git-repo"
-refreshPeriod = "168h" # 1-week
-url = "https://github.com/tmux-plugins/tmux-sensible"
-
-[".config/tmux/plugins/tmux-cpu"]
-type = "git-repo"
-refreshPeriod = "168h" # 1-week
-url = "https://github.com/tmux-plugins/tmux-cpu"
-
-[".config/tmux/plugins/tmux"]
-type = "git-repo"
-refreshPeriod = "168h" # 1-week
-url = "https://github.com/catppuccin/tmux"
-{{ end }}
-
 [".config/gitui/themes"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
@@ -87,6 +65,13 @@ url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/macchiato
 type = "file"
 refreshPeriod = "168h" # 1-wee
 url = "https://raw.githubusercontent.com/catppuccin/bottom/main/themes/mocha.toml"
+
+[".config/alacritty/catppuccin"]
+type = "archive"
+refreshPeriod = "168h" # 1-week
+stripComponents = 1
+include = ["*/catppuccin-*.toml"]
+url = "https://github.com/catppuccin/alacritty/archive/refs/heads/main.zip"
 
 {{ if eq .chezmoi.os "darwin" }}
 
@@ -194,6 +179,26 @@ refreshPeriod = "168h" # 1-week
 stripComponents = 1
 include = ["*/README.md", "*/rc/**"]
 url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
+
+[".config/tmux/plugins/tpm"]
+type = "git-repo"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/tmux-plugins/tpm"
+
+[".config/tmux/plugins/tmux-sensible"]
+type = "git-repo"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/tmux-plugins/tmux-sensible"
+
+[".config/tmux/plugins/tmux-cpu"]
+type = "git-repo"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/tmux-plugins/tmux-cpu"
+
+[".config/tmux/plugins/tmux"]
+type = "git-repo"
+refreshPeriod = "168h" # 1-week
+url = "https://github.com/catppuccin/tmux"
 
 {{ end }}
 
