@@ -1,0 +1,22 @@
+{{ output "reg" "query" "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Vim 9.1" "/v" "select_desktop" | comment "#"}}
+
+# https://github.com/vim/vim-win32-installer/issues/177#issuecomment-656516564
+$Reg = @'
+Windows Registry Editor Version 5.00
+
+[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Vim 9.1]
+"select_desktop"=dword:00000000
+'@
+
+$RegFilePath = "$Env:TEMP/vim9.1-desktop-icon-inhibited.reg"
+$Reg | Out-File -FilePath $RegFilePath -Encoding utf8
+
+try {
+	$RegistryEntry = (Get-ItemProperty -Path "HKLM:\SOFTWARE\Microsoft\Windows\CurrentVersion\Uninstall\Vim 9.1").select_desktop
+	if ($RegistryEntry -eq 0) {
+		exit
+	}
+}
+catch { }
+& $RegFilePath
+
