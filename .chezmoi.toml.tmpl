@@ -32,6 +32,10 @@
 {{-   $fullProvisioning = promptBoolOnce . "winget" "Install optional packages" -}}
 {{- end -}}
 {{- $buildOnUpdate := promptBoolOnce . "rust tools" "Build tools on update" -}}
+{{- $preferZenBrowser := false }}
+{{- if eq .chezmoi.os "windows" -}}
+{{-   $preferZenBrowser = promptBoolOnce . "Browser" "Prefer ZenBrowser over Firefox" -}}
+{{- end -}}
 
 progress = true
 format = "yaml"
@@ -63,6 +67,7 @@ cpuCores = {{ $cpuCores }}
 cpuThreads = {{ $cpuThreads }}
 fullProvisioning = {{ $fullProvisioning }}
 buildOnUpdate = {{ $buildOnUpdate }}
+preferZenBrowser = {{ $preferZenBrowser }}
 
 [interpreters.ps1]
 {{- if eq .chezmoi.os "windows" }}

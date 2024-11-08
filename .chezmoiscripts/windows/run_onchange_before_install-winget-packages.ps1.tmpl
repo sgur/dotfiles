@@ -39,9 +39,6 @@ $JsonStr = @'
 					"PackageIdentifier": "Microsoft.WindowsTerminal.Preview"
 				}
 				,{
-					"PackageIdentifier": "Zen-Team.Zen-Browser.Optimized"
-				}
-				,{
 					"PackageIdentifier": "7zip.7zip"
 				}
 				,{
@@ -50,6 +47,15 @@ $JsonStr = @'
 				,{
 					"PackageIdentifier": "twpayne.chezmoi"
 				}
+{{- if .preferZenBrowser }}
+				,{
+					"PackageIdentifier": "Zen-Team.Zen-Browser.Optimized"
+				}
+{{- else }}
+				,{
+					"PackageIdentifier": "Mozilla.Firefox.DeveloperEdition.ja"
+				}
+{{- end }}
 {{- if .fullProvisioning }}
 				,{
 					"PackageIdentifier": "BurntSushi.ripgrep.MSVC"
