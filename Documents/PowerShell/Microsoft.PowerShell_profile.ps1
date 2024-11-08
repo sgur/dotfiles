@@ -38,14 +38,6 @@ if ($Env:TERM_PROGRAM -eq "vscode")
 	. "$(code --locate-shell-integration-path pwsh)"
 }
 
-# Self-Update
-function Update-Self
-{
-	Start-Job -ScriptBlock {
-		Invoke-Expression "& { $(Invoke-RestMethod https://aka.ms/install-powershell.ps1) } -UseMSI"
-	}
-}
-
 # if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name wt)
 if ($Env:WT_SESSION)
 {
@@ -423,6 +415,7 @@ try
 	{
 		$GitDir = $GitBinDir | Split-Path -Parent | Split-Path -Parent
 		$BusyBoxPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe" "mingw64" "bin" "busybox.exe"
+# Git.MinGit.BusyBox パターン
 		if (Test-Path $BusyBoxPath)
 		{
 
@@ -437,6 +430,7 @@ try
 "@ | Invoke-Expression
 			}
 		} else
+# Git パターン
 		{
 			$CoreutilsBin | ForEach-Object {
 				$BinPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit_Microsoft.Winget.Source_8wekyb3d8bbwe" "usr" "bin" "$_.exe"
@@ -499,7 +493,7 @@ try
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 {
 	Remove-Item -Force -Path Alias:ls -ErrorAction SilentlyContinue
-	$IconOption = $IsEmojiSupported ? "--icons" : $null
+	$IconOption = ("$Env:WT_SESSION" -ne "") -or ("$Env:ALACRITTY" -ne "") ? "--icons" : $null
 	function global:ls
 	{
 		& eza.exe --classify --color=auto --color-scale=size $IconOption --no-quotes --group-directories-first `
