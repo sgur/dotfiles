@@ -41,7 +41,7 @@ apply_to = "file"
 
 [[verbs]]
 keys = [ "right" ]
-execution = "sh -c \"zellij edit --line-number {line} {file} || $EDITOR +{line} {file}\""
+execution = "~/bin/mux-edit {file}"
 leave_broot = false
 apply_to = "file"
 

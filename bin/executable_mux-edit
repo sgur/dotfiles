@@ -1,0 +1,17 @@
+#!/usr/bin/env sh
+
+set -ef
+
+if [ -n "$TMUX" ]
+then
+  tmux split-window -f -h "$EDITOR $@"
+  exit 0
+fi
+
+if [ -n "$ZELLIJ" ]
+then
+  zellij edit $@
+  exit 0
+fi
+
+$EDITOR $@
