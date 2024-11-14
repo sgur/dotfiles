@@ -69,7 +69,11 @@ if status is-interactive
         abbr --add --set-cursor sws docker run -it --rm --name static-web-server --publish 8787:80 --volume %:/public ghcr.io/static-web-server/static-web-server:2
     end
 
-    abbr --add plantuml-daemon docker container run --detach --publish 9999:8080 --name plantuml-server --restart=always plantuml/plantuml-server:jetty
+    if type -q docker
+        abbr --add plantuml-daemon docker container run --detach --publish 9999:8080 --name plantuml-server --restart=always plantuml/plantuml-server:jetty
+        abbr --add mmdc -- docker run --rm -u (id -u):(id -g) -v .:/data minlag/mermaid-cli
+    end
+
     # abbr 用の外部 gist を読み込む
     if type -q "ghq"
         set -l abbr_gist_path (ghq list -p 9e80be22552dda4613d7833273f6bc59 |string trim)
