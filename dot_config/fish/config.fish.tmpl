@@ -57,9 +57,6 @@ if status is-interactive
     abbr --add CC --position anywhere --set-cursor "%| fish_clipboard_copy"
     abbr --add ^^ --position anywhere '(git rev-parse --show-toplevel)'
 
-    abbr --add aws.e --set-cursor "aws-vault exec % -- "
-    abbr --add aws.l --set-cursor "aws-vault login % --stdout | fish_clipboard_copy"
-
     abbr --add hostname uname -n
 
     abbr --add drawio docker container run -it --rm --name draw.io --publish 8080:8080 jgraph/drawio
@@ -90,6 +87,13 @@ if status is-interactive
     abbr --add jira-batch-create-subtask --set-cursor "cat | xargs -i -- jira issue create -t Sub-task -P % --no-input -s {} -b \"\""
 
     abbr --add tm tmux new-session -A
+
+    if type -q aws
+        for profile in (aws configure list-profiles)
+            abbr $profile:exec aws-vault exec $profile
+            abbr $profile:login aws-vault login $profile
+        end
+    end
 
     # \el -> \e, or \co へ移設
     bind --user \e, __fish_list_current_token
