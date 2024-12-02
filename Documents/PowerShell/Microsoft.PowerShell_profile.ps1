@@ -32,6 +32,12 @@ function Edit-File
 	$Env:EDITOR + ' $Path' | Invoke-Expression
 }
 
+# 7-Zip cli
+if (!(Get-Command -Type Application -ErrorAction SilentlyContinue -Name 7z))
+{
+	$Env:PATH = @([IO.PATH]::Combine($Env:ProgramFiles, "7-Zip"), $Env:PATH) -join [IO.PATH]::PathSeparator
+}
+
 # VSCode 上の Integrated Terminal から起動した場合
 if ($Env:TERM_PROGRAM -eq "vscode")
 {
