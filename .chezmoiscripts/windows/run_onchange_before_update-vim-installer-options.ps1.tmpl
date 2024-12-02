@@ -1,4 +1,6 @@
+{{- if lookPath "vim" }}
 {{ output "reg" "query" "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall\\Vim 9.1" "/v" "select_desktop" | comment "#"}}
+{{ output "reg" "query" "HKLM\\SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Uninstall" "/f" "Vim 9.1" | comment "#" }}
 
 # https://github.com/vim/vim-win32-installer/issues/177#issuecomment-656516564
 $Reg = @'
@@ -19,4 +21,4 @@ try {
 }
 catch { }
 & $RegFilePath
-
+{{- end }}
