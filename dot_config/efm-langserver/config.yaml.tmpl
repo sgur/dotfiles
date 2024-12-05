@@ -405,6 +405,8 @@ languages:
 
   sh:
     - <<: *any-cspell
+    - <<: *sh-shellcheck
+    - <<: *sh-shfmt
 
   typescript:
     - <<: *any-cspell
@@ -434,7 +436,3 @@ languages:
 {{- if false }}
     - <<: *any-commitlint
 {{- end }}
-
-  sh:
-    - <<: *sh-shellcheck
-    - <<: *sh-shfmt
