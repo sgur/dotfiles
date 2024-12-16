@@ -41,3 +41,5 @@ fi
 # Fix pinentry boken inside tmux sessions
 # https://bbs.archlinux.org/viewtopic.php?pid=1947939#p1947939
 export GPG_TTY=$(tty)
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"

@@ -133,3 +133,5 @@ fi
 if [ -x "$(which starship)" ]; then
   eval "$(starship init bash)"
 fi
+export VOLTA_HOME="$HOME/.volta"
+export PATH="$VOLTA_HOME/bin:$PATH"
