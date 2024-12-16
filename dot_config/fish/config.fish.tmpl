@@ -27,18 +27,18 @@ if status is-interactive
     # arm64
 
     if test $os = Darwin
-        function rm --wraps 'rm' --description 'rm with -i option by default'
+        function rm --wraps rm --description 'rm with -i option by default'
             command rm -i $argv
         end
     else
-        function rm --wraps 'rm' --description 'rm with --interactive option by default'
+        function rm --wraps rm --description 'rm with --interactive option by default'
             command rm --interactive=once $argv
         end
     end
-    function cp --wraps='cp' --description 'cp with -i option by default'
+    function cp --wraps=cp --description 'cp with -i option by default'
         command cp -i $argv
     end
-    function mv --wraps='mv' --description 'mv with -i option by default'
+    function mv --wraps=mv --description 'mv with -i option by default'
         command mv -i $argv
     end
 
@@ -72,7 +72,7 @@ if status is-interactive
     end
 
     # abbr 用の外部 gist を読み込む
-    if type -q "ghq"
+    if type -q ghq
         set -l abbr_gist_path (ghq list -p 9e80be22552dda4613d7833273f6bc59 |string trim)
         if test -n "$abbr_gist_path"
             source $abbr_gist_path/*_abbr.fish
@@ -94,6 +94,17 @@ if status is-interactive
             abbr $profile:login aws-vault login $profile
         end
     end
+
+    if type -q terraform
+        abbr --add tff terraform fmt --recursive
+        if type -q tflint
+            abbr --add tfl tflint --recursive
+        end
+        if type -q trivy
+            abbr --add tfr trivy config .
+        end
+    end
+
 
     # \el -> \e, or \co へ移設
     bind --user \e, __fish_list_current_token
