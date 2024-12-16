@@ -1,5 +1,5 @@
 bun = "latest"
-node = "lts"
+node = "22.12.0"
 npm = "latest"
 pnpm = "latest"
 proto = "0.41.4"

@@ -1,0 +1,7 @@
+{{ if lookPath "volta" -}}
+status is-interactive || exit
+
+set -gx VOLTA_HOME $HOME/.volta
+fish_add_path -g $VOLTA_HOME/bin
+{{- end }}
+
