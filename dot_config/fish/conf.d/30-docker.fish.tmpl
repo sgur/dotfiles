@@ -13,4 +13,7 @@ alias ctop 'command docker run --rm --tty --interactive --name=ctop --volume=/va
 # --tty をつけると改行コードが CRLF になる
 alias genact 'docker run --rm --interactive --name=genact svenstaro/genact'
 {{-  end }}
+{{-  if lookPath "mmdc" | not }}
+alias mmdc 'docker run --rm -u (id -u):(id -g) -v .:/data minlag/mermaid-cli'
+{{-  end }}
 {{- end }}
