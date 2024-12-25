@@ -1,5 +1,6 @@
 {{ if lookPath "fzf" -}}
 status is-interactive || exit
+string match -q "$TERM_PROGRAM" "vscode" || exit
 
 if test -n "$TMUX"
 {{- if lookPath "fzf-tmux" }}
