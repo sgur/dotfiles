@@ -48,11 +48,11 @@ if status is-interactive
     abbr --add ipecho -- /usr/bin/curl --silent ipecho.net/plain
 
     abbr --add za zellij attach
-    abbr --add za-c -- zellij attach --create
+    abbr --add za:c -- zellij attach --create
     abbr --add zl zellij list-sessions
 
     abbr --add chz -- chezmoi
-    abbr --add chz-cd -- cd (chezmoi source-path)
+    abbr --add chz:cd -- cd (chezmoi source-path)
 
     abbr --add CC --position anywhere --set-cursor "%| fish_clipboard_copy"
     abbr --add ^^ --position anywhere '(git rev-parse --show-toplevel)'
@@ -68,7 +68,6 @@ if status is-interactive
 
     if type -q docker
         abbr --add plantuml-daemon docker container run --detach --publish 9999:8080 --name plantuml-server --restart=always plantuml/plantuml-server:jetty
-        abbr --add mmdc -- docker run --rm -u (id -u):(id -g) -v .:/data minlag/mermaid-cli
     end
 
     # abbr 用の外部 gist を読み込む
@@ -96,9 +95,11 @@ if status is-interactive
     end
 
     if type -q terraform
-        abbr --add tff terraform fmt --recursive
+        abbr --add tff terraform fmt
+        abbr --add tff:recursive terraform fmt --recursive
         if type -q tflint
-            abbr --add tfl tflint --recursive
+            abbr --add tfl tflint
+            abbr --add tfl:recursive tflint --recursive
         end
         if type -q trivy
             abbr --add tfr trivy config .
