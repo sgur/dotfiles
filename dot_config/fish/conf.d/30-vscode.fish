@@ -13,6 +13,8 @@ test -n "$ZELLIJ" && set -e ZELLIJ
 test -n "$ZELLIJ_PANE_ID" && set -e ZELLIJ_PANE_ID
 test -n "$ZELLIJ_SESSION_NAME" && set -e ZELLIJ_SESSION_NAME
 
+test -n "$FZF_TMUX_HEIGHT" && set -gx FZF_TMUX_HEIGHT 100%
+
 set -l scripts \
     ~/.vscode-server/bin/*/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration.fish \
     ~/.vscode-server/bin/*/out/vs/workbench/contrib/terminal/browser/media/fish_xdg_data/fish/vendor_conf.d/shellIntegration.fish \

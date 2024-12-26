@@ -22,6 +22,119 @@ end
 # https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
 # fzf --fish | FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= source
 {{ output "fzf" "--fish" }}
+
+function fzf-ghq-repository-widget
+    set -l commandline (__fzf_parse_commandline)
+    set -lx dir $commandline[1]
+    set -l fzf_query $commandline[2]
+    set -l prefix $commandline[3]
+
+    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
+    begin
+        set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse --scheme=path" "$FZF_ALT_Q_OPTS")
+        set -lx FZF_DEFAULT_OPTS_FILE ''
+        set -lx FZF_DEFAULT_COMMAND "$FZF_ALT_Q_COMMAND"
+        ghq list | eval (__fzfcmd) --no-multi --query=$fzf_query | read -l result
+
+        if test -n "$result"
+            cd -- (ghq list --exact --full-path $result)
+
+            # Remove last token from commandline.
+            commandline -t ""
+            commandline -it -- $prefix
+        end
+    end
+
+    commandline -f repaint
+end
+
+# https://zenn.dev/yamo/articles/5c90852c9c64ab
+# fzf を使って git のブランチを選択して git switch する fish 関数
+function fzf-git-branch-widget
+    set -l commandline (__fzf_parse_commandline)
+    set -lx dir $commandline[1]
+    set -l fzf_query $commandline[2]
+    set -l prefix $commandline[3]
+
+    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
+    begin
+        set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse --scheme=path" "$FZF_ALT_A_OPTS")
+        set -lx FZF_DEFAULT_OPTS_FILE ''
+        set -lx FZF_DEFAULT_COMMAND "$FZF_ALT_A_COMMAND"
+
+        git branch --all --format='%(refname:short)' 2> /dev/null \
+            | grep -v -e '^origin$' \
+            | eval (__fzfcmd) --no-multi --query=$fzf_query | read -l result
+
+        if test -n "$result"
+            git switch --quiet (string replace --regex '^origin/' '' $result)
+
+            # Remove last token from commandline.
+            commandline -t ""
+            commandline -it -- $prefix
+        end
+    end
+
+    commandline -f repaint
+end
+
+function fzf-zoxide-widget
+    set -l commandline (__fzf_parse_commandline)
+    set -lx dir $commandline[1]
+    set -l fzf_query $commandline[2]
+    set -l prefix $commandline[3]
+
+    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
+    begin
+        set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse --scheme=path" "$FZF_ALT_Z_OPTS")
+        set -lx FZF_DEFAULT_OPTS_FILE ''
+        set -lx FZF_DEFAULT_COMMAND "$FZF_ALT_Z_COMMAND"
+        zoxide query --list | eval (__fzfcmd) --no-multi --query=$fzf_query | read -l result
+
+        if test -n "$result"
+            cd -- $result
+
+            # Remove last token from commandline.
+            commandline -t ""
+            commandline -it -- $prefix
+        end
+    end
+
+    commandline -f repaint
+end
+
+
+if not set -q FZF_ALT_A_COMMAND; or test -n "$FZF_ALT_A_COMMAND"
+    bind \ea fzf-git-branch-widget
+    bind \e\; fzf-git-branch-widget
+end
+if not set -q FZF_ALT_Q_COMMAND; or test -n "$FZF_ALT_Q_COMMAND"
+    bind \eq fzf-ghq-repository-widget
+end
+if not set -q FZF_ALT_Z_COMMAND; or test -n "$FZF_ALT_Z_COMMAND"
+    bind \ez fzf-zoxide-widget
+end
+
+if bind -M insert &> /dev/null
+    if not set -q FZF_ALT_A_COMMAND; or test -n "$FZF_ALT_A_COMMAND"
+        bind -M insert \ea fzf-git-branch-widget
+        bind -M insert \e\; fzf-git-branch-widget
+    end
+    if not set -q FZF_ALT_Q_COMMAND; or test -n "$FZF_ALT_Q_COMMAND"
+        bind -M insert \eq fzf-ghq-repository-widget
+    end
+    if not set -q FZF_ALT_Z_COMMAND; or test -n "$FZF_ALT_Z_COMMAND"
+        bind -M insert \ez fzf-zoxide-widget
+    end
+end
+
+
+
+set FZF_ALT_Z_OPTS "--prompt='zoxide> '
+--preview 'command tree -C {}'
+--bind 'ctrl-/:toggle-preview'"
+
+
 set FZF_CTRL_T_OPTS "--walker-skip .git,node_modules,target
 --preview 'bat -n --color=always {}'
 --bind 'ctrl-/:change-preview-window(down|hidden|)'"
@@ -36,60 +149,13 @@ set FZF_ALT_C_OPTS "--walker-skip .git,node_modules,target
 --preview 'command tree -C {}'
 --bind 'ctrl-/:toggle-preview'"
 
-function fzf_ghq_repository_select -d "Reposity selection with fzf/ghq"
-    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
-    set -l selected_repo (ghq list \
-        | $FZF_CMD --height $FZF_TMUX_HEIGHT \
-            --scheme=path \
-            --bind=ctrl-z:ignore \
-            --no-multi \
-            --prompt="repository> " --query "$argv" \
-            --preview-window="right,60%" \
-            --preview="git -C (ghq list --exact --full-path {}) log -5 --graph --decorate --abbrev-commit --color=always" \
-            --bind 'ctrl-/:toggle-preview')
-    if test -n "$selected_repo"
-        cd (ghq list --full-path --exact $selected_repo)
-    end
-    commandline --function repaint
-end
-bind \eq 'fzf_ghq_repository_select (commandline -b)'
+set FZF_ALT_Q_OPTS "--prompt='repository> '
+--preview='git -C (ghq list --exact --full-path {}) log -5 --graph --decorate --abbrev-commit --color=always'
+--bind 'ctrl-/:toggle-preview'"
 
-# https://zenn.dev/yamo/articles/5c90852c9c64ab
-# fzf を使って git のブランチを選択して git switch する fish 関数
-function fzf_git_branch_select -d "Branch selection with fzf"
-    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
-    set -l selected_branch (git branch --all --format='%(refname:short)' \
-        | grep -v -e '^origin$' \
-        | $FZF_CMD --height $FZF_TMUX_HEIGHT \
-            --no-multi \
-            --prompt="branches> " --query "$argv" \
-            --preview-window="right,65%" \
-            --preview="git log -5 --graph --decorate --abbrev-commit --color=always {}" \
-            --bind 'ctrl-/:toggle-preview')
-    if test -n "$selected_branch"
-        git switch (string replace --regex '^origin/' '' (string trim $selected_branch))
-    end
-    commandline --function repaint
-end
-bind \ea 'fzf_git_branch_select (commandline -b)'
-bind \e\; 'fzf_git_branch_select (commandline -b)'
-
-function fzf_zoxide_select
-    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
-    set -l dir (zoxide query --list \
-        | $FZF_CMD --height $FZF_TMUX_HEIGHT \
-        --no-multi \
-        --prompt="zoxide> " --query "$argv" \
-        --scheme=path \
-        --preview-window="right,40%" \
-        --preview='command tree -C {}' \
-        --bind 'ctrl-/:toggle-preview')
-    if test -n "$dir"
-        cd "$dir"
-    end
-    commandline --function repaint
-end
-bind \ez 'fzf_zoxide_select (commandline -b)'
+set FZF_ALT_A_OPTS "--prompt='branch> '
+--preview 'git log -5 --graph --decorate --abbrev-commit --color=always {}'
+--bind 'ctrl-/:toggle-preview'"
 
 
 # catppuccin/latte
