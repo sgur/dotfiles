@@ -33,7 +33,7 @@ set FZF_CTRL_R_OPTS "--prompt='history> '
 --bind 'ctrl-/:toggle-preview'"
 
 set FZF_ALT_C_OPTS "--walker-skip .git,node_modules,target
---preview 'tree -C {}'
+--preview 'command tree -C {}'
 --bind 'ctrl-/:toggle-preview'"
 
 function fzf_ghq_repository_select -d "Reposity selection with fzf/ghq"
@@ -82,7 +82,7 @@ function fzf_zoxide_select
         --prompt="zoxide> " --query "$argv" \
         --scheme=path \
         --preview-window="right,40%" \
-        --preview='tree -C {}' \
+        --preview='command tree -C {}' \
         --bind 'ctrl-/:toggle-preview')
     if test -n "$dir"
         cd "$dir"
