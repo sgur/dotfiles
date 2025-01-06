@@ -5,10 +5,10 @@ root-markers:
   - .git/
 lint-debounce: 1s
 log-file: {{ joinPath .chezmoi.homeDir ".cache" "efm-langserver"  "efm-langserver.log" }}
-log-level: 1
+log-level: 2
 
 tools:
-  efm-langservedr-reload: &efm-langserver-reload
+  efm-langserver-reload: &efm-langserver-reload
     commands:
       - title: reload-config
         command: :reload-config
@@ -73,7 +73,7 @@ tools:
     prefix: secretlint
     lint-command: >-
       {{ lookPath "bunx" }}
-      @secretlint/quick-start@latest
+      @secretlint/quick-start
       --format compact
       --no-color
       --no-terminalLink
@@ -415,7 +415,7 @@ languages:
     - <<: *javascript-eslint
     - <<: *javascript-eslint-8
 
-  typescriptreact:
+  typescriptrect:
     - <<: *any-cspell
     - <<: *any-secretlint
     - <<: *any-prettier
