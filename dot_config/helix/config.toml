@@ -18,6 +18,7 @@ true-color = true
 undercurl = true
 bufferline = "multiple"
 color-modes = true
+end-of-line-diagnostics = "hint"
 
 # For pwsh
 # https://github.com/helix-editor/helix/discussions/6209#discussioncomment-5288892
@@ -36,6 +37,9 @@ right = [
   "file-line-ending",
 ]
 separator = ""
+mode.normal = "NORMAL"
+mode.insert = "INSERT"
+mode.select = "SELECT"
 
 [editor.lsp]
 display-messages = true
@@ -69,3 +73,6 @@ character = "▏" # "│"
 
 [editor.soft-wrap]
 enable = true
+
+[editor.inline-diagnostics]
+cursor-line = "error"
