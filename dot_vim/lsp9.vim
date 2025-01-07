@@ -437,53 +437,11 @@ lsp_servers += [{
 }]
 
 ## toml
-var taplo_lsp_options = {
-  activationStatus: v:true,
-  taploConfig: 'taplo://taplo.toml',
-  taploConfigEnabled: v:true,
-  semanticTokens: v:false,
-  schema: {
-    enabled: v:true,
-    links: v:false,
-    repositoryEnabled: v:true,
-    repositoryUrl: 'https://taplo.tamasfe.dev/schema_index.json',
-    associations: {
-      '^(.*(/|\\)Cargo\.toml|Cargo\.toml)$': 'taplo://Cargo.toml',
-    },
-  },
-  formatter: {
-    alignEntries: v:false,
-    alignComments: v:true,
-    arrayTrailingComma: v:true,
-    arrayAutoExpand: v:true,
-    arrayAutoCollapse: v:true,
-    compactArrays: v:true,
-    compactInlineTables: v:false,
-    compactEntries: v:false,
-    columnWidth: 80,
-    indentTables: v:false,
-    indentEntries: v:false,
-    indentString: v:null,
-    reorderKeys: v:true,
-    allowedBlankLines: 2,
-    trailingNewline: v:true,
-    crlf: v:false,
-  },
-  actions: {
-    ignoreDepracatedAssociations: v:false
-  },
-  debug: v:false
-}
-
 lsp_servers += [{
   name: 'taplo-lsp',
   filetype: ['toml'],
   path: GetLspServerPath('taplo'),
-  args: ['lsp', 'stdio'],
-  initializationOptions: taplo_lsp_options,
-  workspaceConfig: {
-    evenBetterToml: taplo_lsp_options
-  }
+  args: ['lsp', 'stdio']
 }]
 
 ## vim
@@ -538,7 +496,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'efm-langserver',
   filetype: ['css', 'dockerfile', 'fish', 'html', 'javascript', 'javascriptreact', 'json', 'go',
-    'markdown', 'ps1', 'python', 'scss', 'sh', 'typescript', 'typescriptreact', 'vim', 'vue', 'yaml'],
+    'markdown', 'ps1', 'python', 'scss', 'sh', 'toml', 'typescript', 'typescriptreact', 'vim', 'vue', 'yaml'],
   path: GetLspServerPath('efm-langserver'),
   initializationOptions: {
     documentFormatting: v:true,
@@ -553,7 +511,7 @@ lsp_servers += [{
 lsp_servers += [{
   name: 'typos-lsp',
   filetype: ['css', 'dockerfile', 'fish', 'html', 'javascript', 'javascriptreact', 'json', 'go',
-    'markdown', 'ps1', 'python', 'scss', 'sh', 'typescript', 'typescriptreact', 'vim', 'vue', 'yaml'],
+    'markdown', 'ps1', 'python', 'scss', 'sh', 'toml', 'typescript', 'typescriptreact', 'vim', 'vue', 'yaml'],
   path: GetLspServerPath('typos-lsp'),
   initializationOptions: {
     diagnosticSeverity: "Info"
