@@ -9,12 +9,12 @@ language-servers = ["astro-ls", "efm-langserver", "scls"]
 [[language]]
 name = "bash"
 formatter = { command = "shfmt", args = ["-i", "2", "-ci"]} # Google's Style
-language-servers = ["bash-language-server", "efm-langserver", "scls"]
+language-servers = ["bash-language-server", "typos", "efm-langserver", "scls"]
 
 [[language]]
 name = "css"
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "css"] }
-language-servers = ["vscode-css-language-server", "stylelint-lsp", "efm-langserver", "scls"]
+language-servers = ["vscode-css-language-server", "stylelint-lsp", "typos", "efm-langserver", "scls"]
 
 [[language]]
 name = "dockerfile"
@@ -26,7 +26,7 @@ language-servers = [ "docker-compose-langserver", "yaml-language-server", "scls"
 
 [[language]]
 name = "fish"
-language-servers = ["efm-langserver", "scls"]
+language-servers = ["efm-langserver", "typos", "scls"]
 
 {{- if eq .chezmoi.os "windows" }}
 [[grammar]]
@@ -64,6 +64,7 @@ language-servers = [
   "vtsls",
   { name = "biome-lsp", except-features = [ "format" ] },
   "vscode-eslint-language-server",
+  "typos",
   "efm-langserver",
   "scls"
 ]
@@ -73,6 +74,7 @@ name = "json"
 language-servers = [
   "vscode-json-language-server",
   { name = "biome-lsp", except-features = [ "format" ] },
+  "typos",
   "efm-langserver",
   "scls"
 ]
@@ -85,6 +87,7 @@ language-servers = [
   "tailwindcss-ls",
   { name = "biome-lsp", except-features = [ "format" ] },
   "vscode-eslint-language-server",
+  "typos",
   "efm-langserver",
   "scls"
 ]
@@ -95,20 +98,20 @@ language-servers = ["efm-langserver"]
 
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "efm-langserver", "scls", "obsidian-lsp"]
+language-servers = ["marksman", "typos", "efm-langserver", "scls", "obsidian-lsp"]
 auto-format = true
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "markdown"] }
 
 [[language]]
 name = "python"
-language-servers = ["pylsp", "pyright-langserver", "ruff", "efm-langserver", "scls"]
+language-servers = ["pylsp", "pyright-langserver", "ruff", "typos", "efm-langserver", "scls"]
 formatter = { command = "black", args = ["--quiet", "-"] }
 auto-format = true
 roots = ["pyproject.toml"]
 
 [[language]]
 name = "rust"
-language-servers = [ "rust-analyzer", "scls" ]
+language-servers = [ "rust-analyzer", "typos", "scls" ]
 
 [[language]]
 name = "scss"
@@ -117,8 +120,8 @@ language-servers = ["vscode-css-language-server", "stylelint-lsp-scss", "efm-lan
 
 [[language]]
 name = "toml"
-language-servers = ["taplo-lsp", "efm-langserver", "scls"]
-formatter = { command = "taplo-lsp", args = ["format", "-"]}
+language-servers = ["taplo", "typos", "efm-langserver", "scls"]
+formatter = { command = "taplo", args = ["format", "-"]}
 
 [[language]]
 name = "tsx"
@@ -128,6 +131,7 @@ language-servers = [
   "tailwindcss-ls",
   { name = "biome-lsp", except-features = [ "format" ] },
   "vscode-eslint-language-server",
+  "typos",
   "efm-langserver",
   "scls"
 ]
@@ -139,13 +143,14 @@ language-servers = [
   { name = "vtsls", except-features = ["format"]},
   { name = "biome-lsp", except-features = [ "format" ] },
   "vscode-eslint-language-server",
+  "typos",
   "efm-langserver",
   "scls"
 ]
 
 [[language]]
 name = "yaml"
-language-servers = ["yaml-language-server", "efm-langserver", "scls"]
+language-servers = ["yaml-language-server", "typos", "efm-langserver", "scls"]
 
 {{- if eq .chezmoi.os "windows" }}
 [[language]]
@@ -240,6 +245,21 @@ command = "clippy"
 [language-server.rust-analyzer.config.completion.autoimport]
 enable = true
 
+{{- if lookPath "typos-lsp" }}
+[language-server.typos]
+# typos-lsp must be on your PATH, or otherwise change this to an absolute path to typos-lsp
+command = "typos-lsp"
+# Logging level of the language server. Defaults to error.
+# Run with helix -v to output LSP logs to the editor log (:log-open)
+environment = {"RUST_LOG" = "error"}
+# Custom config. Used together with a config file found in the workspace or its parents,
+# taking precedence for settings declared in both. Equivalent to the typos `--config` cli argument.
+#  config.config = "~/code/typos-lsp/crates/typos-lsp/tests/typos.toml"
+# How typos are rendered in the editor, can be one of an Error, Warning, Info or Hint.
+# Defaults to Warning.
+config.diagnosticSeverity = "Info"
+{{- end }}
+
 {{- if lookPath "simple-completion-language-server" }}
 # https://github.com/estin/simple-completion-language-server
 # $ cargo install --git https://github.com/estin/simple-completion-language-server.git
@@ -264,47 +284,6 @@ args = ["--stdio"]
 [language-server.stylelint-lsp-scss]
 command = "stylelint-lsp-scss"
 args = ["--stdio"]
-
-[language-server.taplo-lsp]
-command = "taplo"
-args = ["lsp", "stdio"]
-
-[language-server.taplo-lsp.config]
-activationStatus = true
-taploConfig = 'taplo://taplo.toml'
-taploConfigEnabled = true
-semanticTokens = false
-debug = false
-
-[language-server.taplo-lsp.config.evenBetterToml.schema]
-enabled = true
-links = false
-repositoryEnabled = true
-repositoryUrl = "https://taplo.tamasfe.dev/schema_index.json"
-
-[language-server.taplo-lsp.config.evenBetterToml.schema.associations]
-'^(.*(/|\\)Cargo\.toml|Cargo\.toml)$' = "taplo://Cargo.toml"
-
-[language-server.taplo-lsp.config.evenBetterToml.formatter]
-alignEntries = false
-alignComments = true
-arrayTrailingComma = true
-arrayAutoExpand = true
-arrayAutoCollapse = true
-compactArrays = true
-compactInlineTables = false
-compactEntries = false
-columnWidth = 80
-indentTables = false
-indentEntries = false
-indentString = {}
-reorderKeys = true
-allowedBlankLines = 2
-trailingNewline = true
-crlf = false
-
-[language-server.taplo-lsp.config.evenBetterToml.actions]
-ignoreDepracatedAssociations = false
 
 [language-server.vtsls]
 command = "vtsls"
