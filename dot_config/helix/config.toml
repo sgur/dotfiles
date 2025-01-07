@@ -18,7 +18,7 @@ true-color = true
 undercurl = true
 bufferline = "multiple"
 color-modes = true
-end-of-line-diagnostics = "hint"
+end-of-line-diagnostics = "info"
 
 # For pwsh
 # https://github.com/helix-editor/helix/discussions/6209#discussioncomment-5288892
