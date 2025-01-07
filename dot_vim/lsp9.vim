@@ -549,6 +549,17 @@ lsp_servers += [{
   },
 }]
 
+## typos-lsp
+lsp_servers += [{
+  name: 'typos-lsp',
+  filetype: ['css', 'dockerfile', 'fish', 'html', 'javascript', 'javascriptreact', 'json', 'go',
+    'markdown', 'ps1', 'python', 'scss', 'sh', 'typescript', 'typescriptreact', 'vim', 'vue', 'yaml'],
+  path: GetLspServerPath('typos-lsp'),
+  initializationOptions: {
+    diagnosticSeverity: "Info"
+  }
+}]
+
 # initialize
 
 def DisableDiag(condition: bool = true)

@@ -1,7 +1,7 @@
-{{- if and (ne .chezmoi.os "windows") (lookPath "bunx") -}}
+{{- if and (ne .chezmoi.os "windows") (lookPath "pnpm") -}}
 #!/bin/sh
 set -eu
 
-bunx typescript-language-server $@
+pnpm dlx typescript-language-server $@
 {{- end }}
 

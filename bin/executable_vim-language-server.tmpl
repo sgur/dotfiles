@@ -1,8 +1,8 @@
-{{- if and (ne .chezmoi.os "windows") (lookPath "bunx") -}}
+{{- if and (ne .chezmoi.os "windows") (lookPath "pnpm") -}}
 #!/bin/sh
 set -eu
 
-bunx vim-language-server $@
+pnpm dlx vim-language-server $@
 {{- end }}
 
 
