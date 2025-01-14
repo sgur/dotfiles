@@ -201,9 +201,6 @@ required-root-patterns = [
 command = "obsidian-lsp"
 args =["--stdio"]
 
-[language-server.pylsp]
-command = {{ joinPath .chezmoi.homeDir ".local" "share" "python-lsp-server" "pylsp" | quote }}
-
 [language-server.pylsp.config.plugins]
 autopep8 = { enabled = false }
 flake8 = { enabled = false }
