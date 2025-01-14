@@ -19,6 +19,7 @@ undercurl = true
 bufferline = "multiple"
 color-modes = true
 end-of-line-diagnostics = "info"
+clipboard-provider = "termcode"
 
 # For pwsh
 # https://github.com/helix-editor/helix/discussions/6209#discussioncomment-5288892
