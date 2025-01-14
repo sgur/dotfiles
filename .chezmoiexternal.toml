@@ -286,15 +286,16 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/elijah-potter/harper/releases/latest"
 
-# PyPi release feed
-
-[".cache/chezmoi-releases/python-lsp-server.xml"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://pypi.org/rss/project/python-lsp-server/releases.xml"
-
-# eslint-language-server
 [".cache/chezmoi-releases/eslint-language-server.json"]
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/microsoft/vscode-eslint/releases/latest"
+
+# PyPi release feed
+
+{{ if eq .chezmoi.os "windows" }}
+[".cache/chezmoi-releases/python-lsp-server.xml"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://pypi.org/rss/project/python-lsp-server/releases.xml"
+{{ end }}
