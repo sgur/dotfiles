@@ -770,7 +770,7 @@ function Invoke-Genact
 New-Alias -Force -Name genact -Value Invoke-Genact
 
 # winget --upgrade 相当
-function Update-WinGetUpdatables
+function Update-WinGetAvailableUpdates
 {
 	Get-WinGetPackage | Where-Object { $null -ne $_.Available } | Update-WinGetPackage
 }
