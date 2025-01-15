@@ -777,3 +777,9 @@ function Invoke-Genact
 	& docker run -it --rm svenstaro/genact $args
 }
 New-Alias -Name genact -Value Invoke-Genact
+
+# winget --upgrade 相当
+function Update-WinGetUpdatablePackages
+{
+	Get-WinGetPackage | Where-Object { $null -ne $_.Available } | Update-WinGetPackage
+}
