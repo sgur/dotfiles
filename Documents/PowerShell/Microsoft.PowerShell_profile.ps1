@@ -11,6 +11,13 @@ if (([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).L
 	return
 }
 
+try {
+	Import-Module -Name Microsoft.WinGet.Client -ErrorAction Stop
+} catch {
+	Install-Module -Force -Name Microsoft.WinGet.Client
+	Import-Module -Name Microsoft.WinGet.Client
+}
+
 $CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
 # $CurrentUserScripts = $PSGetPath.CurrentUserScripts
 
