@@ -51,15 +51,6 @@ if ($Env:TERM_PROGRAM -eq "vscode")
 	. "$(code --locate-shell-integration-path pwsh)"
 }
 
-# if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name wt)
-if ($Env:WT_SESSION)
-{
-	function Update-WingetPackages {
-		wt new-tab --title "winget upgrade" --profile "{0caa0dad-35be-5f56-a8ff-afceeeaa6101}" winget upgrade $args
-	}
-	New-Alias -Force -Name winget-upgrade -Value Update-WingetPackages
-}
-
 # PSReadLine
 $PSReadLineOptions = @{
 	BellStyle = "Visual"
@@ -776,10 +767,10 @@ function Invoke-Genact
 {
 	& docker run -it --rm svenstaro/genact $args
 }
-New-Alias -Name genact -Value Invoke-Genact
+New-Alias -Force -Name genact -Value Invoke-Genact
 
 # winget --upgrade 相当
-function Update-WinGetUpdatablePackages
+function Update-WinGetUpdatables
 {
 	Get-WinGetPackage | Where-Object { $null -ne $_.Available } | Update-WinGetPackage
 }
