@@ -13,17 +13,15 @@ catch /^Vim\%((\a\+)\)\=:E919/
 endtry
 
 # vimcomplete options
-var options = {
+var vcoptions = {
   completor: { shuffleEqualPriority: true, postfixHighlight: true },
   buffer: { enable: true, priority: 10, urlComplete: true, envComplete: true },
   lsp: { enable: true, priority: 10 },
   vsnip: { enable: true, priority: 11 },
   vimscript: { enable: true, priority: 11 },
 }
-augroup vimrc_plugin_vimcomplete
-  autocmd!
-  autocmd VimEnter * g:VimCompleteOptionsSet(options)
-augroup END
+g:VimCompleteOptionsSet(vcoptions)
+
 
 # options
 var lsp_options = {
