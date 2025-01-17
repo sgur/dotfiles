@@ -13,6 +13,12 @@ if (([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).L
 
 try {
 	Import-Module -Name Microsoft.WinGet.Client -ErrorAction Stop
+
+# winget --upgrade 相当
+	function Update-WinGetAvailableUpdates
+	{
+		Get-WinGetPackage | Where-Object { $_.IsUpdateAvailable } | Update-WinGetPackage
+	}
 } catch {
 	Install-Module -Force -Name Microsoft.WinGet.Client
 	Import-Module -Name Microsoft.WinGet.Client
@@ -768,9 +774,3 @@ function Invoke-Genact
 	& docker run -it --rm svenstaro/genact $args
 }
 New-Alias -Force -Name genact -Value Invoke-Genact
-
-# winget --upgrade 相当
-function Update-WinGetAvailableUpdates
-{
-	Get-WinGetPackage | Where-Object { $null -ne $_.Available } | Update-WinGetPackage
-}
