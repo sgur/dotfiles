@@ -17,7 +17,7 @@ try {
 # winget --upgrade 相当
 	function Update-WinGetAvailableUpdates
 	{
-		Get-WinGetPackage | Where-Object { $_.IsUpdateAvailable } | Update-WinGetPackage
+		Get-WinGetPackage | Where-Object { $_.IsUpdateAvailable } | Update-WinGetPackage -Mode Interactive
 	}
 } catch {
 	Install-Module -Force -Name Microsoft.WinGet.Client
