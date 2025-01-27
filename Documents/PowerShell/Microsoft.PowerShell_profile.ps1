@@ -27,10 +27,6 @@ try {
 $CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
 # $CurrentUserScripts = $PSGetPath.CurrentUserScripts
 
-if (!(Get-Command -Type Application -ErrorAction SilentlyContinue -Name gvim))
-{
-	$Env:PATH = @([IO.PATH]::Combine($Env:ProgramFiles, "Vim", "vim91"), $Env:PATH) -join [IO.PATH]::PathSeparator
-}
 $Env:EDITOR = "gvim.exe -f --remote-tab-wait-silent"
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name hx)
 {
@@ -43,12 +39,6 @@ function Edit-File
 		[string] $Path
 	)
 	$Env:EDITOR + ' $Path' | Invoke-Expression
-}
-
-# 7-Zip cli
-if (!(Get-Command -Type Application -ErrorAction SilentlyContinue -Name 7z))
-{
-	$Env:PATH = @([IO.PATH]::Combine($Env:ProgramFiles, "7-Zip"), $Env:PATH) -join [IO.PATH]::PathSeparator
 }
 
 # VSCode 上の Integrated Terminal から起動した場合
@@ -86,27 +76,14 @@ try
 $NativeTildeExpansion = $PSVersionTable.PSVersion.Major -eq 7 -and $PSVersionTable.PSVersion.Minor -ge 5
 if ($NativeTildeExpansion)
 {
+	if (!(Get-ExperimentalFeature -Name PSNativeWindowsTildeExpansion).Enabled)
+	{
+		Enable-ExperimentalFeature PSNativeWindowsTildeExpansion
+	}
 	[System.Diagnostics.CodeAnalysis.SuppressMessageAttribute('PSUseDeclaredVarsMoreThanAssignments', '', Justification='Configuration Variables')]
 	$PSNativeWindowsTildeExpansion = $NativeTildeExpansion
 } else
 {
-	Set-PSReadLineOption -CommandValidationHandler {
-		param([System.Management.Automation.Language.CommandAst] $CommandAst)
-
-		foreach($Element in $CommandAst.CommandElements)
-		{
-			$Token = $Element.Extent
-			if ($Token.Text.Contains('~'))
-			{
-				$Expanded = Convert-Path $Token.Text.Replace('~', $Env:USERPROFILE)
-				if ([IO.PATH]::Exists($Expanded))
-				{
-					[Microsoft.PowerShell.PSConsoleReadLine]::Replace(
-						$Token.StartOffset, $Token.EndOffset - $Token.StartOffset, $Expanded)
-				}
-			}
-		}
-	}
 }
 
 # This checks the validation script when you hit enter
@@ -159,9 +136,6 @@ try
 	Write-Warning "Update PsReadline: pwsh -NoProfile -Command ""Install-Module PSReadLine -Force -AllowPrerelease"""
 }
 
-# ripgrep config file
-$env:RIPGREP_CONFIG_PATH = Join-Path $Env:USERPROFILE .config ripgrep ripgreprc
-
 # chezmoi
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 {
@@ -188,45 +162,11 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Xh.ps1')
 }
 
-# bat
-$Env:BAT_CONFIG_PATH = (Resolve-Path "~/.config/bat/config").Path
-
 ## bat completions
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name bat)
 {
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Bat.ps1')
 }
-
-# fzf catppuccin theme
-# https://github.com/catppuccin/fzf
-
-## Latte
-# $ENV:FZF_DEFAULT_OPTS=@"
-# --color=bg+:#ccd0da,bg:#eff1f5,spinner:#dc8a78,hl:#d20f39
-# --color=fg:#4c4f69,header:#d20f39,info:#8839ef,pointer:#dc8a78
-# --color=marker:#dc8a78,fg+:#4c4f69,prompt:#8839ef,hl+:#d20f39
-# "@
-
-## Frappe
-# $ENV:FZF_DEFAULT_OPTS=@"
-# --color=bg+:#414559,bg:#303446,spinner:#f2d5cf,hl:#e78284
-# --color=fg:#c6d0f5,header:#e78284,info:#ca9ee6,pointer:#f2d5cf
-# --color=marker:#f2d5cf,fg+:#c6d0f5,prompt:#ca9ee6,hl+:#e78284
-# "@
-
-## Macchiato
-# $ENV:FZF_DEFAULT_OPTS=@"
-# --color=bg+:#363a4f,bg:#24273a,spinner:#f4dbd6,hl:#ed8796
-# --color=fg:#cad3f5,header:#ed8796,info:#c6a0f6,pointer:#f4dbd6
-# --color=marker:#f4dbd6,fg+:#cad3f5,prompt:#c6a0f6,hl+:#ed8796
-# "@
-
-## Mocha
-$ENV:FZF_DEFAULT_OPTS=@"
---color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8
---color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
---color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
-"@
 
 # hgrep
 if (Get-Command -ErrorAction SilentlyContinue hgrep)
@@ -605,7 +545,7 @@ try
 
 		$Flavor = $Catppuccin[$Name]
 
-		$ENV:FZF_DEFAULT_OPTS = @"
+		$Env:FZF_DEFAULT_OPTS = @"
 		--color=bg+:$($Flavor.Surface0),bg:$($Flavor.Base),spinner:$($Flavor.Rosewater)
 		--color=hl:$($Flavor.Red),fg:$($Flavor.Text),header:$($Flavor.Red)
 		--color=info:$($Flavor.Mauve),pointer:$($Flavor.Rosewater),marker:$($Flavor.Rosewater)
@@ -711,12 +651,6 @@ function Invoke-AwsVault
 }
 
 # proto
-$env:PROTO_HOME = Join-Path $HOME ".proto"
-$env:PATH = @(
-	(Join-Path $env:PROTO_HOME "shims"),
-	(Join-Path $env:PROTO_HOME "bin"),
-	$env:PATH
-) -join [IO.PATH]::PathSeparator
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name proto)
 {
 	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Proto.ps1')
@@ -763,9 +697,6 @@ function Stop-SshAgent
 	[System.Environment]::SetEnvironmentVariable("SSH_AGENT_PID", $Null, [System.EnvironmentVariableTarget]::User)
 	[System.Environment]::SetEnvironmentVariable("SSH_AGENT_PID", $Null, [System.EnvironmentVariableTarget]::Process)
 }
-
-# ripgrep
-$Env:RIPGREP_CONFIG_PATH = Join-Path $Env:USERPROFILE .config ripgrep ripgreprc
 
 # genact
 
