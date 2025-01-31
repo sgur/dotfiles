@@ -14,10 +14,14 @@ if (([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).L
 try {
 	Import-Module -Name Microsoft.WinGet.Client -ErrorAction Stop
 
-# winget --upgrade 相当
+# winget upgrade 相当
+	function Get-WinGetAvailableUpdates
+	{
+		Get-WinGetPackage | Where-Object { $_.IsUpdateAvailable }
+	}
 	function Update-WinGetAvailableUpdates
 	{
-		Get-WinGetPackage | Where-Object { $_.IsUpdateAvailable } | Update-WinGetPackage -Mode Interactive
+		Get-WinGetPackage | Where-Object { $_.IsUpdateAvailable } | Update-WinGetPackage
 	}
 } catch {
 	Install-Module -Force -Name Microsoft.WinGet.Client
