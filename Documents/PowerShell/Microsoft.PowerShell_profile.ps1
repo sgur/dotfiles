@@ -17,11 +17,11 @@ try {
 # winget upgrade 相当
 	function Get-WinGetAvailableUpdates
 	{
-		Get-WinGetPackage | Where-Object { $_.IsUpdateAvailable }
+		Get-WinGetPackage $args | Where-Object IsUpdateAvailable
 	}
 	function Update-WinGetAvailableUpdates
 	{
-		Get-WinGetPackage | Where-Object { $_.IsUpdateAvailable } | Update-WinGetPackage
+		Get-WinGetPackage | Where-Object IsUpdateAvailable  | Update-WinGetPackage $args
 	}
 } catch {
 	Install-Module -Force -Name Microsoft.WinGet.Client

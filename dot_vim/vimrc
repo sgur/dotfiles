@@ -403,7 +403,7 @@ augroup vimrc_plugin_handover
 augroup END
 
 # Openable {{{2
-command! -complete=file -nargs=1 Open  openable#start(<q-args>)
+command! -complete=file -nargs=1 Start  openable#start(<q-args>)
 nnoremap <silent> gx  <Cmd>call openable#parse('n')<CR>
 vnoremap <silent> gx  <Cmd>call openable#parse('v')<CR>
 
