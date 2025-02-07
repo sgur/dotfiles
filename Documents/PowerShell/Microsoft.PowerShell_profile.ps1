@@ -21,7 +21,7 @@ try {
 	}
 	function Update-WinGetAvailableUpdates
 	{
-		Get-WinGetPackage | Where-Object IsUpdateAvailable  | Update-WinGetPackage $args
+		Get-WinGetPackage | Where-Object IsUpdateAvailable  | Update-WinGetPackage $args | Select-Object -Property ID, Name, InstallerErrorCode, Status, RebootRequired
 	}
 } catch {
 	Install-Module -Force -Name Microsoft.WinGet.Client
