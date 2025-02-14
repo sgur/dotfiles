@@ -4,14 +4,14 @@ set -ef
 
 if [ -n "$TMUX" ]
 then
-  tmux split-window -f -h "$EDITOR $@"
-  exit 0
+  tmux split-window -f -h "$EDITOR $*"
+  exit $?
 fi
 
 if [ -n "$ZELLIJ" ]
 then
-  zellij edit $@
-  exit 0
+  zellij edit "$@"
+  exit $?
 fi
 
-$EDITOR $@
+$EDITOR "$@"
