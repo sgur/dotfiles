@@ -28,8 +28,10 @@ try {
 	Import-Module -Name Microsoft.WinGet.Client
 }
 
-$CurrentUserScripts = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
-# $CurrentUserScripts = $PSGetPath.CurrentUserScripts
+$CurrentUserScriptsDir = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
+$CurrentUserConfDir = Join-Path -Path $PSScriptRoot -ChildPath 'Conf.d'
+
+Get-ChildItem -Path $CurrentUserConfDir | ForEach-Object { . $_ }
 
 $Env:EDITOR = "gvim.exe -f --remote-tab-wait-silent"
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name hx)
@@ -150,46 +152,8 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 		Set-Location (chezmoi source-path)
 	}
 	Set-Alias -Name chz-cd -Value Set-ChezmoiLocation
-	## completions
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Chezmoi.ps1')
 }
 
-# ripgrep completions
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name rg)
-{
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Ripgrep.ps1')
-}
-
-# xh completions
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name xh)
-{
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Xh.ps1')
-}
-
-## bat completions
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name bat)
-{
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Bat.ps1')
-}
-
-# hgrep
-if (Get-Command -ErrorAction SilentlyContinue hgrep)
-{
-	$Env:HGREP_DEFAULT_OPTS = '--theme Nord'
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Hgrep.ps1')
-}
-
-# Starship
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name starship)
-{
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Starship.ps1')
-}
-
-# zoxide
-if (Get-Command -ErrorAction SilentlyContinue zoxide)
-{
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Zoxide.ps1')
-}
 
 # Set-Location Hook
 $ExecutionContext.InvokeCommand.LocationChangedAction = {
@@ -213,7 +177,7 @@ Set-Alias -Name wttr.in -Value Get-Weather
 # Test-Colors
 function Test-Colors
 {
-	& (Join-Path -Path $CurrentUserScripts -ChildPath 'Test-Colors.ps1')
+	& (Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Test-Colors.ps1')
 }
 
 # ghq + jzf
@@ -462,17 +426,6 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name gsudo)
 	Import-Module gsudoModule
 }
 
-# broot
-if (Get-Command -ErrorAction SilentlyContinue "br")
-{
-} else
-{
-	if (Get-Command -ErrorAction SilentlyContinue "broot")
-	{
-		. (Join-Path -Path $CurrentUserScripts -ChildPath 'Init-Broot.ps1')
-	}
-}
-
 # WinGet completion
 # https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md#powershell
 if (Get-Command -ErrorAction SilentlyContinue -Name winget)
@@ -491,13 +444,13 @@ if (Get-Command -ErrorAction SilentlyContinue -Name winget)
 # Sleep Computer
 function Suspend-Computer
 {
-	& (Join-Path -Path $CurrentUserScripts -ChildPath 'Suspend-Computer.ps1')
+	& (Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Suspend-Computer.ps1')
 }
 
 # Enable VS2019 Buildchain
 function Enter-VsDevShell2019
 {
-	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Start-VsDevShell.ps1'
+	$Path = Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Start-VsDevShell.ps1'
 	& $Path -PoshGit -Version "[16.0,17.0)"
 
 	$Host.UI.RawUI.WindowTitle = "Developer PowerShell for VS2019"
@@ -506,7 +459,7 @@ function Enter-VsDevShell2019
 # Enable VS2022
 function Enter-VsDevShell2022
 {
-	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Start-VsDevShell.ps1'
+	$Path = Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Start-VsDevShell.ps1'
 	& $Path -PoshGit -Version "[17.0,18.0)"
 
 	$Host.UI.RawUI.WindowTitle = "Developer PowerShell for VS2022"
@@ -515,14 +468,14 @@ function Enter-VsDevShell2022
 # Set wallpaper
 function Set-RandomWallpaper
 {
-	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Set-RandomWallpaper.ps1'
+	$Path = Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Set-RandomWallpaper.ps1'
 	Start-Job -FilePath $Path | Out-Null
 }
 
 # MS Teams のキャッシュを削除する
 function Clear-MsTeamsCache
 {
-	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Clear-MsTeamsCache.ps1'
+	$Path = Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Clear-MsTeamsCache.ps1'
 	Start-Job -FilePath $Path | Out-Null
 }
 
@@ -530,7 +483,7 @@ function Clear-MsTeamsCache
 # docker pull が高速化される(かも)
 function Disable-WslNetAdapterLso
 {
-	$Path = Join-Path -Path $CurrentUserScripts -ChildPath 'Disable-WslNetAdapterLso.ps1'
+	$Path = Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Disable-WslNetAdapterLso.ps1'
 	Start-Process -Verb RunAs -FilePath "pwsh.exe" -ArgumentList "-c", $Path
 }
 
@@ -652,12 +605,6 @@ function Invoke-AwsVault
 		$Env:AWS_SESSION_TOKEN = $Sessiontoken
 		$Env:AWS_CREDENTIAL_EXPIRATION=$Expiration
 	}
-}
-
-# proto
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name proto)
-{
-	. (Join-Path -Path $CurrentUserScripts -ChildPath 'Complete-Proto.ps1')
 }
 
 # ssh-agent
