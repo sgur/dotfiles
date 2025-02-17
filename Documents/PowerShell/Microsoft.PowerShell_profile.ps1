@@ -17,11 +17,11 @@ try {
 # winget upgrade 相当
 	function Get-WinGetAvailableUpdates
 	{
-		Get-WinGetPackage $args | Where-Object IsUpdateAvailable
+		Get-WinGetPackage $args | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" }
 	}
 	function Update-WinGetAvailableUpdates
 	{
-		Get-WinGetPackage | Where-Object IsUpdateAvailable  | Update-WinGetPackage $args | Select-Object -Property ID, Name, InstallerErrorCode, Status, RebootRequired
+		Get-WinGetPackage $args | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" } | Update-WinGetPackage
 	}
 } catch {
 	Install-Module -Force -Name Microsoft.WinGet.Client
