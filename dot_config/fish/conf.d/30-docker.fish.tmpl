@@ -16,4 +16,7 @@ alias genact 'docker run --rm --interactive --name=genact svenstaro/genact'
 {{-  if lookPath "mmdc" | not }}
 alias mmdc 'docker run --rm -u (id -u):(id -g) -v .:/data minlag/mermaid-cli'
 {{-  end }}
+{{-  if lookPath "jira-cli" | not }}
+alias jira-cli 'docker run --rm --interactive ghcr.io/andygrunwald/jira-cli:latest'
+{{-  end}}
 {{- end }}
