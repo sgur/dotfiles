@@ -1,3 +1,4 @@
+{{- if lookPath "npm" }}
 #!/usr/bin/env bash
 
 {{ $package := joinPath .chezmoi.homeDir ".cache" "chezmoi-packages" "copilot-language-server.json" -}}
@@ -10,10 +11,11 @@ rm -rf {{ $copilotLanguageServer }}
 mkdir -p {{ $copilotLanguageServer }}
 pushd {{ $copilotLanguageServer }}
 
-pnpm init
-pnpm add -- @github/copilot-language-server
+npm init -y
+npm add --save -- @github/copilot-language-server
 
 ln -s "./node_modules/@github/copilot-language-server/dist/language-server.js" copilot-language-server
 {{ $copilotLanguageServerBin := joinPath .chezmoi.homeDir ".local" "bin" "copilot-language-server" }}
 ln -sf {{ joinPath $copilotLanguageServer "copilot-language-server" }} {{ $copilotLanguageServerBin }}
 popd
+{{- end }}
