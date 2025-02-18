@@ -1,4 +1,4 @@
-{{- if lookPath "npm" }}
+{{ if lookPath "npm" -}}
 #!/usr/bin/env bash
 
 {{ $package := joinPath .chezmoi.homeDir ".cache" "chezmoi-packages" "copilot-language-server.json" -}}
