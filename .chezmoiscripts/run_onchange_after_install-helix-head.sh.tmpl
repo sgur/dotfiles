@@ -24,6 +24,7 @@ else
 	cargo install --profile opt --locked --path helix-term
 fi
 rm -r -f ~/.local/share/fish/vender_completions.d/hx.fish
+mkdir -p ~/.local/share/fish/vender_completions.d/
 install -m 644 contrib/completion/hx.fish --target-directory ~/.local/share/fish/vender_completions.d/ -D
 git reset --hard
 git clean -f
