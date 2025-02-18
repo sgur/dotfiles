@@ -33,7 +33,7 @@ function fzf-ghq-repository-widget
     begin
         set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse --scheme=path" "$FZF_ALT_Q_OPTS")
         set -lx FZF_DEFAULT_OPTS_FILE ''
-        set -lx FZF_DEFAULT_COMMAND "$FZF_ALT_Q_COMMAND"
+        set -lx FZF_DEFAULT_COMMAND "$FZF_ALT_X_COMMAND"
         ghq list | eval (__fzfcmd) --no-multi --query=$fzf_query | read -l result
 
         if test -n "$result"
@@ -108,7 +108,7 @@ if not set -q FZF_ALT_A_COMMAND; or test -n "$FZF_ALT_A_COMMAND"
     bind \ea fzf-git-branch-widget
     bind \e\; fzf-git-branch-widget
 end
-if not set -q FZF_ALT_Q_COMMAND; or test -n "$FZF_ALT_Q_COMMAND"
+if not set -q FZF_ALT_X_COMMAND; or test -n "$FZF_ALT_X_COMMAND"
     bind \eq fzf-ghq-repository-widget
 end
 if not set -q FZF_ALT_Z_COMMAND; or test -n "$FZF_ALT_Z_COMMAND"
@@ -120,8 +120,8 @@ if bind -M insert &> /dev/null
         bind -M insert \ea fzf-git-branch-widget
         bind -M insert \e\; fzf-git-branch-widget
     end
-    if not set -q FZF_ALT_Q_COMMAND; or test -n "$FZF_ALT_Q_COMMAND"
-        bind -M insert \eq fzf-ghq-repository-widget
+    if not set -q FZF_ALT_X_COMMAND; or test -n "$FZF_ALT_X_COMMAND"
+        bind -M insert \ex fzf-ghq-repository-widget
     end
     if not set -q FZF_ALT_Z_COMMAND; or test -n "$FZF_ALT_Z_COMMAND"
         bind -M insert \ez fzf-zoxide-widget
