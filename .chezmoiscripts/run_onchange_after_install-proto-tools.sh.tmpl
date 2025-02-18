@@ -1,0 +1,8 @@
+{{ if lookPath "proto" -}}
+#!/usr/bin/env bash
+# ~/.proto/.prototools hash: {{ joinPath .chezmoi.homeDir ".proto" ".prototools" | include | sha256sum }} 
+
+pushd ~/.proto/
+proto use
+popd
+{{- end }}
