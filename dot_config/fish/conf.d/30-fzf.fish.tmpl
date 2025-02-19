@@ -31,7 +31,7 @@ function fzf-ghq-repository-widget
 
     test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
     begin
-        set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse --scheme=path" "$FZF_ALT_Q_OPTS")
+        set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse --scheme=path" "$FZF_ALT_X_OPTS")
         set -lx FZF_DEFAULT_OPTS_FILE ''
         set -lx FZF_DEFAULT_COMMAND "$FZF_ALT_X_COMMAND"
         ghq list | eval (__fzfcmd) --no-multi --query=$fzf_query | read -l result
@@ -109,7 +109,7 @@ if not set -q FZF_ALT_A_COMMAND; or test -n "$FZF_ALT_A_COMMAND"
     bind \e\; fzf-git-branch-widget
 end
 if not set -q FZF_ALT_X_COMMAND; or test -n "$FZF_ALT_X_COMMAND"
-    bind \eq fzf-ghq-repository-widget
+    bind \ex fzf-ghq-repository-widget
 end
 if not set -q FZF_ALT_Z_COMMAND; or test -n "$FZF_ALT_Z_COMMAND"
     bind \ez fzf-zoxide-widget
@@ -134,7 +134,6 @@ set FZF_ALT_Z_OPTS "--prompt='zoxide> '
 --preview 'command tree -C {}'
 --bind 'ctrl-/:toggle-preview'"
 
-
 set FZF_CTRL_T_OPTS "--walker-skip .git,node_modules,target
 --preview 'bat -n --color=always {}'
 --bind 'ctrl-/:change-preview-window(down|hidden|)'"
@@ -149,7 +148,7 @@ set FZF_ALT_C_OPTS "--walker-skip .git,node_modules,target
 --preview 'command tree -C {}'
 --bind 'ctrl-/:toggle-preview'"
 
-set FZF_ALT_Q_OPTS "--prompt='repository> '
+set FZF_ALT_X_OPTS "--prompt='repository> '
 --preview='git -C (ghq list --exact --full-path {}) log -5 --graph --decorate --abbrev-commit --color=always'
 --bind 'ctrl-/:toggle-preview'"
 
