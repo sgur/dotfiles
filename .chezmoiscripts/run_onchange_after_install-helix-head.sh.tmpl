@@ -27,7 +27,7 @@ rm -r -f ~/.local/share/fish/vender_completions.d/hx.fish
 {{ if eq .chezmoi.os "linux" -}}
 install -m 644 contrib/completion/hx.fish --target-directory ~/.local/share/fish/vender_completions.d/ -D
 {{ else -}}
-install -m 644 contrib/completion/hx.fish -D ~/.local/share/fish/vender_completions.d/
+install -m 644 contrib/completion/hx.fish ~/.local/share/fish/vender_completions.d/
 {{- end }}
 git reset --hard
 git clean -f
