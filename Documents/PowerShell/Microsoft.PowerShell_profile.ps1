@@ -21,7 +21,9 @@ try {
 	}
 	function Update-WinGetAvailableUpdates
 	{
-		Get-WinGetPackage $args | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" } | Update-WinGetPackage
+		$Packages = Get-WinGetPackage $args
+		$Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CLike "Microsoft.PowerShell*" }
+		$Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" } | Update-WinGetPackage
 	}
 } catch {
 	Install-Module -Force -Name Microsoft.WinGet.Client
