@@ -2,7 +2,7 @@
 
 chezmoi
 
-## Prerequisits
+## Prerequisites
 
 - git
 
