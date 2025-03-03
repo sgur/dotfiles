@@ -5,59 +5,22 @@
 {{ range $profiles -}}
 {{   if and (hasKey . "Name") (eq .Name "dev-edition-default") -}}
 {{ $profilePath := joinPath $baseDir .Path "user.js" -}}
+
+Remove-Item -Force -Path {{ $profilePath | quote }}
+
 $UserJs = @'
 user_pref("security.enterprise_roots.enabled", true);
 user_pref("extensions.update.requireBuiltInCerts", false);
 user_pref("toolkit.legacyUserProfileCustomizations.stylesheets", true);
 user_pref("intl.locale.requested", "ja");
 '@
-Out-File -Append -FilePath {{ $profilePath | quote }} -InputObject $UserJs
+Out-File -FilePath {{ $profilePath | quote }} -InputObject $UserJs
 
 {{ $userChromeDir := joinPath $baseDir .Path "chrome" -}}
-{{     if stat $userChromeDir | not -}}
-New-Item -Type Directory -Path {{ $userChromeDir | quote }}
+{{     if stat $userChromeDir  -}}
+Remove-Item -Force -Recurse -Path {{ $userChromeDir | quote }}
 {{     end -}}
-{{ $userChromePath := joinPath $userChromeDir "userChrome.css" -}}
 
-$Css = @'
-/*
- * https://github.com/piroor/treestyletab/wiki/Code-snippets-for-custom-style-rules
- */
-
-#tabbrowser-tabs {
-  visibility: collapse !important;
-  min-height: 0 !important;
-}
-
-tab{
-  display:none!important;
-}
-
-/* Adding empty space for buttons */
-#nav-bar {
-  margin-right:140px;
-}
-
-/* 15px for dragging whole window by mouse*/
-#titlebar {
-  appearance: none !important;
-  height: 10px;
-}
-
-/* Fix for main menu calling by Alt button */
-#titlebar > #toolbar-menubar {
-  margin-top: 10px;
-}
-
-/* Move minimize/restore/close buttons to empty space */
-#TabsToolbar > .titlebar-buttonbox-container {
-  display: block;
-  position: absolute;
-  top: 12px;
-  right: 1px;
-}
-'@
-Out-File -FilePath {{ $userChromePath | quote }} -InputObject $Css
-{{   end -}}
-{{ end -}}
-{{- end -}}
+{{-  end }}
+{{- end }}
+{{- end }}
