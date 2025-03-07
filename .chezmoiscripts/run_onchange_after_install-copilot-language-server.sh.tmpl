@@ -1,8 +1,8 @@
 {{ if lookPath "npm" -}}
 #!/usr/bin/env bash
 
-{{ $package := joinPath .chezmoi.homeDir ".cache" "chezmoi-packages" "copilot-language-server.json" -}}
-# version: {{ $package | include | fromJson | jq ".version" | first }}
+{{ $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "golangci-lint.json" -}}
+# version: {{ $release | include | fromJson | jq ".tag_name" | first }}
 
 set -e
 

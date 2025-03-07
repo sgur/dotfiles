@@ -291,6 +291,11 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/microsoft/vscode-eslint/releases/latest"
 
+[".cache/chezmoi-packages/copilot-language-server.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/github/copilot-language-server-release/releases/latest"
+
 # PyPi release feed
 
 {{ if eq .chezmoi.os "windows" }}
@@ -299,9 +304,3 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://pypi.org/rss/project/python-lsp-server/releases.xml"
 {{ end }}
-
-# unpkg package.json
-[".cache/chezmoi-packages/copilot-language-server.json"]
-type = "file"
-refreshPeriod = "168h"
-url = "https://unpkg.com/@github/copilot-language-server@latest/package.json"

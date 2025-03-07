@@ -1,6 +1,5 @@
 #!/usr/bin/env bash
 
-
 {{ $cliRelease := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "golangci-lint.json" -}}
 {{ $cliTagName := $cliRelease | include | fromJson | jq ".tag_name" | first -}}
 {{ $cliAsset := printf "golangci-lint-%s-%s-%s.tar.gz" (trimPrefix "v" $cliTagName) .chezmoi.os .chezmoi.arch -}}
