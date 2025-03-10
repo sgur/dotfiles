@@ -12,7 +12,7 @@ end
 complete --command bat_theme_preview_with --require-parameter
 
 {{   if lookPath "col" -}}
-# https://github.com/sharkdp/bat/issues/1433
+# https://github.com/sharkdp/bat?tab=readme-ov-file#man
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
 set -gx MANROFFOPT -c
 {{   end -}}
