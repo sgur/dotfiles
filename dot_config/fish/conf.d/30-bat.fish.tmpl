@@ -14,5 +14,6 @@ complete --command bat_theme_preview_with --require-parameter
 {{   if lookPath "col" -}}
 # https://github.com/sharkdp/bat/issues/1433
 set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
+set -gx MANROFFOPT -c
 {{   end -}}
 {{- end }}
