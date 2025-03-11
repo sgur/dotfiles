@@ -89,8 +89,8 @@ if status is-interactive
 
     if type -q aws
         for profile in (aws configure list-profiles)
-            abbr $profile:exec aws-vault exec $profile
-            abbr $profile:login aws-vault login $profile
+            abbr --add $profile:exec aws-vault exec $profile
+            abbr --add $profile:login --set-cursor "aws-vault login $profile %--stdout | fish_clipboard_copy"
         end
     end
 
