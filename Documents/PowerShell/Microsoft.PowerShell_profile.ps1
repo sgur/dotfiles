@@ -188,7 +188,7 @@ function Select-Repository
 {
 	try
 	{
-		$selected = $(ghq list | fzf --prompt='repository> ' --preview="git -C $(ghq list --exact --full-path {}) log -5 --graph --decorate --abbrev-commit --color=always")
+		$selected = $(ghq list --full-path | fzf --prompt='repository> ' --preview="git -C {} log -5 --graph --decorate --abbrev-commit --color=always")
 		if ($LastExitCode -ne 0)
 		{
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
@@ -206,7 +206,7 @@ function Select-Repository
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 {
 	Set-Alias -Name fzf-ghq -Value Select-Repository
-	Set-PSReadLineKeyHandler -Chord Alt+q -ScriptBlock {
+	Set-PSReadLineKeyHandler -Chord Alt+x -ScriptBlock {
 		Select-Repository
 	}
 }
