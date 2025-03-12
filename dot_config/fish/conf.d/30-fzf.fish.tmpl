@@ -6,7 +6,7 @@ if test -n "$TMUX"
     # tmux 3.2 以降で popup が利用可能
     if test (string match --regex '\d(?:\.\d+)?' (tmux -V)) -ge 3.2
         string match --regex -q '(?<major>\d)\.(?<minor>\d\d).(?<patch>\d)' -- (fzf --version)
-        if test $major > 0 -o \( $major -eq 0 -a $minor -ge 53 \)
+        if test $major -gt 0 -o \( $major -eq 0 -a $minor -ge 53 \)
             set -gx FZF_CMD fzf --tmux -p 90%,60%
             set -gx FZF_TMUX_OPTS -p 90%,60%
         else
