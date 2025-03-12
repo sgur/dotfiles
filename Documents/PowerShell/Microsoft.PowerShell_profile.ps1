@@ -194,8 +194,7 @@ function Select-Repository
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
 			return
 		}
-		$path = ghq list --full-path $selected
-		Set-Location $path
+		Set-Location $selected
 		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
 	} catch
 	{
