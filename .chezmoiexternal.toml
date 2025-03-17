@@ -23,11 +23,15 @@ refreshPeriod = "168h" # 1-week
 url = "https://github.com/rafamadriz/friendly-snippets.git"
 
 {{- if lookPath "gitui" }}
+{{-   if eq .chezmoi.os "windows" }}
+["AppData/Roaming/gitui/themes"]
+{{-   else }}
 [".config/gitui/themes"]
+{{-   end }}
 type = "archive"
 refreshPeriod = "168h" # 1-week
 stripComponents = 2
-include = ["*/theme/*.ron"]
+include = ["*/themes/*.ron"]
 url = "https://github.com/catppuccin/gitui/archive/refs/heads/main.zip"
 {{- end }}
 
