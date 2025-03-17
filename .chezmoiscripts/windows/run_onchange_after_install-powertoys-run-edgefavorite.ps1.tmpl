@@ -1,0 +1,29 @@
+{{- $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "powertoys-run-edgefavroite.json" | include | fromJson -}}
+{{- $jqQuery := printf ".assets[] | select(.name | test(\"EdgeFavorite-%s.-x64.zip$\"))" $release.tag_name -}}
+{{- $info := $release | jq $jqQuery | first -}}
+{{- $url := $info.browser_download_url -}}
+{{- $asset := $info.name -}}
+{{- $ext := osExt $asset -}}
+# Version: {{ $release.tag_name }}
+# Updated-at: {{ $info.updated_at }}
+
+Invoke-WebRequest {{ $url | quote }} -OutFile {{ $asset }}
+Expand-Archive -Force -Path {{ $asset }}
+{{ $expandDir := trimSuffix $ext $asset }}
+{{ $destDir := joinPath .chezmoi.homeDir "AppData" "Local" "Microsoft" "PowerToys" "PowerToys Run" "Plugins" }}
+
+$Process = Get-Process -Name PowerToys -ErrorAction SilentlyContinue
+if ($Process) {
+	Write-Host "Stopping PowerToys..."
+	Stop-Process $Process
+}
+
+Write-Host "Updating PowerToys EdgeFavorite Plugin..."
+Remove-Item -Force -Recurse -Path {{ joinPath $destDir "EdgeFavorite" | quote }} -ErrorAction Ignore
+Move-Item -Force -Path {{ joinPath $expandDir "EdgeFavorite" | quote }} -Destination {{ $destDir | quote }}
+Remove-Item -Force -Recurse -Path {{ $asset | quote }}, {{ $expandDir | quote }}
+
+if ($Process) {
+	Write-Host "Starting PowerToys..."
+	Start-Process -FilePath {{ joinPath .chezmoi.homeDir "AppData" "Local" "PowerToys" "PowerToys.exe" | quote }}
+}
