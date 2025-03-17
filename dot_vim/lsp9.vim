@@ -25,12 +25,15 @@ g:VimCompleteOptionsSet(vcoptions)
 
 # options
 var lsp_options = {
+  autoHighlight: v:true,
   completionMatcher: 'fuzzy',
+  diagVirtualTextAlign: 'after',
   omniComplete: v:true,
+  semantichHighlight: v:true,
   showDiagWithVirtualText: has('patch-9.0.1157') != 0,
   showInlayHints: has('patch-9.0.0178') != 0,
-  useBufferCompletion: v:false,
   vsnipSupport: v:true,
+  useBufferCompletion: v:false,
 }
 
 # servers
