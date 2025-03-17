@@ -1,3 +1,5 @@
+{{- if lookPath "hgrep" }}
 function hgrep
     command hgrep --term-width "$COLUMNS" $argv | less -R
 end
+{{- end }}
