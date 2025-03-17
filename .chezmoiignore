@@ -10,6 +10,12 @@ Tools/**/*.bat
 .vim/**
 {{ end  }}
 
+{{ if lookPath "kak" | not }}
+.config/kak-lsp/
+.config/kak-tree-sitter/
+.config/kak/
+{{ end }}
+
 {{ if ne .chezmoi.os "darwin" }}
 # Ignoring on non-macOS
 .chezmoiscripts/darwin/**
@@ -43,9 +49,6 @@ Tools/
 .bashrc
 .curlrc
 .config/fish/
-.config/kak-lsp/
-.config/kak-tree-sitter/
-.config/kak/
 .config/kitty/
 .config/mise/
 .config/zellij/
@@ -84,10 +87,6 @@ bin/xdg-open
 # fisher/base
 .config/fish/functions/__bass.py
 .config/fish/functions/bass.fish
-
-# kak/bundle
-.config/kak/bundle/
-.config/kak/colors/
 
 # helix/runtime
 .config/helix/runtime/

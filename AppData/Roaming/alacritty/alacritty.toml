@@ -1,10 +1,10 @@
 [general]
 live_config_reload = true
 import = [
-  # "~/.config/alacritty/catppuccin/catppuccin-frappe.toml"
-  # "~/.config/alacritty/catppuccin/catppuccin-latte.toml"
-  "~/.config/alacritty/catppuccin/catppuccin-macchiato.toml"
-  # "~/.config/alacritty/catppuccin/catppuccin-mocha.toml"
+  # "~/AppData/Roaming/alacritty/themes/catppuccin/catppuccin-frappe.toml"
+  # "~/AppData/Roaming/alacritty/themes/catppuccin/catppuccin-latte.toml"
+  "~/AppData/Roaming/alacritty/themes/catppuccin/catppuccin-macchiato.toml"
+  # "~/AppData/Roaming/alacritty/themes/catppuccin/catppuccin-mocha.toml"
 ]
 
 [env]
