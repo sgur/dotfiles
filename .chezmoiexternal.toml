@@ -22,12 +22,14 @@ type = "git-repo"
 refreshPeriod = "168h" # 1-week
 url = "https://github.com/rafamadriz/friendly-snippets.git"
 
+{{- if lookPath "gitui" }}
 [".config/gitui/themes"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
 stripComponents = 2
 include = ["*/theme/*.ron"]
 url = "https://github.com/catppuccin/gitui/archive/refs/heads/main.zip"
+{{- end }}
 
 [".config/lazygit"]
 type = "archive"
@@ -36,17 +38,21 @@ stripComponents = 1
 include = ["*/themes/**", "*/themes-mergable/**"]
 url = "https://github.com/catppuccin/lazygit/archive/refs/heads/main.zip"
 
+{{- if lookPath "nu" }}
 [".config/nushell/themes/catppuccin-mocha.nu"]
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://raw.githubusercontent.com/nushell/nu_scripts/main/themes/nu-themes/catppuccin-mocha.nu"
+{{- end }}
 
+{{- if lookPath "alacritty" }}
 [".config/alacritty/catppuccin"]
 type = "archive"
 refreshPeriod = "168h" # 1-week
 stripComponents = 1
 include = ["*/catppuccin-*.toml"]
 url = "https://github.com/catppuccin/alacritty/archive/refs/heads/main.zip"
+{{- end }}
 
 {{ if eq .chezmoi.os "darwin" }}
 
@@ -147,6 +153,7 @@ stripComponents = 1
 include = ["*/completions/*.fish", "*/functions/*.fish"]
 url = "https://github.com/jorgebucaran/fisher/archive/refs/heads/main.zip"
 
+{{- if lookPath "kak" }}
 [".config/kak/bundle/kak-bundle"]
 type = "archive"
 exact = true
@@ -154,6 +161,7 @@ refreshPeriod = "168h" # 1-week
 stripComponents = 1
 include = ["*/README.md", "*/rc/**"]
 url = "https://github.com/jdugan6240/kak-bundle/archive/refs/heads/master.zip"
+{{- end }}
 
 [".config/tmux/plugins/tpm"]
 type = "git-repo"
