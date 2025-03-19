@@ -22,6 +22,16 @@ else
     set -gx FZF_CMD fzf --height=60%
 end
 
+function fzf-grep
+ set -l RELOAD reload:rg --column --color=always --smart-case {q} || :
+ fzf --disabled --ansi \
+     --bind "start:$RELOAD" --bind "change:$RELOAD" \
+     --bind 'enter:become:$EDITOR {1} +{2}' \
+     --bind 'ctrl-o:execute:$EDITOR {1} +{2}' \
+     --delimiter : \
+     --preview 'bat --style=full --color=always --highlight-line {2} {1}' \
+     --preview-window '~4,+{2}+4/3,<80(up)'
+end
 
 # https://github.com/junegunn/fzf?tab=readme-ov-file#setting-up-shell-integration
 # fzf --fish | FZF_CTRL_T_COMMAND= FZF_ALT_C_COMMAND= source
@@ -93,7 +103,7 @@ function fzf-zoxide-widget
         set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse --scheme=path" "$FZF_ALT_Z_OPTS")
         set -lx FZF_DEFAULT_OPTS_FILE ''
         set -lx FZF_DEFAULT_COMMAND "$FZF_ALT_Z_COMMAND"
-        zoxide query --list | eval (__fzfcmd) --no-multi --query=$fzf_query | read -l result
+        zoxide query --list | eval (__fzfcmd) --no-multi --no-sort --query=$fzf_query | read -l result
 
         if test -n "$result"
             cd -- $result
