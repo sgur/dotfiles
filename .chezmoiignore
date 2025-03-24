@@ -1,6 +1,5 @@
 README.md
 .config/fish/fish_variables
-.config/aws-sso/
 .vim/pack/minpac
 .vim/pack/chezmoi/*/*/doc/tags
 Tools/**/*.exe
