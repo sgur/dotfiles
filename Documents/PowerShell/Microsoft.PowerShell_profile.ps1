@@ -11,10 +11,11 @@ if (([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).L
 	return
 }
 
-try {
+try
+{
 	Import-Module -Name Microsoft.WinGet.Client -ErrorAction Stop
 
-# winget upgrade 相当
+	# winget upgrade 相当
 	function Get-WinGetAvailableUpdates
 	{
 		Get-WinGetPackage $args | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" }
@@ -25,7 +26,8 @@ try {
 		$Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CLike "Microsoft.PowerShell*" }
 		$Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" } | Update-WinGetPackage
 	}
-} catch {
+} catch
+{
 	Install-Module -Force -Name Microsoft.WinGet.Client
 	Import-Module -Name Microsoft.WinGet.Client
 }
@@ -334,7 +336,7 @@ try
 	{
 		$GitDir = $GitBinDir | Split-Path -Parent | Split-Path -Parent
 		$BusyBoxPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe" "mingw64" "bin" "busybox.exe"
-# Git.MinGit.BusyBox パターン
+		# Git.MinGit.BusyBox パターン
 		if (Test-Path $BusyBoxPath)
 		{
 
@@ -349,7 +351,7 @@ try
 "@ | Invoke-Expression
 			}
 		} else
-# Git パターン
+		# Git パターン
 		{
 			$CoreutilsBin | ForEach-Object {
 				$BinPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit_Microsoft.Winget.Source_8wekyb3d8bbwe" "usr" "bin" "$_.exe"
