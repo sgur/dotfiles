@@ -44,9 +44,8 @@ if status is-interactive
 
     # gazorby/fish-abbreviation-tip が conf.d のロード中に初期化されるので
     # config.fish 内で abbr を設定する
-    abbr --add curl /usr/bin/curl
-    abbr --add ipecho -- /usr/bin/curl --silent https://ipecho.net/plain
-    abbr --add checkip -- /usr/bin/curl --silent https://checkip.amazonaws.com/
+    abbr --add ipecho -- curl --silent https://ipecho.net/plain
+    abbr --add checkip -- curl --silent https://checkip.amazonaws.com/
 
     abbr --add za zellij attach
     abbr --add za:c -- zellij attach --create
