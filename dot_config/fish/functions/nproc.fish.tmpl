@@ -1,0 +1,5 @@
+{{ if lookPath "nproc" | not -}}
+function nproc
+    getconf NPROCESSORS_ONLN
+end
+{{- end }}
