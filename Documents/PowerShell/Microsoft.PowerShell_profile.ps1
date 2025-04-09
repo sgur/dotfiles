@@ -315,6 +315,7 @@ if ($NativeTildeExpansion)
 }
 # "msysmnt" is excluded from coreutils
 $ReadonlyBin = @("tee", "diff", "ls", "sleep", "sort")
+
 # spell-checker: enable
 try
 {
@@ -355,6 +356,9 @@ try
 		{
 			$CoreutilsBin | ForEach-Object {
 				$BinPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit_Microsoft.Winget.Source_8wekyb3d8bbwe" "usr" "bin" "$_.exe"
+				if (-not (Test-Path $BinPath)) {
+					return
+				}
 				if (@("cp", "mv").contains($_))
 				{
 					@"
