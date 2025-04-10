@@ -23,7 +23,13 @@ try
 	function Update-WinGetAvailableUpdates
 	{
 		$Packages = Get-WinGetPackage $args
-		$Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CLike "Microsoft.PowerShell*" }
+		$PowerShellPackages = $Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CLike "Microsoft.PowerShell*" }
+		if ($PowerShellPackages.Length -gt 0)
+		{
+			Write-Host "Held Updates:"
+			$PowerShellPackages
+		}
+		Write-Host "Updates:"
 		$Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" } | Update-WinGetPackage
 	}
 } catch
