@@ -107,6 +107,13 @@ if status is-interactive
         end
     end
 
+    if type -q pass
+        function __fzf_totp
+            fd --type file --print0  --base-directory ~/.password-store/totp/ | fzf --read0 | sed 's/^\./totp/' | sed 's/\.gpg$//' | read pass
+            echo "otp $pass"
+        end
+        abbr --add otp --command pass --function __fzf_totp
+    end
 
     # \el -> \e, or \co へ移設
     bind --user alt-comma __fish_list_current_token
