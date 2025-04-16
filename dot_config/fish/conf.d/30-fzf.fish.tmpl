@@ -103,7 +103,7 @@ function fzf-zoxide-widget
         set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse --scheme=path" "$FZF_ALT_Z_OPTS")
         set -lx FZF_DEFAULT_OPTS_FILE ''
         set -lx FZF_DEFAULT_COMMAND "$FZF_ALT_Z_COMMAND"
-        zoxide query --list | eval (__fzfcmd) --no-multi --no-sort --query=$fzf_query | read -l result
+        zoxide query --list --score | eval (__fzfcmd) --no-multi --no-sort --query=$fzf_query | tr -s ' ' | cut -d ' ' -f 3- | read -l result
 
         if test -n "$result"
             cd -- $result
