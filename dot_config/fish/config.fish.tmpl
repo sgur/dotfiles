@@ -109,7 +109,7 @@ if status is-interactive
 
     if type -q pass
         function __fzf_totp
-            fd --type file --print0  --base-directory ~/.password-store/totp/ | fzf --read0 | sed 's/^\./totp/' | sed 's/\.gpg$//' | read pass
+            find ~/.password-store/totp/ -type f -print0 | sed -z 's/^.\+\/totp//' | sed -z 's/\.gpg$//' | fzf --read0 | sed 's/^/totp/' | read pass
             echo "otp $pass"
         end
         abbr --add otp --command pass --function __fzf_totp
