@@ -13,9 +13,9 @@
 	preloadindex = true
 {{- end }}
 
-[commit]
-	template = {{ joinPath .chezmoi.homeDir ".config/git/commit_msg-copilot_prompt.txt" | quote }}
-	verbose = true
+# [commit]
+#	template = {{ joinPath .chezmoi.homeDir ".config/git/commit_msg-copilot_prompt.txt" | quote }}
+#	verbose = true
 
 {{ if eq .chezmoi.os "windows" -}}
 [http]
