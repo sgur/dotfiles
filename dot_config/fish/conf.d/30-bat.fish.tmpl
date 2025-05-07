@@ -11,9 +11,5 @@ end
 
 complete --command bat_theme_preview_with --require-parameter
 
-{{   if lookPath "col" -}}
-# https://github.com/sharkdp/bat?tab=readme-ov-file#man
-set -gx MANPAGER "sh -c 'col -bx | bat -l man -p'"
-set -gx MANROFFOPT -c
-{{   end -}}
+set -gx MANPAGER "sh -c 'sed -u -e \"s/\\x1B\[[0-9;]*m//g; s/.\\x08//g\" | bat -p -lman'"
 {{- end }}
