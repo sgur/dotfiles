@@ -27,7 +27,7 @@ gui:
   showBottomLine: true
   showPanelJumps: true
   showIcons: false
-  nerdFontsVersion: 3
+  nerdFontsVersion: "3"
   showFileIcons: true
   commitAuthorShortLength: 2
   commitAuthorLongLength: 17
@@ -36,7 +36,6 @@ gui:
   showDivergenceFromBaseBranch: none
   commandLogSize: 8
   splitDiff: auto
-  screemMode: normal
   border: rounded
   animateExplosion: true
   portraitMode: auto
@@ -90,11 +89,10 @@ git:
   fetchAll: true
   autoStageResolvedConflicts: true
   branchLogCmd: {{ "git log --graph --color=always --abbrev-commit --decorate --date=relative --pretty=medium {{branchName}} --" }}
-  allBranchesLogCmd: git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium
-  allBranchesLogCmds: []
+  allBranchesLogCmds: [ "git log --graph --all --color=always --abbrev-commit --decorate --date=relative  --pretty=medium" ]
   overrideGpg: false
   disableForcePushing: false
-  commitPrefix: null
+  commitPrefix: []
   commitPrefixes: {}
   branchPrefix: ""
   parseEmoji: false
