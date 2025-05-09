@@ -1,0 +1,7 @@
+{{- $passwordStorePath := joinPath .chezmoi.homeDir "OneDrive*" "password-store" | glob | first -}}
+{{- if $passwordStorePath }}
+[otp]
+	autoclip = true
+[mounts]
+	path = {{ $passwordStorePath }}
+{{- end }}
