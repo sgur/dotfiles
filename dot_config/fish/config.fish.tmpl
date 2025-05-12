@@ -107,15 +107,12 @@ if status is-interactive
         end
     end
 
-    function __fzf_totp
-        find ~/.password-store/totp/ -type f -print0 | sed -z 's/^.\+\/totp//' | sed -z 's/\.gpg$//' | fzf --read0 | sed 's/^/totp/' | read pass
-        echo "otp $pass"
-    end
-    if type -q pass
+    if type -q pass && type -q fzf
+        function __fzf_totp
+            find ~/.password-store/totp/ -type f -print0 | sed -z 's/^.\+\/totp//' | sed -z 's/\.gpg$//' | fzf --read0 | sed 's/^/totp/' | read pass
+            echo "otp $pass"
+        end
         abbr --add otp --command pass --function __fzf_totp
-    end
-    if type -q gopass
-        abbr --add otp --command gopass --function __fzf_totp
     end
 
     # \el -> \e, or \co へ移設
