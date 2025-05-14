@@ -663,9 +663,16 @@ function Stop-SshAgent
 }
 
 # genact
-
 function Invoke-Genact
 {
 	& docker run -it --rm svenstaro/genact $args
 }
 New-Alias -Force -Name genact -Value Invoke-Genact
+
+# gopass
+function Invoke-Gopass
+{
+	$GopassPath = Join-Path $Env:LOCALAPPDATA "gopass" "gopass.exe"
+	& $GopassPath $args
+}
+New-Alias -Force -Name gopass -Value Invoke-Gopass
