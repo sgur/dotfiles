@@ -118,7 +118,7 @@ function fzf-zoxide-widget
 end
 
 function fzf-aws-profile-widget
-  set -l commandline (__fzf_parse_commandline)
+    set -l commandline (__fzf_parse_commandline)
     set -lx dir $commandline[1]
     set -l fzf_query $commandline[2]
     set -l prefix $commandline[3]
@@ -131,7 +131,12 @@ function fzf-aws-profile-widget
         aws-vault list --profiles | eval (__fzfcmd) --no-multi --query=$fzf_query | read -l result
 
         if test -n "$result"
-	    aws-vault exec $result
+            if test 0 -eq (count $argv)
+                echo -e exec\nlogin\nexport\nrotate | eval (__fzfcmd) --no-multi | read -l method
+                aws-vault $method $result
+            else
+                aws-vault $argv[1] $result
+            end
 
             # Remove last token from commandline.
             commandline -t ""
@@ -141,7 +146,6 @@ function fzf-aws-profile-widget
 
     commandline -f repaint
 end
-
 
 if not set -q FZF_ALT_A_COMMAND; or test -n "$FZF_ALT_A_COMMAND"
     bind alt-a fzf-git-branch-widget
