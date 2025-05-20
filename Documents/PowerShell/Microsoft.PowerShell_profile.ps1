@@ -29,8 +29,9 @@ try
 			Write-Host "Held Updates:"
 			$PowerShellPackages
 		}
-		Write-Host "Updates:"
-		$Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" } | Update-WinGetPackage
+		$Updates = $Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" }
+		$Updates
+		$Updates | Update-WinGetPackage
 	}
 } catch
 {
