@@ -49,7 +49,7 @@ $JsonStr = @'
 				}
 {{- if .preferZenBrowser }}
 				,{
-					"PackageIdentifier": "Zen-Team.Zen-Browser.Optimized"
+					"PackageIdentifier": "Zen-Team.Zen-Browser"
 				}
 {{- else }}
 				,{
@@ -84,11 +84,6 @@ $JsonStr = @'
 				,{
 					"PackageIdentifier": "HermannSchinagl.LinkShellExtension"
 				}
-{{-   if $isWindows11 }}
-				,{
-					"PackageIdentifier": "Microsoft.DevHome"
-				}
-{{-   end }}
 				,{
 					"PackageIdentifier": "Microsoft.VisualStudioCode"
 				}
