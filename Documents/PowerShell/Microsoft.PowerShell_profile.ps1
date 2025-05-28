@@ -311,11 +311,11 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 Set-Alias -Name open -Value Start-Process
 
 # spell-checker: disable
-$CoreutilsBin = @("basename", "cat", "chmod", "comm", "cut", "cygpath",
-	"date", "diff", "dirname", "echo", "env", "expr", "false", "fold", "grep",
-	"head", "id", "install", "join", "ln", "md5sum", "mkdir", "od",
-	"paste", "printf", "ps", "pwd", "rmdir", "sleep", "sort", "split", "stty",
-	"tail", "tee", "touch", "tr", "true", "uname", "uniq", "wc", "iconv")
+$CoreutilsBin = @("b2sum","basename", "baseenc", "cat", "comm", "cut",
+	"date", "diff", "dirname", "echo", "env", "expr", "false", "fold",
+	"head", "join", "ln", "md5sum", "mkdir", "od",
+	"printf", "pwd", "readlink", "rmdir", "sleep", "sort", "split",
+	"tail", "tee", "touch", "tr", "true", "uname", "uniq", "wc")
 if ($NativeTildeExpansion)
 {
 	$CoreutilsBin += @("cp", "mv", "rm")
@@ -343,20 +343,29 @@ try
 	if ($GitBinDir.Source -like '*\Microsoft\WinGet\*')
 	{
 		$GitDir = $GitBinDir | Split-Path -Parent | Split-Path -Parent
-		$BusyBoxPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit.BusyBox_Microsoft.Winget.Source_8wekyb3d8bbwe" "mingw64" "bin" "busybox.exe"
-		# Git.MinGit.BusyBox パターン
-		if (Test-Path $BusyBoxPath)
+		$CoreutilsPath = Join-Path -Path $GitDir -ChildPath "Links" "coreutils.exe"
+		# uutils.coreutils パターン
+		if (Test-Path $CoreutilsPath)
 		{
-
-			Set-Alias -Name busybox -Value $BusyBoxPath
 			$CoreutilsBin | ForEach-Object {
 				$Flag = @("cp", "mv", "rm").contains($_) ? "-i" : ""
-				@"
-				function global:$_
+				if ($_ -eq "rm")
 				{
-					& $BusyBoxPath $_ $Flag `$args
-				}
+					@"
+					function global:rm
+					{
+						& "$CoreutilsPath" --interactive=once `$args
+					}
 "@ | Invoke-Expression
+				} else
+				{
+					@"
+					function global:$_
+					{
+						& $CoreutilsPath $_ $Flag `$args
+					}
+"@ | Invoke-Expression
+				}
 			}
 		} else
 		# Git パターン
