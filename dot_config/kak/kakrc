@@ -18,32 +18,6 @@ define-command suspend -docstring 'suspend: backgrounds current kakoune client.'
 }
 map global user -docstring 'suspend kakoune job' <C-z> ':suspend<ret>'
 
-# Git integration via Tig <https://github.com/mawww/kakoune/wiki/Git-integration-via-Tig>
-define-command tig -params .. -docstring "Run tig" %{
-    terminal env "EDITOR=kak -c %val{session}" tig %arg{@}
-}
-define-command tig-blame-here -docstring "Run tig blame on the current line" %{
-    tig -C %sh{git rev-parse --show-toplevel} blame -C "+%val{cursor_line}" -- %sh{
-        dir="$(git rev-parse --show-toplevel)"
-        printf %s "${kak_buffile##$dir/}"
-    }
-}
-
-define-command tig-blame-selection -docstring "Run tig -L on the selected lines" %{
-    evaluate-commands -draft -save-regs d %{
-        execute-keys <a-:>
-        set-register d %sh{git rev-parse --show-toplevel}
-        tig -C %reg{d} %sh{
-            anchor=${kak_selection_desc%,*}
-            anchor_line=${anchor%.*}
-            cursor=${kak_selection_desc#*,}
-            cursor_line=${cursor%.*}
-            d=$kak_reg_d
-            printf %s "-L$anchor_line,$cursor_line:${kak_buffile##$d/}"
-        }
-    }
-}
-
 # https://phaazon.net/blog/more-hindsight-vim-helix-kakoune
 define-command -hidden open_buffer_picker %{
     prompt buffer: -menu -buffer-completion %{

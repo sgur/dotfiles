@@ -230,16 +230,6 @@ url = "https://api.github.com/repos/estin/simple-completion-language-server/comm
 # GitHub release cache
 
 {{ if eq .chezmoi.os "windows" }}
-[".cache/chezmoi-releases/powertoys-run-edgefavroite.json"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/davidegiacometti/PowerToys-Run-EdgeFavorite/releases/latest"
-
-[".cache/chezmoi-releases/powertoys-run-clipboardmanager.json"]
-type = "file"
-refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/CoreyHayward/PowerToys-Run-ClipboardManager/releases/latest"
-
 [".cache/chezmoi-releases/sccache.json"]
 type = "file"
 refreshPeriod = "168h" # 1-week
