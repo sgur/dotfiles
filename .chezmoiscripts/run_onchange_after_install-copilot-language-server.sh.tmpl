@@ -1,7 +1,7 @@
 {{ if lookPath "npm" -}}
 #!/usr/bin/env bash
 
-{{ $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "golangci-lint.json" -}}
+{{ $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "copilot-language-server.json" -}}
 # version: {{ $release | include | fromJson | jq ".tag_name" | first }}
 
 set -e

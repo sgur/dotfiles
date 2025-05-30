@@ -265,12 +265,14 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/PowerShell/PowerShellEditorServices/releases/latest"
 
-{{ end }}
+{{ else }}
 
 [".cache/chezmoi-releases/git-credential-manager.json"]
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/git-ecosystem/git-credential-manager/releases/latest"
+
+{{ end }}
 
 [".cache/chezmoi-releases/golangci-lint-langserver.json"]
 type = "file"
@@ -292,7 +294,12 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/microsoft/vscode-eslint/releases/latest"
 
-[".cache/chezmoi-packages/copilot-language-server.json"]
+[".cache/chezmoi-releases/kakoune-lsp.json"]
+type = "file"
+refreshPeriod = "168h" # 1-week
+url = "https://api.github.com/repos/kakoune-lsp/kakoune-lsp/releases/latest"
+
+[".cache/chezmoi-releases/copilot-language-server.json"]
 type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/github/copilot-language-server-release/releases/latest"
