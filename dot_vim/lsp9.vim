@@ -20,8 +20,10 @@ var vcoptions = {
   vsnip: { enable: true, priority: 11 },
   vimscript: { enable: true, priority: 11 },
 }
-g:VimCompleteOptionsSet(vcoptions)
-
+augroup vim_complete_init
+  autocmd!
+  autocmd VimEnter * g:VimCompleteOptionsSet(vcoptions)
+augroup END
 
 # options
 var lsp_options = {
