@@ -72,7 +72,7 @@ function fzf-git-branch-widget
 
     test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
     begin
-        set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse --scheme=path" "$FZF_ALT_A_OPTS")
+        set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse" "$FZF_ALT_A_OPTS")
         set -lx FZF_DEFAULT_OPTS_FILE ''
         set -lx FZF_DEFAULT_COMMAND "$FZF_ALT_A_COMMAND"
 
