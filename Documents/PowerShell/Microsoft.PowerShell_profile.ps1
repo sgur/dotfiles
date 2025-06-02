@@ -23,7 +23,7 @@ try
 	function Update-WinGetAvailableUpdates
 	{
 		$Packages = Get-WinGetPackage $args
-		$PowerShellPackages = $Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CLike "Microsoft.PowerShell*" }
+		$PowerShellPackages = $Packages | Where-Object { $_.IsUpdateAvailable -And ( $_.Id -CLike "Microsoft.PowerShell*" -Or $_.Id -CLike "Microsoft.VisualStudio.*" ) }
 		if ($PowerShellPackages.Length -gt 0)
 		{
 			Write-Host "Held Updates:"
