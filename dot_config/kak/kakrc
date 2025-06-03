@@ -16,7 +16,7 @@ define-command suspend -docstring 'suspend: backgrounds current kakoune client.'
         $kill_cmd -SIGTSTP $kak_client_pid
     }
 }
-map global user -docstring 'suspend kakoune job' <C-z> ':suspend<ret>'
+map global user -docstring 'suspend kakoune job' z ':suspend<ret>'
 
 # https://phaazon.net/blog/more-hindsight-vim-helix-kakoune
 define-command -hidden open_buffer_picker %{
@@ -167,7 +167,7 @@ bundle kakoune-lsp https://github.com/kakoune-lsp/kakoune-lsp %{
 
 # bundle/kak-tree-sitter
 bundle-customload kak-tree-sitter https://git.sr.ht/~hadronized/kak-tree-sitter %{
-    eval %sh{ kak-tree-sitter --kakoune --daemonize --server --session $kak_session }
+    eval %sh{ kak-tree-sitter --kakoune --daemonize --server --init $kak_session }
 }
 bundle-install-hook kak-tree-sitter %{
     (
