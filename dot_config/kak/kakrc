@@ -164,6 +164,9 @@ bundle kakoune-lsp https://github.com/kakoune-lsp/kakoune-lsp %{
 
     hook global KakEnd .* lsp-exit
 }
+bundle-install-hook kakoune-lsp %{
+    cargo install --locked --force --path .
+}
 
 # bundle/kak-tree-sitter
 bundle-customload kak-tree-sitter https://git.sr.ht/~hadronized/kak-tree-sitter %{
