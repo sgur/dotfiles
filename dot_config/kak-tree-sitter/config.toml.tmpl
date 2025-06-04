@@ -1,10 +1,3 @@
-{{- $defaultConfig := joinPath .chezmoi.homeDir ".config" "kak" "bundle" "kak-tree-sitter" "kak-tree-sitter-config" "default-config.toml" -}}
-{{- if stat $defaultConfig }}
-{{ include $defaultConfig }}
-{{- else }}
-{{ output "curl" "-sL" "https://git.sr.ht/~hadronized/kak-tree-sitter/blob/master/kak-tree-sitter-config/default-config.toml" }}
-{{- end }}
-
 # kdl
 [language.kdl.grammar.source.git]
 url = "https://github.com/tree-sitter-grammars/tree-sitter-kdl"
@@ -67,3 +60,25 @@ pin = "dbd248fdfa680373d94fbc10094a160aafa0f7a7"
 
 [language.gotmpl.queries]
 path = "runtime/queries/gotmpl"
+
+# hurl
+[language.hurl.grammar.source.git]
+url = "https://github.com/pfeiferj/tree-sitter-hurl"
+pin = "ff07a42d9ec95443b5c1b57ed793414bf7b79be5"
+
+[language.hurl.grammar]
+path = "src"
+compile = "cc"
+compile_args = ["-c", "-fpic", "../parser.c", "-I", ".."]
+compile_flags = ["-O3"]
+link = "cc"
+link_args = ["-shared", "-fpic", "parser.o", "-o", "hurl.so"]
+link_flags = ["-O3"]
+
+[language.hurl.queries.source.git]
+url = "https://github.com/helix-editor/helix"
+pin = "f6878f62f74430cff188e7978d06c5ed143179e9"
+
+[language.hurl.queries]
+path = "runtime/queries/hurl"
+

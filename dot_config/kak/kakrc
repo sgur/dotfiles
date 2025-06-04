@@ -120,16 +120,19 @@ set-option global spell_lang "en"
 # bundle (installed via chezmoi)
 source "%val{config}/bundle/kak-bundle/rc/kak-bundle.kak"
 
+# bundle/editorconfig
+bundle-install-hook editorconfig %{
+    brew install editorconfig
+}
+
 # bundle/auto-pairs
 bundle auto-pairs.kak https://github.com/alexherbo2/auto-pairs.kak %{
     enable-auto-pairs
 }
 
 # bundle/catppuccin
-bundle-noload catppuccin 'git clone https://github.com/catppuccin/kakoune catppuccin' %{
-    try %{
-        colorscheme catppuccin_mocha
-    }
+bundle-customload catppuccin 'git clone https://github.com/catppuccin/kakoune catppuccin' %{
+    colorscheme catppuccin_mocha
 }
 bundle-install-hook catppuccin %{
     mkdir -p ${kak_config}/colors
@@ -137,16 +140,12 @@ bundle-install-hook catppuccin %{
 }
 
 # bundle/kakoune-lsp
-bundle kakoune-lsp https://github.com/kakoune-lsp/kakoune-lsp %{
-    # eval %sh{kak-lsp --kakoune --session $kak_session}
-    set global lsp_cmd "kak-lsp -s %val{session} -vvv --log ~/.cache/kak-lsp/kak-lsp.log"
+bundle-customload kakoune-lsp https://github.com/kakoune-lsp/kakoune-lsp %{
+    eval %sh{kak-lsp --kakoune --session $kak_session}
 
     set-option global lsp_hover_anchor true
     set-option global lsp_auto_show_code_actions true
-    set-option global lsp_diagnostic_line_error_sign 'E'
-    set-option global lsp_diagnostic_line_warning_sign 'W'
-    set-option global lsp_diagnostic_line_hint_sign 'H'
-    set-option global lsp_diagnostic_line_info_sign 'I'
+    # set-option global lsp_debug true
 
     lsp-enable
     lsp-auto-hover-enable
@@ -170,7 +169,11 @@ bundle-install-hook kakoune-lsp %{
 
 # bundle/kak-tree-sitter
 bundle-customload kak-tree-sitter https://git.sr.ht/~hadronized/kak-tree-sitter %{
-    eval %sh{ kak-tree-sitter --kakoune --daemonize --server --init $kak_session }
+    eval %sh{ kak-tree-sitter -vvvv --kakoune --daemonize --server --with-highlighting --init $kak_session }
+
+    define-command -override tree-sitter-user-after-highlighter %{
+      add-highlighter -override buffer/show-matching show-matching
+    }
 }
 bundle-install-hook kak-tree-sitter %{
     (
