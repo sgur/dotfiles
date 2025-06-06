@@ -147,6 +147,33 @@ function fzf-aws-profile-widget
     commandline -f repaint
 end
 
+function fzf-pass-profile-widget
+    set -l commandline (__fzf_parse_commandline)
+    set -lx dir $commandline[1]
+    set -l fzf_query $commandline[2]
+    set -l prefix $commandline[3]
+
+    test -n "$FZF_TMUX_HEIGHT"; or set FZF_TMUX_HEIGHT 40%
+    begin
+        set -lx FZF_DEFAULT_OPTS (__fzf_defaults "--reverse")
+        set -lx FZF_DEFAULT_OPTS_FILE ''
+        set -lx FZF_DEFAULT_COMMAND ""
+        pushd ~/.password-store
+        find totp/ -type f -print0 | sed -z 's/\.gpg$//' | eval (__fzfcmd) --no-multi --read0 --query=$fzf_query | read -l result
+        popd
+
+        if test -n "$result"
+            pass otp $result | fish_clipboard_copy
+
+            # Remove last token from commandline.
+            commandline -t ""
+            commandline -it -- $prefix
+        end
+    end
+
+    commandline -f repaint
+end
+
 if not set -q FZF_ALT_A_COMMAND; or test -n "$FZF_ALT_A_COMMAND"
     bind alt-a fzf-git-branch-widget
     bind alt-\; fzf-git-branch-widget
@@ -158,6 +185,7 @@ if not set -q FZF_ALT_Z_COMMAND; or test -n "$FZF_ALT_Z_COMMAND"
     bind alt-z fzf-zoxide-widget
 end
 bind alt-g fzf-aws-profile-widget
+bind alt-i fzf-pass-profile-widget
 
 if bind -M insert &> /dev/null
     if not set -q FZF_ALT_A_COMMAND; or test -n "$FZF_ALT_A_COMMAND"
@@ -170,7 +198,8 @@ if bind -M insert &> /dev/null
     if not set -q FZF_ALT_Z_COMMAND; or test -n "$FZF_ALT_Z_COMMAND"
         bind -M insert alt-z fzf-zoxide-widget
     end
-    bind alt-g fzf-aws-profile-widget
+    bind -M insert alt-g fzf-aws-profile-widget
+    bind -M insert alt-i fzf-pass-profile-widget
 end
 
 
