@@ -191,118 +191,160 @@ function Test-Colors
 	& (Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Test-Colors.ps1')
 }
 
-# ghq + jzf
-# https://uvb-76.hatenablog.com/entry/2020/02/14/032712
-function Select-Repository
+# gopass
+function Invoke-Gopass
 {
-	try
-	{
-		$selected = $(ghq list --full-path | fzf --prompt='repository> ' --preview="git -C {} log -5 --graph --decorate --abbrev-commit --color=always")
-		if ($LastExitCode -ne 0)
-		{
-			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
-			return
-		}
-		Set-Location $selected
-		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
-	} catch
-	{
-		Write-Warning "fzf, ghq: executables not installed"
-	}
+	$GopassPath = Join-Path $Env:LOCALAPPDATA "gopass" "gopass.exe"
+	& $GopassPath $args
 }
+New-Alias -Force -Name gopass -Value Invoke-Gopass
 
+# XXX + fzf
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 {
-	Set-Alias -Name fzf-ghq -Value Select-Repository
-	Set-PSReadLineKeyHandler -Chord Alt+x -ScriptBlock {
-		Select-Repository
-	}
-}
 
-function Select-History
-{
-	try
+	# ghq + fzf
+	# https://uvb-76.hatenablog.com/entry/2020/02/14/032712
+	function Select-Repository
 	{
-		$line = $null
-		$cursor = $null
-		[Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
-		$history = [Microsoft.PowerShell.PSConsoleReadLine]::GetHistoryItems() | ForEach-Object CommandLine
-		[System.Collections.Generic.HashSet[String]] $historySet = $history
-		$result = $historySet | fzf --prompt='history> ' --scheme=history --tiebreak=index --tac --query="$line"
-		if ($LastExitCode -ne 0)
+		try
 		{
+			$selected = $(ghq list --full-path | fzf --prompt='repository> ' --preview="git -C {} log -5 --graph --decorate --abbrev-commit --color=always")
+			if ($LastExitCode -ne 0)
+			{
+				[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+				return
+			}
+			Set-Location $selected
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
-			return
+		} catch
+		{
+			Write-Warning "fzf, ghq: executables not installed"
 		}
-		[Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
-		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
-		[Microsoft.PowerShell.PSConsoleReadLine]::Insert($result)
-	} catch
-	{
-		Write-Warning "fzf: executables not installed"
 	}
-}
 
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
-{
+	if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name ghq)
+	{
+		Set-Alias -Name fzf-ghq -Value Select-Repository
+		Set-PSReadLineKeyHandler -Chord Alt+x -ScriptBlock {
+			Select-Repository
+		}
+	}
+
+	function Select-History
+	{
+		try
+		{
+			$line = $null
+			$cursor = $null
+			[Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+			$history = [Microsoft.PowerShell.PSConsoleReadLine]::GetHistoryItems() | ForEach-Object CommandLine
+			[System.Collections.Generic.HashSet[String]] $historySet = $history
+			$result = $historySet | fzf --prompt='history> ' --scheme=history --tiebreak=index --tac --query="$line"
+			if ($LastExitCode -ne 0)
+			{
+				[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+				return
+			}
+			[Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+			[Microsoft.PowerShell.PSConsoleReadLine]::Insert($result)
+		} catch
+		{
+			Write-Warning "fzf: executables not installed"
+		}
+	}
+
 	Set-Alias -Name fzf-history -Value Select-History
 
 	Set-PSReadLineKeyHandler -Chord Ctrl+r -ScriptBlock {
 		Select-History
 	}
-}
 
-function Select-Branch
-{
-	try
+	function Select-Branch
 	{
-		$targetBranch = $(git branch --all --format='%(refname:short)' | fzf --prompt='branch> ' --preview-window='right,65%' --preview='git log --max-count=10 --graph --decorate --color=always --abbrev-commit --pretty {}')
-		if ($LastExitCode -ne 0)
+		try
 		{
+			$targetBranch = $(git branch --all --format='%(refname:short)' | fzf --prompt='branch> ' --preview-window='right,65%' --preview='git log --max-count=10 --graph --decorate --color=always --abbrev-commit --pretty {}')
+			if ($LastExitCode -ne 0)
+			{
+				[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+				return
+			}
+			& git switch ($targetBranch -replace "origin/", "")
 			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
-			return
-		}
-		& git switch ($targetBranch -replace "origin/", "")
-		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
-	} catch
-	{
-		Write-Warning "fzf, git: executables not installed"
-	}
-}
-
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
-{
-	Set-Alias -Name fzf-git-branch -Value Select-Branch
-
-	Set-PSReadLineKeyHandler -Chord Alt+a -ScriptBlock {
-		Select-Branch
-	}
-}
-
-function Select-ZoxideHistory
-{
-	try
-	{
-		$Path = $(zoxide query --list | fzf --prompt='zoxide> ')
-		if ($LastExitCode -ne 0)
+		} catch
 		{
-			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
-			return
+			Write-Warning "fzf, git: executables not installed"
 		}
-		Set-Location $Path
-		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
-	} catch
-	{
-		Write-Warning "fzf, zoxide: executables not installed"
 	}
-}
 
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
-{
-	Set-Alias -Name fzf-zoxide -Value Select-ZoxideHistory
+	if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name git)
+	{
+		Set-Alias -Name fzf-git-branch -Value Select-Branch
 
-	Set-PSReadLineKeyHandler -Chord Alt+z -ScriptBlock {
-		Select-ZoxideHistory
+		Set-PSReadLineKeyHandler -Chord Alt+a -ScriptBlock {
+			Select-Branch
+		}
+	}
+
+	function Select-ZoxideHistory
+	{
+		try
+		{
+			$Path = $(zoxide query --list | fzf --prompt='zoxide> ')
+			if ($LastExitCode -ne 0)
+			{
+				[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+				return
+			}
+			Set-Location $Path
+			[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+		} catch
+		{
+			Write-Warning "fzf, zoxide: executables not installed"
+		}
+	}
+
+	if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name zoxide)
+	{
+		Set-Alias -Name fzf-zoxide -Value Select-ZoxideHistory
+
+		Set-PSReadLineKeyHandler -Chord Alt+z -ScriptBlock {
+			Select-ZoxideHistory
+		}
+	}
+
+	function Select-GopassOtp
+	{
+		try
+		{
+			$Otp = $(gopass list --flat totp | fzf --prompt='gopass otp> ' )
+			if ($LastExitCode -ne 0)
+			{
+				[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+				return
+			}
+			if ($Otp -ne "")
+			{
+				Set-Clipboard $(gopass otp -o $Otp)
+				[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
+			}
+		} catch
+		{
+			Write-Warning "fzf, gopass: executables not installed"
+		}
+	}
+
+
+	if (Get-Command -ErrorAction SilentlyContinue -Name gopass)
+	{
+
+		Set-Alias -Name fzf-gopass-otp -Value Select-GopassOtp
+
+		Set-PSReadLineKeyHandler -Chord Alt+i -ScriptBlock {
+			Select-GopassOtp
+		}
 	}
 }
 
@@ -372,7 +414,8 @@ try
 		{
 			$CoreutilsBin | ForEach-Object {
 				$BinPath = Join-Path -Path $GitDir -ChildPath "Packages" "Git.MinGit_Microsoft.Winget.Source_8wekyb3d8bbwe" "usr" "bin" "$_.exe"
-				if (-not (Test-Path $BinPath)) {
+				if (-not (Test-Path $BinPath))
+				{
 					return
 				}
 				if (@("cp", "mv").contains($_))
