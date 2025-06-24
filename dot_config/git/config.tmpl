@@ -34,7 +34,7 @@
 [credential]
 	helper =
 	helper = manager
-{{-  if and (lookPath "gpg") (lookPath "pass") (stat (joinPath .chezmoi.homeDir ".password-store")) }}
+{{-  if and (ne .chezmoi.os "windows") (lookPath "gpg") (lookPath "pass") (stat (joinPath .chezmoi.homeDir ".password-store")) }}
 	credentialStore = gpg
 {{-  end }}
 [credential "https://dev.azure.com"]
