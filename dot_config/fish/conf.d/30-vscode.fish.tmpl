@@ -15,13 +15,4 @@ test -n "$ZELLIJ_SESSION_NAME" && set -e ZELLIJ_SESSION_NAME
 
 set -gx FZF_TMUX_HEIGHT 80%
 
-set -l scripts \
-    ~/.vscode-server/bin/*/out/vs/workbench/contrib/terminal/common/scripts/shellIntegration.fish \
-    ~/.vscode-server/bin/*/out/vs/workbench/contrib/terminal/browser/media/fish_xdg_data/fish/vendor_conf.d/shellIntegration.fish \
-    ~/.vscode-server/bin/*/out/vs/workbench/contrib/terminal/browser/media/shellIntegration.fish
-for shell_integration in $scripts
-    if test -f $shell_integration
-        source $shell_integration
-        break
-    end
-end
+source {{ output "code" "--locate-shell-integration-path" "fish" }}
