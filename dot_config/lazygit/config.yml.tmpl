@@ -1,10 +1,9 @@
+# yaml-language-server: $schema=https://raw.githubusercontent.com/jesseduffield/lazygit/master/schema/config.json
 gui:
   language: en
-{{- $themefile := "" -}}
+{{- $themefile := joinPath .chezmoi.homeDir ".config" "lazygit" "themes-mergable" "mocha" "blue.yml" -}}
 {{- if eq .chezmoi.os "windows" }}
 {{- $themefile = joinPath .chezmoi.homeDir ".config" "lazygit" "themes-mergable" "macchiato" "blue.yml" -}}
-{{- else }}
-{{- $themefile = joinPath .chezmoi.homeDir ".config" "lazygit" "themes-mergable" "mocha" "blue.yml" -}}
 {{- end }}
 
 {{ if stat $themefile -}}
@@ -20,8 +19,9 @@ git:
 {{- end}}
   autoFetch: false
 
+os:
 {{- if eq .chezmoi.os "windows" }}
   copyToClipboardCmd: "clip.exe"
 {{- else }}
-  copyToClipboardCmd: printf "\033]52;c;$(printf {{ "{{text}}" }} | base64)\a" > /dev/tty
+  copyToClipboardCmd: printf "\033]52;c;$(printf {{ "{{text}}" }} | base64 -w 0)\a" > /dev/tty
 {{- end }}
