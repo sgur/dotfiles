@@ -1,8 +1,7 @@
 bun = "latest"
-node = "22.12.0"
+node = "lts"
 npm = "latest"
 pnpm = "latest"
-proto = "0.41.4"
 yarn = "latest"
 
 [settings]
