@@ -217,10 +217,12 @@ url = "https://raw.githubusercontent.com/SchemaStore/schemastore/master/src/api/
 
 # GitHub commit cache
 
+{{ if ne .chezmoi.os "windows" }}
 [".cache/chezmoi-commits/helix-editor.json"]
 type = "file"
 refreshPeriod = "24h" # 1-day
 url = "https://api.github.com/repos/helix-editor/helix/commits/master"
+{{ end }}
 
 [".cache/chezmoi-commits/simple-completion-language-server.json"]
 type = "file"

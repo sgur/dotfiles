@@ -396,7 +396,7 @@ try
 					@"
 					function global:rm
 					{
-						& "$CoreutilsPath" --interactive=once `$args
+						& "$CoreutilsPath" rm --interactive=once `$args
 					}
 "@ | Invoke-Expression
 				} else
