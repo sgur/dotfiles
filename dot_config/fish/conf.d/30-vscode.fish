@@ -15,4 +15,4 @@ test -n "$ZELLIJ_SESSION_NAME" && set -e ZELLIJ_SESSION_NAME
 
 set -gx FZF_TMUX_HEIGHT 80%
 
-source {{ output "code" "--locate-shell-integration-path" "fish" }}
+# source {{ output "code" "--locate-shell-integration-path" "fish" }}
