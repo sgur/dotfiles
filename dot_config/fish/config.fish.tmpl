@@ -14,6 +14,13 @@ set sponge_delay 5
 fish_config theme choose 'Catppuccin Mocha'
 
 if status is-interactive
+    if test -z "$EDITOR"
+    {{- if lookPath "hx"}}
+        set -gx EDITOR hx
+    {{- else if lookPath "vim"}}
+        set -gx EDITOR vim
+    {{- end}}
+    end
     # vscode の integrated terminal からは vscode のエディターを開く
     if test "$TERM_PROGRAM" = vscode
         set -gx EDITOR 'code -w'
@@ -148,18 +155,15 @@ end
 set -g fish_help_browser (which xdg-open)
 {{- end }}
 
-if test -z "$EDITOR"
-{{- if lookPath "hx"}}
-    set -gx EDITOR hx
-{{- else if lookPath "vim"}}
-    set -gx EDITOR vim
-{{- end}}
-end
-set -gx HGREP_DEFAULT_OPTS --theme Nord
 set -gx LANG ja_JP.UTF-8
-set -gx LESS --incsearch --quit-if-one-screen --raw-control-chars
 set -gx PIPENV_VENV_IN_PROJECT 1
 set -gx RIPGREP_CONFIG_PATH ~/.config/ripgrep/ripgreprc
+set -gx HGREP_DEFAULT_OPTS --theme Nord
+set -gx LESS --incsearch --quit-if-one-screen --raw-control-chars
+{{- if lookPath "bat" }}
+set -gx PAGER bat
+{{- end }}
+
 {{ if eq .chezmoi.os "darwin" -}}
 if test "$TERM" = "screen-256color"
     set -gx TERM xterm-256color
