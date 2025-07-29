@@ -1,0 +1,17 @@
+{{ if lookPath "npm" -}}
+#!/usr/bin/env bash
+
+{{ $cliRelease := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "helix-gpt.json" -}}
+{{ $cliTagName := $cliRelease | include | fromJson | jq ".tag_name" | first -}}
+{{ $cliAsset := printf "helix-gpt-%s-%s-%s.tar.gz" $cliTagName (output "uname" "-p" | trim) .chezmoi.os -}}
+{{ $cliUrl := printf "https://github.com/leona/helix-gpt/releases/download/%s/%s" $cliTagName $cliAsset }}
+# version: {{ $cliTagName }}
+
+curl -L {{ $cliUrl | quote }} -o {{ $cliAsset }}
+tar zxvf {{ $cliAsset }}
+mv {{ trimSuffix ".tar.gz" $cliAsset }} helix-gpt
+chmod +x helix-gpt
+rm {{ $cliAsset }}
+
+mv -f helix-gpt {{ joinPath .chezmoi.homeDir ".local" "bin" }}
+{{- end }}

@@ -296,10 +296,10 @@ type = "file"
 refreshPeriod = "168h" # 1-week
 url = "https://api.github.com/repos/microsoft/vscode-eslint/releases/latest"
 
-[".cache/chezmoi-releases/copilot-language-server.json"]
+[".cache/chezmoi-releases/helix-gpt.json"]
 type = "file"
 refreshPeriod = "168h" # 1-week
-url = "https://api.github.com/repos/github/copilot-language-server-release/releases/latest"
+url = "https://api.github.com/repos/leona/helix-gpt/releases/latest"
 
 # PyPi release feed
 
