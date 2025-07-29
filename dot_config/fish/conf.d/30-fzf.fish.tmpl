@@ -142,16 +142,17 @@ function fzf-aws-profile-widget
         set FZF_DEFAULT_COMMAND "aws-vault list --profiles"
 
         if set -l result (eval $FZF_DEFAULT_COMMAND \| (__fzfcmd) --no-multi --query=$fzf_query)
-            if test 0 -eq (count $argv)
-                echo -e exec\nlogin\nexport\nrotate | eval (__fzfcmd) --no-multi | read -l method
-                aws-vault $method $result
-            else
-                aws-vault $argv[1] $result
-            end
-
             # Remove last token from commandline.
             commandline -t ""
-            commandline -it -- $prefix
+            if test 0 -eq (count $argv)
+                echo -e exec\nlogin\nexport\nrotate | eval (__fzfcmd) --no-multi | read -l method
+
+                commandline -it -- "aws-vault $method $result"
+            else
+                aws-vault $argv[1] $result
+
+                commandline -it -- $prefix
+            end
         end
     end
 
