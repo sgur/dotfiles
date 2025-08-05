@@ -5,6 +5,11 @@ status is-interactive || exit
 
 string match -q "$TERM_PROGRAM" vscode || exit
 
+# vscode の integrated terminal からは vscode のエディターを開く
+if test "$TERM_PROGRAM" = vscode
+    set -gx EDITOR 'code -w'
+end
+
 test -n "$TMUX" && set -e TMUX
 test -n "$TMUX_PANE" && set -e TMUX_PANE
 test -n "$TMUX_PLUGIN_MANAGER_PATH" && set -e TMUX_PLUGIN_MANAGER_PATH

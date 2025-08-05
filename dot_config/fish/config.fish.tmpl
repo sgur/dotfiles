@@ -21,10 +21,6 @@ if status is-interactive
         set -gx EDITOR vim
     {{- end}}
     end
-    # vscode の integrated terminal からは vscode のエディターを開く
-    if test "$TERM_PROGRAM" = vscode
-        set -gx EDITOR 'code -w'
-    end
 
     set -l os (uname -s)
     # Linux
