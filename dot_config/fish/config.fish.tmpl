@@ -50,36 +50,25 @@ if status is-interactive
     abbr --add ipecho -- curl --silent https://ipecho.net/plain
     abbr --add checkip -- curl --silent https://checkip.amazonaws.com/
 
-    abbr --add za zellij attach
-    abbr --add za:c -- zellij attach --create
-    abbr --add zl zellij list-sessions
+    if type -q tmux
+        abbr --add tm tmux new-session -A
+    end
 
-    abbr --add chz -- chezmoi
-    abbr --add chz:cd -- cd (chezmoi source-path)
+    if type -q zellij
+        abbr --add za zellij attach
+        abbr --add za:c -- zellij attach --create
+        abbr --add zl zellij list-sessions
+    end
+
+    if type -q chezmoi
+        abbr --add chz -- chezmoi
+        abbr --add chz:cd -- cd (chezmoi source-path)
+    end
 
     abbr --add CC --position anywhere --set-cursor "%| fish_clipboard_copy"
-    abbr --add ^^ --position anywhere '(git rev-parse --show-toplevel)'
+    abbr --add ^^ --position anywhere -- "(git rev-parse --show-toplevel)"
 
     abbr --add hostname uname -n
-
-    abbr --add drawio docker container run -it --rm --name draw.io --publish 8080:8080 jgraph/drawio
-    if type -q static-web-server
-        abbr --add sws static-web-server
-    else
-        abbr --add --set-cursor sws docker run -it --rm --name static-web-server --publish 8787:80 --volume %:/public ghcr.io/static-web-server/static-web-server:2
-    end
-
-    if type -q docker
-        abbr --add plantuml-daemon docker container run --detach --publish 9999:8080 --name plantuml-server --restart=always plantuml/plantuml-server:jetty
-    end
-
-    # abbr 用の外部 gist を読み込む
-    if type -q ghq
-        set -l abbr_gist_path (ghq list -p 9e80be22552dda4613d7833273f6bc59 |string trim)
-        if test -n "$abbr_gist_path"
-            source $abbr_gist_path/*_abbr.fish
-        end
-    end
 
     if type -q _na
         abbr --add n --function _na
@@ -88,25 +77,10 @@ if status is-interactive
     abbr --add jira-create-subtask --set-cursor "jira issue create --type Sub-task --parent % --summary --body --no-edit"
     abbr --add jira-batch-create-subtask --set-cursor "cat | xargs -i -- jira issue create -t Sub-task -P % --no-input -s {} -b \"\""
 
-    abbr --add tm tmux new-session -A
-
     if type -q aws
         for profile in (rg --no-line-number '\[profile' ~/.aws/config | sed 's/\[profile \(.\+\)\]/\1/')
             abbr --add $profile:exec aws-vault exec $profile
             abbr --add $profile:login --set-cursor "aws-vault login $profile %--stdout | fish_clipboard_copy"
-        end
-    end
-
-    if type -q terraform
-        abbr --add --position anywhere tf terraform
-        abbr --add tff terraform fmt
-        abbr --add tff:recursive terraform fmt --recursive
-        if type -q tflint
-            abbr --add tfl tflint
-            abbr --add tfl:recursive tflint --recursive
-        end
-        if type -q trivy
-            abbr --add tfr trivy config .
         end
     end
 
