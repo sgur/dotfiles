@@ -204,7 +204,7 @@ if not set -q FZF_ALT_Z_COMMAND; or test -n "$FZF_ALT_Z_COMMAND"
     bind alt-z fzf-zoxide-widget
 end
 bind alt-a fzf-aws-profile-widget
-bind alt-g fzf-pass-totp-widget
+bind alt-i fzf-pass-totp-widget
 
 if bind -M insert &> /dev/null
     if not set -q FZF_ALT_V_COMMAND; or test -n "$FZF_ALT_V_COMMAND"
@@ -217,7 +217,7 @@ if bind -M insert &> /dev/null
         bind -M insert alt-z fzf-zoxide-widget
     end
     bind -M insert alt-a fzf-aws-profile-widget
-    bind -M insert alt-g fzf-pass-totp-widget
+    bind -M insert alt-i fzf-pass-totp-widget
 end
 
 set FZF_CTRL_T_OPTS "--walker-skip .git,node_modules,target
