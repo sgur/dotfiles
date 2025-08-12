@@ -123,16 +123,10 @@
 	trustExitCode = true
 {{- end }}
 
-[alias]
-	top = rev-parse --show-toplevel
-
 # https://blog.web-apps.tech/gitignore-from-cli/
 [alias]
 	ignore = "!gi() { curl -L -s https://www.gitignore.io/api/$@ ;}; gi"
 	ignore-list = "!gi() { curl -L -s https://www.gitignore.io/api/list ;}; gi"
-
-[alias]
-    graph = log --graph --date-order --find-copies --pretty=format:\"<%h> %ad [%an] %Cgreen%d%Creset %s\" --date=short
 
 # http://tbaggery.com/2011/08/08/effortless-ctags-with-git.html
 [alias]
