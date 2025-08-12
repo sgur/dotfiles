@@ -1,0 +1,4 @@
+{{- $path := joinPath .chezmoi.homeDir ".local" "bin" "copy" -}}
+{{ if lookPath $path -}}
+{{ joinPath $path }}
+{{- end }}
