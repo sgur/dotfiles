@@ -200,6 +200,14 @@ indent = { tab-width = 4, unit = "    " }
 language-servers = ["powershell-editor-services", "scls"]
 {{- end }}
 
+[[language]]
+name = "hcl"
+language-servers = [ "terraform-ls", "scls" ]
+
+[[language]]
+name = "tfvars"
+language-servers = [ "terraform-ls", "scls" ]
+
 [language-server]
 deno = { command = "deno", args = ["lsp"] }
 efm-langserver = { command = "efm-langserver" }
