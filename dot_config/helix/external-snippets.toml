@@ -57,3 +57,8 @@ path = "snippets/javascript/tsdoc.json"
 [[sources.paths]]
 scope = ["typescript", "typescriptreact"]
 path = "snippets/javascript/typescript.json"
+
+[[sources.paths]]
+scope = ["hcl", "terraform"]
+path = "snippets/terraform.json"
+
