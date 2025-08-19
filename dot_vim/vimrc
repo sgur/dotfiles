@@ -328,7 +328,7 @@ import autoload 'http.vim'
 augroup vimrc_autocmds
   autocmd!
   autocmd BufReadPost *  autocmds.OnBufReadPostJumpLastpos()
-  autocmd BufNewFile,BufReadPost *  autocmds.OnBufreadLcdRepoDir(expand('%:p:h'))
+  autocmd BufNewFile,BufReadPost *  autocmds.OnBufreadLcdRepoDir(expand('<afile>:p:h'))
   autocmd BufWriteCmd *[,*]  autocmds.OnBufWriteCmdAvoidEnterAccident(expand('<afile>'))
   autocmd BufWritePost * ++nested  autocmds.OnBufWritePostDeleteEmpty(expand('<afile>'))
   autocmd BufWritePre *  autocmds.OnBufWriteMkdirAsNecessary(expand('<afile>:p:h'), v:cmdbang)
