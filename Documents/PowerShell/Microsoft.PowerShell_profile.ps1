@@ -283,7 +283,7 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 	{
 		Set-Alias -Name fzf-git-branch -Value Select-Branch
 
-		Set-PSReadLineKeyHandler -Chord Alt+a -ScriptBlock {
+		Set-PSReadLineKeyHandler -Chord Alt+v -ScriptBlock {
 			Select-Branch
 		}
 	}
