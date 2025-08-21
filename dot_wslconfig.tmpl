@@ -6,9 +6,7 @@
 # ex. memory=8GB
 # 1/2 of logical processors on Windows
 processors={{- gt .cpuThreads 8 | ternary (div .cpuThreads 2) (div (mul .cpuThreads 4) 10) }}
-{{- if $isWindows11  }}
-guiApplications=true
-{{- end }}
+guiApplications=false # Windows11 only but not using anymore
 {{- if $isWindows11 | not }}
 localhostForwarding=true
 {{- end }}
