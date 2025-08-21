@@ -74,10 +74,6 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
-  call minpac#add('editorconfig/editorconfig-vim', #{
-        \ type: 'opt',
-        \ })
-
   call minpac#add('github/copilot.vim', #{
         \ type: 'opt'
         \ })
@@ -111,10 +107,6 @@ function! s:init() abort "{{{
         \ })
 
   call minpac#add('kana/vim-operator-user')
-
-  call minpac#add('tpope/vim-commentary', #{
-        \ type: 'opt'
-        \ })
 
   call minpac#add('kana/vim-textobj-user')
 

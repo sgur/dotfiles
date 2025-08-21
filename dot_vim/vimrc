@@ -391,17 +391,6 @@ g:vimsyn_embed = 'lP' # l: Lua, P: Python
 
 # local plugins {{{1
 
-# Handover {{{2
-
-if argc() > 0 && handover#detect(expand('%:p')) is 'q'
-  quit
-endif
-
-augroup vimrc_plugin_handover
-  autocmd!
-  autocmd SwapExists *  v:swapchoice = handover#detect(expand('%:p'))
-augroup END
-
 # Openable {{{2
 command! -complete=file -nargs=1 Start  openable#start(<q-args>)
 nnoremap <silent> gx  <Cmd>call openable#parse('n')<CR>
@@ -415,6 +404,14 @@ nnoremap <silent> zq  <ScriptCmd>foldmiss.Filter(v:count, foldmiss.Quickfix())<C
 # mimic {{{2
 g:mimic_filetype_blacklists = ['text']
 
+
+# default plugins {{{1
+
+packadd! editexisting
+
+packadd! editorconfig
+
+packadd! comment
 
 # bundled plugins {{{1
 
@@ -471,9 +468,6 @@ augroup vimrc_colorscheme_catppuccin
         \ | hi SpellLocal guifg=black guibg=#89B4FA ctermfg=black ctermbg=14 gui=underline
 augroup END
 
-# commentary (opt) {{{2
-pack.Add('vim-commentary')
-
 # copilot (opt) {{{2
 def DisableOnFilesize(filename: string)
   var f = getfsize(filename)
@@ -495,9 +489,6 @@ def CopilotInit()
   inoremap <LocalLeader>cp  <Plug>(copilot-previous)
 enddef
 pack.Add('copilot.vim', CopilotInit)
-
-# editorconfig (opt) {{{2
-pack.Add('editorconfig-vim')
 
 # gfm-syntax {{{2
 if has('win32') || has('mac') # 8.0.1343 : Windows でカラー絵文字をサポート
