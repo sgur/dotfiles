@@ -19,7 +19,8 @@ bufferline = "multiple"
 color-modes = true
 end-of-line-diagnostics = "info"
 clipboard-provider = "termcode"
-rainbow-brackets = true
+# [Rainbow tree-sitter matches 🌈 #13530](https://github.com/helix-editor/helix/pull/13530)
+# rainbow-brackets = true
 
 # For pwsh
 # https://github.com/helix-editor/helix/discussions/6209#discussioncomment-5288892
