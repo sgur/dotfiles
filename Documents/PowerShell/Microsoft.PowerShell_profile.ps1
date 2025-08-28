@@ -22,7 +22,7 @@ try
 	}
 	function Update-WinGetAvailableUpdates
 	{
-		$Packages = Get-WinGetPackage $args
+		$Packages = Get-WinGetPackage
 		$PowerShellPackages = $Packages | Where-Object { $_.IsUpdateAvailable -And ( $_.Id -CLike "Microsoft.PowerShell*" -Or $_.Id -CLike "Microsoft.VisualStudio.*" ) }
 		if ($PowerShellPackages.Length -gt 0)
 		{
@@ -31,7 +31,7 @@ try
 		}
 		$Updates = $Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" }
 		$Updates
-		$Updates | Update-WinGetPackage
+		$Updates | Update-WinGetPackage $args
 	}
 } catch
 {
