@@ -222,7 +222,7 @@ powershell-editor-services = { command = {{ $powershell_editor_service | quote }
 harper-ls = { command = "harper-ls", args = ["--stdio"] }
 {{- end }}
 {{- if lookPath "helix-gpt" }}
-gpt = { command = "helix-gpt" }
+gpt = { command = "helix-gpt", args = ["--handler copilot"] }
 {{- end}}
 
 [language-server.astro-ls]
