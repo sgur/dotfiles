@@ -95,7 +95,7 @@ if status is-interactive
     # \el -> \e, or \co へ移設
     bind --user alt-comma __fish_list_current_token
     bind --user ctrl-o __fish_list_current_token
-    bind --user alt-g 'gh auth switch' fish_prompt
+    bind --user alt-g 'gh auth switch --hostname github.com' fish_prompt
 end
 
 emit fish_ready
