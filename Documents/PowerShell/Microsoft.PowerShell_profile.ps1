@@ -729,3 +729,10 @@ function Invoke-Gopass
 	& $GopassPath $args
 }
 New-Alias -Force -Name gopass -Value Invoke-Gopass
+
+# gh auth switch
+function Switch-GhAuth {
+	$GhPath = Join-Path $Env:PROGRAMFILES "GitHub CLI" "gh.exe"
+	& $GhPath auth switch --hostname github.com
+	& $GhPath auth status --hostname github.com
+}
