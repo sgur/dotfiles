@@ -238,9 +238,11 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 			$line = $null
 			$cursor = $null
 			[Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
 			$history = [Microsoft.PowerShell.PSConsoleReadLine]::GetHistoryItems() | ForEach-Object CommandLine
-			[System.Collections.Generic.HashSet[String]] $historySet = $history
-			$result = $historySet | fzf --prompt='history> ' --scheme=history --tiebreak=index --tac --query="$line"
+			$historyDistincted = [System.Linq.Enumerable]::Distinct([string[]]$history)
+
+			$result = $historyDistincted | fzf --prompt='history> ' --scheme=history --tiebreak=index --tac --query="$line"
 			if ($LastExitCode -ne 0)
 			{
 				[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
@@ -731,8 +733,13 @@ function Invoke-Gopass
 New-Alias -Force -Name gopass -Value Invoke-Gopass
 
 # gh auth switch
-function Switch-GhAuth {
-	$GhPath = Join-Path $Env:PROGRAMFILES "GitHub CLI" "gh.exe"
-	& $GhPath auth switch --hostname github.com
-	& $GhPath auth status --hostname github.com
+Set-PSReadLineKeyHandler -Chord Alt+g -ScriptBlock {
+	try {
+		[Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+		[Microsoft.PowerShell.PSConsoleReadLine]::Insert('gh auth switch --hostname github.com')
+		[Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+	} catch {
+		[Microsoft.PowerShell.PSConsoleReadLine]::Ding()
+        Write-Host "[KeyHandler] $($_.Exception.Message)" -ForegroundColor Red
+	}
 }
