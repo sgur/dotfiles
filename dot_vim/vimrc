@@ -694,36 +694,6 @@ enddef # }}}
 g:sandwich_no_default_key_mappings = 1
 pack.Add('vim-sandwich', InitSandwich)
 
-# scope (opt) {{{2
-try
-  packadd! scope.vim
-  import autoload 'scope/fuzzy.vim'
-  g:scope_find_cmd = ''
-  if executable('fd') 
-    const exclude_args = map(split(&wildignore, ',') + [".git", "node_modules", "go/pkg", "site-packages"], (k, v) => printf('--exclude "%s"', v))->join(' ')
-    g:scope_find_cmd = 'fd --type file --hidden --follow --max-results 100000 ' .. exclude_args
-  elseif executable('busybox')
-    const exclude_names = map(split(&wildignore, ','), (k, v) => printf("! -name '%s'", v))
-    const exclude_paths = map([".git", "node_modules", "go/pkg", "site-packages"], (k, v) => printf("! -path '*/%s/*'", v))
-    const exclude_args = '-a ' .. join(exclude_names, ' -a ') .. join(exclude_paths, ' -a ')
-    g:scope_find_cmd = 'busybox find ( -type f ' .. exclude_args .. ' ) -print -follow'
-  endif
-  execute 'nnoremap' '<silent>' '<Leader>f' '<ScriptCmd>fuzzy.File("' .. escape(g:scope_find_cmd, '"') .. '", 100000)<CR>'
-  nnoremap <silent> <Leader>b  <ScriptCmd>fuzzy.Buffer()<CR>
-  nnoremap <silent> <Leader>j  <ScriptCmd>fuzzy.Jumplist()<CR>
-  nnoremap <silent> <Leader>s  <ScriptCmd>fuzzy.LspDocumentSymbol()<CR>
-  nnoremap <silent> <Leader>w  <ScriptCmd>fuzzy.Window()<CR>
-  if executable('rg')
-    nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep('rg --vimgrep --no-heading --smart-case')<CR>
-  else
-    nnoremap <silent> <Leader>/  <ScriptCmd>fuzzy.Grep()<CR>
-  endif
-
-  import autoload 'scope/zoxide.vim'
-  nnoremap <silent> <Leader>z <ScriptCmd>zoxide.Zoxide()<CR>
-catch /^Vim\%((\a\+)\)\=:E919:/
-endtry
-
 if executable('zoxide')
   augroup vimrc_zoxide
     autocmd!
@@ -744,6 +714,14 @@ pack.Add('tagalong.vim')
 # textobj-user (opt) {{{2
 pack.Add('vim-textobj-parameter')
 pack.Add('vim-textobj-url')
+
+# tv.vim (opt) {{{2
+def InitTv() 
+  nnoremap <C-p> :execute system('git rev-parse --is-inside-work-tree') =~ 'true'
+        \ ? tv#run({ 'type': 'cmd', 'cmd': 'git ls-files' })
+        \ : 'Tv'<CR>
+enddef
+pack.Add('tv.vim', InitTv)
 
 # undotree (opt) {{{2
 augroup vimrc_plugin_undotree
