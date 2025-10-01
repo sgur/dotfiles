@@ -62,11 +62,7 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
-  call minpac#add('girishji/vimcomplete', #{
-        \ type: 'opt'
-        \ })
-
-  call minpac#add('girishji/scope.vim', #{
+  call minpac#add('prabirshrestha/tv.vim', #{
         \ type: 'opt'
         \ })
 
@@ -192,10 +188,6 @@ function! s:init() abort "{{{
         \ })
 
   " Lsp {{{2
-
-  call minpac#add('yegappan/lsp', #{
-        \ type: 'opt',
-        \ })
 
   call minpac#add('mattn/vim-lsp-settings', #{
         \ type: 'opt',
