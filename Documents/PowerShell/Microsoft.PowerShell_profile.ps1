@@ -153,6 +153,16 @@ try
 	Write-Warning "Update PsReadline: pwsh -NoProfile -Command ""Install-Module PSReadLine -Force -AllowPrerelease"""
 }
 
+## CompletionPredictor
+
+try
+{
+	Import-Module -Name CompletionPredictor -ErrorAction Stop
+} catch
+{
+	Install-Module -Force -Name CompletionPredictor -Repository PSGallery
+}
+
 # chezmoi
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
 {
