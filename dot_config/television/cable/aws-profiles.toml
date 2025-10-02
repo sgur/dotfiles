@@ -1,0 +1,14 @@
+[metadata]
+name = "aws-profiles"
+description = "List AWS profiles"
+requirements = ["aws", "aws-vault"]
+
+[source]
+command = "aws configure list-profiles"
+
+[actions.exec]
+command = "aws-vault exec {}"
+
+[actions.login]
+command = "aws-vault login {}"
+
