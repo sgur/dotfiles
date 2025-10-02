@@ -5,12 +5,12 @@ if test \( -z "$fish_prompt_type" \) -o \( "$fish_prompt_type" != starship \)
 end
 
 function starship_transient_prompt_func
+  starship module directory
   starship module time
   starship module character
 end
 
 function starship_transient_rprompt_func
-  starship module directory
 end
 
 {{ output "starship" "init" "fish" | trim | comment "# " }}
