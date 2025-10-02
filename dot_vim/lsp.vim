@@ -162,7 +162,7 @@ augroup vimrc_plugin_lsp_buffer
     " https://github.com/estin/simple-completion-language-server
     " $ cargo install --git https://github.com/estin/simple-completion-language-server.git
     autocmd User lsp_setup call lsp#register_server(#{
-          \ name: 'buffer-ls',
+          \ name: 'scls',
           \ allowlist: ['*'],
           \ blocklist: [],
           \ cmd: {server_info -> [lsp_settings#exec_path('simple-completion-language-server')]},

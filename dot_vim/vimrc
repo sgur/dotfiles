@@ -717,9 +717,7 @@ pack.Add('vim-textobj-url')
 
 # tv.vim (opt) {{{2
 def InitTv() 
-  nnoremap <C-p> :execute system('git rev-parse --is-inside-work-tree') =~ 'true'
-        \ ? tv#run({ 'type': 'cmd', 'cmd': 'git ls-files' })
-        \ : 'Tv'<CR>
+  nnoremap <C-p>  <Cmd>Tv<CR>
 enddef
 pack.Add('tv.vim', InitTv)
 
