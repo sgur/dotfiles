@@ -149,7 +149,9 @@
 # https://e-penguiner.com/remove-local-branches-not-on-remote/
 [alias]
 	# リモートブランチに存在しないかつマージ済みのブランチをすべて削除する
-	prune-merged = "!git fetch --prune && git branch --merged | grep --invert-match '^*' | xargs -r git branch --delete"
+	# prune-merged = "!git fetch --prune && git branch --merged | grep --invert-match '^*' | xargs -r git branch --delete"
+	# https://stackoverflow.com/a/47939403
+	prune-merged = "!git fetch --prune && git branch --delete $(git for-each-ref --format '%(if:equals=gone)%(upstream:track,nobracket)%(then)%(refname:short)%(end)' refs/heads/)"
 	# リモートブランチに存在しないブランチをすべて削除する
 	prune-all = "!git fetch --prune && git branch --verbose --verbose | grep ': gone]' | awk '{print $1}' | xargs -r git branch --delete --force"
 
