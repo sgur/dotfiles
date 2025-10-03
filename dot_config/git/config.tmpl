@@ -146,14 +146,12 @@
 	# for bitbucket/stash remotes
 	spr = "!f() { git fetch --force --update-head-ok ${2:-$(git remote | grep ^upstream || echo origin)} refs/pull-requests/$1/from:pr/$1 && git checkout pr/$1; }; f"
 
-# https://e-penguiner.com/remove-local-branches-not-on-remote/
+# https://stackoverflow.com/a/47939403
 [alias]
 	# リモートブランチに存在しないかつマージ済みのブランチをすべて削除する
-	# prune-merged = "!git fetch --prune && git branch --merged | grep --invert-match '^*' | xargs -r git branch --delete"
-	# https://stackoverflow.com/a/47939403
-	prune-merged = "!git fetch --prune && git branch --delete $(git for-each-ref --format '%(if:equals=gone)%(upstream:track,nobracket)%(then)%(refname:short)%(end)' refs/heads/)"
+	prune-merged = "!git fetch --prune && git branch --delete $(git for-each-ref --merged=HEAD --format '%(if:equals=gone)%(upstream:track,nobracket)%(then)%(refname:short)%(end)' refs/heads/)"
 	# リモートブランチに存在しないブランチをすべて削除する
-	prune-all = "!git fetch --prune && git branch --verbose --verbose | grep ': gone]' | awk '{print $1}' | xargs -r git branch --delete --force"
+	prune-all = "!git fetch --prune && git branch --delete --force $(git for-each-ref --format '%(if:equals=gone)%(upstream:track,nobracket)%(then)%(refname:short)%(end)' refs/heads/)"
 
 # https://blog.scottnonnenberg.com/better-git-configuration/
 [alias]
