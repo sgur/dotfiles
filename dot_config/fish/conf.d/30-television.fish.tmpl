@@ -4,6 +4,8 @@ status is-interactive || exit
 {{ output "tv" "init" "fish" }}
 
 function tv_git_branch_switch
+    git rev-parse --is-inside-work-tree > /dev/null || return
+
     set -l current_prompt (commandline -cp)
 
     set -l output (\
@@ -11,13 +13,13 @@ function tv_git_branch_switch
         --source-command "git --no-pager branch --all --format='%(refname:short)' | grep -v -e '^origin\$'" \
         --source-display "{split: :0}" \
         --preview-command "git show -p --stat --pretty=fuller --color=always '{0}'" \
+        --input-header "git-branch" \
         --inline)
     if test -n "$output"
         git switch --quiet (string replace --regex '^origin/' '' $output)
 
         # Remove last token from commandline.
-        commandline -t ""
-        commandline -it -- $prefix
+        commandline -rt -- $prefix
     end
 
     commandline -f repaint
@@ -33,13 +35,13 @@ function tv_ghq_repository_cd
         --source-command "ghq list --full-path" \
         --source-display "{split:"(ghq root)/":1}" \
         --preview-command "git -C {} log -5 --graph --decorate --abbrev-commit --color=always" \
+        --input-header "ghq" \
         --inline)
     if test -n "$output"
         cd -- $output
 
         # Remove last token from commandline.
-        commandline -t ""
-        commandline -it -- $prefix
+        commandline -rt -- $prefix
     end
 
     commandline -f repaint
@@ -56,13 +58,13 @@ function tv_zoxide_cd
         --source-display "{trim|split: :1..}" \
         --source-output "{trim|split: :1..}" \
         --preview-command "/usr/bin/tree -C {trim|split: :1..}" \
+        --input-header "zoxide" \
         --inline)
     if test -n "$output"
         cd -- $output
 
         # Remove last token from commandline.
-        commandline -t ""
-        commandline -it -- $prefix
+        commandline -rt ""
     end
 
     commandline -f repaint
@@ -77,18 +79,39 @@ function tv_aws_vault_profile_switch
         tv --input "$current_prompt" \
         --source-command "aws-vault list --profiles" \
         --preview-command "grep --after-context=10 '\[profile {0}' ~/.aws/config" \
+        --input-header "aws-profiles" \
         --inline)
     if test -n "$output"
-        set -gx AWS_PROFILE $output
+        aws-vault exec $output
 
         # Remove last token from commandline.
-        commandline -t ""
-        commandline -it -- $prefix
+        commandline -rt ""
     end
 
     commandline -f repaint
 end
 
 bind alt-a tv_aws_vault_profile_switch
+
+function tv_dirs_cd
+    set -l current_prompt (commandline -cp)
+
+    set -l output (\
+        tv --input "$current_prompt" \
+        --source-command "fd --type dir" \
+        --preview-command "ls --long --all --color=always '{}'" \
+        --input-header "dirs" \
+        --inline)
+    if test -n "$output"
+        cd $output
+
+        # Remove last token from commandline.
+        commandline -rt ""
+    end
+
+    commandline -f repaint
+end
+
+bind alt-c tv_dirs_cd
 
 {{- end }}
