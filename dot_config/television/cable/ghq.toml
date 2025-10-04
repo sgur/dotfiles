@@ -5,6 +5,7 @@ requirements = ["ghq", "git"]
 
 [source]
 command = "ghq list --full-path"
+display = "{split:/:-3..}"
 
 [preview]
 command = "git -C {} log -5 --graph --decorate --abbrev-commit --color=always"

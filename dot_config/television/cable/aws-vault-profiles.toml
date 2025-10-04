@@ -1,5 +1,5 @@
 [metadata]
-name = "aws-valut-profiles"
+name = "aws-vault-profiles"
 description = "List AWS profiles"
 requirements = ["aws-vault"]
 
