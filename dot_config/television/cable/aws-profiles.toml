@@ -1,8 +1,7 @@
 [metadata]
 name = "aws-profiles"
 description = "List AWS profiles"
-requirements = ["aws", "aws-vault"]
+requirements = ["aws"]
 
 [source]
 command = "aws configure list-profiles"
-
