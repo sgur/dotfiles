@@ -1,0 +1,12 @@
+[metadata]
+name = "zoxide"
+description = "List all matching directories"
+requirements = ["zoxide"]
+
+[source]
+command = "zoxide query --list --score"
+display = "{trim|split: :1..}"
+output = "{trim|split: :1..}"
+
+[preview]
+command = "command tree -C {trim|split: :1..}"
