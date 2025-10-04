@@ -1,0 +1,10 @@
+[metadata]
+name = "ghq"
+description = "List ghq repositories"
+requirements = ["ghq", "git"]
+
+[source]
+command = "ghq list --full-path"
+
+[preview]
+command = "git -C {} log -5 --graph --decorate --abbrev-commit --color=always"
