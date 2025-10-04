@@ -1,4 +1,4 @@
-{{ if lookPath "fzf" -}}
+{{ if (and (lookPath "fzf") (lookPath "tv" | not)) -}}
 status is-interactive || exit
 
 if test -n "$TMUX"
