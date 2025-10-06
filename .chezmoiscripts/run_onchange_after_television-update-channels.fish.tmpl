@@ -1,0 +1,9 @@
+{{ if lookPath "tv" -}}
+#!/usr/bin/env bash
+#
+# television cables hash: {{ joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "television-cables.json" | include | sha256sum }}
+
+tv update-channels
+
+{{ end -}}
+
