@@ -146,7 +146,6 @@ function! s:init() abort "{{{
         \ })
 
   " Filetype {{{2
-  call minpac#add('mattn/vim-gotmpl')
 
   call minpac#add('alker0/chezmoi.vim')
 

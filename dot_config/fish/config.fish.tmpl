@@ -132,7 +132,7 @@ set -gx RIPGREP_CONFIG_PATH ~/.config/ripgrep/ripgreprc
 set -gx HGREP_DEFAULT_OPTS --theme Nord
 set -gx LESS --incsearch --quit-if-one-screen --raw-control-chars
 {{- if lookPath "bat" }}
-set -gx PAGER bat
+set -gx PAGER bat --plain
 {{- end }}
 
 {{ if eq .chezmoi.os "darwin" -}}
