@@ -252,6 +252,7 @@ fallback_channel = "files"
 "docker-images" = ["docker run"]
 "git-repos" = ["nvim", "code", "hx", "git clone"]
 "zoxide" = ["z"]
+"aws-vault-profiles" = ["set -gx AWS_PROFILE"]
 
 
 [shell_integration.keybindings]
