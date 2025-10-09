@@ -78,7 +78,6 @@ function tv_aws_vault_profile_switch
     set -l output (\
         tv --input "$current_prompt" \
         --source-command "aws-vault list --profiles | grep -v :" \
-        --preview-command "grep --after-context=10 '\[profile {0}' ~/.aws/config" \
         --input-header "aws-profiles" \
         --inline)
     if test -n "$output"
