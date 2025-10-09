@@ -92,6 +92,15 @@ if status is-interactive
         abbr --add otp --command pass --function __fzf_totp
     end
 
+    # if type -q sfw
+    #     # https://socket.dev/blog/introducing-socket-firewall 
+    #     type -q npm && alias npm="sfw npm"
+    #     type -q yarn && alias yarn="sfw yarn"
+    #     type -q pnpm && alias pnpm="sfw pnpm"
+    #     type -q cargo && alias cargo="sfw cargo"
+    #     type -q pip && alias pip="sfw pip"
+    #     type -q uv && alias uv="sfw uv"
+    # end
     # \el -> \e, or \co へ移設
     bind --user alt-comma __fish_list_current_token
     bind --user ctrl-o __fish_list_current_token
