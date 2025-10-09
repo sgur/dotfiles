@@ -7,16 +7,13 @@ command_timeout = 3000
 {{- end }}
 
 [aws]
-{{- if ne .chezmoi.os "windows" }}
-force_display = true
-{{- end }}
 symbol = ' '
 
 [aws.region_aliases]
 us-east-1 = 'N.Virginia'
 us-west-2 = 'Oregon'
 ap-northeast-1 = "Tokyo"
-eu-central-1 = "Frankfur"
+eu-central-1 = "Frankfurt"
 
 [azure]
 disabled = true
@@ -171,6 +168,14 @@ disabled = true
 [opa]
 disabled = true
 
+[os]
+disabled = false
+
+[os.symbols]
+Ubuntu = " "
+Macos = " "
+Windows = " "
+
 [openstack]
 disabled = true
 
@@ -240,7 +245,7 @@ disabled = true
 
 [terraform]
 symbol = "💨"
-format = 'via [$symbol $version]($style) '
+format = 'via [$symbol $version $workspace]($style) '
 
 [time]
 disabled = false
