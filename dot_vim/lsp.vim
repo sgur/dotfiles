@@ -33,27 +33,22 @@ catch /^Vim\%((\a\+)\)\=:E919/
 endtry
 
 " asyncomplete  {{{2
-function! s:on_bufwinenter_asyncomplete() abort "{{{
-  let b:asyncomplete_enable = !&readonly
-endfunction "}}}
 inoremap <C-Space> <Plug>(asyncomplete_force_refresh)
 augroup vimrc_plugin_asyncomplete
   autocmd!
-  autocmd BufWinEnter *  call s:on_bufwinenter_asyncomplete()
-  autocmd OptionSet readonly  call s:on_bufwinenter_asyncomplete()
-augroup END
-" file source
-autocmd vimrc_plugin_asyncomplete FuncUndefined asyncomplete#sources#file#* packadd asyncomplete-file.vim
-autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
-      \ call asyncomplete#register_source(asyncomplete#sources#file#get_source_options(#{
-      \   name: 'asyncomplete_file',
-      \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'markdown'],
-      \   completor: function('asyncomplete#sources#file#completor')
-      \}))
+  " file source
+  autocmd vimrc_plugin_asyncomplete FuncUndefined asyncomplete#sources#file#* packadd asyncomplete-file.vim
+  autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
+        \ call asyncomplete#register_source(asyncomplete#sources#file#get_source_options(#{
+        \   name: 'asyncomplete_file',
+        \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'markdown'],
+        \   completor: function('asyncomplete#sources#file#completor')
+        \}))
 
-if argc(-1) > 0
-  autocmd vimrc_plugin_asyncomplete VimEnter *  call asyncomplete#enable_for_buffer()
-endif
+  if argc(-1) > 0
+    autocmd vimrc_plugin_asyncomplete VimEnter *  call asyncomplete#enable_for_buffer()
+  endif
+augroup END
 
 " 2}}}
 
