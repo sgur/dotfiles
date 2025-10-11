@@ -26,6 +26,8 @@ try
   packadd! vim-lsp
   packadd! vim-lsp-settings
   packadd! asyncomplete.vim
+  packadd! asyncomplete-file.vim
+  packadd! asyncomplete-buffer.vim
   packadd! asyncomplete-lsp.vim
 catch /^Vim\%((\a\+)\)\=:E919/
   echomsg v:errmsg
@@ -37,17 +39,12 @@ inoremap <C-Space> <Plug>(asyncomplete_force_refresh)
 augroup vimrc_plugin_asyncomplete
   autocmd!
   " file source
-  autocmd vimrc_plugin_asyncomplete FuncUndefined asyncomplete#sources#file#* packadd asyncomplete-file.vim
   autocmd vimrc_plugin_asyncomplete User asyncomplete_setup
         \ call asyncomplete#register_source(asyncomplete#sources#file#get_source_options(#{
         \   name: 'asyncomplete_file',
         \   allowlist: ['vim', 'javascript', 'javascriptreact', 'typescript', 'typescriptreact', 'css', 'markdown'],
         \   completor: function('asyncomplete#sources#file#completor')
         \}))
-
-  if argc(-1) > 0
-    autocmd vimrc_plugin_asyncomplete VimEnter *  call asyncomplete#enable_for_buffer()
-  endif
 augroup END
 
 " 2}}}
@@ -56,7 +53,7 @@ let g:lsp_async_completion = 1
 let g:lsp_use_native_client = has('patch-8.2.4780')
 let g:lsp_use_lua = has('lua') && has('patch-8.2.0775')
 
-let g:lsp_log_verbose = 1
+let g:lsp_log_verbose = 0
 let g:lsp_log_file = expand('~/.cache/vim-lsp/vim-lsp.log')
 
 let g:lsp_popup_menu_server_blacklist = get(g:, 'lsp_popup_menu_server_blacklist', ['efm-langserver'])
@@ -76,43 +73,24 @@ let g:lsp_code_action_ui = 'float'
 
 " vim-lsp {{{1
 
-function! s:on_bufwinenter_lsp() abort "{{{
-  let path = expand('%:p')
-  if &readonly || stridx(path, '\\') == 0 || stridx(path, '/mnt') == 0
-    call lsp#disable_diagnostics_for_buffer()
-  else
-    call lsp#enable_diagnostics_for_buffer()
-  endif
-endfunction "}}}
-call s:on_bufwinenter_lsp()
-
 " https://github.com/prabirshrestha/vim-lsp/wiki/Servers
 augroup vimrc_plugin_lsp
   autocmd!
   autocmd User lsp_setup  autocmd! vim_lsp_suggest
-  autocmd User lsp_setup call s:lsp_icon_setup()
+  autocmd User lsp_setup  call s:lsp_icon_setup()
   autocmd User lsp_setup  call lsp_popup_menu#setup()
   autocmd User lsp_buffer_enabled  call s:buffer_setup()
   autocmd User lsp_buffer_enabled  call lsp_popup_menu#enable()
-  autocmd BufWinEnter *  call s:on_bufwinenter_lsp()
-  autocmd OptionSet readonly  call s:on_bufwinenter_lsp()
   autocmd FileType lsp-quickpick-filter  setlocal iminsert=0
-  " autocmd CursorHold *  call s:lsp_hover_command()
 augroup END
 
-function! s:lsp_hover_command() abort "{{{
-  let hover_enabled_servers =
-        \ lsp#get_allowed_servers()
-        \ ->filter({k, v -> v != 'efm-langserver'})
-        \ ->filter({k, v -> lsp#get_server_status(v) == 'running'})
-        \ ->filter({k, v -> get(lsp#get_server_capabilities(v), 'hoverProvider', v:false) })
-  let hover_command = empty(hover_enabled_servers) ? "LspHover" : "LspHover --server=" .. hover_enabled_servers[0]
-  execute hover_command
-endfunction "}}}
-
 function! s:buffer_setup() abort "{{{
-  setlocal tagfunc=lsp#tagfunc
   setlocal omnifunc=lsp#omni#complete
+  setlocal signcolumn=yes
+
+  if exists('+tagfunc')
+    setlocal tagfunc=lsp#tagfunc
+  endif
 
   " helix-like mappings
   nmap <buffer> ]d  <Plug>(lsp-next-diagnostic)
@@ -138,7 +116,7 @@ endfunction "}}}
 " Icons {{{2
 let s:icons_dir = expand(expand('<sfile>:p:h') . '/bitmaps/lsp-icons/')
 let s:icon_ext = has('win32') ? '.ico' : '.png'
-let s:emoji_text = v:true
+let s:emoji_text = !has("gui_running")
 function! s:lsp_icon_setup() abort "{{{
   let g:lsp_diagnostics_signs_enabled = 1
   let g:lsp_diagnostics_signs_error = {'text': s:emoji_text ? '😈' : '>', 'icon': s:icons_dir . 'twitter/smiling-face-with-horns' . s:icon_ext}
@@ -172,7 +150,6 @@ augroup vimrc_plugin_lsp_buffer
           \})
   else
     " buffer source
-    autocmd FuncUndefined asyncomplete#sources#buffer#* packadd asyncomplete-buffer.vim
     autocmd User asyncomplete_setup
           \  call asyncomplete#register_source(asyncomplete#sources#buffer#get_source_options(#{
           \   name: 'asyncomplete_buffer',
@@ -182,81 +159,40 @@ augroup vimrc_plugin_lsp_buffer
   endif
 augroup END
 
-if executable('pnpm')
-  augroup vimrc_plugin_lsp_vscode-markdown-language-server
-    autocmd!
-    if lsp_settings#exec_path('marksman')->empty()
-      autocmd User lsp_setup call lsp#register_server(#{
-            \ name: 'vscode-markdown-language-server',
-            \ allowlist: ['markdown'],
-            \ blocklist: [],
-            \ cmd: {server_info -> [exepath('pnpm'), '--silent', '--package=vscode-langservers-extracted', 'dlx',
-            \   'vscode-markdown-language-server', '--stdio']},
-            \ languageId: {server_info->'markdown'},
-            \})
-    endif
-  augroup END
-
-" obsidian-lsp {{{3
-  augroup vimrc_plugin_lsp_obisidian-lsp
-    autocmd!
-    autocmd User lsp_setup call lsp#register_server(#{
-          \ name: 'obsidian-lsp',
-          \ cmd: {server_info->[exepath('pnpm'), '--silent', 'dlx', 'obsidian-lsp', '--stdio']},
-          \ root_uri: {server_info->lsp#utils#path_to_uri(
-          \   lsp#utils#find_nearest_parent_file_directory(
-          \     lsp#utils#get_buffer_path(), ['.obsidian/']
-          \   ))},
-          \ allowlist: ['markdown'],
-          \ blocklist: [],
-          \ config: {},
-          \ workspace_config: {},
-          \ languageId: {server_info->'markdown'},
-          \})
-  augroup END
-endif
-
 " vim-lsp-settings {{{1
 
-if has('win32')
-  let g:lsp_settings_servers_dir = expand('~/.local/share/vim-lsp-settings/servers')
-  let g:lsp_settings_global_settings_dir = expand('~/.local/share/vim-lsp-settings')
-endif
-
-let s:lsp_settings_common_langservers = ['efm-langserver', 'typos-lsp', 'copilot-language-server']
+let s:lsp_settings_common_langservers = ['efm-langserver', 'typos-lsp'] " + ['copilot-language-server']
 let s:lsp_settings_javascript_langservers = ['typescript-language-server', 'eslint-language-server', 'tailwindcss-intellisense'] + s:lsp_settings_common_langservers
+
+let g:lsp_settings_filetype__ = s:lsp_settings_common_langservers
 let g:lsp_settings_filetype_javascript = s:lsp_settings_javascript_langservers
 let g:lsp_settings_filetype_javascriptreact = g:lsp_settings_filetype_javascript
 let g:lsp_settings_filetype_typescript = s:lsp_settings_javascript_langservers + ['deno']
 let g:lsp_settings_filetype_typescriptreact = g:lsp_settings_filetype_typescript
-
 let g:lsp_settings_filetype_go = ['gopls', 'golangci-lint-langserver'] + s:lsp_settings_common_langservers
-
 let g:lsp_settings_filetype_python = ['pylsp-all', 'pyright-langserver', 'ruff-lsp'] + s:lsp_settings_common_langservers
-
-function! s:root_exists(markers) abort "{{{
-  return !empty(lsp#utils#find_nearest_parent_file_directory(
-        \   lsp#utils#get_buffer_path(), a:markers))
-endfunction "}}}
 
 let g:lsp_settings = get(g:, 'lsp_settings', {})
 
 " copilot-language-server {{{2
 let g:lsp_settings['copilot-language-server'] = #{
       \ disabled: v:false,
-      \ allowlist: ['*']
+      \ allowlist: ['*'],
+      \ blocklist: []
       \}
 
 " typos-lsp {{{2
 let g:lsp_settings['typos-lsp'] = #{
       \ disabled: v:false,
       \ allowlist: ['*'],
+      \ blocklist: []
       \}
 
 " efm-langserver "{{{2
 let g:lsp_settings['efm-langserver'] = #{
       \ disabled: v:false,
       \ allowlist: ['*'],
+      \ blocklist: [],
       \ initialization_options: #{
       \   documentFormatting: v:true,
       \   hover: v:true,
@@ -268,15 +204,9 @@ let g:lsp_settings['efm-langserver'] = #{
 
 " eslint-language-server "{{{2
 let g:lsp_settings['eslint-language-server'] = #{
-      \ cmd: {name, key -> s:root_exists([
-      \   'eslint.config.js', 'eslint.config.cjs', 'eslint.config.mjs',
-      \   '.eslintrc.js', '.eslintrc.cjs', '.eslintrc.mjs'
-      \ ])
-      \   ? [lsp_settings#exec_path('eslint-language-server'), '--stdio']
-      \   : []},
       \ workspace_config: #{
       \   validate: 'probe',
-      \   packageManager: 'yarn',
+      \   packageManager: 'pnpm',
       \   codeActionOnSave: #{
       \     enable: v:true,
       \     mode: 'all',
@@ -432,11 +362,15 @@ let g:lsp_settings['tailwindcss-intellisense'] = #{
       \}
 
 " Biome LSP  {{{2
-let g:lsp_settings['biome'] = #{
-      \ cmd: {name, key -> s:root_exists(['biome.json', 'biome.jsonc'])
-      \   ? [lsp_settings#exec_path('biome'), 'lsp-proxy']
-      \   : []},
-      \}
+" function! s:root_exists(markers) abort "{{{
+"   return !empty(lsp#utils#find_nearest_parent_file_directory(
+"         \   lsp#utils#get_buffer_path(), a:markers))
+" endfunction "}}}
+" let g:lsp_settings['biome'] = #{
+"       \ cmd: {name, key -> s:root_exists(['biome.json', 'biome.jsonc'])
+"       \   ? [lsp_settings#exec_path('biome'), 'lsp-proxy']
+"       \   : []},
+"       \}
 " }}}
 
 " vim:set filetype=vim:
