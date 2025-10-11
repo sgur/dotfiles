@@ -1,0 +1,30 @@
+{{ if lookPath "npm" -}}
+#!/usr/bin/env bash
+
+{{ $release := joinPath .chezmoi.homeDir ".cache" "chezmoi-releases" "copilot-language-server.json" -}}
+# version: {{ $release | include | fromJson | jq ".tag_name" | first }}
+
+set -e
+
+{{- $copilotLanguageServer := joinPath .chezmoi.homeDir ".local" "share" "copilot-language-server" }}
+rm -rf {{ $copilotLanguageServer }}
+mkdir -p {{ $copilotLanguageServer }}
+pushd {{ $copilotLanguageServer }}
+
+npm init -y
+npm add --save -- @github/copilot-language-server
+
+{{- $arch := "" -}}
+{{- if eq .chezmoi.arch "amd64" -}}
+{{-   $arch = "x64" -}}
+{{- else if eq .chezmoi.arch "aarch64" -}}
+{{-   $arch = "arm64" -}}
+{{- else -}}
+{{-   fail (printf "Unsupported architecture: %s" .chezmoi.arch) -}}
+{{- end }}
+
+ln -s {{ printf "./node_modules/@github/copilot-language-server-%s-%s/copilot-language-server" .chezmoi.os $arch }} copilot-language-server
+{{ $copilotLanguageServerBin := joinPath .chezmoi.homeDir ".local" "bin" "copilot-language-server" }}
+ln -sf {{ joinPath $copilotLanguageServer "copilot-language-server" }} {{ $copilotLanguageServerBin }}
+popd
+{{- end }}
