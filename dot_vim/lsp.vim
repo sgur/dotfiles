@@ -23,10 +23,10 @@ let s:rc_dir = expand('<sfile>:p:h:gs?\?/?')
 let s:temp_dir = fnamemodify(tempname(), ':p:h')
 
 try
-  packadd vim-lsp
-  packadd vim-lsp-settings
-  packadd asyncomplete.vim
-  packadd asyncomplete-lsp.vim
+  packadd! vim-lsp
+  packadd! vim-lsp-settings
+  packadd! asyncomplete.vim
+  packadd! asyncomplete-lsp.vim
 catch /^Vim\%((\a\+)\)\=:E919/
   echomsg v:errmsg
   finish
@@ -223,8 +223,8 @@ if has('win32')
   let g:lsp_settings_global_settings_dir = expand('~/.local/share/vim-lsp-settings')
 endif
 
-let s:lsp_settings_common_langservers = ['efm-langserver', 'buffer-ls']
-let s:lsp_settings_javascript_langservers = ['typescript-language-server', 'eslint-language-server', 'tailwindcss-intellisense', 'biome'] + s:lsp_settings_common_langservers
+let s:lsp_settings_common_langservers = ['efm-langserver', 'typos-lsp', 'copilot-language-server']
+let s:lsp_settings_javascript_langservers = ['typescript-language-server', 'eslint-language-server', 'tailwindcss-intellisense'] + s:lsp_settings_common_langservers
 let g:lsp_settings_filetype_javascript = s:lsp_settings_javascript_langservers
 let g:lsp_settings_filetype_javascriptreact = g:lsp_settings_filetype_javascript
 let g:lsp_settings_filetype_typescript = s:lsp_settings_javascript_langservers + ['deno']
@@ -241,11 +241,22 @@ endfunction "}}}
 
 let g:lsp_settings = get(g:, 'lsp_settings', {})
 
+" copilot-language-server {{{2
+let g:lsp_settings['copilot-language-server'] = #{
+      \ disabled: v:false,
+      \ allowlist: ['*']
+      \}
+
+" typos-lsp {{{2
+let g:lsp_settings['typos-lsp'] = #{
+      \ disabled: v:false,
+      \ allowlist: ['*'],
+      \}
+
 " efm-langserver "{{{2
-" Make sure to define $HOME on Windows
 let g:lsp_settings['efm-langserver'] = #{
       \ disabled: v:false,
-      \ allowlist:  ['*'],
+      \ allowlist: ['*'],
       \ initialization_options: #{
       \   documentFormatting: v:true,
       \   hover: v:true,
@@ -346,7 +357,7 @@ let g:lsp_settings['vim-language-server'] = #{
       \     fromRuntimepath: v:true
       \   }
       \ },
-      \ whitelist: ['vim', 'help']
+      \ alllowlist: ['vim', 'help']
       \}
 
 " Elm {{{2

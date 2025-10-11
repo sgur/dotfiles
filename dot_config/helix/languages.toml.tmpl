@@ -26,7 +26,7 @@ language-servers = [ "docker-compose-langserver", "yaml-language-server", "scls"
 
 [[language]]
 name = "fish"
-language-servers = ["efm-langserver", "typos", "scls", "gpt"]
+language-servers = ["efm-langserver", "typos", "scls"]
 
 {{- if eq .chezmoi.os "windows" }}
 [[grammar]]
@@ -134,7 +134,7 @@ language-servers = ["efm-langserver"]
 
 [[language]]
 name = "markdown"
-language-servers = ["marksman", "typos", "efm-langserver", "scls", "obsidian-lsp", "gpt"]
+language-servers = ["marksman", "typos", "efm-langserver", "scls", "obsidian-lsp"]
 auto-format = true
 formatter = { command = "pnpm", args = ["--silent", "dlx", "prettier", "--parser", "markdown"] }
 
@@ -169,8 +169,7 @@ language-servers = [
   "vscode-eslint-language-server",
   "typos",
   "efm-langserver",
-  "scls",
-  "gpt"
+  "scls"
 ]
 
 [[language]]
@@ -182,8 +181,7 @@ language-servers = [
   "vscode-eslint-language-server",
   "typos",
   "efm-langserver",
-  "scls",
-  "gpt"
+  "scls"
 ]
 
 [[language]]
@@ -221,9 +219,6 @@ powershell-editor-services = { command = {{ $powershell_editor_service | quote }
 # https://writewithharper.com/
 harper-ls = { command = "harper-ls", args = ["--stdio"] }
 {{- end }}
-{{- if lookPath "helix-gpt" }}
-gpt = { command = "helix-gpt", args = ["--handler", "copilot", "--logFile", {{ joinPath .chezmoi.homeDir ".cache" "helix" "helix-gpt.log" }} ] }
-{{- end}}
 
 [language-server.astro-ls]
 command = "astro-ls"
