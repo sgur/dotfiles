@@ -1,9 +1,10 @@
 function chezmoi
     if test (count $argv) -ge 2; and test "$argv[1]" = git; and test "$argv[2]" = push
+        chezmoi git remote get-url origin | cut -d/ -f4 | read -l repo_user
 
         echo "🔐 Switching GitHub account for chezmoi..."
         # 1. GitHubアカウントを切り替える
-        gh auth switch --hostname github.com
+        gh auth switch --hostname github.com --user $repo_user
 
         # 2. 元の chezmoi git push コマンドを実行する
         if command chezmoi $argv
