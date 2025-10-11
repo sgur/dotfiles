@@ -2,6 +2,6 @@
 #!/bin/sh
 set -eu
 
-pnpm dlx @tailwindcss/language-server $@
+pnpm --package=@tailwindcss/language-server dlx tailwindcss-language-server "$@"
 {{- end }}
 
