@@ -3,8 +3,8 @@
 # - 1 通常
 # - 2 エラー
 # - 3 不確定
-# value: progress (%)
-function progress --description "Set progress bar in Terminal"
+# value: _progress (%)
+function _progress --description "Set progress bar in Terminal"
     # 第1引数をstate、第2引数をvalueに設定
     set -l state $argv[1]
     set -l value $argv[2]
