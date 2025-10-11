@@ -50,8 +50,13 @@ augroup END
 " 2}}}
 
 let g:lsp_async_completion = 1
-let g:lsp_use_native_client = has('patch-8.2.4780')
+
+" Performance settings {{{
 let g:lsp_use_lua = has('lua') && has('patch-8.2.0775')
+let g:lsp_use_native_client = has('patch-8.2.4780')
+let g:lsp_semantic_enabled = 0
+let g:lsp_format_sync_timeout = 1000
+"}}}
 
 let g:lsp_log_verbose = 0
 let g:lsp_log_file = expand('~/.cache/vim-lsp/vim-lsp.log')
@@ -195,7 +200,7 @@ let g:lsp_settings['efm-langserver'] = #{
       \ blocklist: [],
       \ initialization_options: #{
       \   documentFormatting: v:true,
-      \   hover: v:true,
+      \   hover: v:false,
       \   documentSymbol: v:true,
       \   codeAction: v:true,
       \   completion: v:true

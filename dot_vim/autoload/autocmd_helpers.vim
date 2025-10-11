@@ -66,7 +66,12 @@ enddef
 
 # Initialization {{{1
 
-var root_pattern = ['package.json', 'tsconfig.json', '.git', '.git/', '.hg/', '\$tf/', '*.csproj', '*.sln']
+var root_pattern = [
+  '.git', '.git/', '.hg/', '\$tf/',
+  'package.json', 'tsconfig.json',
+  '.terraform/',
+  '*.csproj', '*.sln'
+]
 
 
 # 1}}}
