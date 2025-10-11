@@ -1,5 +1,7 @@
 function chezmoi
-    if type --query --no-function gh; and type --query --no-function chezmoi; and test (count $argv) -ge 2; and test "$argv[1]" = git; and test "$argv[2]" = push
+    type --query --no-function gh || return 1
+    type --query --no-function chezmoi || return 1
+    if test (count $argv) -ge 2; and test "$argv[1]" = git; and test "$argv[2]" = push
         chezmoi git remote get-url origin | cut -d/ -f4 | read -l repo_user
 
         echo "🔐 Switching GitHub account for chezmoi..."
@@ -15,7 +17,6 @@ function chezmoi
 
         # 3. push の成否にかかわらず、GitHubアカウントを元に戻す
         gh auth switch --hostname github.com
-
     else
         # 'git push' 以外のコマンドの場合は、そのまま実行する
         command chezmoi $argv
