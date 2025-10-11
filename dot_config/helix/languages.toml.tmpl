@@ -98,7 +98,7 @@ name = "javascript"
 roots = ["package.json"]
 language-servers = [
   "vtsls",
-  { name = "biome-lsp", except-features = [ "format" ] },
+#  { name = "biome-lsp", except-features = [ "format" ] },
   "vscode-eslint-language-server",
   "typos",
   "efm-langserver",
@@ -109,7 +109,7 @@ language-servers = [
 name = "json"
 language-servers = [
   "vscode-json-language-server",
-  { name = "biome-lsp", except-features = [ "format" ] },
+#  { name = "biome-lsp", except-features = [ "format" ] },
   "typos",
   "efm-langserver",
   "scls"
@@ -121,7 +121,7 @@ roots = ["package.json"]
 language-servers = [
   "vtsls",
   "tailwindcss-ls",
-  { name = "biome-lsp", except-features = [ "format" ] },
+#  { name = "biome-lsp", except-features = [ "format" ] },
   "vscode-eslint-language-server",
   "typos",
   "efm-langserver",
@@ -165,7 +165,7 @@ roots = ["package.json", "tsconfig.json"]
 language-servers = [
   { name = "vtsls", except-features = ["format"] },
   "tailwindcss-ls",
-  { name = "biome-lsp", except-features = [ "format" ] },
+#  { name = "biome-lsp", except-features = [ "format" ] },
   "vscode-eslint-language-server",
   "typos",
   "efm-langserver",
@@ -178,7 +178,7 @@ name = "typescript"
 roots = ["package.json", "tsconfig.json"]
 language-servers = [
   { name = "vtsls", except-features = ["format"]},
-  { name = "biome-lsp", except-features = [ "format" ] },
+#  { name = "biome-lsp", except-features = [ "format" ] },
   "vscode-eslint-language-server",
   "typos",
   "efm-langserver",
@@ -222,7 +222,7 @@ powershell-editor-services = { command = {{ $powershell_editor_service | quote }
 harper-ls = { command = "harper-ls", args = ["--stdio"] }
 {{- end }}
 {{- if lookPath "helix-gpt" }}
-gpt = { command = "helix-gpt", args = ["--handler", "copilot"] }
+gpt = { command = "helix-gpt", args = ["--handler", "copilot", "--logFile", {{ joinPath .chezmoi.homeDir ".cache" "helix" "helix-gpt.log" }} ] }
 {{- end}}
 
 [language-server.astro-ls]
