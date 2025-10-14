@@ -1,9 +1,9 @@
 status is-interactive || exit
 
-# https://code.visualstudio.com/docs/terminal/shell-integration
-# code --locate-shell-integration-path fish
-
 string match -q "$TERM_PROGRAM" vscode || exit
+
+# https://code.visualstudio.com/docs/terminal/shell-integration
+. (code --locate-shell-integration-path fish)
 
 # vscode の integrated terminal からは vscode のエディターを開く
 if test "$TERM_PROGRAM" = vscode
