@@ -3,7 +3,6 @@ status is-interactive || exit
 string match -q "$TERM_PROGRAM" vscode || exit
 
 # https://code.visualstudio.com/docs/terminal/shell-integration
-. (code --locate-shell-integration-path fish)
 
 # vscode の integrated terminal からは vscode のエディターを開く
 if test "$TERM_PROGRAM" = vscode
@@ -20,4 +19,4 @@ test -n "$ZELLIJ_SESSION_NAME" && set -e ZELLIJ_SESSION_NAME
 
 set -gx FZF_TMUX_HEIGHT 80%
 
-# source {{ output "code" "--locate-shell-integration-path" "fish" }}
+source {{ output "code" "--locate-shell-integration-path" "fish" }}
