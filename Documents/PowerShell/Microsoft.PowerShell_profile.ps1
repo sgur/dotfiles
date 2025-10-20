@@ -201,14 +201,6 @@ function Test-Colors
 	& (Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Test-Colors.ps1')
 }
 
-# gopass
-function Invoke-Gopass
-{
-	$GopassPath = Join-Path $Env:LOCALAPPDATA "gopass" "gopass.exe"
-	& $GopassPath $args
-}
-New-Alias -Force -Name gopass -Value Invoke-Gopass
-
 # XXX + fzf
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 {
@@ -735,12 +727,10 @@ function Invoke-Genact
 New-Alias -Force -Name genact -Value Invoke-Genact
 
 # gopass
-function Invoke-Gopass
+if (-not (Get-Command "gopass" -ErrorAction SilentlyContinue))
 {
-	$GopassPath = Join-Path $Env:LOCALAPPDATA "gopass" "gopass.exe"
-	& $GopassPath $args
+	$Env:Path += ";" + (Join-Path -Path $Env:LOCALAPPDATA -ChildPath "gopass" )
 }
-New-Alias -Force -Name gopass -Value Invoke-Gopass
 
 # gh auth switch
 Set-PSReadLineKeyHandler -Chord Alt+g -ScriptBlock {
