@@ -95,7 +95,7 @@ url = "https://kawamoto.no-ip.org/henteko/myapp/dpeaklim12.zip"
 
 ["Tools/noMeiryoUI"]
 type = "archive"
-url = "https://github.com/Tatsu-syo/noMeiryoUI/releases/download/TAG-3.3.1/noMeiryoUI3.3.1.zip"
+url = "https://github.com/Tatsu-syo/noMeiryoUI/releases/download/TAG-3.4.0/noMeiryoUI3.4.0.zip"
 
 ["Documents/PowerShell/Modules/Catppuccin"]
 type = "archive"
