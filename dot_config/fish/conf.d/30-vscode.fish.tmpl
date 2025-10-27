@@ -20,7 +20,7 @@ test -n "$ZELLIJ_SESSION_NAME" && set -e ZELLIJ_SESSION_NAME
 set -gx FZF_TMUX_HEIGHT 80%
 
 function git --wraps=git --description='Run git without paging in VSCode terminal'
-    if test (count $argv) -ge 1; and test "$argv[1]" = "diff"
+    if test (count $argv) -ge 1; and test \( "$argv[1]" = "diff" \) -o \( "$argv[1]" = "show" \)
         command git --no-pager $argv
     else
         command git $argv
