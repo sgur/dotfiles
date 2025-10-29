@@ -105,14 +105,6 @@ if status is-interactive
     bind --user alt-comma __fish_list_current_token
     bind --user ctrl-o __fish_list_current_token
     bind --user alt-g 'gh auth switch --hostname github.com' fish_prompt
-
-    function preexec_handler --on-event fish_preexec
-        _progress 3
-    end
-
-    function postexec_handler --on-event fish_postexec
-        _progress 0
-    end
 end
 
 emit fish_ready
