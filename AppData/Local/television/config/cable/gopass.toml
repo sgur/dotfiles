@@ -1,0 +1,7 @@
+[metadata]
+name = "gopass"
+description = "A channel to find and select gopass entry"
+requirements = ["gopass"]
+
+[source]
+command = "gopass list --flat"
