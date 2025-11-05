@@ -1,0 +1,5 @@
+{{- if lookPath "rg" }}
+{{ output "rg" "--generate" "complete-powershell" }}
+{{ else }}
+Write-Output "rg not installed."
+{{- end }}
