@@ -1,4 +1,4 @@
 {{- $path := joinPath .chezmoi.homeDir ".local" "bin" "paste" -}}
-{{ if lookPath $path -}}
+{{ if and (lookPath $path) (eq .chezmoi.os "darwin") -}}
 {{ joinPath $path }}
 {{- end }}
