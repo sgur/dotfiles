@@ -11,6 +11,12 @@ if (([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).L
 	return
 }
 
+# gopass
+if (-not (Get-Command "gopass" -ErrorAction SilentlyContinue))
+{
+	$Env:Path += ";" + (Join-Path -Path $Env:LOCALAPPDATA -ChildPath "gopass" )
+}
+
 try
 {
 	Import-Module -Name Microsoft.WinGet.Client -ErrorAction Stop
@@ -204,6 +210,18 @@ function Test-Colors
 # XXX + fzf
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 {
+	# Set-PSReadLineKeyHandler -Chord Alt+x -ScriptBlock {
+	#	try
+	#	{
+	#		[Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
+	#		[Microsoft.PowerShell.PSConsoleReadLine]::Insert('tv ghq --inline | cd')
+	#		[Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+	#	} catch
+	#	{
+	#		[Microsoft.PowerShell.PSConsoleReadLine]::Ding()
+	#		Write-Host "[KeyHandler] $($_.Exception.Message)" -ForegroundColor Red
+	#	}
+	# }
 
 	# ghq + fzf
 	# https://uvb-76.hatenablog.com/entry/2020/02/14/032712
@@ -227,7 +245,6 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 
 	if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name ghq)
 	{
-		Set-Alias -Name fzf-ghq -Value Select-Repository
 		Set-PSReadLineKeyHandler -Chord Alt+x -ScriptBlock {
 			Select-Repository
 		}
@@ -259,8 +276,6 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 		}
 	}
 
-	Set-Alias -Name fzf-history -Value Select-History
-
 	Set-PSReadLineKeyHandler -Chord Ctrl+r -ScriptBlock {
 		Select-History
 	}
@@ -285,8 +300,6 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 
 	if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name git)
 	{
-		Set-Alias -Name fzf-git-branch -Value Select-Branch
-
 		Set-PSReadLineKeyHandler -Chord Alt+v -ScriptBlock {
 			Select-Branch
 		}
@@ -312,8 +325,6 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 
 	if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name zoxide)
 	{
-		Set-Alias -Name fzf-zoxide -Value Select-ZoxideHistory
-
 		Set-PSReadLineKeyHandler -Chord Alt+z -ScriptBlock {
 			Select-ZoxideHistory
 		}
@@ -340,12 +351,8 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 		}
 	}
 
-
-	if (Get-Command -ErrorAction SilentlyContinue -Name gopass)
+	if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name gopass)
 	{
-
-		Set-Alias -Name fzf-gopass-otp -Value Select-GopassOtp
-
 		Set-PSReadLineKeyHandler -Chord Alt+i -ScriptBlock {
 			Select-GopassOtp
 		}
@@ -725,12 +732,6 @@ function Invoke-Genact
 	& docker run -it --rm svenstaro/genact $args
 }
 New-Alias -Force -Name genact -Value Invoke-Genact
-
-# gopass
-if (-not (Get-Command "gopass" -ErrorAction SilentlyContinue))
-{
-	$Env:Path += ";" + (Join-Path -Path $Env:LOCALAPPDATA -ChildPath "gopass" )
-}
 
 # gh auth switch
 Set-PSReadLineKeyHandler -Chord Alt+g -ScriptBlock {
