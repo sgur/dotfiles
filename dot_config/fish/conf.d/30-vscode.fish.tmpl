@@ -2,12 +2,10 @@ status is-interactive || exit
 
 string match -q "$TERM_PROGRAM" vscode || exit
 
-# https://code.visualstudio.com/docs/terminal/shell-integration
+disable_transience
 
 # vscode の integrated terminal からは vscode のエディターを開く
-if test "$TERM_PROGRAM" = vscode
-    set -gx EDITOR 'code -w'
-end
+set -gx EDITOR 'code -w'
 
 test -n "$TMUX" && set -e TMUX
 test -n "$TMUX_PANE" && set -e TMUX_PANE
@@ -27,4 +25,5 @@ function git --wraps=git --description='Run git without paging in VSCode termina
     end
 end
 
+# https://code.visualstudio.com/docs/terminal/shell-integration
 source {{ output "code" "--locate-shell-integration-path" "fish" }}
