@@ -26,4 +26,6 @@ function git --wraps=git --description='Run git without paging in VSCode termina
 end
 
 # https://code.visualstudio.com/docs/terminal/shell-integration
-source {{ output "code" "--locate-shell-integration-path" "fish" }}
+{{ $source_path := output "code" "--locate-shell-integration-path" "fish" | trim }}
+# {{ $source_path }}
+{{ include $source_path }}
