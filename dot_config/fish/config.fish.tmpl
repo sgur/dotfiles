@@ -75,7 +75,7 @@ if status is-interactive
     end
 
     abbr --add jira-create-subtask --set-cursor "jira issue create --type Sub-task --parent % --summary --body --no-edit"
-    abbr --add jira-batch-create-subtask --set-cursor "cat | xargs -i -- jira issue create -t Sub-task -P % --no-input -s {} -b \"\""
+    abbr --add jira-batch-create-subtask --set-cursor "cat (cat | psub) | xargs -i -- jira issue create -t Sub-task -P % --no-input -s {} -b \"\""
 
     if type -q aws
         for profile in (rg --no-line-number '\[profile' ~/.aws/config | sed 's/\[profile \(.\+\)\]/\1/')
