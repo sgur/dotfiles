@@ -2,7 +2,11 @@ status is-interactive || exit
 
 string match -q "$TERM_PROGRAM" vscode || exit
 
-disable_transience
+type -q disable_transience && disable_transience
+
+if test "$tide_prompt_transient_enabled" = "true"
+    set -g tide_prompt_transient_enabled false
+end
 
 # vscode の integrated terminal からは vscode のエディターを開く
 set -gx EDITOR 'code -w'
