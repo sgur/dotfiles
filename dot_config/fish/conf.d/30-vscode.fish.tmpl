@@ -4,7 +4,7 @@ string match -q "$TERM_PROGRAM" vscode || exit
 
 type -q disable_transience && disable_transience
 
-if test "$tide_prompt_transient_enabled" == "true"
+if test "$tide_prompt_transient_enabled" = "true"
     set -g tide_prompt_transient_enabled false
 end
 
