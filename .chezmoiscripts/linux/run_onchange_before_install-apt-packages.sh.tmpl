@@ -3,11 +3,18 @@
 
 set -eufx -o pipefail -o posix
 
-sudo apt-add-repository --yes --remove ppa:fish-shell/release-3 > /dev/null
-sudo apt-add-repository --yes --remove ppa:fish-shell/beta-4 > /dev/null
+# https://mise.jdx.dev/installing-mise.html#apt
+sudo apt update -y
+sudo apt install -y curl
+sudo install -dm 755 /etc/apt/keyrings
+curl -fSs https://mise.jdx.dev/gpg-key.pub | sudo tee /etc/apt/keyrings/mise-archive-keyring.pub 1> /dev/null
+echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.pub arch=amd64] https://mise.jdx.dev/deb stable main" | sudo tee /etc/apt/sources.list.d/mise.list
+
+# sudo apt-add-repository --yes --remove ppa:fish-shell/release-3 > /dev/null
+# sudo apt-add-repository --yes --remove ppa:fish-shell/beta-4 > /dev/null
 sudo add-apt-repository --yes ppa:fish-shell/release-4
 
-sudo apt update
+sudo apt update -y
 
 # https://docs.brew.sh/Homebrew-on-Linux
 sudo apt install -y \
@@ -37,9 +44,8 @@ sudo apt install -y \
 # Additional packages
 sudo apt install -y \
 	pass \
-	pass-otp
-
-sudo apt install -y \
-	fish
+	pass-otp \
+	fish \
+	mise
 
 {{ end -}}
