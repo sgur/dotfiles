@@ -33,10 +33,10 @@ try
 		if ($PowerShellPackages.Length -gt 0)
 		{
 			Write-Host "Held Updates:"
-			$PowerShellPackages
+			Write-Host $PowerShellPackages
 		}
 		$Updates = $Packages | Where-Object { $_.IsUpdateAvailable -And $_.Id -CNotLike "Microsoft.PowerShell*" }
-		$Updates
+		Write-Host $Updates
 		$Updates | Update-WinGetPackage $args
 	}
 } catch
