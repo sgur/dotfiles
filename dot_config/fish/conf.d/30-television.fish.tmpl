@@ -77,7 +77,7 @@ function tv_aws_vault_profile_switch
 
     set -l output (\
         tv --input "$current_prompt" \
-        --source-command "aws-vault list --profiles | grep -v :" \
+        --source-command "aws-vault list --profiles" \
         --input-header "aws-profiles" \
         --inline)
     if test -n "$output"
