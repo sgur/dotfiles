@@ -1,13 +1,18 @@
 {{ if lookPath "mise" -}}
-status is-interactive || exit
 
 {{ if or (lookPath "fnm") (lookPath "pyenv") (lookPath "rbenv") -}}
 echo "mise: fnm, pyenv, rbenv is installed."
 {{ end -}}
 
-if test \( -n "$HOMEBREW_PREFIX" \) -a \( "$MISE_FISH_AUTO_ACTIVATE" != "0" \)
+if string match '*brew*' (type --path mise) ;and test -a "$MISE_FISH_AUTO_ACTIVATE" != "0"
 	exit 0
 end
 
 {{ output "mise" "activate" "fish" | trim }}
+
+if not type -q usage
+	mise use -g usage
+end
+
+{{ output "mise" "completion" "fish" | trim }}
 {{- end }}
