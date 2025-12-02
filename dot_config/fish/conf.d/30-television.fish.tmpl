@@ -82,11 +82,12 @@ function tv_aws_vault_profile_switch
         --inline)
     if test -n "$output"
         set -gx AWS_PROFILE $output
-
-        # Remove last token from commandline.
-        commandline -rt ""
+    else 
+        set -e AWS_PROFILE
     end
 
+    # Remove last token from commandline.
+    commandline -rt ""
     commandline -f repaint
 end
 
