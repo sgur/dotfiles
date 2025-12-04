@@ -82,6 +82,10 @@ function! s:init() abort "{{{
         \ type: 'opt'
         \ })
 
+  call minpac#add('mattn/vim-molder-oil', #{
+        \ type: 'opt'
+        \ })
+
   call minpac#add('itchyny/lightline.vim', #{
         \ type: 'opt'
         \ })
