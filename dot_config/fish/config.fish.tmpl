@@ -78,9 +78,14 @@ if status is-interactive
     abbr --add jira-batch-create-subtask --set-cursor "cat (cat | psub) | xargs -i -- jira issue create -t Sub-task -P % --no-input -s {} -b \"\""
 
     if type -q aws
-        for profile in (rg --no-line-number '\[profile' ~/.aws/config | sed 's/\[profile \(.\+\)\]/\1/')
-            abbr --add $profile:exec aws-vault exec $profile
-            abbr --add $profile:login --set-cursor "aws-vault login $profile %--stdout | fish_clipboard_copy"
+        {{- $profiles := list }}
+        {{- range $_, $profile := (output "aws" "configure" "list-profiles" | trim | splitList "\n") }}
+        {{-   if contains ":" $profile | not}} {{ continue }} {{ end }}
+        {{-   $profiles = append $profiles $profile }}
+        {{- end }}
+        for profile in {{ $profiles | join " " }}
+            abbr --add aws:exec:$profile aws-vault exec $profile
+            abbr --add aws:login:$profile aws-vault login $profile
         end
     end
 
@@ -92,15 +97,6 @@ if status is-interactive
         abbr --add otp --command pass --function __fzf_totp
     end
 
-    # if type -q sfw
-    #     # https://socket.dev/blog/introducing-socket-firewall 
-    #     type -q npm && alias npm="sfw npm"
-    #     type -q yarn && alias yarn="sfw yarn"
-    #     type -q pnpm && alias pnpm="sfw pnpm"
-    #     type -q cargo && alias cargo="sfw cargo"
-    #     type -q pip && alias pip="sfw pip"
-    #     type -q uv && alias uv="sfw uv"
-    # end
     # \el -> \e, or \co へ移設
     bind --user alt-comma __fish_list_current_token
     bind --user ctrl-o __fish_list_current_token
