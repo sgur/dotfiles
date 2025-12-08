@@ -716,7 +716,7 @@ pack.Add('vim-textobj-parameter')
 pack.Add('vim-textobj-url')
 
 # tv.vim (opt) {{{2
-def InitTv() 
+def InitTv()
   nnoremap <C-p>  <Cmd>Tv<CR>
 enddef
 pack.Add('tv.vim', InitTv)
