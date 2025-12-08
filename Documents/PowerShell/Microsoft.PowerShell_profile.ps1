@@ -496,13 +496,6 @@ if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name eza)
 	}
 }
 
-# gsudo
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name gsudo)
-{
-	Set-Alias -Name sudo -Value gsudo
-	Import-Module gsudoModule
-}
-
 # WinGet completion
 # https://github.com/microsoft/winget-cli/blob/master/doc/Completion.md#powershell
 if (Get-Command -ErrorAction SilentlyContinue -Name winget)
