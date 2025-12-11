@@ -720,11 +720,14 @@ function Stop-SshAgent
 }
 
 # genact
-function Invoke-Genact
+if (Get-Command "docker" -ErrorAction SilentlyContinue)
 {
-	& docker run -it --rm svenstaro/genact $args
+	function Invoke-Genact
+	{
+		& docker run -it --rm svenstaro/genact $args
+	}
+	New-Alias -Force -Name genact -Value Invoke-Genact
 }
-New-Alias -Force -Name genact -Value Invoke-Genact
 
 # gh auth switch
 Set-PSReadLineKeyHandler -Chord Alt+g -ScriptBlock {
