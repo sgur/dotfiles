@@ -4,4 +4,4 @@ description = "List AWS profiles"
 requirements = ["aws-vault"]
 
 [source]
-command = "aws-vault list --profiles | grep -v :"
+command = "aws-vault list --profiles"
