@@ -49,7 +49,6 @@ Tools/
 .curlrc
 .config/fish/
 .config/kitty/
-.config/mise/
 .config/zellij/
 .gnupg/
 .profile
