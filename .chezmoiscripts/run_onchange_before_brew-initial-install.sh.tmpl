@@ -6,16 +6,12 @@
 {{- end }}
 
 brew bundle --file=- << EOS
-tap "ankitpokhrel/jira-cli"
 # tap "homebrew/bundle"
 {{- if eq .chezmoi.os "darwin" }}
 tap "homebrew/cask-fonts"
 tap "homebrew/cask-versions"
 tap "microsoft/git"
 {{- end }}
-tap "rhysd/hgrep", "https://github.com/rhysd/hgrep"
-tap "ynqa/tap"
-tap "jesseduffield/lazygit"
 brew "act"
 brew "actionlint"
 brew "aws-vault"
@@ -44,7 +40,7 @@ brew "go"
 brew "helix"
 brew "hurl"
 brew "hyperfine"
-brew "jira-cli"
+brew "jnv"
 brew "jq"
 brew "jq-lsp"
 brew "kakoune"
@@ -76,8 +72,9 @@ brew "volta"
 brew "yazi"
 brew "zellij"
 brew "zoxide"
+brew "ankitpokhrel/jira-cli/jira-cli"
+brew "huseyinbabal/tap/taws"
 brew "rhysd/hgrep/hgrep"
-brew "ynqa/tap/jnv"
 {{- if eq .chezmoi.os "linux" }}
 brew "vim"
 {{- else if eq .chezmoi.os "darwin" }}
