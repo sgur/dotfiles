@@ -354,7 +354,7 @@ enumMemberValues = { enabled = true }
 [language-server.vscode-json-language-server.config.json]
 format = { enable = true }
 
-{{ slice ( $catalog | jq "[.schemas[] | select(.fileMatch | any(endswith(\"json\")))?] | {\"language-server\": {\"vscode-json-language-server\": {config: {json: {schemas: .}}}}}" | toToml | splitList "\n") 5 | join "\n" -}}
+# {{ "{{" }} slice ( $catalog | jq "[.schemas[] | select(.fileMatch | any(endswith(\"json\")))?] | {\"language-server\": {\"vscode-json-language-server\": {config: {json: {schemas: .}}}}}" | toToml | splitList "\n") 5 | join "\n" {{ "-}}" }}
 
 [language-server.aws-lsp-yaml]
 command = "aws-lsp-yaml"
@@ -363,7 +363,7 @@ args = ["--stdio"]
 [language-server.aws-lsp-yaml.config.yaml]
 format = { enable = true }
 
-{{ slice ( $catalog | jq "[.schemas[] | select(.fileMatch | any(endswith(\"yaml\") or endswith(\"yml\")))? ] | map({(.url): (.fileMatch)}) | {\"language-server\": {\"aws-lsp-yaml\": {config: {yaml: {schemas: .}}}}}" | toToml | splitList "\n") 5 | join "\n" -}}
+# {{ "{{" }} slice ( $catalog | jq "[.schemas[] | select(.fileMatch | any(endswith(\"yaml\") or endswith(\"yml\")))? ] | map({(.url): (.fileMatch)}) | {\"language-server\": {\"aws-lsp-yaml\": {config: {yaml: {schemas: .}}}}}" | toToml | splitList "\n") 5 | join "\n" {{ "-}}" }}
 
 [language-server.yaml-language-server.config.yaml]
 format = { enable = true }
@@ -387,4 +387,4 @@ customTags = [
   '!Sub'
 ]
 
-{{ slice ( $catalog | jq "[.schemas[] | select(.fileMatch | any(endswith(\"yaml\") or endswith(\"yml\")))? ] | map({(.url): (.fileMatch)}) | {\"language-server\": {\"yaml-language-server\": {config: {yaml: {schemas: .}}}}}" | toToml | splitList "\n") 5 | join "\n" -}}
+# {{ "{{" }} slice ( $catalog | jq "[.schemas[] | select(.fileMatch | any(endswith(\"yaml\") or endswith(\"yml\")))? ] | map({(.url): (.fileMatch)}) | {\"language-server\": {\"yaml-language-server\": {config: {yaml: {schemas: .}}}}}" | toToml | splitList "\n") 5 | join "\n" {{ "-}}" }}
