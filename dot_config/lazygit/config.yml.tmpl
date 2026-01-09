@@ -11,11 +11,11 @@ gui:
 {{- end }}
 
 git:
-  paging:
+  pagers:
 {{- if lookPath "difft" }}
-    externalDiffCommand: difft --color=always
+    - externalDiffCommand: difft --color=always
 {{- else }}
-    externalDiffCommand: ""
+    - externalDiffCommand: ""
 {{- end}}
   autoFetch: false
 
