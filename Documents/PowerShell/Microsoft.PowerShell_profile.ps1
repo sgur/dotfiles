@@ -207,22 +207,16 @@ function Test-Colors
 	& (Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Test-Colors.ps1')
 }
 
+# television
+
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name tv)
+{
+	& tv init power-shell | Out-String | Invoke-Expression
+}
+
 # XXX + fzf
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
 {
-	# Set-PSReadLineKeyHandler -Chord Alt+x -ScriptBlock {
-	#	try
-	#	{
-	#		[Microsoft.PowerShell.PSConsoleReadLine]::RevertLine()
-	#		[Microsoft.PowerShell.PSConsoleReadLine]::Insert('tv ghq --inline | cd')
-	#		[Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
-	#	} catch
-	#	{
-	#		[Microsoft.PowerShell.PSConsoleReadLine]::Ding()
-	#		Write-Host "[KeyHandler] $($_.Exception.Message)" -ForegroundColor Red
-	#	}
-	# }
-
 	# ghq + fzf
 	# https://uvb-76.hatenablog.com/entry/2020/02/14/032712
 	function Select-Repository
