@@ -421,9 +421,18 @@ try
 					@"
 					function global:$_
 					{
-						& $CoreutilsPath $_ $Flag `$args
+						& "$CoreutilsPath" $_ $Flag `$args
 					}
 "@ | Invoke-Expression
+				}
+			}
+
+			$DiffUtilsPath = Join-Path -Path $GitDir -ChildPath "Links" "diffutils.exe"
+			if (Test-Path $DiffUtilsPath)
+			{
+				function global:diff
+				{
+					& "$DiffUtilsPath" diff $args
 				}
 			}
 		} else
