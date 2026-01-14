@@ -11,12 +11,6 @@ if (([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).L
 	return
 }
 
-# gopass
-if (-not (Get-Command "gopass" -ErrorAction SilentlyContinue))
-{
-	$Env:Path += ";" + (Join-Path -Path $Env:LOCALAPPDATA -ChildPath "gopass" )
-}
-
 try
 {
 	Import-Module -Name Microsoft.WinGet.Client -ErrorAction Stop
@@ -209,10 +203,10 @@ function Test-Colors
 
 # television
 
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name tv)
-{
-	& tv init power-shell | Out-String | Invoke-Expression
-}
+# if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name tv)
+# {
+# 	& tv init power-shell | Out-String | Invoke-Expression
+# }
 
 # XXX + fzf
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
