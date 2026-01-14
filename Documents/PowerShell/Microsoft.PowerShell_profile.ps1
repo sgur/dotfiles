@@ -11,12 +11,6 @@ if (([Environment]::GetCommandLineArgs() | Where-Object { $_ -like '-NonI*' }).L
 	return
 }
 
-# mise
-if (Get-Command "mise" -ErrorAction SilentlyContinue)
-{
-	& mise activate pwsh | Out-String | Invoke-Expression
-}
-
 # gopass
 if (-not (Get-Command "gopass" -ErrorAction SilentlyContinue))
 {
