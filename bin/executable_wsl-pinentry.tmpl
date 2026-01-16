@@ -15,12 +15,9 @@ function pinentry_curses () {
 
 function pinentry_gui () {
 {{- if .wsl }}
-{{- $pinentryGpg4win := joinPath "/mnt" "c" "Program Files (x86)" "Gpg4win" "bin" "pinentry.exe" -}}
-{{- $pinentryMsysGit := joinPath .wsl_userprofile "scoop" "apps" "git" "current" "usr" "bin" "pinentry.exe" -}}
+{{- $pinentryGpg4win := joinPath "/mnt" "c" "Program Files" "Gpg4win" "bin" "pinentry.exe" -}}
 {{-  if lookPath $pinentryGpg4win }}
   exec {{ $pinentryGpg4win | quote }} "$@"
-{{-  else if lookPath $pinentryMsysGit }}
-  exec {{ $pinentryMsysGit | quote }} "$@"
 {{-  end }}
 {{- end }}
 }
