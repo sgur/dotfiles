@@ -1,0 +1,6 @@
+#!/bin/sh
+set -eu
+
+{{ $zed_path := joinPath .wsl_userprofile "AppData" "Local" "Programs" "Zed" "bin" "zed" -}}
+
+env PINENTRY_USER_DATA=zed {{ $zed_path | quote }} "$@"
