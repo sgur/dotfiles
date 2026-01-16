@@ -16,8 +16,11 @@ function pinentry_curses () {
 function pinentry_gui () {
 {{- if .wsl }}
 {{- $pinentryGpg4win := joinPath "/mnt" "c" "Program Files" "Gpg4win" "bin" "pinentry.exe" -}}
+{{- $pinentryGpg4win32 := joinPath "/mnt" "c" "Program Files (x86)" "Gpg4win" "bin" "pinentry.exe" -}}
 {{-  if lookPath $pinentryGpg4win }}
   exec {{ $pinentryGpg4win | quote }} "$@"
+{{-  else if lookPath $pinentryGpg4win32 }}
+  exec {{ $pinentryGpg4win32 | quote }} "$@"
 {{-  end }}
 {{- end }}
 }
