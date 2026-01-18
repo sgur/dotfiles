@@ -61,6 +61,7 @@ bin/cmd.exe
 bin/pwsh.exe
 bin/typora
 bin/code
+bin/zed
 bin/wsl-compact-memory
 bin/wsl-pinentry
 bin/xdg-open

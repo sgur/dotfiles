@@ -64,11 +64,3 @@ $Env:FZF_DEFAULT_OPTS=@"
 --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc
 --color=marker:#f5e0dc,fg+:#cdd6f4,prompt:#cba6f7,hl+:#f38ba8
 "@
-
-# proto
-$env:PROTO_HOME = Join-Path $HOME ".proto"
-$env:PATH = @(
-	(Join-Path $env:PROTO_HOME "shims"),
-	(Join-Path $env:PROTO_HOME "bin"),
-	$env:PATH
-) -join [IO.PATH]::PathSeparator

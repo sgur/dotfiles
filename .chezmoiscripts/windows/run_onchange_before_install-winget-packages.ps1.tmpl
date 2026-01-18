@@ -50,6 +50,9 @@ $JsonStr = @'
 				,{
 					"PackageIdentifier": "GnuPG.Gpg4win"
 				}
+				,{
+					"PackageIdentifier": "twpayne.chezmoi"
+				}
 {{- if .preferZenBrowser }}
 				,{
 					"PackageIdentifier": "Zen-Team.Zen-Browser"
@@ -79,27 +82,24 @@ $JsonStr = @'
 					"PackageIdentifier": "Obsidian.Obsidian"
 				}
 				,{
-					"PackageIdentifier": "Starship.Starship"
-				}
-				,{
 					"PackageIdentifier": "Vitzo.ClipClip"
 				}
 				,{
 					"PackageIdentifier": "appmakes.Typora"
 				}
 				,{
-					"PackageIdentifier": "jftuga.less"
+					"PackageIdentifier": "vim.vim.nightly"
 				}
 				,{
-					"PackageIdentifier": "vim.vim.nightly"
+					"PackageIdentifier": "gopass.gopass"
+				}
+				,{
+					"PackageIdentifier": "ZedIndustries.Zed"
 				}
 {{- end }}
 {{- if .buildOnUpdate }}
 				,{
 					"PackageIdentifier": "Microsoft.VisualStudio.2022.Professional"
-				}
-				,{
-					"PackageIdentifier": "Rustlang.Rustup"
 				}
 {{- end }}
 			],

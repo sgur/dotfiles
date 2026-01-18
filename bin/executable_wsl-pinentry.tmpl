@@ -36,6 +36,9 @@ case $PINENTRY_USER_DATA in
   code)
     pinentry_gui "$@"
     ;;
+  zed)
+    pinentry_gui "$@"
+    ;;
   *)
     exit "$(pinentry_curses "$@")"
     ;;

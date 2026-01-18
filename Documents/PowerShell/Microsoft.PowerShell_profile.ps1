@@ -39,11 +39,7 @@ try
 	Import-Module -Name Microsoft.WinGet.Client
 }
 
-$CurrentUserScriptsDir = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
-$CurrentUserConfDir = Join-Path -Path $PSScriptRoot -ChildPath 'Conf.d'
-
-Get-ChildItem -Path $CurrentUserConfDir | ForEach-Object { . $_ }
-
+# $EDITOR
 $Env:EDITOR = "gvim.exe -f --remote-tab-wait-silent"
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name hx)
 {
@@ -163,26 +159,11 @@ try
 	Install-Module -Force -Name CompletionPredictor -Repository PSGallery
 }
 
-# chezmoi
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name chezmoi)
-{
-	## Aliases
-	Set-Alias -Name chz -Value chezmoi
-	function Set-ChezmoiLocation
-	{
-		Set-Location (chezmoi source-path)
-	}
-	Set-Alias -Name chz-cd -Value Set-ChezmoiLocation
-}
+# Initialization Scripts
 
-
-# Set-Location Hook
-$ExecutionContext.InvokeCommand.LocationChangedAction = {
-	if (Get-Command -ErrorAction SilentlyContinue -Type Function __zoxide_hook)
-	{
-		__zoxide_hook
-	}
-}
+$CurrentUserScriptsDir = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
+$CurrentUserConfDir = Join-Path -Path $PSScriptRoot -ChildPath 'Conf.d'
+Get-ChildItem -Path $CurrentUserConfDir | ForEach-Object { . $_ }
 
 # wttr.in
 function Get-Weather()
@@ -200,13 +181,6 @@ function Test-Colors
 {
 	& (Join-Path -Path $CurrentUserScriptsDir -ChildPath 'Test-Colors.ps1')
 }
-
-# television
-
-# if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name tv)
-# {
-# 	& tv init power-shell | Out-String | Invoke-Expression
-# }
 
 # XXX + fzf
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name fzf)
@@ -737,3 +711,10 @@ Set-PSReadLineKeyHandler -Chord Alt+g -ScriptBlock {
         Write-Host "[KeyHandler] $($_.Exception.Message)" -ForegroundColor Red
 	}
 }
+
+# mise
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name mise)
+{
+	& mise activate pwsh | Out-String | Invoke-Expression
+}
+
