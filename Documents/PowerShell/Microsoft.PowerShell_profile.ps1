@@ -77,6 +77,8 @@ Set-PSReadLineKeyHandler -Key Ctrl+Backspace -Function BackwardDeleteWord
 Set-PSReadLineKeyHandler -Key Ctrl+p -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key Ctrl+n -Function HistorySearchForward
 Set-PSReadLineKeyHandler -Key Ctrl+w -Function BackwardKillWord
+# Set-PSReadLineKeyHandler -Key Alt+b -ScriptBlock { Set-Location - }
+# Set-PSReadLineKeyHandler -Key Alt+f -ScriptBlock { Set-Location + }
 
 try
 {
