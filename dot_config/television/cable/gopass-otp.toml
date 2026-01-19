@@ -1,5 +1,5 @@
 [metadata]
-name = "gopass-totp"
+name = "gopass-otp"
 description = "A channel to find and select TOTP entries from gopass"
 requirements = ["gopass"]
 
@@ -7,4 +7,4 @@ requirements = ["gopass"]
 command = "gopass list --flat totp"
 
 [preview]
-command = "gopass totp {}"
+command = "gopass otp {}"

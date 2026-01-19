@@ -253,8 +253,10 @@ fallback_channel = "files"
 "git-repos" = ["nvim", "code", "hx", "git clone"]
 "zoxide" = ["z"]
 "aws-vault-profiles" = ["set -gx AWS_PROFILE", "aws-vault login", "aws-vault exec"]
-"gopass" = ["gopass"]
 "pass" = ["pass"]
+"pass-otp" = ["pass otp"]
+"gopass" = ["gopass"]
+"gopass-otp" = ["gopass otp", "gopass totp"]
 
 
 [shell_integration.keybindings]

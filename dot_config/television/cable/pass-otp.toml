@@ -1,0 +1,12 @@
+[metadata]
+name = "pass-otp"
+description = "A channel to find and select gopass entry"
+requirements = ["find"]
+
+[source]
+command = "find ~/.password-store/totp/ -type f -path '*.gpg'"
+display = "{replace:s/^.*\\.password-store\\///|replace:s/\\.gpg$//}"
+output = "{replace:s/^.*\\.password-store\\///|replace:s/\\.gpg$//}"
+
+[preview]
+command = "pass otp {replace:s/^.*\\.password-store\\///|replace:s/\\.gpg$//}"
