@@ -1,10 +1,12 @@
 [metadata]
 name = "pass"
 description = "A channel to find and select gopass entry"
-requirements = ["find"]
+requirements = ["fd"]
 
 [source]
-command = "find ~/.password-store/ -type f -path '*.gpg'"
+command = "fd --type file '.gpg' ~/.password-store/"
 display = "{replace:s/^.*\\.password-store\\///|replace:s/\\.gpg$//}"
 output = "{replace:s/^.*\\.password-store\\///|replace:s/\\.gpg$//}"
 
+[preview]
+command = "pass show {replace:s/^.*\\.password-store\\///|replace:s/\\.gpg$//}"
