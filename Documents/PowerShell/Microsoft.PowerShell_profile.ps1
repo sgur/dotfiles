@@ -711,10 +711,3 @@ Set-PSReadLineKeyHandler -Chord Alt+g -ScriptBlock {
         Write-Host "[KeyHandler] $($_.Exception.Message)" -ForegroundColor Red
 	}
 }
-
-# mise
-if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name mise)
-{
-	& mise activate pwsh | Out-String | Invoke-Expression
-}
-

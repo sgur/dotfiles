@@ -6,7 +6,6 @@
 "github:uutils/diffutils" = "latest"
 "github:uutils/findutils" = "latest"
 bat = "latest"
-chezmoi = "latest"
 difftastic = "latest"
 docker-cli = "latest"
 fd = "latest"

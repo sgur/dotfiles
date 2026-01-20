@@ -1,0 +1,13 @@
+{{ if or (lookPath "starship") | not }}
+
+if (!(Get-Module pure-pwsh)) {
+    Install-Module -Name pure-pwsh
+}
+Import-Module -Name pure-pwsh
+
+if (!(Get-Module posh-git)) {
+    Install-Module -Name posh-git
+}
+Import-Module -Name posh-git
+
+{{ end }}
