@@ -1,6 +1,6 @@
 [metadata]
 name = "pass-otp"
-description = "A channel to find and select gopass entry"
+description = "A channel to find and select pass TOTP entry"
 requirements = ["fd"]
 
 [source]

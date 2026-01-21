@@ -1,6 +1,6 @@
 [metadata]
 name = "pass"
-description = "A channel to find and select gopass entry"
+description = "A channel to find and select pass entry"
 requirements = ["fd"]
 
 [source]
