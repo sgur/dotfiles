@@ -64,6 +64,9 @@ $JsonStr = @'
 {{- end }}
 {{- if .fullProvisioning }}
 				,{
+					"PackageIdentifier": "Docker.DockerCLI"
+				}
+				,{
 					"PackageIdentifier": "Canonical.Ubuntu.2404"
 				}
 				,{
@@ -83,9 +86,6 @@ $JsonStr = @'
 				}
 				,{
 					"PackageIdentifier": "vim.vim.nightly"
-				}
-				,{
-					"PackageIdentifier": "gopass.gopass"
 				}
 				,{
 					"PackageIdentifier": "ZedIndustries.Zed"
