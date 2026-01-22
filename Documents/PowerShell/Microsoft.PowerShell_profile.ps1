@@ -169,9 +169,8 @@ Set-PSReadLineKeyHandler -Key Alt+b -ScriptBlock {
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
 
     if ([string]::IsNullOrWhiteSpace($line)) {
-        # 入力が空: cd - を実行 (挿入→確定)
-        [Microsoft.PowerShell.PSConsoleReadLine]::Insert('Set-Location -')
-        [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+		Set-Location -
+		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
     }
     else {
         # 入力がある：通常の BackwardWord 動作
@@ -180,16 +179,15 @@ Set-PSReadLineKeyHandler -Key Alt+b -ScriptBlock {
 }
 
 # Alt+f: 入力が空なら `Set-Locatoin +` を即時実行、そうでなければ BackwardWord
-Set-PSReadLineKeyHandler -Key Alt+b -ScriptBlock {
+Set-PSReadLineKeyHandler -Key Alt+f -ScriptBlock {
     param($key, $arg)
 
     # 現在の入力行とカーソル位置を取得
     [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
 
     if ([string]::IsNullOrWhiteSpace($line)) {
-        # 入力が空: cd + を実行 (挿入→確定)
-        [Microsoft.PowerShell.PSConsoleReadLine]::Insert('Set-Location +')
-        [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+		Set-Location +
+		[Microsoft.PowerShell.PSConsoleReadLine]::InvokePrompt()
     }
     else {
         # 入力がある：通常の BackwardWord 動作
