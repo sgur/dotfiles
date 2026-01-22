@@ -159,6 +159,44 @@ try
 	Install-Module -Force -Name CompletionPredictor -Repository PSGallery
 }
 
+## Alt+f と Alt + b
+
+# Alt+b: 入力が空なら `Set-Locatoin -` を即時実行、そうでなければ BackwardWord
+Set-PSReadLineKeyHandler -Key Alt+b -ScriptBlock {
+    param($key, $arg)
+
+    # 現在の入力行とカーソル位置を取得
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
+    if ([string]::IsNullOrWhiteSpace($line)) {
+        # 入力が空: cd - を実行 (挿入→確定)
+        [Microsoft.PowerShell.PSConsoleReadLine]::Insert('Set-Location -')
+        [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+    }
+    else {
+        # 入力がある：通常の BackwardWord 動作
+        [Microsoft.PowerShell.PSConsoleReadLine]::BackwardWord($key, $arg)
+    }
+}
+
+# Alt+f: 入力が空なら `Set-Locatoin +` を即時実行、そうでなければ BackwardWord
+Set-PSReadLineKeyHandler -Key Alt+b -ScriptBlock {
+    param($key, $arg)
+
+    # 現在の入力行とカーソル位置を取得
+    [Microsoft.PowerShell.PSConsoleReadLine]::GetBufferState([ref]$line, [ref]$cursor)
+
+    if ([string]::IsNullOrWhiteSpace($line)) {
+        # 入力が空: cd + を実行 (挿入→確定)
+        [Microsoft.PowerShell.PSConsoleReadLine]::Insert('Set-Location +')
+        [Microsoft.PowerShell.PSConsoleReadLine]::AcceptLine()
+    }
+    else {
+        # 入力がある：通常の BackwardWord 動作
+        [Microsoft.PowerShell.PSConsoleReadLine]::BackwardWord($key, $arg)
+    }
+}
+
 # Initialization Scripts
 
 $CurrentUserScriptsDir = Join-Path -Path $PSScriptRoot -ChildPath 'Scripts'
