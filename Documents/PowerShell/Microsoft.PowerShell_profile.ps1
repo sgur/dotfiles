@@ -54,6 +54,12 @@ function Edit-File
 	$Env:EDITOR + ' $Path' | Invoke-Expression
 }
 
+# $GIT_PAGER
+if (!(Get-Command -Type Application -ErrorAction SilentlyContinue -Name less))
+{
+	$Env:GIT_PAGER = ""
+}
+
 # VSCode 上の Integrated Terminal から起動した場合
 if ($Env:TERM_PROGRAM -eq "vscode")
 {
@@ -749,3 +755,9 @@ Set-PSReadLineKeyHandler -Chord Alt+g -ScriptBlock {
         Write-Host "[KeyHandler] $($_.Exception.Message)" -ForegroundColor Red
 	}
 }
+
+# mise
+if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name mise)
+	& mise activate pwsh | Out-String | Invoke-Expression
+}
+

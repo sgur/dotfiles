@@ -10,22 +10,4 @@ function Invoke-Starship-TransientFunction {
 
 Enable-TransientPrompt
 
-{{- else }}
-# pure-pwsh and posh-git
-
-if (!(Get-Module pure-pwsh)) {
-    Install-Module -Name pure-pwsh
-}
-Import-Module -Name pure-pwsh
-
-if (!(Get-Module posh-git)) {
-    Install-Module -Name posh-git
-}
-Import-Module -Name posh-git
-
-{{- end }}
-# mise
-
-{{- if lookPath "mise" }}
-{{  output "mise" "activate" "pwsh" }}
 {{- end }}
