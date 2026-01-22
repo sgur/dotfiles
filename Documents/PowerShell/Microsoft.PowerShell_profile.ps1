@@ -758,6 +758,7 @@ Set-PSReadLineKeyHandler -Chord Alt+g -ScriptBlock {
 
 # mise
 if (Get-Command -Type Application -ErrorAction SilentlyContinue -Name mise)
+{
 	& mise activate pwsh | Out-String | Invoke-Expression
 }
 
